@@ -2,19 +2,19 @@ package com.uniseats.prenotazioni;
 
 public class PostoBean {
 
-    private String codice;
+    private int codice;
     private Boolean occupato;
 
     public PostoBean() {
         occupato = false;
     }
 
-    public PostoBean(String codice, Boolean occupato) {
+    public PostoBean(int codice, Boolean occupato) {
         this.codice = codice;
         this.occupato = occupato;
     }
 
-    public String getCodice() {
+    public int getCodice() {
         return codice;
     }
 

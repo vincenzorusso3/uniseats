@@ -1,10 +1,12 @@
 package com.uniseats.prenotazioni;
 
+import java.util.ArrayList;
+
 public class StudenteBean {
 
     private String nome;
     private String cognome;
-    private int matricola;
+    private String matricola;
     private String email;
     private String password;
     private int anno;
@@ -16,7 +18,7 @@ public class StudenteBean {
 
     }
 
-    public StudenteBean(String nome, String cognome, int matricola, String email, String password, int anno, String dipartimento) {
+    public StudenteBean(String nome, String cognome, String matricola, String email, String password, int anno, String dipartimento) {
         this.nome = nome;
         this.cognome = cognome;
         this.matricola = matricola;
@@ -30,12 +32,11 @@ public class StudenteBean {
         return nome;
     }
 
-
     public String getCognome() {
         return cognome;
     }
 
-    public int getMatricola() {
+    public String getMatricola() {
         return matricola;
     }
 

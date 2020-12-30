@@ -4,21 +4,21 @@ import java.util.List;
 
 public class AulaBean {
 
-    private String codice;
+    private int codice;
     private String dipartimento;
     private int nPosti;
     private String edificio;
 
     public AulaBean() {}
 
-    public AulaBean(String codice, String dipartimento, int nPosti, String edificio) {
+    public AulaBean(int codice, String dipartimento, int nPosti, String edificio) {
         this.codice = codice;
         this.dipartimento = dipartimento;
         this.nPosti = nPosti;
         this.edificio = edificio;
     }
 
-    public String getCodice() {
+    public int getCodice() {
         return codice;
     }
 
