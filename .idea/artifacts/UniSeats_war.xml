@@ -7,7 +7,7 @@
         <packaging>war</packaging>
       </options>
     </properties>
-    <root id="archive" name="UniSeats-APLHA-v1.war">
+    <root id="archive" name="UniSeats-1.0-SNAPSHOT.war">
       <element id="artifact" artifact-name="UniSeats:war exploded" />
     </root>
   </artifact>
