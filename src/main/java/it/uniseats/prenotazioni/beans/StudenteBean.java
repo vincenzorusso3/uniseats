@@ -52,15 +52,39 @@ public class StudenteBean {
         return anno;
     }
 
-    public void setAnno(int anno) {
-        this.anno = anno;
-    }
-
     public String getDipartimento() {
         return dipartimento;
     }
 
     public ArrayList<PrenotazioneBean> getPrenotazione() {
         return prenotazione;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setCognome(String cognome) {
+        this.cognome = cognome;
+    }
+
+    public void setMatricola(String matricola) {
+        this.matricola = matricola;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setAnno(int anno) {
+        this.anno = anno;
+    }
+
+    public void setDipartimento(String dipartimento) {
+        this.dipartimento = dipartimento;
     }
 }
