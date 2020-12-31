@@ -1,4 +1,4 @@
-package it.uniseats.Utils;
+package it.uniseats.utils;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;

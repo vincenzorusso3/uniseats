@@ -1,4 +1,4 @@
-package it.uniseats.Utils;
+package it.uniseats.utils;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -6,7 +6,7 @@ import java.security.MessageDigest;
 
 /** L'oggetto SHA512 ha il compito di codificare una stringa*/
 
-public class SHA512 {
+public class SHA512Utils {
 
     /**Questo metodo ritorna una stringa codificata
      *

@@ -1,7 +1,7 @@
-package it.uniseats.prenotazioni.model;
+package it.uniseats.model.dao;
 
-import it.uniseats.Utils.DataSourceUtils;
-import it.uniseats.prenotazioni.beans.StudenteBean;
+import it.uniseats.utils.DataSourceUtils;
+import it.uniseats.model.beans.StudenteBean;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -10,9 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import it.uniseats.prenotazioni.beans.StudenteBean;
-
-public class StudentModel {
+public class StudenteDAO {
 
     private static final String TABLE_NAME = "studente";
     private static final String DATASOURCE_ERROR = "[STUDENTEMODEL] Errore: il DataSource non risulta essere configurato correttamente";
