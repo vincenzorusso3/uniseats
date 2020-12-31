@@ -4,10 +4,7 @@ import it.uniseats.utils.DataSourceUtils;
 import it.uniseats.model.beans.StudenteBean;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class StudenteDAO {
@@ -16,7 +13,7 @@ public class StudenteDAO {
     private static final String DATASOURCE_ERROR = "[STUDENTEMODEL] Errore: il DataSource non risulta essere configurato correttamente";
     private static final DataSource ds = DataSourceUtils.getDataSource();
 
-    public synchronized StudenteBean getSingleStudent(String matricola) throws SQLException {
+    public synchronized StudenteBean doRetrieveByMatricola(String matricola) throws SQLException {
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -58,7 +55,7 @@ public class StudenteDAO {
 
     }
 
-    public synchronized ArrayList<StudenteBean> getStudentsList() throws SQLException {
+    public synchronized ArrayList<StudenteBean> doRetriveAll() throws SQLException {
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -100,6 +97,50 @@ public class StudenteDAO {
         }
 
     }
+
+    public synchronized int doSave(StudenteBean studente) throws SQLException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+
+        String insertSql="INSERT INTO "+TABLE_NAME+" (anno, cognome, dipartimento, email, matricola, nome, password ) VALUES (?,?,?,?,?,?,?)";
+
+        if (ds != null) {
+
+            try {
+                connection = ds.getConnection();
+                preparedStatement.setInt(1, studente.getAnno());
+                preparedStatement.setString(2, studente.getCognome());
+                preparedStatement.setString(3, studente.getDipartimento());
+                preparedStatement.setString(4, studente.getEmail());
+                preparedStatement.setString(5, studente.getMatricola());
+                preparedStatement.setString(6, studente.getNome());
+                preparedStatement.setString(7, studente.getPassword());
+
+
+                preparedStatement.executeUpdate();
+
+
+            }
+            finally {
+
+                try {
+                    if (preparedStatement != null)
+                        preparedStatement.close();
+                } finally {
+                    if (connection != null)
+                        connection.close();
+                }
+
+            }
+
+        } else {
+            System.out.println(DATASOURCE_ERROR);
+            return -1;
+        }
+        return 1;
+    }
+
 
 
     private StudenteBean getStudentInfo(ResultSet rs) throws SQLException {
