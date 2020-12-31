@@ -26,8 +26,9 @@ public class PostoBean {
         this.occupato = occupato;
     }
 
-    public AulaBean getAula(){
+    public AulaBean getAula() {
         /*TODO: write getAula() method*/
         return null;
     }
+
 }

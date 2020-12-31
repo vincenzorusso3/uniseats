@@ -4,11 +4,9 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 
 
-
 /** L'oggetto SHA512 ha il compito di codificare una stringa*/
 
 public class SHA512 {
-
 
     /**Questo metodo ritorna una stringa codificata
      *
@@ -31,4 +29,5 @@ public class SHA512 {
 
         return toReturn;
     }
+
 }

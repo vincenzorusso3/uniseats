@@ -34,7 +34,7 @@ public class AulaBean {
         return edificio;
     }
 
-    public List<PostoBean> getPosti(){
+    public List<PostoBean> getPosti() {
         /*TODO: WRITE getPosti() method*/
         return null;
     }
