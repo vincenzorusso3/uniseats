@@ -1,4 +1,4 @@
-package com.uniseats.prenotazioni.bean;
+package it.uniseats.Model.bean;
 
 import java.util.List;
 
