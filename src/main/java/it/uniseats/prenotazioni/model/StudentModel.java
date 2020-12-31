@@ -10,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import it.uniseats.prenotazioni.beans.StudenteBean;
+
 public class StudentModel {
 
     private static final String TABLE_NAME = "studente";
@@ -116,6 +118,7 @@ public class StudentModel {
 
         return studenteBean;
     }
+
 
 
 }
