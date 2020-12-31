@@ -1,4 +1,4 @@
-package com.uniseats.prenotazioni;
+package com.uniseats.prenotazioni.bean;
 
 public class PostoBean {
 
