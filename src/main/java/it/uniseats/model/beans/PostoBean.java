@@ -2,33 +2,29 @@ package it.uniseats.model.beans;
 
 public class PostoBean {
 
-    private int codice;
-    private Boolean occupato;
+    private String codice;
+    private AulaBean aula;
 
-    public PostoBean() {
-        occupato = false;
-    }
 
-    public PostoBean(int codice, Boolean occupato) {
+    public PostoBean(){}
+
+    public PostoBean(String codice ) {
         this.codice = codice;
-        this.occupato = occupato;
     }
 
-    public int getCodice() {
+    public String getCodice() {
         return codice;
     }
 
-    public Boolean isOccupato() {
-        return occupato;
-    }
 
-    public void setOccupato(Boolean occupato) {
-        this.occupato = occupato;
-    }
+    public void setCodice(String codice) { this.codice = codice; }
 
     public AulaBean getAula() {
         /*TODO: write getAula() method*/
         return null;
     }
 
+    public void setAula(AulaBean aula) {
+        this.aula = aula;
+    }
 }

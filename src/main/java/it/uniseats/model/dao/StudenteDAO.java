@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class StudenteDAO {
 
     private static final String TABLE_NAME = "studente";
-    private static final String DATASOURCE_ERROR = "[STUDENTEMODEL] Errore: il DataSource non risulta essere configurato correttamente";
+    private static final String DATASOURCE_ERROR = "[STUDENTEDAO] Errore: il DataSource non risulta essere configurato correttamente";
     private static final DataSource ds = DataSourceUtils.getDataSource();
 
     public synchronized StudenteBean doRetrieveByMatricola(String matricola) throws SQLException {
@@ -141,7 +141,40 @@ public class StudenteDAO {
         return 1;
     }
 
+    public synchronized int doUpdate(StudenteBean studenteBean) throws SQLException{
 
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        String updateSQL = "UPDATE" + TABLE_NAME + "SET anno=? WHERE matricola=?";
+
+        if(ds!=null){
+            try{
+                connection = ds.getConnection();
+
+                preparedStatement.setInt(1, studenteBean.getAnno());
+
+                preparedStatement.executeUpdate();
+            }
+            finally{
+                try{
+                    if(preparedStatement != null)
+                        preparedStatement.close();
+                } finally {
+                    if(connection != null)
+                        connection.close();
+                }
+            }
+        } else {
+            System.out.println(DATASOURCE_ERROR);
+            return -1;
+        }
+        return 1;
+
+    }
+
+    //TODO doDelete()
+    //TODO queries
 
     private StudenteBean getStudentInfo(ResultSet rs) throws SQLException {
 
