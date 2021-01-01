@@ -4,6 +4,7 @@ import it.uniseats.utils.DataSourceUtils;
 import it.uniseats.model.beans.StudenteBean;
 
 import javax.sql.DataSource;
+import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -141,6 +142,48 @@ public class StudenteDAO {
         return 1;
     }
 
+    public synchronized StudenteBean doRetrieveByEmail(String email) throws SQLException {
+
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        String selectSQL = "SELECT * FROM " + TABLE_NAME + " WHERE email=?";
+
+        if (ds != null) {
+
+            try {
+                connection = ds.getConnection();
+                preparedStatement = connection.prepareStatement(selectSQL);
+                preparedStatement.setString(1, email);
+                ResultSet rs = preparedStatement.executeQuery();
+
+                StudenteBean studenteBean = new StudenteBean();
+
+                while (rs.next()) {
+                    studenteBean = getStudentInfo(rs);
+                }
+
+                return studenteBean;
+
+            } finally {
+
+                try {
+                    if (preparedStatement != null)
+                        preparedStatement.close();
+                } finally {
+                    if (connection != null)
+                        connection.close();
+                }
+
+            }
+
+        } else {
+            System.out.println(DATASOURCE_ERROR);
+            return null;
+        }
+
+    }
+
     public synchronized int doUpdate(StudenteBean studenteBean) throws SQLException{
 
         Connection connection = null;
@@ -172,6 +215,46 @@ public class StudenteDAO {
         return 1;
 
     }
+
+
+    public synchronized boolean doDelete(String email) throws SQLException {
+
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        int result = 0;
+
+        String deleteSQL = "DELETE FROM " + TABLE_NAME + " WHERE email=?";
+
+        if (ds != null) {
+
+            try {
+                connection = ds.getConnection();
+                preparedStatement = connection.prepareStatement(deleteSQL);
+                preparedStatement.setString(1, email);
+
+                result = preparedStatement.executeUpdate();
+            } catch (SQLException throwables) {
+                JOptionPane.showMessageDialog(null, "Non puoi eliminare questo studente", "Exception", JOptionPane.INFORMATION_MESSAGE);
+            } finally {
+
+                try {
+                    if (preparedStatement != null)
+                        preparedStatement.close();
+                } finally {
+                    if (connection != null)
+                        connection.close();
+                }
+
+            }
+        }
+
+         else {
+            System.out.println(DATASOURCE_ERROR);
+        }
+        return (result !=0);
+    }
+
 
     //TODO doDelete()
     //TODO queries
