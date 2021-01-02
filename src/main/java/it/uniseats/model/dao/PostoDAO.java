@@ -14,32 +14,39 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class PostoDAO {
+
     private static final String TABLE_NAME = "posti";
     private static final String DATASOURCE_ERROR = "[POSTODAO] Errore: il DataSource non risulta essere configurato correttamente";
-    private static final DataSource ds = DataSourceUtils.getDataSource();
 
-    public synchronized PostoBean doRetrieveByCode(String codice) throws SQLException {
+    public static synchronized Object doQuery(String methodName, Object parameter) throws SQLException {
 
+        DataSource ds = DataSourceUtils.getDataSource();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
-        String selectSQL = "SELECT * FROM " + TABLE_NAME + " WHERE codice=?";
-
         if (ds != null) {
+
+            String querySQL;
 
             try {
                 connection = ds.getConnection();
-                preparedStatement = connection.prepareStatement(selectSQL);
-                preparedStatement.setString(1, codice);
-                ResultSet rs = preparedStatement.executeQuery();
 
-                PostoBean postoBean = new PostoBean();
+                switch (methodName) {
 
-                while (rs.next()) {
-                    postoBean = getPostoInfo(rs);
+                    case "doRetrieveByCode":
+                        querySQL = "SELECT * FROM " + TABLE_NAME + " WHERE codice=?";
+                        preparedStatement = connection.prepareStatement(querySQL);
+                        return doRetrieveByCode(preparedStatement, (String) parameter);
+
+                    case "doRetrieveAll":
+                        querySQL = "SELECT * FROM " + TABLE_NAME;
+                        preparedStatement = connection.prepareStatement(querySQL);
+                        return doRetriveAll(preparedStatement);
+
+                    default:
+                        return null;
+
                 }
-
-                return postoBean;
 
             } finally {
 
@@ -60,134 +67,37 @@ public class PostoDAO {
 
     }
 
-    public synchronized ArrayList<PostoBean> doRetriveAll() throws SQLException {
+    private static synchronized PostoBean doRetrieveByCode(PreparedStatement preparedStatement, String codice) throws SQLException {
 
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
+        preparedStatement.setString(1, codice);
+        ResultSet rs = preparedStatement.executeQuery();
+        PostoBean postoBean = new PostoBean();
 
-        String selectSQL = "SELECT * FROM " + TABLE_NAME;
+        while (rs.next()) {
+            postoBean = getPostoInfo(rs);
+        }
+
+        return postoBean;
+
+    }
+
+    private static synchronized ArrayList<PostoBean> doRetriveAll(PreparedStatement preparedStatement) throws SQLException {
 
         ArrayList<PostoBean> list = new ArrayList<>();
+        ResultSet rs = preparedStatement.executeQuery();
 
-        if (ds != null) {
-
-            try {
-                connection = ds.getConnection();
-                preparedStatement = connection.prepareStatement(selectSQL);
-                ResultSet rs = preparedStatement.executeQuery();
-
-                while (rs.next()) {
-
-                    PostoBean postoBean = getPostoInfo(rs);
-                    list.add(postoBean);
-                }
-
-                return list;
-
-            } finally {
-
-                try {
-                    if (preparedStatement != null)
-                        preparedStatement.close();
-                } finally {
-                    if (connection != null)
-                        connection.close();
-                }
-
-            }
-
-        } else {
-            System.out.println(DATASOURCE_ERROR);
-            return null;
+        while (rs.next()) {
+            PostoBean postoBean = getPostoInfo(rs);
+            list.add(postoBean);
         }
+
+        return list;
 
     }
 
-    public synchronized int doSave(PostoBean posto) throws SQLException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-
-
-        String insertSql="INSERT INTO "+TABLE_NAME+" (codice, codiceAula) VALUES (?,?)";
-
-        if (ds != null) {
-
-            try {
-                connection = ds.getConnection();
-
-                AulaBean aula = posto.getAula();
-                //TODO getAula();
-
-                preparedStatement.setString(1, posto.getCodice());
-                //preparedStatement.setString(2, posto.getAula());
-
-
-
-                preparedStatement.executeUpdate();
-
-
-            }
-            finally {
-
-                try {
-                    if (preparedStatement != null)
-                        preparedStatement.close();
-                } finally {
-                    if (connection != null)
-                        connection.close();
-                }
-
-            }
-
-        } else {
-            System.out.println(DATASOURCE_ERROR);
-            return -1;
-        }
-        return 1;
-    }
-
-
-
-    public synchronized boolean doDelete(String codice) throws SQLException {
-
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-
-        int result = 0;
-
-        String deleteSQL = "DELETE FROM " + TABLE_NAME + " WHERE codice=?";
-
-        if (ds != null) {
-
-            try {
-                connection = ds.getConnection();
-                preparedStatement = connection.prepareStatement(deleteSQL);
-                preparedStatement.setString(1, codice);
-
-                result = preparedStatement.executeUpdate();
-            } catch (SQLException throwables) {
-                JOptionPane.showMessageDialog(null, "Non puoi eliminare questo posto", "Exception", JOptionPane.INFORMATION_MESSAGE);
-            } finally {
-
-                try {
-                    if (preparedStatement != null)
-                        preparedStatement.close();
-                } finally {
-                    if (connection != null)
-                        connection.close();
-                }
-
-            }
-        }
-
-        else {
-            System.out.println(DATASOURCE_ERROR);
-        }
-        return (result !=0);
-    }
     //TODO queries
 
-    private PostoBean getPostoInfo(ResultSet rs) throws SQLException {
+    private static PostoBean getPostoInfo(ResultSet rs) throws SQLException {
 
         PostoBean postoBean = new PostoBean();
 
@@ -196,7 +106,6 @@ public class PostoDAO {
 
         return postoBean;
     }
-
 
 
 }

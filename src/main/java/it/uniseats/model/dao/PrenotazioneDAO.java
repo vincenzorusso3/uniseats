@@ -16,30 +16,56 @@ public class PrenotazioneDAO {
 
     private static final String TABLE_NAME = "prenotazione";
     private static final String DATASOURCE_ERROR = "[PRENOTAZIONEDAO] Errore: il DataSource non risulta essere configurato correttamente";
-    private static final DataSource ds = DataSourceUtils.getDataSource();
 
-    public synchronized PrenotazioneBean doRetrieveByCode(String codice) throws SQLException {
+    public static synchronized Object doQuery(String methodName, Object parameter) throws SQLException {
 
+        DataSource ds = DataSourceUtils.getDataSource();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
-        String selectSQL = "SELECT * FROM " + TABLE_NAME + " WHERE codice=?";
-
         if (ds != null) {
+
+            String querySQL;
 
             try {
                 connection = ds.getConnection();
-                preparedStatement = connection.prepareStatement(selectSQL);
-                preparedStatement.setString(1, codice);
-                ResultSet rs = preparedStatement.executeQuery();
 
-                PrenotazioneBean prenotazioneBean = new PrenotazioneBean();
+                switch (methodName) {
 
-                while (rs.next()) {
-                    prenotazioneBean = getPrenotazioneInfo(rs);
+                    case "doRetrieveByCode":
+                        querySQL = "SELECT * FROM " + TABLE_NAME + " WHERE codice=?";
+                        preparedStatement = connection.prepareStatement(querySQL);
+                        return doRetrieveByCode(preparedStatement, (String) parameter);
+
+                    case "doRetrieveAll":
+                        querySQL = "SELECT * FROM " + TABLE_NAME + " WHERE matricolaStudente=?";
+                        preparedStatement = connection.prepareStatement(querySQL);
+                        return doRetrieveAll(preparedStatement, (String) parameter);
+
+                    case "doSave":
+                        querySQL = "INSERT INTO " + TABLE_NAME + " (codice, matricolaStudente, dataPrenotazione, tipologia, qrCode) VALUES (?,?,?,?,?)";
+                        preparedStatement = connection.prepareStatement(querySQL);
+                        return doSave(preparedStatement, (PrenotazioneBean) parameter);
+
+                    case "doUpdateData":
+                        querySQL = "UPDATE " + TABLE_NAME + " SET dataPrenotazione=?  WHERE codice=?";
+                        preparedStatement = connection.prepareStatement(querySQL);
+                        return doUpdateData(preparedStatement, (PrenotazioneBean) parameter);
+
+                    case "doUpdateTipo":
+                        querySQL = "UPDATE " + TABLE_NAME + " SET tipologia=?  WHERE codice=?";
+                        preparedStatement = connection.prepareStatement(querySQL);
+                        return doUpdateTipo(preparedStatement, (PrenotazioneBean) parameter);
+
+                    case "doDelete":
+                        querySQL = "DELETE FROM " + TABLE_NAME + " WHERE codice=?";
+                        preparedStatement = connection.prepareStatement(querySQL);
+                        return doDelete(preparedStatement, (String) parameter);
+
+                    default:
+                        return null;
+
                 }
-
-                return prenotazioneBean;
 
             } finally {
 
@@ -60,206 +86,74 @@ public class PrenotazioneDAO {
 
     }
 
-    public synchronized ArrayList<PrenotazioneBean> doRetrieveAll(String matricolaStudente) throws SQLException {
+    private static synchronized PrenotazioneBean doRetrieveByCode(PreparedStatement preparedStatement, String codice) throws SQLException {
 
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
+        preparedStatement.setString(1, codice);
+        ResultSet rs = preparedStatement.executeQuery();
+        PrenotazioneBean prenotazioneBean = new PrenotazioneBean();
 
-        String selectSQL = "SELECT * FROM " + TABLE_NAME + "WHERE matricolaStudente=?";
+        while (rs.next()) {
+            prenotazioneBean = getPrenotazioneInfo(rs);
+        }
+
+        return prenotazioneBean;
+
+    }
+
+    private static synchronized ArrayList<PrenotazioneBean> doRetrieveAll(PreparedStatement preparedStatement, String matricolaStudente) throws SQLException {
 
         ArrayList<PrenotazioneBean> list = new ArrayList<>();
+        preparedStatement.setString(1, matricolaStudente);
+        ResultSet rs = preparedStatement.executeQuery();
 
-        if (ds != null) {
-
-            try {
-                connection = ds.getConnection();
-                preparedStatement = connection.prepareStatement(selectSQL);
-                ResultSet rs = preparedStatement.executeQuery();
-
-                while (rs.next()) {
-
-                    PrenotazioneBean prenotazioneBean = getPrenotazioneInfo(rs);
-                    list.add(prenotazioneBean);
-                }
-
-                return list;
-
-            } finally {
-
-                try {
-                    if (preparedStatement != null)
-                        preparedStatement.close();
-                } finally {
-                    if (connection != null)
-                        connection.close();
-                }
-
-            }
-
-        } else {
-            System.out.println(DATASOURCE_ERROR);
-            return null;
+        while (rs.next()) {
+            PrenotazioneBean prenotazioneBean = getPrenotazioneInfo(rs);
+            list.add(prenotazioneBean);
         }
+
+        return list;
 
     }
 
-    public synchronized int doSave(PrenotazioneBean prenotazioneBean) throws SQLException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
+    private static synchronized int doSave(PreparedStatement preparedStatement, PrenotazioneBean prenotazioneBean) throws SQLException {
 
+        preparedStatement.setString(1, prenotazioneBean.getCodice());
+        preparedStatement.setString(2, prenotazioneBean.getStudente().getMatricola());
+        preparedStatement.setDate(3, (Date) prenotazioneBean.getData());
+        preparedStatement.setBoolean(4, prenotazioneBean.isGruppo());
+        preparedStatement.setString(5, prenotazioneBean.getQrCode());
 
-        String insertSql="INSERT INTO "+TABLE_NAME+" (codice, matricolaStudente, dataPrenotazione, tipologia, qrCode) VALUES (?,?,?,?,?)";
-
-        if (ds != null) {
-
-            try {
-                connection = ds.getConnection();
-                preparedStatement.setString(1, prenotazioneBean.getCodice());
-                preparedStatement.setString(2, prenotazioneBean.getStudente().getMatricola());
-                preparedStatement.setDate(3, (Date) prenotazioneBean.getData());
-                preparedStatement.setBoolean(4, prenotazioneBean.isGruppo());
-                preparedStatement.setString(5, prenotazioneBean.getQrCode());
-
-
-
-                preparedStatement.executeUpdate();
-
-
-            }
-            finally {
-
-                try {
-                    if (preparedStatement != null)
-                        preparedStatement.close();
-                } finally {
-                    if (connection != null)
-                        connection.close();
-                }
-
-            }
-
-        } else {
-            System.out.println(DATASOURCE_ERROR);
-            return -1;
-        }
-        return 1;
-    }
-
-    public synchronized int doUpdateData(PrenotazioneBean prenotazioneBean) throws SQLException{
-
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-
-        String updateSQL = "UPDATE" + TABLE_NAME + "SET dataPrenotazione=?  WHERE codice=?";
-
-        if(ds!=null){
-            try{
-                connection = ds.getConnection();
-
-                preparedStatement.setDate(1, (Date) prenotazioneBean.getData());
-
-                preparedStatement.executeUpdate();
-            }
-            finally{
-                try{
-                    if(preparedStatement != null)
-                        preparedStatement.close();
-                } finally {
-                    if(connection != null)
-                        connection.close();
-                }
-            }
-        } else {
-            System.out.println(DATASOURCE_ERROR);
-            return -1;
-        }
-        return 1;
+        return preparedStatement.executeUpdate();
 
     }
-    public synchronized int doUpdateTipo(PrenotazioneBean prenotazioneBean) throws SQLException{
 
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
+    private static synchronized int doUpdateData(PreparedStatement preparedStatement, PrenotazioneBean prenotazioneBean) throws SQLException {
 
-        String updateSQL = "UPDATE" + TABLE_NAME + "SET tipologia=?  WHERE codice=?";
+        preparedStatement.setDate(1, (Date) prenotazioneBean.getData());
+        preparedStatement.setString(2, prenotazioneBean.getCodice());
 
-        if(ds!=null){
-            try{
-                connection = ds.getConnection();
+        return preparedStatement.executeUpdate();
 
-                preparedStatement.setBoolean(1, prenotazioneBean.isGruppo());
+    }
 
-                preparedStatement.executeUpdate();
-            }
-            finally{
-                try{
-                    if(preparedStatement != null)
-                        preparedStatement.close();
-                } finally {
-                    if(connection != null)
-                        connection.close();
-                }
-            }
-        } else {
-            System.out.println(DATASOURCE_ERROR);
-            return -1;
-        }
-        return 1;
+    private static synchronized int doUpdateTipo(PreparedStatement preparedStatement, PrenotazioneBean prenotazioneBean) throws SQLException {
+
+        preparedStatement.setBoolean(1, prenotazioneBean.isGruppo());
+        return preparedStatement.executeUpdate();
 
     }
 
 
-    public synchronized boolean doDelete(String codice) throws SQLException {
+    private static synchronized boolean doDelete(PreparedStatement preparedStatement, String codice) throws SQLException {
 
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
+        preparedStatement.setString(1, codice);
+        return (preparedStatement.executeUpdate() != 0);
 
-        int result = 0;
-
-        String deleteSQL = "DELETE FROM " + TABLE_NAME + " WHERE codice=?";
-
-        if (ds != null) {
-
-            try {
-                connection = ds.getConnection();
-                preparedStatement = connection.prepareStatement(deleteSQL);
-                preparedStatement.setString(1, codice);
-
-                result = preparedStatement.executeUpdate();
-            } catch (SQLException throwables) {
-                JOptionPane.showMessageDialog(null, "Non puoi eliminare questa prenotazione", "Exception", JOptionPane.INFORMATION_MESSAGE);
-            } finally {
-
-                try {
-                    if (preparedStatement != null)
-                        preparedStatement.close();
-                } finally {
-                    if (connection != null)
-                        connection.close();
-                }
-
-            }
-        }
-
-        else {
-            System.out.println(DATASOURCE_ERROR);
-        }
-        return (result !=0);
     }
     //Queries
 
 
-
-
-
-
-
-
-
-
-
-
-    private PrenotazioneBean getPrenotazioneInfo(ResultSet rs) throws SQLException {
+    private static PrenotazioneBean getPrenotazioneInfo(ResultSet rs) throws SQLException {
 
         PrenotazioneBean prenotazioneBean = new PrenotazioneBean();
 
@@ -272,8 +166,8 @@ public class PrenotazioneDAO {
         prenotazioneBean.setQrCode(rs.getString("code"));
         prenotazioneBean.setData(rs.getDate("data"));
         prenotazioneBean.setGruppo(rs.getBoolean("gruppo"));
-       // prenotazioneBean.setStudente(rs.getString("studente"));
-       // prenotazioneBean.setPosto(rs.getInt("posto"));
+        // prenotazioneBean.setStudente(rs.getString("studente"));
+        // prenotazioneBean.setPosto(rs.getInt("posto"));
 
 
         return prenotazioneBean;
