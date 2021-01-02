@@ -102,7 +102,7 @@ public class PostoDAO {
         PostoBean postoBean = new PostoBean();
 
         postoBean.setCodice(rs.getString("codice"));
-        //TODO setAula
+
 
         return postoBean;
     }

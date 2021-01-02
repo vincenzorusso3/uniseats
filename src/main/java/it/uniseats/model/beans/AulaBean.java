@@ -34,11 +34,6 @@ public class AulaBean {
         return edificio;
     }
 
-    public List<PostoBean> getPosti() {
-        /*TODO: WRITE getPosti() method*/
-        return null;
-    }
-
     public void setCodice(String codice) { this.codice = codice; }
 
     public void setDipartimento(String dipartimento) { this.dipartimento = dipartimento; }

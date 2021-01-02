@@ -8,19 +8,23 @@ public class PrenotazioneBean {
     private String qrCode;
     private Date data;
     private boolean gruppo;
-    private StudenteBean studente;
+    private String codicePosto;
+    private String codiceAula;
+    private String matricolaStudente;
 
 
     public PrenotazioneBean() {
     }
 
-    public PrenotazioneBean(String codice,String qrCode, Date data, boolean gruppo, StudenteBean studente) {
+    public PrenotazioneBean(String codice,String qrCode, Date data, boolean gruppo, String codicePosto, String codiceAula, String matricolaStudente) {
 
         this.codice=codice;
         this.qrCode = qrCode;
         this.data = data;
         this.gruppo = gruppo;
-        this.studente = studente;
+        this.codicePosto= codicePosto;
+        this.codiceAula=codiceAula;
+        this.matricolaStudente=matricolaStudente;
     }
 
     public String getCodice() { return codice; }
@@ -37,15 +41,17 @@ public class PrenotazioneBean {
         return gruppo;
     }
 
-    public StudenteBean getStudente() {
-        return studente;
-    }
+    public String getCodicePosto() { return codicePosto; }
 
-    /*public PostoBean getPosto() {
-        return posto;
-    }
+    public String getCodiceAula() { return codiceAula; }
 
-     */
+    public String getMatricolaStudente() { return matricolaStudente; }
+
+    public void setCodicePosto(String codicePosto) { this.codicePosto = codicePosto; }
+
+    public void setCodiceAula(String codiceAula) { this.codiceAula = codiceAula; }
+
+    public void setMatricolaStudente(String matricolaStudente) { this.matricolaStudente = matricolaStudente; }
 
     public void setQrCode(String qrCode) {
         this.qrCode = qrCode;
@@ -58,14 +64,6 @@ public class PrenotazioneBean {
     public void setGruppo(boolean gruppo) {
         this.gruppo = gruppo;
     }
-
-    public void setStudente(StudenteBean studente) {
-        this.studente = studente;
-    }
-
-    /*public void setPosto(PostoBean posto) {
-        this.posto = posto;
-    }*/
 
     public void setCodice(String codice) { this.codice = codice; }
 }

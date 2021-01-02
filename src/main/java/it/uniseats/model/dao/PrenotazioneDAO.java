@@ -118,10 +118,13 @@ public class PrenotazioneDAO {
     private static synchronized int doSave(PreparedStatement preparedStatement, PrenotazioneBean prenotazioneBean) throws SQLException {
 
         preparedStatement.setString(1, prenotazioneBean.getCodice());
-        preparedStatement.setString(2, prenotazioneBean.getStudente().getMatricola());
+        preparedStatement.setString(2, prenotazioneBean.getMatricolaStudente());
         preparedStatement.setDate(3, (Date) prenotazioneBean.getData());
         preparedStatement.setBoolean(4, prenotazioneBean.isGruppo());
         preparedStatement.setString(5, prenotazioneBean.getQrCode());
+        preparedStatement.setString(6, prenotazioneBean.getCodiceAula());
+        preparedStatement.setString(7,prenotazioneBean.getCodicePosto());
+        preparedStatement.setString(8,prenotazioneBean.getMatricolaStudente());
 
         return preparedStatement.executeUpdate();
 
@@ -157,17 +160,14 @@ public class PrenotazioneDAO {
 
         PrenotazioneBean prenotazioneBean = new PrenotazioneBean();
 
-        //PostoBean posto = prenotazioneBean.getPosto();
-        //TODO getPosto()
-
-        StudenteBean studente = prenotazioneBean.getStudente();
-        //TODO getStudente()
-
-        prenotazioneBean.setQrCode(rs.getString("code"));
+        prenotazioneBean.setCodice(rs.getString("codice"));
+        prenotazioneBean.setQrCode(rs.getString("qrCode"));
         prenotazioneBean.setData(rs.getDate("data"));
         prenotazioneBean.setGruppo(rs.getBoolean("gruppo"));
-        // prenotazioneBean.setStudente(rs.getString("studente"));
-        // prenotazioneBean.setPosto(rs.getInt("posto"));
+        prenotazioneBean.setMatricolaStudente(rs.getString("matricolaStudente"));
+        prenotazioneBean.setCodicePosto(rs.getString("codicePosto"));
+        prenotazioneBean.setCodiceAula(rs.getString("codiceAula"));
+
 
 
         return prenotazioneBean;
