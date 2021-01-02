@@ -5,7 +5,7 @@
 
     <title> Header </title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="../css/Header.css" rel="stylesheet" type="text/css">
+    <link href="jetbrains://idea/navigate/reference?project=UniSeats&path=css/Header.css" rel="stylesheet" type="text/css">
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 </head>
 <body>
@@ -14,7 +14,7 @@
     <div class="left">
 
         <a id="linkhome" href="">
-            <img class="logo" src="../img/LogoUniseats.png">
+            <img class="logo" src="jetbrains://idea/navigate/reference?project=UniSeats&path=img/LogoUniseats.png">
         </a>
 
         <a class="link hover" href="">Prenota</a>
