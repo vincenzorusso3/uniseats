@@ -1,41 +1,69 @@
 package it.uniseats.model.dao;
 
-import it.uniseats.utils.DataSourceUtils;
 import it.uniseats.model.beans.StudenteBean;
+import it.uniseats.utils.DataSourceUtils;
 
 import javax.sql.DataSource;
-import javax.swing.*;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class StudenteDAO {
 
     private static final String TABLE_NAME = "studente";
     private static final String DATASOURCE_ERROR = "[STUDENTEDAO] Errore: il DataSource non risulta essere configurato correttamente";
-    private static final DataSource ds = DataSourceUtils.getDataSource();
 
-    public synchronized StudenteBean doRetrieveByMatricola(String matricola) throws SQLException {
+    public static synchronized Object doQuery(String methodName, Object parameter) throws SQLException {
 
+        DataSource ds = DataSourceUtils.getDataSource();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
-        String selectSQL = "SELECT * FROM " + TABLE_NAME + " WHERE matricola=?";
-
         if (ds != null) {
+
+            String querySQL;
 
             try {
                 connection = ds.getConnection();
-                preparedStatement = connection.prepareStatement(selectSQL);
-                preparedStatement.setString(1, matricola);
-                ResultSet rs = preparedStatement.executeQuery();
 
-                StudenteBean studenteBean = new StudenteBean();
+                switch (methodName) {
 
-                while (rs.next()) {
-                    studenteBean = getStudentInfo(rs);
+                    case "doRetrieveByMatricola":
+                        querySQL = "SELECT * FROM " + TABLE_NAME + " WHERE matricola=?";
+                        preparedStatement = connection.prepareStatement(querySQL);
+                        return doRetrieveByMatricola(preparedStatement, (String) parameter);
+
+                    case "doRetrieveAll":
+                        querySQL = "SELECT * FROM " + TABLE_NAME;
+                        preparedStatement = connection.prepareStatement(querySQL);
+                        return doRetriveAll(preparedStatement);
+
+                    case "doSave":
+                        querySQL = "INSERT INTO " + TABLE_NAME + " (anno, cognome, dipartimento, email, matricola, nome, password ) VALUES (?,?,?,?,?,?,?)";
+                        preparedStatement = connection.prepareStatement(querySQL);
+                        return doSave(preparedStatement, (StudenteBean) parameter);
+
+                    case "doRetrieveByEmail":
+                        querySQL = "SELECT * FROM " + TABLE_NAME + " WHERE email=?";
+                        preparedStatement = connection.prepareStatement(querySQL);
+                        return doRetrieveByEmail(preparedStatement, (String) parameter);
+
+                    case "doUpdate":
+                        querySQL = "UPDATE " + TABLE_NAME + " SET anno=? WHERE matricola=?";
+                        preparedStatement = connection.prepareStatement(querySQL);
+                        return doUpdate(preparedStatement, (StudenteBean) parameter);
+
+                    case "doDelete":
+                        querySQL = "DELETE FROM " + TABLE_NAME + " WHERE matricola=?";
+                        preparedStatement = connection.prepareStatement(querySQL);
+                        return doDelete(preparedStatement, (String) parameter);
+
+                    default:
+                        return null;
+
                 }
-
-                return studenteBean;
 
             } finally {
 
@@ -56,210 +84,80 @@ public class StudenteDAO {
 
     }
 
-    public synchronized ArrayList<StudenteBean> doRetriveAll() throws SQLException {
+    private static synchronized StudenteBean doRetrieveByMatricola(PreparedStatement preparedStatement, String matricola) throws SQLException {
 
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
+        preparedStatement.setString(1, matricola);
+        ResultSet rs = preparedStatement.executeQuery();
+        StudenteBean studenteBean = new StudenteBean();
 
-        String selectSQL = "SELECT * FROM " + TABLE_NAME;
+        while (rs.next()) {
+            studenteBean = getStudentInfo(rs);
+        }
+
+        return studenteBean;
+
+    }
+
+    private static synchronized ArrayList<StudenteBean> doRetriveAll(PreparedStatement preparedStatement) throws SQLException {
 
         ArrayList<StudenteBean> list = new ArrayList<>();
+        ResultSet rs = preparedStatement.executeQuery();
 
-        if (ds != null) {
-
-            try {
-                connection = ds.getConnection();
-                preparedStatement = connection.prepareStatement(selectSQL);
-                ResultSet rs = preparedStatement.executeQuery();
-
-                while (rs.next()) {
-
-                    StudenteBean studenteBean = getStudentInfo(rs);
-                    list.add(studenteBean);
-                }
-
-                return list;
-
-            } finally {
-
-                try {
-                    if (preparedStatement != null)
-                        preparedStatement.close();
-                } finally {
-                    if (connection != null)
-                        connection.close();
-                }
-
-            }
-
-        } else {
-            System.out.println(DATASOURCE_ERROR);
-            return null;
+        while (rs.next()) {
+            StudenteBean studenteBean = getStudentInfo(rs);
+            list.add(studenteBean);
         }
+
+        return list;
 
     }
 
-    public synchronized int doSave(StudenteBean studente) throws SQLException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
+    private static synchronized int doSave(PreparedStatement preparedStatement, StudenteBean studente) throws SQLException {
 
+        preparedStatement.setInt(1, studente.getAnno());
+        preparedStatement.setString(2, studente.getCognome());
+        preparedStatement.setString(3, studente.getDipartimento());
+        preparedStatement.setString(4, studente.getEmail());
+        preparedStatement.setString(5, studente.getMatricola());
+        preparedStatement.setString(6, studente.getNome());
+        preparedStatement.setString(7, studente.getPassword());
 
-        String insertSql="INSERT INTO "+TABLE_NAME+" (anno, cognome, dipartimento, email, matricola, nome, password ) VALUES (?,?,?,?,?,?,?)";
-
-        if (ds != null) {
-
-            try {
-                connection = ds.getConnection();
-                preparedStatement.setInt(1, studente.getAnno());
-                preparedStatement.setString(2, studente.getCognome());
-                preparedStatement.setString(3, studente.getDipartimento());
-                preparedStatement.setString(4, studente.getEmail());
-                preparedStatement.setString(5, studente.getMatricola());
-                preparedStatement.setString(6, studente.getNome());
-                preparedStatement.setString(7, studente.getPassword());
-
-
-                preparedStatement.executeUpdate();
-
-
-            }
-            finally {
-
-                try {
-                    if (preparedStatement != null)
-                        preparedStatement.close();
-                } finally {
-                    if (connection != null)
-                        connection.close();
-                }
-
-            }
-
-        } else {
-            System.out.println(DATASOURCE_ERROR);
-            return -1;
-        }
-        return 1;
+        return preparedStatement.executeUpdate();
     }
 
-    public synchronized StudenteBean doRetrieveByEmail(String email) throws SQLException {
+    private static synchronized StudenteBean doRetrieveByEmail(PreparedStatement preparedStatement, String email) throws SQLException {
 
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
+        preparedStatement.setString(1, email);
+        ResultSet rs = preparedStatement.executeQuery();
+        StudenteBean studenteBean = new StudenteBean();
 
-        String selectSQL = "SELECT * FROM " + TABLE_NAME + " WHERE email=?";
-
-        if (ds != null) {
-
-            try {
-                connection = ds.getConnection();
-                preparedStatement = connection.prepareStatement(selectSQL);
-                preparedStatement.setString(1, email);
-                ResultSet rs = preparedStatement.executeQuery();
-
-                StudenteBean studenteBean = new StudenteBean();
-
-                while (rs.next()) {
-                    studenteBean = getStudentInfo(rs);
-                }
-
-                return studenteBean;
-
-            } finally {
-
-                try {
-                    if (preparedStatement != null)
-                        preparedStatement.close();
-                } finally {
-                    if (connection != null)
-                        connection.close();
-                }
-
-            }
-
-        } else {
-            System.out.println(DATASOURCE_ERROR);
-            return null;
+        while (rs.next()) {
+            studenteBean = getStudentInfo(rs);
         }
+
+        return studenteBean;
 
     }
 
-    public synchronized int doUpdate(StudenteBean studenteBean) throws SQLException{
+    private static synchronized int doUpdate(PreparedStatement preparedStatement, StudenteBean studenteBean) throws SQLException {
 
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
+        preparedStatement.setInt(1, studenteBean.getAnno());
+        preparedStatement.setString(2, studenteBean.getMatricola());
 
-        String updateSQL = "UPDATE" + TABLE_NAME + "SET anno=? WHERE matricola=?";
-
-        if(ds!=null){
-            try{
-                connection = ds.getConnection();
-
-                preparedStatement.setInt(1, studenteBean.getAnno());
-
-                preparedStatement.executeUpdate();
-            }
-            finally{
-                try{
-                    if(preparedStatement != null)
-                        preparedStatement.close();
-                } finally {
-                    if(connection != null)
-                        connection.close();
-                }
-            }
-        } else {
-            System.out.println(DATASOURCE_ERROR);
-            return -1;
-        }
-        return 1;
+        return preparedStatement.executeUpdate();
 
     }
 
 
-    public synchronized boolean doDelete(String matricola) throws SQLException {
+    private static synchronized boolean doDelete(PreparedStatement preparedStatement, String matricola) throws SQLException {
 
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
+        preparedStatement.setString(1, matricola);
 
-        int result = 0;
+        return (preparedStatement.executeUpdate() != 0);
 
-        String deleteSQL = "DELETE FROM " + TABLE_NAME + " WHERE matricola=?";
-
-        if (ds != null) {
-
-            try {
-                connection = ds.getConnection();
-                preparedStatement = connection.prepareStatement(deleteSQL);
-                preparedStatement.setString(1, matricola);
-
-                result = preparedStatement.executeUpdate();
-            } catch (SQLException throwables) {
-                JOptionPane.showMessageDialog(null, "Non puoi eliminare questo studente", "Exception", JOptionPane.INFORMATION_MESSAGE);
-            } finally {
-
-                try {
-                    if (preparedStatement != null)
-                        preparedStatement.close();
-                } finally {
-                    if (connection != null)
-                        connection.close();
-                }
-
-            }
-        }
-
-         else {
-            System.out.println(DATASOURCE_ERROR);
-        }
-        return (result !=0);
     }
 
-
-
-    //TODO queries
-
-    private StudenteBean getStudentInfo(ResultSet rs) throws SQLException {
+    private static StudenteBean getStudentInfo(ResultSet rs) throws SQLException {
 
         StudenteBean studenteBean = new StudenteBean();
 
@@ -273,7 +171,5 @@ public class StudenteDAO {
 
         return studenteBean;
     }
-
-
 
 }
