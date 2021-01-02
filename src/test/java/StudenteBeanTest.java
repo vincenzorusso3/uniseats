@@ -7,12 +7,14 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class StudenteBeanTest {
 
-    //inizio test costruttori
+    /**
+     * Constructors Testing
+     */
 
     @Test
     void testStudentConstructorEmpty(){
-        StudenteBean studente = new StudenteBean();
-        assertNotNull(studente);
+        StudenteBean studenteBean = new StudenteBean();
+        assertNotNull(studenteBean);
     }
 
     @Test
@@ -21,9 +23,10 @@ public class StudenteBeanTest {
         assertNotNull(studenteBean);
     }
 
-    //fine test costruttori
 
-    //inizio test costruttori
+    /**
+     * Getter Methos Testing
+     */
 
     @Test
     void testGetNome(){
@@ -67,9 +70,9 @@ public class StudenteBeanTest {
         assertEquals("Informatica", studenteBean.getDipartimento());
     }
 
-    //fine test getter
-
-    //inizio test setter
+    /**
+     * Setter Methods Testing
+     */
 
     @Test
     void testSetNome(){
@@ -120,6 +123,6 @@ public class StudenteBeanTest {
         assertEquals("Informatica", studente.getDipartimento());
     }
 
-    //fine test setter
+
 
 }

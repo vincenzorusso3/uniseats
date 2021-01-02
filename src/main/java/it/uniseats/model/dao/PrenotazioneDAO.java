@@ -157,7 +157,7 @@ public class PrenotazioneDAO {
 
         PrenotazioneBean prenotazioneBean = new PrenotazioneBean();
 
-        PostoBean posto = prenotazioneBean.getPosto();
+        //PostoBean posto = prenotazioneBean.getPosto();
         //TODO getPosto()
 
         StudenteBean studente = prenotazioneBean.getStudente();

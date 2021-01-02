@@ -9,19 +9,18 @@ public class PrenotazioneBean {
     private Date data;
     private boolean gruppo;
     private StudenteBean studente;
-    private PostoBean posto;
+
 
     public PrenotazioneBean() {
     }
 
-    public PrenotazioneBean(String codice,String qrCode, Date data, boolean gruppo, StudenteBean studente, PostoBean posto) {
+    public PrenotazioneBean(String codice,String qrCode, Date data, boolean gruppo, StudenteBean studente) {
 
         this.codice=codice;
         this.qrCode = qrCode;
         this.data = data;
         this.gruppo = gruppo;
         this.studente = studente;
-        this.posto = posto;
     }
 
     public String getCodice() { return codice; }
@@ -42,9 +41,11 @@ public class PrenotazioneBean {
         return studente;
     }
 
-    public PostoBean getPosto() {
+    /*public PostoBean getPosto() {
         return posto;
     }
+
+     */
 
     public void setQrCode(String qrCode) {
         this.qrCode = qrCode;
@@ -62,9 +63,9 @@ public class PrenotazioneBean {
         this.studente = studente;
     }
 
-    public void setPosto(PostoBean posto) {
+    /*public void setPosto(PostoBean posto) {
         this.posto = posto;
-    }
+    }*/
 
     public void setCodice(String codice) { this.codice = codice; }
 }

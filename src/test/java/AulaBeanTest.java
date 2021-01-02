@@ -6,7 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class AulaBeanTest {
 
-    //inizio test costruttori
+    /**
+     * Constructors Testing
+     */
 
     @Test
     void testAulaEmptyConstructor() {
@@ -20,9 +22,9 @@ public class AulaBeanTest {
         assertNotNull(aula);
     }
 
-    //fine test costruttori
-
-    //inizio test getter
+   /**
+    * Getter Methods Testing
+    */
 
     @Test
     void testGetCodice() {
@@ -48,9 +50,9 @@ public class AulaBeanTest {
         assertEquals("F1", aula.getEdificio());
     }
 
-    //fine test getter
-
-    //inizio test setter
+    /**
+     * Setter Metods Testing
+     */
 
     @Test
     void testSetCodice() {
