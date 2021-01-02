@@ -30,6 +30,7 @@ public class LoginServlet extends HttpServlet {
                 String email = request.getParameter("email");
                 String password = request.getParameter("password");
 
+
                 String encrypted = SHA512Utils.getSHA512(password);
 
                 StudenteDAO studDao = new StudenteDAO();
@@ -46,7 +47,7 @@ public class LoginServlet extends HttpServlet {
                         request.getSession().setAttribute("anno", bean.getAnno());
                         request.getSession().setAttribute("dipartimento", bean.getDipartimento());
 
-
+                        //redirect to LandindPage
                         redirectedPage = "/LandingPageView.jsp";
                         response.sendRedirect(request.getContextPath() + redirectedPage);
                     } else {
