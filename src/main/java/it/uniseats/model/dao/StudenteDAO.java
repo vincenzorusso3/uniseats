@@ -217,21 +217,21 @@ public class StudenteDAO {
     }
 
 
-    public synchronized boolean doDelete(String email) throws SQLException {
+    public synchronized boolean doDelete(String matricola) throws SQLException {
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
         int result = 0;
 
-        String deleteSQL = "DELETE FROM " + TABLE_NAME + " WHERE email=?";
+        String deleteSQL = "DELETE FROM " + TABLE_NAME + " WHERE matricola=?";
 
         if (ds != null) {
 
             try {
                 connection = ds.getConnection();
                 preparedStatement = connection.prepareStatement(deleteSQL);
-                preparedStatement.setString(1, email);
+                preparedStatement.setString(1, matricola);
 
                 result = preparedStatement.executeUpdate();
             } catch (SQLException throwables) {
@@ -256,7 +256,7 @@ public class StudenteDAO {
     }
 
 
-    //TODO doDelete()
+
     //TODO queries
 
     private StudenteBean getStudentInfo(ResultSet rs) throws SQLException {

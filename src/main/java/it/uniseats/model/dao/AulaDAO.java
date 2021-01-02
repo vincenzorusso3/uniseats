@@ -6,6 +6,7 @@ import it.uniseats.model.beans.StudenteBean;
 import it.uniseats.utils.DataSourceUtils;
 
 import javax.sql.DataSource;
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -145,7 +146,43 @@ public class AulaDAO {
         return 1;
     }
 
-    //TODO doDelete()
+    public synchronized boolean doDelete(String codice) throws SQLException {
+
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        int result = 0;
+
+        String deleteSQL = "DELETE FROM " + TABLE_NAME + " WHERE codice=?";
+
+        if (ds != null) {
+
+            try {
+                connection = ds.getConnection();
+                preparedStatement = connection.prepareStatement(deleteSQL);
+                preparedStatement.setString(1, codice);
+
+                result = preparedStatement.executeUpdate();
+            } catch (SQLException throwables) {
+                JOptionPane.showMessageDialog(null, "Non puoi eliminare questa aula", "Exception", JOptionPane.INFORMATION_MESSAGE);
+            } finally {
+
+                try {
+                    if (preparedStatement != null)
+                        preparedStatement.close();
+                } finally {
+                    if (connection != null)
+                        connection.close();
+                }
+
+            }
+        }
+
+        else {
+            System.out.println(DATASOURCE_ERROR);
+        }
+        return (result !=0);
+    }
     //TODO queries
 
     private AulaBean getAulaInfo(ResultSet rs) throws SQLException {
