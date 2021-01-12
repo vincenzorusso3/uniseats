@@ -30,13 +30,11 @@ public class LoginServlet extends HttpServlet {
                 String email = request.getParameter("email");
                 String password = request.getParameter("password");
 
-
                 String encrypted = SHA512Utils.getSHA512(password);
 
-                StudenteDAO studDao = new StudenteDAO();
                 String redirectedPage;
                 try {
-                    StudenteBean bean = (StudenteBean) studDao.doQuery("doRetrieveByEmail",(Object) email);
+                    StudenteBean bean = (StudenteBean) StudenteDAO.doQuery("doRetrieveByEmail",(Object) email);
                     if (bean != null && bean.getPassword().equals(encrypted)) {
 
                         request.getSession().setAttribute("logged", true);

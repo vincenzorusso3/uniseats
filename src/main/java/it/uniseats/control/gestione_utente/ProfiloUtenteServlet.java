@@ -15,8 +15,6 @@ import java.sql.SQLException;
 @WebServlet(name = "ProfiloUtenteServlet")
 public class ProfiloUtenteServlet extends HttpServlet {
 
-    private StudenteDAO studenteDao=new StudenteDAO();
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ProfiloUtenteView.jsp");
@@ -24,7 +22,7 @@ public class ProfiloUtenteServlet extends HttpServlet {
         if (action != null) {
             if(action.equalsIgnoreCase("confermaDelete")){
                 try {
-                    studenteDao.doQuery("doDelete",request.getParameter("matricola"));
+                    StudenteDAO.doQuery("doDelete",request.getParameter("matricola"));
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -38,9 +36,9 @@ public class ProfiloUtenteServlet extends HttpServlet {
 
             if(action.equalsIgnoreCase("confermaUpdate")){
                 try {
-                    StudenteBean studMod= (StudenteBean) studenteDao.doQuery("doRetrieveByMatricola",request.getParameter("matricola"));
+                    StudenteBean studMod= (StudenteBean) StudenteDAO.doQuery("doRetrieveByMatricola",request.getParameter("matricola"));
                     studMod.setAnno(Integer.parseInt(request.getParameter("annomod")));
-                    studenteDao.doQuery("doUpdate",studMod);
+                    StudenteDAO.doQuery("doUpdate",studMod);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
