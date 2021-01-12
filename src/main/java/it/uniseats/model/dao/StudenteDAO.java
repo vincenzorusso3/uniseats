@@ -1,5 +1,6 @@
 package it.uniseats.model.dao;
 
+import it.uniseats.model.beans.PrenotazioneBean;
 import it.uniseats.model.beans.StudenteBean;
 import it.uniseats.utils.DataSourceUtils;
 
@@ -9,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedList;
 
 public class StudenteDAO {
 
@@ -59,6 +62,12 @@ public class StudenteDAO {
                         querySQL = "DELETE FROM " + TABLE_NAME + " WHERE matricola=?";
                         preparedStatement = connection.prepareStatement(querySQL);
                         return doDelete(preparedStatement, (String) parameter);
+
+                    case "doFindPrenotazioni":
+                        querySQL = "SELECT dataPrenotazione, edificio, codiceAula, codicePosto FROM prenotazione WHERE matricolaStudente=?";
+                        preparedStatement = connection.prepareStatement(querySQL);
+                        return doFindPrenotazioni(preparedStatement, (String) parameter);
+
 
                     default:
                         return null;
@@ -156,6 +165,27 @@ public class StudenteDAO {
         return (preparedStatement.executeUpdate() != 0);
 
     }
+
+    private static synchronized Collection<PrenotazioneBean> doFindPrenotazioni(PreparedStatement preparedStatement,String matricola) throws SQLException{
+
+        Collection<PrenotazioneBean> prenotazioni = new LinkedList<PrenotazioneBean>();
+
+                preparedStatement.setString(1, matricola);
+
+                ResultSet rs = preparedStatement.executeQuery();
+
+                while (rs.next()) {
+                    PrenotazioneBean bean = new PrenotazioneBean();
+                    bean.setData(rs.getDate("data"));
+                    bean.setEdificio(rs.getString("edificio"));
+                    bean.setCodiceAula(rs.getString("codiceAula"));
+                    bean.setCodicePosto(rs.getString("codicePosto"));
+
+                    prenotazioni.add(bean);
+                 }
+        return prenotazioni;
+    }
+
 
     private static StudenteBean getStudentInfo(ResultSet rs) throws SQLException {
 

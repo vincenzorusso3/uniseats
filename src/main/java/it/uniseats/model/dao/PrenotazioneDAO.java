@@ -125,6 +125,7 @@ public class PrenotazioneDAO {
         preparedStatement.setString(6, prenotazioneBean.getCodiceAula());
         preparedStatement.setString(7,prenotazioneBean.getCodicePosto());
         preparedStatement.setString(8,prenotazioneBean.getMatricolaStudente());
+        preparedStatement.setString(9,prenotazioneBean.getEdificio());
 
         return preparedStatement.executeUpdate();
 
@@ -153,7 +154,7 @@ public class PrenotazioneDAO {
         return (preparedStatement.executeUpdate() != 0);
 
     }
-    //Queries
+
 
 
     private static PrenotazioneBean getPrenotazioneInfo(ResultSet rs) throws SQLException {
@@ -166,6 +167,7 @@ public class PrenotazioneDAO {
         prenotazioneBean.setGruppo(rs.getBoolean("gruppo"));
         prenotazioneBean.setMatricolaStudente(rs.getString("matricolaStudente"));
         prenotazioneBean.setCodicePosto(rs.getString("codicePosto"));
+        prenotazioneBean.setEdificio(rs.getString("edificio"));
         prenotazioneBean.setCodiceAula(rs.getString("codiceAula"));
 
 
