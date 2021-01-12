@@ -16,8 +16,6 @@ import java.sql.SQLException;
 @WebServlet(name = "RegistrazioneServlet")
 public class RegistrazioneServlet extends HttpServlet {
 
-    private StudenteDAO studenteDao=new StudenteDAO();
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -36,7 +34,7 @@ public class RegistrazioneServlet extends HttpServlet {
                 String email = request.getParameter("email");
                 StudenteBean test = null;
                 try {
-                    test = (StudenteBean) studenteDao.doQuery("doRetrieveByEmail", (Object) email);
+                    test = (StudenteBean) StudenteDAO.doQuery("doRetrieveByEmail", (Object) email);
                 } catch (SQLException e1) {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();
@@ -63,9 +61,9 @@ public class RegistrazioneServlet extends HttpServlet {
                     StudenteBean studenteBean=new StudenteBean(nome, cognome, matricola, email, SHA512Utils.getSHA512(password), anno, dipartimento);
 
                     try {
-                        int success = (int) studenteDao.doQuery("doSave", studenteBean);
+                        Integer success = (Integer) StudenteDAO.doQuery("doSave", studenteBean);
 
-                        if (success > 0) {
+                        if (success != null && success > 0) {
 
                             String message = "Registrazione effettuata con successo";
                             request.setAttribute("message", message);
