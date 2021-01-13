@@ -1,0 +1,241 @@
+.background{
+
+    background-image:url("../img/Banner.jpg");
+    height: 115px;
+    z-index: 0;
+
+}
+
+h1{
+    float:left;
+    color:white;
+    margin-left:43px;
+    font-size:46px;
+}
+
+
+
+.profile
+{
+    margin-left:50px;
+    border-radius: 100%;
+}
+
+.highlight:hover
+{
+    background-color: #f2f2f2;
+}
+
+hr
+{
+    width: 100px;
+}
+
+.pad
+{
+    padding-right:50px;
+}
+
+
+.btn-danger{
+    color:white;
+    background-color:#d9534f ;
+    border-color: #d43f3a;
+    cursor:pointer;
+}
+
+.btn-danger:hover{
+    background-color: #d43f3a;
+
+}
+
+.modificaButton{
+    display: inline-block;
+    margin-bottom: 0;
+    font-size: 19px;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    border: 1px solid transparent;
+    text-decoration: none;
+    color: #236292;
+    cursor: pointer;
+
+}
+
+.btn-success{
+    color: #fff;
+    background-color: #449d44;
+    border-color: #398439;
+    cursor:pointer;
+    float:left;
+
+}
+
+
+
+.btn-success:hover{
+    background-color: #398439;
+
+}
+.btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: all 0.3s ease-out;
+    text-decoration: none;
+    margin-top: 2px;
+}
+
+
+.list-group {
+    padding-left: 0;
+    margin-bottom: 20px;
+}
+
+.pad {
+    padding-right: 200px;
+    padding-left: 200px;
+    padding-top: 53px;
+}
+
+
+.list-group-item:first-child {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.list-group .right, .btn{
+    float:right;
+}
+
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+
+p {
+    margin: 0 0 10px;
+}
+
+
+
+
+
+.box {
+    width: 40%;
+    margin: 0 auto;
+    background: rgba(255,255,255,0.2);
+    padding: 35px;
+    border: 2px solid #fff;
+    border-radius: 20px/50px;
+    background-clip: padding-box;
+    text-align: center;
+}
+
+
+
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+}
+.overlay:target {
+    visibility: visible;
+    opacity: 1;
+}
+
+.popup {
+    margin: 70px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    width: 30%;
+    position: relative;
+    transition: all 2ms ease-in-out;
+}
+
+.popup h2 {
+    margin-top: 0;
+    color: black;
+
+    font-size:16px;
+}
+.popup .close {
+    position: absolute;
+    top: 4px;
+    right: 10px;
+    transition: all 200ms;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+}
+.popup .close:hover {
+    color: black;
+}
+
+.popup .content {
+    max-height: 30%;
+    overflow: auto;
+}
+@media screen and (max-width: 900px){
+    .pad{
+        padding-left:100px ;
+        padding-right:100px ;
+    }
+}
+@media screen and (max-width: 700px){
+    .box{
+        width: 70%;
+    }
+    .popup{
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 470px){
+
+    .pad{
+        padding-left:30px ;
+        padding-right:30px ;
+    }
+
+    h1{
+        font-size:38px;
+        margin-top:36px;
+    }
+
+}
+
+@media screen and (max-width: 350px){
+
+    h1{
+        font-size:38px;
+        margin-top:36px;
+        margin-left: 15px;
+
+    }
+
+}
