@@ -5,6 +5,12 @@
   Time: 22:27
   To change this template use File | Settings | File Templates.
 --%>
+<%@page import="java.util.Collection" %>
+<%@ page import="java.util.Iterator" %>
+<%@ page import="it.uniseats.model.beans.StudenteBean" %>
+
+<% StudenteBean studenteBean= (StudenteBean) request.getAttribute("studente"); %>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <html>
 <head>
@@ -25,16 +31,16 @@
 </div>
 
 <div class="list-group col-md-6 pull-right pad">
-    <p class="list-group-item highlight">Nome<span class="pull-right right">Shamari</span></p>
-    <p class="list-group-item highlight">Cognome<span class="pull-right right">Oneal</span></p>
-    <p class="list-group-item highlight">Matricola<span class="pull-right right">Ishmael</span></p>
-    <p class="list-group-item highlight">Dipartimento<span class="pull-right right">1(246)822-6956</span></p>
+    <p class="list-group-item highlight">Nome<span class="pull-right right"><%=studenteBean.getNome()%>></span></p>
+    <p class="list-group-item highlight">Cognome<span class="pull-right right"><%=studenteBean.getCognome()%></span></p>
+    <p class="list-group-item highlight">Matricola<span class="pull-right right"><%=studenteBean.getMatricola()%></span></p>
+    <p class="list-group-item highlight">Dipartimento<span class="pull-right right"><%=studenteBean.getDipartimento()%></span></p>
     <p class="list-group-item highlight">Anno
         <a class="modificaButton" href="#popup2" ><i class="fas fa-pen-square"></i></a>
-        <span class="pull-right right">en_US</span>
+        <span class="pull-right right"><%=studenteBean.getAnno()%></span>
 
     </p>
-    <p class="list-group-item highlight">Email<span class="pull-right right">[]</span></p>
+    <p class="list-group-item highlight">Email<span class="pull-right right"><%=studenteBean.getEmail()%></span></p>
 
 
     <br />
@@ -61,8 +67,8 @@
 
         <div class="content">
             <a class="btn btn-success btn-md" href="#" >No</a>
-            <form action="/" method="post">
-                <input type="hidden" value="Delete" name="action">
+            <form action="ProfiloUtenteServlet" method="post">
+                <input type="hidden" value="confermaDelete" name="action">
                 <button class="btn btn-danger btn-md" >Si</button>
             </form>
         </div>
@@ -76,6 +82,8 @@
     <div class="popup">
         <h2>Modifica anno di corso</h2>
 
+        <form action="ProfiloUtenteServlet" method="post">
+
         <select class="md-textfield-input" id="anno" name="anno" required >
             <option value="1">Primo anno</option>
             <option value="2">Secondo anno</option>
@@ -87,12 +95,12 @@
         <a class="close" href="#">&times;</a>
 
         <div class="content">
-            <form action="/" method="post">
-                <input type="hidden" value="Delete" name="action">
+
+                <input type="hidden" value="confermaUpdate" name="action">
                 <button class="btn btn-danger btn-md">Conferma</button>
-            </form>
 
         </div>
+        </form>
     </div>
 </div>
 
