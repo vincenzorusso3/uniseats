@@ -38,7 +38,7 @@ public class PrenotazioneDAO {
                         preparedStatement = connection.prepareStatement(querySQL);
                         return doRetrieveByCode(preparedStatement, (String) parameter);
 
-                    case "doFindPrenotazioniByMatricola":
+                    case "doFindPrenotazioni":
                         querySQL = "SELECT dataPrenotazione, edificio, codiceAula, codicePosto FROM "+ TABLE_NAME +" WHERE matricolaStudente=?";
                         preparedStatement = connection.prepareStatement(querySQL);
                         return doFindPrenotazioni(preparedStatement, (String) parameter);
