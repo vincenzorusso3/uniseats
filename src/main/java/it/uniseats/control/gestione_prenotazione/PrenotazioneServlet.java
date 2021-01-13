@@ -1,7 +1,9 @@
 package it.uniseats.control.gestione_prenotazione;
 
+import it.uniseats.model.beans.AulaBean;
 import it.uniseats.model.beans.PrenotazioneBean;
 import it.uniseats.model.beans.StudenteBean;
+import it.uniseats.model.dao.AulaDAO;
 import it.uniseats.model.dao.PrenotazioneDAO;
 import it.uniseats.model.dao.StudenteDAO;
 
@@ -66,11 +68,12 @@ public class PrenotazioneServlet extends HttpServlet {
                 StudenteBean user = getUser(request);
                 String matricola = user.getMatricola();
 
-                if (checkPrenotazioni(matricola,date)){
+                if (checkPrenotazioni(matricola,date) && checkPostiAule(user.getDipartimento())){
 
-                    //Utente NON ha prenotazioni
+                    //Utente NON ha prenotazioni e c'e' almeno un posto libero
 
                     //TODO Intelligenza Artificiale
+
                 }else{
                     //Utente ha già una prenotazione per quella data
                 }
@@ -126,6 +129,22 @@ public class PrenotazioneServlet extends HttpServlet {
         } else {
             return false;
         }
+
+    }
+
+    private boolean checkPostiAule(String dipartimento) throws SQLException {
+
+        ArrayList<AulaBean> aule = (ArrayList<AulaBean>) AulaDAO.doQuery("doRetrieveAll", dipartimento);
+        int totPosti = 0;
+
+        for (AulaBean aula : aule) {
+            totPosti += aula.getnPosti();
+        }
+
+        if (totPosti == 0)
+            return false;
+
+        return true;
 
     }
 

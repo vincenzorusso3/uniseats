@@ -18,7 +18,7 @@ public class AulaDAO {
     private static final String TABLE_NAME = "aula";
     private static final String DATASOURCE_ERROR = "[AULADAO] Errore: il DataSource non risulta essere configurato correttamente";
 
-    public synchronized Object doQuery(String methodName, Object parameter) throws SQLException {
+    public static synchronized Object doQuery(String methodName, Object parameter) throws SQLException {
 
         DataSource ds = DataSourceUtils.getDataSource();
         Connection connection = null;
@@ -39,9 +39,12 @@ public class AulaDAO {
                         return doRetrieveByCode(preparedStatement, (String) parameter);
 
                     case "doRetrieveAll":
-                        querySQL = "SELECT * FROM " + TABLE_NAME;
+                        if (parameter == null)
+                            querySQL = "SELECT * FROM " + TABLE_NAME;
+                        else
+                            querySQL = "SELECT * FROM " + TABLE_NAME + " WHERE dipartimento=?";
                         preparedStatement = connection.prepareStatement(querySQL);
-                        return doRetriveAll(preparedStatement);
+                        return doRetriveAll(preparedStatement, (String) parameter);
 
                     default:
                         return null;
@@ -82,7 +85,10 @@ public class AulaDAO {
 
     }
 
-    private static synchronized ArrayList<AulaBean> doRetriveAll(PreparedStatement preparedStatement) throws SQLException {
+    private static synchronized ArrayList<AulaBean> doRetriveAll(PreparedStatement preparedStatement, String dipartimento) throws SQLException {
+
+        if (dipartimento != null)
+            preparedStatement.setString(1, dipartimento);
 
         ArrayList<AulaBean> list = new ArrayList<>();
         ResultSet rs = preparedStatement.executeQuery();
