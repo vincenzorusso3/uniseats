@@ -6,6 +6,7 @@ import it.uniseats.model.beans.StudenteBean;
 import it.uniseats.model.dao.AulaDAO;
 import it.uniseats.model.dao.PrenotazioneDAO;
 import it.uniseats.model.dao.StudenteDAO;
+import it.uniseats.utils.QrCodeGenerator;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -61,26 +62,28 @@ public class PrenotazioneServlet extends HttpServlet {
         else
             date = request.getParameter("dateValueGruppo");
 
-        if (date != null){
+        if (date != null) {
 
-            if (isDateValid(date,isPrenotazioneSingola)){
+            if (isDateValid(date,isPrenotazioneSingola)) {
 
                 StudenteBean user = getUser(request);
                 String matricola = user.getMatricola();
 
-                if (checkPrenotazioni(matricola,date) && checkPostiAule(user.getDipartimento())){
+                if (checkPrenotazioni(matricola,date) && checkPostiAule(user.getDipartimento())) {
 
                     //Utente NON ha prenotazioni e c'e' almeno un posto libero
+                    String qrCode = QrCodeGenerator.generateCode(matricola);
+                    //TODO Inserire prenotazione in database
 
                     //TODO Intelligenza Artificiale
 
-                }else{
-                    //Utente ha già una prenotazione per quella data
+                } else {
+                    //Utente ha già una prenotazione per quella data o non ci sono posti disponibili
                 }
-            }else{
+            } else {
                 //La data selezionata non è valida
             }
-        }else{
+        } else {
             //La data selezionata non è valida
         }
 
@@ -91,13 +94,11 @@ public class PrenotazioneServlet extends HttpServlet {
         Date today = new Date();
         Date selectedDay = parseDate(date);
 
-        if (selectedDay.compareTo(today) > 0) {
+        if (selectedDay.compareTo(today) > 0)
             return true;
-        }
 
-        if (selectedDay.compareTo(today) == 0){
+        if (selectedDay.compareTo(today) == 0)
             return isPrenotazioneSingola;
-        }
 
         return false;
     }
@@ -119,7 +120,7 @@ public class PrenotazioneServlet extends HttpServlet {
 
         if (resultList != null) {
 
-            for (PrenotazioneBean p : resultList){
+            for (PrenotazioneBean p : resultList) {
                 if (p.getData().compareTo(selectedDay) == 0)
                     return false;
             }

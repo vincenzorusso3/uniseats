@@ -17,8 +17,7 @@ public class PrenotazioneBean {
     public PrenotazioneBean() {
     }
 
-    public PrenotazioneBean(String codice,String qrCode, Date data, boolean gruppo, String codicePosto, String edificio,  String codiceAula, String matricolaStudente) {
-
+    public PrenotazioneBean(String codice, String qrCode, Date data, boolean gruppo, String codicePosto, String edificio,  String codiceAula, String matricolaStudente) {
         this.codice=codice;
         this.qrCode = qrCode;
         this.data = data;
