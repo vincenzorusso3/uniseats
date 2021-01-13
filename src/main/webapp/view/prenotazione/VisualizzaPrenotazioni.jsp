@@ -22,38 +22,11 @@
 <head>
     <title>Visualizza Prenotazioni</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="../css/Header.css" rel="stylesheet" type="text/css">
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 </head>
 <body>
 
-<div class="topnav" id="myTopnav">
-    <div class="left">
-
-        <a id="linkhome" href="">
-            <img class="logo" src="../img/LogoUniseats.png">
-        </a>
-
-        <a class="link hover" href="">Prenota</a>
-        <a class="link hover" href="">Prenotazioni effettuate</a>
-
-    </div>
-</div>
-
-
-    <div class="right">
-
-        <a id="profile" href="">
-
-            <i class='fas fa-user-alt'></i>
-
-        </a>
-
-        <button class="button">Login</button>
-
-        <a href="javascript:void(0);" class="icon hamburger_menu" onclick="myFunction()">&#9776;</a>
-    </div>
-
+<%@include file="../HeaderView.jsp" %>
 
     <h1> Prenotazioni Effettuate </h1>
 
