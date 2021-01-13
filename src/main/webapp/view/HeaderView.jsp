@@ -13,6 +13,8 @@
 <div class="topnav" id="myTopnav">
     <div class="left">
 
+
+        <!--per il percorso dell'immagine usiamo il contesto-->
         <a id="linkhome" href="">
             <img class="logo" src="${pageContext.servletContext.contextPath}/img/LogoUniseats.png">
         </a>
