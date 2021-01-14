@@ -3,4 +3,59 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+
+    <servlet>
+        <servlet-name>loginServlet</servlet-name>
+        <servlet-class>it.uniseats.control.gestione_accesso.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>loginServlet</servlet-name>
+        <url-pattern>login</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>logoutServlet</servlet-name>
+        <servlet-class>it.uniseats.control.gestione_accesso.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>logoutServlet</servlet-name>
+        <url-pattern>logout</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>managePrenotazioneServlet</servlet-name>
+        <servlet-class>it.uniseats.control.visualizzaPrenotazioni.ManagePrenotazioneServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>managePrenotazioneServlet</servlet-name>
+        <url-pattern>managePrenotazione</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>prenotazioneServlet</servlet-name>
+        <servlet-class>it.uniseats.control.gestione_prenotazione.PrenotazioneServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>prenotazioneServlet</servlet-name>
+        <url-pattern>prenotazione</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>profiloUtenteServlet</servlet-name>
+        <servlet-class>it.uniseats.control.gestione_utente.ProfiloUtenteServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>profiloUtenteServlet</servlet-name>
+        <url-pattern>profilo</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>registrazioneServlet</servlet-name>
+        <servlet-class>it.uniseats.control.gestione_utente.RegistrazioneServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>registrazioneServlet</servlet-name>
+        <url-pattern>registrazione</url-pattern>
+    </servlet-mapping>
+
 </web-app>
