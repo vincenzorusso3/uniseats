@@ -10,7 +10,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>loginServlet</servlet-name>
-        <url-pattern>login</url-pattern>
+        <url-pattern>/login</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -19,7 +19,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>logoutServlet</servlet-name>
-        <url-pattern>logout</url-pattern>
+        <url-pattern>/logout</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -28,7 +28,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>managePrenotazioneServlet</servlet-name>
-        <url-pattern>managePrenotazione</url-pattern>
+        <url-pattern>/managePrenotazione</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -37,7 +37,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>prenotazioneServlet</servlet-name>
-        <url-pattern>prenotazione</url-pattern>
+        <url-pattern>/prenotazione</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -46,7 +46,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>profiloUtenteServlet</servlet-name>
-        <url-pattern>profilo</url-pattern>
+        <url-pattern>/profilo</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -55,7 +55,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>registrazioneServlet</servlet-name>
-        <url-pattern>registrazione</url-pattern>
+        <url-pattern>/registrazione</url-pattern>
     </servlet-mapping>
 
 </web-app>
