@@ -8,9 +8,6 @@ body {
 
 }
 
-
-
-
 .background{
 
     background-image: url("../img/Banner.jpg");
@@ -67,15 +64,6 @@ body {
     clear: both;
 }
 
-/* Responsive columns */
-@media screen and (max-width: 1200px) {
-    .column {
-        width: 80%;
-        display: block;
-        margin-bottom: 30px;
-        margin-left:10%;
-    }
-}
 
 /* Style the counter cards */
 .card {
@@ -84,5 +72,46 @@ body {
     text-align: center;
     background-color: white;
     border-radius: 30px;
-    height: 388px;
+    height: 345px;
 }
+
+
+/* Responsive columns */
+@media screen and (max-width: 1200px) {
+    .column {
+        width: 80%;
+        display: block;
+        margin-bottom: 30px;
+        margin-left:10%;
+    }
+
+    .card {
+        height: 218px;
+    }
+
+    .b1{
+        margin-top:45px;
+    }
+
+
+}
+
+@media screen and (max-width: 740px) {
+
+    .column{
+        width:96%;
+        margin-left:2%;
+    }
+
+}
+
+
+@media screen and (max-width: 414px) {
+
+    .column{
+        width:96%;
+        margin-left:2%;
+    }
+
+}
+
