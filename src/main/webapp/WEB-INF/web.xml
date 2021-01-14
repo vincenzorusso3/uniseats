@@ -5,12 +5,12 @@
          version="4.0">
 
     <servlet>
-        <servlet-name>loginServlet</servlet-name>
+        <servlet-name>LoginServlet</servlet-name>
         <servlet-class>it.uniseats.control.gestione_accesso.LoginServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>loginServlet</servlet-name>
-        <url-pattern>/login</url-pattern>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/LoginServlet</url-pattern>
     </servlet-mapping>
 
     <servlet>

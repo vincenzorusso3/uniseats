@@ -26,8 +26,8 @@
     <div class="message">
 
     </div>
-    <form action="Login" method="post">
-        <input type="hidden" value="Login" name="action">
+    <form action="../../LoginServlet" method="post">
+        <input type="hidden" value="login" name="action">
         <input id="email" type="text" name="email" placeholder="Email" required/>
         <input id="password" type="password" name="password" placeholder="Password" required/>
 
