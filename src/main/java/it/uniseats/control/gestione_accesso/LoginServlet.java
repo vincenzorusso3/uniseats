@@ -38,12 +38,7 @@ public class LoginServlet extends HttpServlet {
                     if (bean != null && bean.getPassword().equals(encrypted)) {
 
                         request.getSession().setAttribute("logged", true);
-                        request.getSession().setAttribute("matricola", bean.getMatricola());
-                        request.getSession().setAttribute("nome", bean.getNome());
-                        request.getSession().setAttribute("cognome", bean.getCognome());
-                        request.getSession().setAttribute("email", bean.getEmail());
-                        request.getSession().setAttribute("anno", bean.getAnno());
-                        request.getSession().setAttribute("dipartimento", bean.getDipartimento());
+                        request.getSession().setAttribute("user", bean);
 
                         //redirect to LandindPage
                         redirectedPage = "/LandingPageView.jsp";
