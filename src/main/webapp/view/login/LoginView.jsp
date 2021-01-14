@@ -32,8 +32,8 @@
         <input id="password" type="password" name="password" placeholder="Password" required/>
 
         <div class="new">
-            <h6>Non hai un account?</h6>
-            <a href="Registrazione.jsp"> Registrati </a>
+            <h6>Non hai un account ?</h6>
+            <a > Registrati </a>
         </div>
 
         <div class="bottoni" align="center">
