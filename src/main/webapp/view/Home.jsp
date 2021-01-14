@@ -15,15 +15,17 @@
 </head>
 <body>
 <%@include file="HeaderView.jsp" %>
+
     <div class="background">
 
-        <h1>Prenota il tuo posto <br>
-        in un aula con Uniseats</h1>
+        <h1>Prenota il tuo posto
+        in aula con Uniseats</h1>
+
+        <button class="buttonHome">Inizia ora</button>
 
     </div>
 
 
-<button class="buttonHome">inizia ora</button>
 
 
 </div>
