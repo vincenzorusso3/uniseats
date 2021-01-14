@@ -29,7 +29,7 @@
     </div>
 
     <div class="right">
-        <button class="button">Login</button>
+        <a href="./login/LoginView.jsp" class="button">Login</a>
 
         <%
         } else{
