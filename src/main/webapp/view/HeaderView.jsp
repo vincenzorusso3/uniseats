@@ -23,15 +23,24 @@
         <!--se loggato visualizzo le opzioni-->
         <%
             Boolean logged = (Boolean) request.getSession().getAttribute("logged");
-            if (logged) {
+            if (logged == null || !logged) {
         %>
+
+    </div>
+
+    <div class="right">
+        <button class="button">Login</button>
+
+        <%
+        } else{
+        %>
+
+    </div>
+
+    <div class="left">
 
         <a class="link hover" href="../prenotazione/NuovaPrenotazione.jsp">Prenota</a>
         <a class="link hover" href="<%=response.encodeURL("ManagePrenotazioneServlet?action=visualizzaPrenotazioni") %>">Prenotazioni effettuate</a>
-
-        <%
-            }
-        %>
 
     </div>
 
@@ -45,23 +54,11 @@
         </a>
 
         <%
-            if (logged == null || !logged) {
-        %>
-
-        <button class="button">Login</button>
-
-        <%
-            } else{
-
-        %>
-
-        <button class="button">Logout</button>
-
-        <%
             }
         %>
 
         <a href="javascript:void(0);" class="icon hamburger_menu" onclick="myFunction()">&#9776;</a>
+
     </div>
 </div>
 
