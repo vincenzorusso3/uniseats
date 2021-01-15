@@ -1,0 +1,40 @@
+.background{
+    background-image:url("../img/Banner.jpg");
+    height: 115px;
+    z-index: 0;
+
+}
+
+h1{
+    float:left;
+    color:white;
+    margin-left:43px;
+    font-size:46px;
+}
+
+.form {
+
+    background: #FFFFFF;
+    margin: 6% auto;
+    text-align:center;
+}
+input[type="submit"] {
+    background-color:#236292;
+    border: none;
+    color: white;
+    padding: 6px 30px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 7px;
+
+    cursor: pointer;
+    width: 168px;
+
+}
+
+input[type="date"] {
+    margin-top:21px;
+    margin-bottom:61px;
+
+}
