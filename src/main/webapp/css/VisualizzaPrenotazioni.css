@@ -1,0 +1,101 @@
+.background{
+    background-image:url("../img/Banner.jpg");
+    height: 115px;
+    z-index: 0;
+
+}
+
+
+h1{
+    float:left;
+    color:white;
+    margin-left:43px;
+    font-size:46px;
+}
+
+
+.cardContainer{
+
+    width: 350px;
+    padding: 30px;
+    background: #FFFFFF;
+    margin: auto;
+}
+
+
+.card{
+
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+    padding: 0;
+    text-align: center;
+    background-color: white;
+    border-radius: 7px;
+    height: 131px;
+    margin-top:39px;
+}
+
+.date{
+    background-color:#236292;
+    color:white;
+    border-radius: 7px 7px 0 0;
+    padding:11px;
+    font-weight: 100;
+}
+
+.leftC{
+    float:left;
+    text-align: left;
+    margin-left: 27px;
+    margin-top: -26px;
+
+}
+
+h6.edificio, h6.posto{
+
+    margin-bottom:-20px;
+    font-size: 12px;
+    font-weight: 100;
+}
+
+.card a{
+    position:sticky;
+    color:#236292;
+}
+
+.card .fa, .card .fas{
+    margin-bottom: 5px;
+}
+
+input[type="button"]{
+    background-color:#236292;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 10px;
+    border-radius: 7px;
+    margin-top:5px;
+    cursor: pointer;
+    width: 53px;
+}
+
+
+@media screen and (max-width: 470px){
+
+    h1{
+        font-size:38px;
+        margin-top:36px;
+    }
+}
+
+
+
+@media screen and (max-width: 350px){
+
+    h1{
+        font-size:38px;
+        margin-top:36px;
+        margin-left: 15px;
+    }
+
+}

@@ -38,3 +38,24 @@ input[type="date"] {
     margin-bottom:61px;
 
 }
+
+
+@media screen and (max-width: 470px){
+
+    h1{
+        font-size:38px;
+        margin-top:36px;
+    }
+}
+
+
+
+@media screen and (max-width: 350px){
+
+    h1{
+        font-size:38px;
+        margin-top:36px;
+        margin-left: 15px;
+    }
+
+}
