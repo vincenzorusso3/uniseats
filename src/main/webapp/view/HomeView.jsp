@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: benedettosimone
-  Date: 30/12/20
-  Time: 12:56
-  To change this template use File | Settings | File Templates.
---%>
 
 <html>
 <head>
@@ -16,6 +9,9 @@
 <body>
 <%@include file="HeaderView.jsp" %>
 
+
+
+<div><h3>Profilo eliminato con successo</h3></div>
     <div class="background">
 
         <h1>Prenota il tuo posto
