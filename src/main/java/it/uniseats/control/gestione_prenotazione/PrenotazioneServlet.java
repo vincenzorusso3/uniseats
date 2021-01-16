@@ -86,7 +86,7 @@ public class PrenotazioneServlet extends HttpServlet {
                         //Utente NON ha prenotazioni e c'e' almeno un posto libero
                         String qrCode = QrCodeGenerator.generateCode(matricola);
 
-                        PrenotazioneBean prenotazione = new PrenotazioneBean(qrCode, new Date(), isPrenotazioneSingola, "", "", "", matricola);
+                        PrenotazioneBean prenotazione = new PrenotazioneBean(qrCode, new Date(), isPrenotazioneSingola, "", "", matricola);
                         Integer result = (Integer) PrenotazioneDAO.doQuery("doSave", prenotazione);
 
                         if (result != null && result > 0) {
