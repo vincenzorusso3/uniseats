@@ -17,14 +17,14 @@ public class PostoBean {
      * Costruttore
      * @param codice codice identificativo di un posto
      */
-    public PostoBean(String codice) {
+    public PostoBean(String codice, String codiceAula) {
         this.codice = codice;
+        this.codiceAula = codiceAula;
     }
 
     public String getCodice() {
         return codice;
     }
-
 
     public String getCodiceAula() {
         return codiceAula;

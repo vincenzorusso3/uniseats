@@ -49,7 +49,7 @@ public class PrenotazioneDAO {
                         return doRetrieveAll(preparedStatement, (String) parameter);
 
                     case "doSave":
-                        querySQL = "INSERT INTO " + TABLE_NAME + " (codice, dataPrenotazione, tipologia, codicePosto, codiceAula, matricolaStudente) VALUES (?,?,?,?,?,?,?)";
+                        querySQL = "INSERT INTO " + TABLE_NAME + " (codice, dataPrenotazione, tipologia, codicePosto, codiceAula, matricolaStudente) VALUES (?,?,?,?,?,?)";
                         preparedStatement = connection.prepareStatement(querySQL);
                         return doSave(preparedStatement, (PrenotazioneBean) parameter);
 
