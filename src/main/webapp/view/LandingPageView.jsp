@@ -36,7 +36,7 @@
         <div class="card">
             <p class="title">NUOVA PRENOTAZIONE</p>
             <p><h6>Effettua una nuova prenotazione</h6></p>
-            <p class="b1"><a href="./prenotazione/NuovaPrenotazione.jsp" class="buttonC">  Prenota </a></p>
+            <p class="b1"><a href="prenotazione/NuovaPrenotazioneView.jsp" class="buttonC">  Prenota </a></p>
         </div>
     </div>
 

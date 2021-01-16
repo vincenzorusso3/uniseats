@@ -57,7 +57,7 @@ public class PrenotazioneServlet extends HttpServlet {
                     break;
             }
         }else{
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/view/prenotazione/NuovaPrenotazione.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/view/prenotazione/NuovaPrenotazioneView.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -65,7 +65,7 @@ public class PrenotazioneServlet extends HttpServlet {
     private void prenotazione(HttpServletRequest request, HttpServletResponse response, boolean isPrenotazioneSingola) throws ParseException, SQLException, ServletException, IOException {
         String date;
 
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/view/prenotazione/NuovaPrenotazione.jsp");
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/view/prenotazione/NuovaPrenotazioneView.jsp");
 
         if (isPrenotazioneSingola)
             date = request.getParameter("dateValueSingolo");
@@ -92,7 +92,7 @@ public class PrenotazioneServlet extends HttpServlet {
                         if (result != null && result > 0) {
                             //TODO Intelligenza Artificiale
 
-                            dispatcher = getServletContext().getRequestDispatcher("/view/prenotazione/VisualizzaPrenotazioni.jsp");
+                            dispatcher = getServletContext().getRequestDispatcher("/view/prenotazione/VisualizzaPrenotazioniView.jsp");
 
                         } else {
                             request.setAttribute("errore", DB_ERROR);

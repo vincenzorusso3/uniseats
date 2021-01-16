@@ -25,7 +25,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
        String action = request.getParameter("action");
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/VisualizzaPrenotazioni.jsp");
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/VisualizzaPrenotazioniView.jsp");
 
         if(action != null) {
             try {
@@ -40,7 +40,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
 
                     bean = (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", request.getParameter("codice"));
                     request.setAttribute("codice", bean.getCodice());
-                    dispatcher = request.getServletContext().getRequestDispatcher("/ModificaPrenotazioni.jsp");
+                    dispatcher = request.getServletContext().getRequestDispatcher("/ModificaPrenotazioniView.jsp");
 
                 } else if (action.equalsIgnoreCase("modificaPrenotazione")) {
 

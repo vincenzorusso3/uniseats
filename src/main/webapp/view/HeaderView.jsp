@@ -39,7 +39,7 @@
 
     <div class="left">
 
-        <a class="link hover" href="./view/prenotazione/NuovaPrenotazione.jsp">Prenota</a>
+        <a class="link hover" href="./view/prenotazione/NuovaPrenotazioneView.jsp">Prenota</a>
         <a class="link hover" href="<%=response.encodeURL("ManagePrenotazioneServlet?action=visualizzaPrenotazioni") %>">Prenotazioni effettuate</a>
 
     </div>
