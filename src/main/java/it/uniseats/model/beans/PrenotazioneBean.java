@@ -9,7 +9,7 @@ public class PrenotazioneBean {
      */
     private String codice;
     private Date data;
-    private int gruppo;
+    private boolean singolo;
     private String codicePosto;
     private String codiceAula;
     private String matricolaStudente;
@@ -25,15 +25,15 @@ public class PrenotazioneBean {
      *
      * @param codice            il codice della prenotazione
      * @param data              la data per la quale è prevista la prenotazione
-     * @param gruppo            la tipologia di prenotazione (1 = gruppo, 0 = singolo)
+     * @param singolo            la tipologia di prenotazione (1 = gruppo, 0 = singolo)
      * @param codicePosto       il codice del posto a sedere nell'aula
      * @param codiceAula        il codice dell'aula per la quale si prenota un posto
      * @param matricolaStudente la matricola dello studente che effettua la prenotazione
      */
-    public PrenotazioneBean(String codice, Date data, int gruppo, String codicePosto, String codiceAula, String matricolaStudente) {
+    public PrenotazioneBean(String codice, Date data, boolean singolo, String codicePosto, String codiceAula, String matricolaStudente) {
         this.codice = codice;
         this.data = data;
-        this.gruppo = gruppo;
+        this.singolo = singolo;
         this.codicePosto = codicePosto;
         this.codiceAula = codiceAula;
         this.matricolaStudente = matricolaStudente;
@@ -56,8 +56,8 @@ public class PrenotazioneBean {
     /**
      * @return 1 se la prenotazione è in gruppo, 0 se la prenotazione è singola
      */
-    public int isGruppo() {
-        return gruppo;
+    public boolean isSingolo() {
+        return singolo;
     }
 
     /**
@@ -123,8 +123,8 @@ public class PrenotazioneBean {
      *
      * @param gruppo la tipologia di prenotazione (1 = gruppo, 0 = singolo)
      */
-    public void setGruppo(int gruppo) {
-        this.gruppo = gruppo;
+    public void setSingolo(boolean gruppo) {
+        this.singolo = singolo;
     }
 
     /**
