@@ -39,7 +39,7 @@ public class PrenotazioneDAO {
                         return doRetrieveByCode(preparedStatement, (String) parameter);
 
                     case "doFindPrenotazioni":
-                        querySQL = "SELECT dataPrenotazione, edificio, codiceAula, codicePosto FROM "+ TABLE_NAME +" WHERE matricolaStudente=?";
+                        querySQL = "SELECT codice, dataPrenotazione, codiceAula, codicePosto, tipologia FROM "+ TABLE_NAME +" WHERE matricolaStudente=?";
                         preparedStatement = connection.prepareStatement(querySQL);
                         return doFindPrenotazioni(preparedStatement, (String) parameter);
 
@@ -49,7 +49,7 @@ public class PrenotazioneDAO {
                         return doRetrieveAll(preparedStatement, (String) parameter);
 
                     case "doSave":
-                        querySQL = "INSERT INTO " + TABLE_NAME + " (codice, dataPrenotazione, tipologia,//////, edificio,///////, matricolaStudente) VALUES (?,?,?,?,?,?,?)";
+                        querySQL = "INSERT INTO " + TABLE_NAME + " (codice, dataPrenotazione, tipologia, codicePosto, codiceAula, matricolaStudente) VALUES (?,?,?,?,?,?,?)";
                         preparedStatement = connection.prepareStatement(querySQL);
                         return doSave(preparedStatement, (PrenotazioneBean) parameter);
 
@@ -102,10 +102,11 @@ public class PrenotazioneDAO {
 
         while (rs.next()) {
             PrenotazioneBean bean = new PrenotazioneBean();
-            bean.setData(rs.getDate("data"));
-            bean.setEdificio(rs.getString("edificio"));
+            bean.setCodice(rs.getString("codice"));
+            bean.setData(rs.getDate("dataPrenotazione"));
             bean.setCodiceAula(rs.getString("codiceAula"));
             bean.setCodicePosto(rs.getString("codicePosto"));
+            bean.setSingolo(rs.getBoolean("tipologia"));
 
             prenotazioni.add(bean);
         }
@@ -145,11 +146,10 @@ public class PrenotazioneDAO {
 
         preparedStatement.setString(1, prenotazioneBean.getCodice());
         preparedStatement.setDate(2, (Date) prenotazioneBean.getData());
-        preparedStatement.setBoolean(3, prenotazioneBean.isGruppo());
-        preparedStatement.setString(4,prenotazioneBean.getCodicePosto());
-        preparedStatement.setString(5,prenotazioneBean.getEdificio());
-        preparedStatement.setString(6, prenotazioneBean.getCodiceAula());
-        preparedStatement.setString(7,prenotazioneBean.getMatricolaStudente());
+        preparedStatement.setBoolean(3, prenotazioneBean.isSingolo());
+        preparedStatement.setString(4, prenotazioneBean.getCodicePosto());
+        preparedStatement.setString(5, prenotazioneBean.getCodiceAula());
+        preparedStatement.setString(6, prenotazioneBean.getMatricolaStudente());
 
         return preparedStatement.executeUpdate();
 
@@ -166,7 +166,7 @@ public class PrenotazioneDAO {
 
     private static synchronized int doUpdateTipo(PreparedStatement preparedStatement, PrenotazioneBean prenotazioneBean) throws SQLException {
 
-        preparedStatement.setBoolean(1, prenotazioneBean.isGruppo());
+        preparedStatement.setBoolean(1, prenotazioneBean.isSingolo());
         return preparedStatement.executeUpdate();
 
     }
@@ -186,14 +186,11 @@ public class PrenotazioneDAO {
         PrenotazioneBean prenotazioneBean = new PrenotazioneBean();
 
         prenotazioneBean.setCodice(rs.getString("codice"));
-        prenotazioneBean.setData(rs.getDate("data"));
-        prenotazioneBean.setGruppo(rs.getBoolean("gruppo"));
+        prenotazioneBean.setData(rs.getDate("dataPrenotazione"));
+        prenotazioneBean.setSingolo(rs.getBoolean("gruppo"));
         prenotazioneBean.setMatricolaStudente(rs.getString("matricolaStudente"));
         prenotazioneBean.setCodicePosto(rs.getString("codicePosto"));
-        prenotazioneBean.setEdificio(rs.getString("edificio"));
         prenotazioneBean.setCodiceAula(rs.getString("codiceAula"));
-
-
 
         return prenotazioneBean;
     }
