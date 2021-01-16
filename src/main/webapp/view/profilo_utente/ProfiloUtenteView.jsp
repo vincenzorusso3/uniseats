@@ -16,8 +16,6 @@
 <head>
     <title>Profilo Utente</title>
     <link href="../../css/ProfiloUtente.css" rel="stylesheet" type="text/css">
-    <link href="../../css/Header.css" rel="stylesheet" type="text/css">
-
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 </head>
 <body>
@@ -31,15 +29,16 @@
 </div>
 
 <div class="list-group col-md-6 pull-right pad">
+
     <p class="list-group-item highlight">Nome<span class="pull-right right"><%=studenteBean.getNome()%>></span></p>
     <p class="list-group-item highlight">Cognome<span class="pull-right right"><%=studenteBean.getCognome()%></span></p>
     <p class="list-group-item highlight">Matricola<span class="pull-right right"><%=studenteBean.getMatricola()%></span></p>
     <p class="list-group-item highlight">Dipartimento<span class="pull-right right"><%=studenteBean.getDipartimento()%></span></p>
-    <p class="list-group-item highlight">Anno
-        <a class="modificaButton" href="#popup2" ><i class="fas fa-pen-square"></i></a>
-        <span class="pull-right right"><%=studenteBean.getAnno()%></span>
 
+    <p class="list-group-item highlight">Anno<a class="modificaButton" href="#popup2" ><i class="fas fa-pen-square"></i></a>
+        <span class="pull-right right"><%=studenteBean.getAnno()%></span>
     </p>
+
     <p class="list-group-item highlight">Email<span class="pull-right right"><%=studenteBean.getEmail()%></span></p>
 
 
@@ -67,7 +66,7 @@
 
         <div class="content">
             <a class="btn btn-success btn-md" href="#" >No</a>
-            <form action="ProfiloUtenteServlet" method="post">
+            <form action="../../profilo" method="post">
                 <input type="hidden" value="confermaDelete" name="action">
                 <button class="btn btn-danger btn-md" >Si</button>
             </form>
@@ -82,7 +81,7 @@
     <div class="popup">
         <h2>Modifica anno di corso</h2>
 
-        <form action="ProfiloUtenteServlet" method="post">
+        <form action="../../profilo" method="post">
 
         <select class="md-textfield-input" id="anno" name="anno" required >
             <option value="1">Primo anno</option>

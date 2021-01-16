@@ -16,7 +16,7 @@
 
         <!--per il percorso dell'immagine usiamo il contesto-->
         <a id="linkhome" href="">
-            <img class="logo" src="${pageContext.servletContext.contextPath}/img/LogoUniseats.png">
+            <img class="logo" src="./img/LogoUniseats.png">
         </a>
 
 
@@ -29,7 +29,7 @@
     </div>
 
     <div class="right">
-        <a href="./login/LoginView.jsp" class="button">Login</a>
+        <a href="./view/login/LoginView.jsp" class="button">Login</a>
 
         <%
         } else{
@@ -39,7 +39,7 @@
 
     <div class="left">
 
-        <a class="link hover" href="../prenotazione/NuovaPrenotazione.jsp">Prenota</a>
+        <a class="link hover" href="./view/prenotazione/NuovaPrenotazione.jsp">Prenota</a>
         <a class="link hover" href="<%=response.encodeURL("ManagePrenotazioneServlet?action=visualizzaPrenotazioni") %>">Prenotazioni effettuate</a>
 
     </div>
@@ -62,7 +62,7 @@
     </div>
 </div>
 
-<script src="../js/Header.js"></script>
+<script src="./js/Header.js"></script>
 
 </body>
 </html>

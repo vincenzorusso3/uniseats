@@ -14,8 +14,8 @@ import java.io.IOException;
 
 @WebServlet(name = "LoginServlet")
 public class LoginServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
-        doPost(request, response);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        doGet(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -34,19 +34,19 @@ public class LoginServlet extends HttpServlet {
 
                 String redirectedPage;
                 try {
-                    StudenteBean bean = (StudenteBean) StudenteDAO.doQuery("doRetrieveByEmail",(Object) email);
+                    StudenteBean bean = (StudenteBean) StudenteDAO.doQuery("doRetrieveByEmail", email);
                     if (bean != null && bean.getPassword().equals(encrypted)) {
 
                         request.getSession().setAttribute("logged", true);
                         request.getSession().setAttribute("user", bean);
 
                         //redirect to LandindPage
-                        redirectedPage = "/LandingPageView.jsp";
+                        redirectedPage = "/view/LandingPageView.jsp";
                         response.sendRedirect(request.getContextPath() + redirectedPage);
                     } else {
                         String message = "Username e/o password non validi!";
                         request.setAttribute("errore", message);
-                        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/LoginView.jsp");
+                        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/view/login/LoginView.jsp");
                         dispatcher.forward(request, response);
                     }
 
@@ -58,7 +58,7 @@ public class LoginServlet extends HttpServlet {
             }
 
         } else {
-            response.sendRedirect(request.getContextPath() + "/LoginView.jsp");
+            response.sendRedirect(request.getContextPath() + "/view/login/LoginView.jsp");
         }
     }
 

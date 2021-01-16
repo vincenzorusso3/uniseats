@@ -32,7 +32,7 @@
     <label for="calendar">Seleziona la data della prenotazione:</label><br>
     <input type="date" id="calendar"><br>
 
-    <form action="PrenotazioneServlet" method="post">
+    <form action="../../prenotazione" method="post">
         <input type="hidden" value="prenotazioneSingola" name="action">
         <input type="hidden" value="" name="dateValueSingolo" id="dateInputSingolo">
 
@@ -41,7 +41,7 @@
         </div>
     </form>
 
-    <form action="PrenotazioneServlet" method="post">
+    <form action="../../prenotazione" method="post">
         <input type="hidden" value="prenotazioneGruppo" name="action">
         <input type="hidden" value="" name="dateValueGruppo" id="dateInputGruppo">
 

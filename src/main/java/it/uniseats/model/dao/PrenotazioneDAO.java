@@ -49,7 +49,7 @@ public class PrenotazioneDAO {
                         return doRetrieveAll(preparedStatement, (String) parameter);
 
                     case "doSave":
-                        querySQL = "INSERT INTO " + TABLE_NAME + " (codice, matricolaStudente, dataPrenotazione, tipologia, qrCode) VALUES (?,?,?,?,?)";
+                        querySQL = "INSERT INTO " + TABLE_NAME + " (codice, dataPrenotazione, tipologia,//////, edificio,///////, matricolaStudente) VALUES (?,?,?,?,?,?,?)";
                         preparedStatement = connection.prepareStatement(querySQL);
                         return doSave(preparedStatement, (PrenotazioneBean) parameter);
 
@@ -144,14 +144,12 @@ public class PrenotazioneDAO {
     private static synchronized int doSave(PreparedStatement preparedStatement, PrenotazioneBean prenotazioneBean) throws SQLException {
 
         preparedStatement.setString(1, prenotazioneBean.getCodice());
-        preparedStatement.setString(2, prenotazioneBean.getMatricolaStudente());
-        preparedStatement.setDate(3, (Date) prenotazioneBean.getData());
-        preparedStatement.setBoolean(4, prenotazioneBean.isGruppo());
-        preparedStatement.setString(5, prenotazioneBean.getQrCode());
+        preparedStatement.setDate(2, (Date) prenotazioneBean.getData());
+        preparedStatement.setBoolean(3, prenotazioneBean.isGruppo());
+        preparedStatement.setString(4,prenotazioneBean.getCodicePosto());
+        preparedStatement.setString(5,prenotazioneBean.getEdificio());
         preparedStatement.setString(6, prenotazioneBean.getCodiceAula());
-        preparedStatement.setString(7,prenotazioneBean.getCodicePosto());
-        preparedStatement.setString(8,prenotazioneBean.getMatricolaStudente());
-        preparedStatement.setString(9,prenotazioneBean.getEdificio());
+        preparedStatement.setString(7,prenotazioneBean.getMatricolaStudente());
 
         return preparedStatement.executeUpdate();
 
@@ -188,7 +186,6 @@ public class PrenotazioneDAO {
         PrenotazioneBean prenotazioneBean = new PrenotazioneBean();
 
         prenotazioneBean.setCodice(rs.getString("codice"));
-        prenotazioneBean.setQrCode(rs.getString("qrCode"));
         prenotazioneBean.setData(rs.getDate("data"));
         prenotazioneBean.setGruppo(rs.getBoolean("gruppo"));
         prenotazioneBean.setMatricolaStudente(rs.getString("matricolaStudente"));

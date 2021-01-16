@@ -63,7 +63,7 @@
 <div class="form">
 
 
-    <form id="registrazione" action="" method="post">
+    <form id="registrazione" action="../../registrazione" method="post">
 
         <input type="hidden" value="add" name="action">
 

@@ -12,8 +12,9 @@
 
 <%
     Collection<?> prenotazioni = (Collection<?>)  request.getAttribute("prenotazioni");
+
     if(prenotazioni==null){
-        response.sendRedirect(response.encodeRedirectURL("./ManagePrenotazioneServlet?=visualizzaPrenotazioni"));
+        response.sendRedirect(response.encodeRedirectURL("../../managePrenotazione?action=visualizzaPrenotazioni"));
         return;
     }
 
@@ -41,7 +42,7 @@
 
 
         <%
-            if(prenotazioni!= null && prenotazioni.size()>0){
+            if(prenotazioni.size()>0){
                 Iterator <?> it = prenotazioni.iterator();
                 while(it.hasNext()){
                     PrenotazioneBean bean = (PrenotazioneBean) it.next();
@@ -57,10 +58,11 @@
             <h6 class="posto">Posto: <%=bean.getCodicePosto()%></h6>
         </div>
 
-        <h6><%=bean.getQrCode()%></h6>
+        <h6><%=bean.getCodice()%></h6>
 
 
-        <form method="POST" action="./ManagePrenotazioneServlet?action=modifica">
+        <form method="POST" action="../../managePrenotazione">
+            <input name="action" value="modifica" hidden>
             <input type="button" name="modifica" value="Modifica"/>
         </form>
 

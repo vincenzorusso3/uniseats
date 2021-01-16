@@ -22,35 +22,35 @@
 </head>
 <body>
 <%@include file="../HeaderView.jsp" %>
-    <div class="background">
 
+<div class="background">
         <h1>Accedi</h1>
-
-    </div>
+</div>
 
 <div class="message">
 
         <%
             if (errore != null) {
 
-        %> <h3><%=errore%></h3>
-                <%
+        %>
+            <h3><%=errore%></h3>
+        <%
             }
-            %>
+        %>
 
 <div class="form">
 
     <div class="message">
 
     </div>
-    <form action="../../LoginServlet" method="post">
+    <form action="../../login" method="post">
         <input type="hidden" value="login" name="action">
         <input id="email" type="text" name="email" placeholder="Email" required/>
         <input id="password" type="password" name="password" placeholder="Password" required/>
 
         <div class="new">
             <h6>Non hai un account ?</h6>
-            <a href="../profilo_utente/Registrazione.jsp" > Registrati </a>
+            <a href="../profilo_utente/RegistrazioneView.jsp" > Registrati </a>
         </div>
 
         <div class="bottoni" align="center">

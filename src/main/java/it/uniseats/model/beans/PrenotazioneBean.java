@@ -5,7 +5,6 @@ import java.util.Date;
 public class PrenotazioneBean {
 
     private String codice;
-    private String qrCode;
     private Date data;
     private boolean gruppo;
     private String codicePosto;
@@ -17,9 +16,8 @@ public class PrenotazioneBean {
     public PrenotazioneBean() {
     }
 
-    public PrenotazioneBean(String codice, String qrCode, Date data, boolean gruppo, String codicePosto, String edificio,  String codiceAula, String matricolaStudente) {
+    public PrenotazioneBean(String codice, Date data, boolean gruppo, String codicePosto, String edificio,  String codiceAula, String matricolaStudente) {
         this.codice=codice;
-        this.qrCode = qrCode;
         this.data = data;
         this.gruppo = gruppo;
         this.codicePosto= codicePosto;
@@ -29,10 +27,6 @@ public class PrenotazioneBean {
     }
 
     public String getCodice() { return codice; }
-
-    public String getQrCode() {
-        return qrCode;
-    }
 
     public Date getData() {
         return data;
@@ -53,10 +47,6 @@ public class PrenotazioneBean {
     public void setCodiceAula(String codiceAula) { this.codiceAula = codiceAula; }
 
     public void setMatricolaStudente(String matricolaStudente) { this.matricolaStudente = matricolaStudente; }
-
-    public void setQrCode(String qrCode) {
-        this.qrCode = qrCode;
-    }
 
     public void setData(Date data) {
         this.data = data;

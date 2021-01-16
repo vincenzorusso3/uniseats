@@ -27,7 +27,7 @@ public class PrenotazioneBeanTest{
     void testPrenotazioneConstructor() throws ParseException {
         DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
         Date date = df.parse("10/02/2021");
-        PrenotazioneBean prenotazioneBean = new PrenotazioneBean("0001","0001-0512105933",date, false, "1", "F3", "INF-01", "0512105933");
+        PrenotazioneBean prenotazioneBean = new PrenotazioneBean("0001-0512105933",date, false, "1", "F3", "INF-01", "0512105933");
         assertNotNull(prenotazioneBean);
     }
 
@@ -39,7 +39,7 @@ public class PrenotazioneBeanTest{
     void testGetCodice() throws ParseException {
         DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
         Date date = df.parse("10/02/2021");
-        PrenotazioneBean prenotazioneBean = new PrenotazioneBean("0001","0001-0512105933",date, false, "1", "F3", "INF_01", "0512105933");
+        PrenotazioneBean prenotazioneBean = new PrenotazioneBean("0001-0512105933",date, false, "1", "F3", "INF_01", "0512105933");
         assertEquals("0001", prenotazioneBean.getCodice());
 
     }
@@ -49,8 +49,8 @@ public class PrenotazioneBeanTest{
     void testGetQrCode() throws ParseException {
         DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
         Date date = df.parse("10/02/2021");
-        PrenotazioneBean prenotazioneBean = new PrenotazioneBean("0001","0001-0512105933-10022021",date, false, "1","F3", "INF_01", "0512105933");
-        assertEquals("0001-0512105933-10022021", prenotazioneBean.getQrCode());
+        PrenotazioneBean prenotazioneBean = new PrenotazioneBean("0001-0512105933-10022021",date, false, "1","F3", "INF_01", "0512105933");
+        assertEquals("0001-0512105933-10022021", prenotazioneBean.getCodice());
 
     }
 
@@ -58,7 +58,7 @@ public class PrenotazioneBeanTest{
     void testGetData() throws ParseException {
         DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
         Date date = df.parse("10/02/2021");
-        PrenotazioneBean prenotazioneBean = new PrenotazioneBean("0001","0001-0512105933",date, false, "1", "F3", "INF_01", "0512105933");
+        PrenotazioneBean prenotazioneBean = new PrenotazioneBean("0001-0512105933",date, false, "1", "F3", "INF_01", "0512105933");
         assertEquals(date, prenotazioneBean.getData());
 
     }
@@ -67,7 +67,7 @@ public class PrenotazioneBeanTest{
     void testIsGruppo() throws ParseException {
         DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
         Date date = df.parse("10/02/2021");
-        PrenotazioneBean prenotazioneBean = new PrenotazioneBean("0001","0001-0512105933",date, false, "1","F3", "INF_01", "0512105933");
+        PrenotazioneBean prenotazioneBean = new PrenotazioneBean("0001-0512105933",date, false, "1","F3", "INF_01", "0512105933");
         assertEquals(false, prenotazioneBean.isGruppo());
 
     }
@@ -76,7 +76,7 @@ public class PrenotazioneBeanTest{
     void testGetMatricolaStudente() throws ParseException {
         DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
         Date date = df.parse("10/02/2021");
-        PrenotazioneBean prenotazioneBean = new PrenotazioneBean("0001","0001-0512105933",date, false, "1","F3", "INF_01", "0512105933");
+        PrenotazioneBean prenotazioneBean = new PrenotazioneBean("0001-0512105933",date, false, "1","F3", "INF_01", "0512105933");
         assertEquals("0512105933", prenotazioneBean.getMatricolaStudente());
 
     }
@@ -85,7 +85,7 @@ public class PrenotazioneBeanTest{
     void testGetCodiceAula() throws ParseException {
         DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
         Date date = df.parse("10/02/2021");
-        PrenotazioneBean prenotazioneBean = new PrenotazioneBean("0001","0001-0512105933",date, false, "1", "F3", "INF_01", "0512105933");
+        PrenotazioneBean prenotazioneBean = new PrenotazioneBean("0001-0512105933",date, false, "1", "F3", "INF_01", "0512105933");
         assertEquals("INF_01", prenotazioneBean.getCodiceAula());
  }
 
@@ -93,7 +93,7 @@ public class PrenotazioneBeanTest{
     void testGetCodicePosto() throws ParseException{
         DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
         Date date = df.parse("10/02/2021");
-        PrenotazioneBean prenotazioneBean = new PrenotazioneBean("0001","0001-0512105933",date, false, "1", "F3", "INF_01", "0512105933");
+        PrenotazioneBean prenotazioneBean = new PrenotazioneBean("0001-0512105933",date, false, "1", "F3", "INF_01", "0512105933");
         assertEquals("1", prenotazioneBean.getCodicePosto());
 
     }
@@ -102,7 +102,7 @@ public class PrenotazioneBeanTest{
     void testGetEdificio() throws ParseException{
         DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
         Date date = df.parse("10/02/2021");
-        PrenotazioneBean prenotazioneBean = new PrenotazioneBean("0001","0001-0512105933",date, false, "1", "F3","INF_01", "0512105933");
+        PrenotazioneBean prenotazioneBean = new PrenotazioneBean("0001-0512105933",date, false, "1", "F3","INF_01", "0512105933");
         assertEquals("F3", prenotazioneBean.getEdificio());
 
 
@@ -121,8 +121,8 @@ public class PrenotazioneBeanTest{
     @Test
     void testSetQrCode(){
         PrenotazioneBean prenotazioneBean = new PrenotazioneBean();
-        prenotazioneBean.setQrCode("0002-0512105949-19022021");
-        assertEquals("0002-0512105949-19022021", prenotazioneBean.getQrCode());
+        prenotazioneBean.setCodice("0002-0512105949-19022021");
+        assertEquals("0002-0512105949-19022021", prenotazioneBean.getCodice());
     }
 
     @Test

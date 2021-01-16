@@ -13,7 +13,7 @@
 
 </head>
 <body>
-<%@include file="HeaderView.jsp" %>
+<%@include file="/view/HeaderView.jsp" %>
 
     <%
         if (errore != null) {
@@ -24,6 +24,7 @@
         }
     %>
 
+<div>
     <div class="background">
 
         <h1>Prenota il tuo posto

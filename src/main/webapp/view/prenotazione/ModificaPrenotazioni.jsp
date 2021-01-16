@@ -15,11 +15,11 @@
 </head>
 <body>
 
-<form action="<%=response.encodeURL("./ManagePrenotazioneServlet?action=modificaPrenotazione")%>">
+<form action="../../managePrenotazione">
+    <input type="text" name="action" value="modificaPrenotazione" hidden>
     <input type="date" name="data" value="date" placeholder="<%=prenotazioneBean.getData()%>"><br>
     <label><%=prenotazioneBean.getEdificio()%></label>
     <label><%=prenotazioneBean.getCodiceAula()%></label>
-    <label><%=prenotazioneBean.getQrCode()%></label>
     <label><%=prenotazioneBean.getCodicePosto()%></label>
     //TODO mostrare il tipo di prenotazione
 

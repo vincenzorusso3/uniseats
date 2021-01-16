@@ -5,7 +5,7 @@
     // Check logged
     Boolean logged = (Boolean) session.getAttribute("logged");
     if ((logged == null) || (!logged)) {
-        response.sendRedirect("./login/LoginView.jsp");
+        response.sendRedirect("/login/LoginView.jsp");
         return;
     }
 %>
@@ -18,7 +18,7 @@
     <link href="../css/LandingPage.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<%@include file="HeaderView.jsp" %>
+<%@include file="/view/HeaderView.jsp" %>
 
 <div class="background"></div>
 
