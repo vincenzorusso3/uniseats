@@ -2,12 +2,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <%
-    // Check logged
+   /* // Check logged
     Boolean loggato = (Boolean) session.getAttribute("logged");
     if ((loggato == null) || (!loggato)) {
         response.sendRedirect("/login/LoginView.jsp");
         return;
     }
+    */
+
 %>
 
 <!DOCTYPE html>

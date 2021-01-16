@@ -9,7 +9,7 @@
 <%@ page import="java.util.Iterator" %>
 <%@ page import="it.uniseats.model.beans.StudenteBean" %>
 
-<% StudenteBean studenteBean= (StudenteBean) request.getAttribute("studente"); %>
+
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <html>
@@ -30,16 +30,16 @@
 
 <div class="list-group col-md-6 pull-right pad">
 
-    <p class="list-group-item highlight">Nome<span class="pull-right right"><%=studenteBean.getNome()%>></span></p>
-    <p class="list-group-item highlight">Cognome<span class="pull-right right"><%=studenteBean.getCognome()%></span></p>
-    <p class="list-group-item highlight">Matricola<span class="pull-right right"><%=studenteBean.getMatricola()%></span></p>
-    <p class="list-group-item highlight">Dipartimento<span class="pull-right right"><%=studenteBean.getDipartimento()%></span></p>
+    <p class="list-group-item highlight">Nome<span class="pull-right right"><%= request.getSession().getAttribute("nome")%></span></p>
+    <p class="list-group-item highlight">Cognome<span class="pull-right right"><%=request.getSession().getAttribute("cognome")%></span></p>
+    <p class="list-group-item highlight">Matricola<span class="pull-right right"><%=request.getSession().getAttribute("matricola")%></span></p>
+    <p class="list-group-item highlight">Dipartimento<span class="pull-right right"><%=request.getSession().getAttribute("dipartimento")%></span></p>
 
     <p class="list-group-item highlight">Anno<a class="modificaButton" href="#popup2" ><i class="fas fa-pen-square"></i></a>
-        <span class="pull-right right"><%=studenteBean.getAnno()%></span>
+        <span class="pull-right right"><%=request.getSession().getAttribute("anno")%></span>
     </p>
 
-    <p class="list-group-item highlight">Email<span class="pull-right right"><%=studenteBean.getEmail()%></span></p>
+    <p class="list-group-item highlight">Email<span class="pull-right right"><%=request.getSession().getAttribute("email")%></span></p>
 
 
     <br />

@@ -22,7 +22,7 @@
 
         <!--se loggato visualizzo le opzioni-->
         <%
-            System.out.println("sono qui");
+
             Boolean logged = (Boolean) request.getSession().getAttribute("logged");
             if (logged == null || !logged) {
         %>
@@ -30,10 +30,10 @@
     </div>
 
     <div class="right">
-        <a href="./view/login/LoginView.jsp" class="button">Login</a>
+        <a href="${pageContext.servletContext.contextPath}/view/login/LoginView.jsp" class="button">Login</a>
 
         <%
-        } else{
+        } else if(logged==true){
         %>
 
     </div>
@@ -42,13 +42,13 @@
 
         <a class="link hover" href="./view/prenotazione/NuovaPrenotazioneView.jsp">Prenota</a>
         <a class="link hover" href="<%=response.encodeURL("ManagePrenotazioneServlet?action=visualizzaPrenotazioni") %>">Prenotazioni effettuate</a>
-
+        <a class="link hover" href="${pageContext.servletContext.contextPath}/logout">Logout</a>
     </div>
 
 
     <div class="right">
 
-        <a id="profile" href="">
+        <a id="profile" href="${pageContext.servletContext.contextPath}/view/profilo_utente/ProfiloUtenteView.jsp">
 
             <i class='fas fa-user-alt'></i>
 
