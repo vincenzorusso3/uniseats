@@ -6,6 +6,7 @@ public class PostoBean {
      * Variabile istanza
      */
     private String codice;
+    private String codiceAula;
 
     /**
      * Costruttore vuoto
@@ -24,5 +25,16 @@ public class PostoBean {
         return codice;
     }
 
+
+    public String getCodiceAula() {
+        return codiceAula;
+    }
+
+    public void setCodiceAula(String codiceAula) {
+        this.codiceAula = codiceAula;
+    }
+
     public void setCodice(String codice) { this.codice = codice; }
 }
+
+
