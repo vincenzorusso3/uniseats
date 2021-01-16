@@ -15,6 +15,8 @@ import java.sql.SQLException;
 
 @WebServlet(name = "RegistrazioneServlet")
 public class RegistrazioneServlet extends HttpServlet {
+    
+    private final String JSP_PATH = "/view/profilo_utente/RegistrazioneView.jsp";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -26,80 +28,70 @@ public class RegistrazioneServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String action = request.getParameter("action");
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_PATH);
+
 
         if (action != null) {
 
-            if (action.equalsIgnoreCase("add")) {
-
-                String email = request.getParameter("email");
-                StudenteBean test = null;
+            if (action.equals("add")) {
                 try {
-                    test = (StudenteBean) StudenteDAO.doQuery("doRetrieveByEmail", (Object) email);
-                } catch (SQLException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                }
+                    addUser(request, response);
+                } catch (SQLException throwables) {
 
-                if (test != null) {
-
-                    String message = "Esiste un account registrato con questa email!";
+                    String message = "Registrazione fallita. Si prega di riprovare";
                     request.setAttribute("message", message);
 
-                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/RegistrazioneView.jsp");
                     dispatcher.forward(request, response);
 
-                } else {
-
-                    String nome = request.getParameter("nome");
-                    String cognome = request.getParameter("cognome");
-                    String matricola = request.getParameter("matricola");
-                    String password = request.getParameter("password");
-                    int anno=Integer.parseInt(request.getParameter("anno"));
-                    String dipartimento=request.getParameter("dipartimento");
-
-
-                    StudenteBean studenteBean=new StudenteBean(nome, cognome, matricola, email, SHA512Utils.getSHA512(password), anno, dipartimento);
-
-                    try {
-                        Integer success = (Integer) StudenteDAO.doQuery("doSave", studenteBean);
-
-                        if (success != null && success > 0) {
-
-                            String message = "Registrazione effettuata con successo";
-                            request.setAttribute("message", message);
-
-                            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/RegistrazioneView.jsp");
-                            dispatcher.forward(request, response);
-
-                        } else {
-                            String message = "Registrazione fallita. Si prega di riprovare";
-                            request.setAttribute("message", message);
-
-                            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/RegistrazioneView.jsp");
-                            dispatcher.forward(request, response);
-
-                        }
-
-                    } catch (SQLException e) {
-
-                        String message = "Registrazione fallita. Si prega di riprovare";
-                        request.setAttribute("message", message);
-
-                        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/RegistrazioneView.jsp");
-                        dispatcher.forward(request, response);
-
-
-                    }
                 }
-
             }
-        } else {
 
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/RegistrazioneView.jsp");
+        } else {
             dispatcher.forward(request, response);
         }
 
+    }
 
+    private void addUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_PATH);
+        String email = request.getParameter("email");
+
+        StudenteBean studenteBean = (StudenteBean) StudenteDAO.doQuery("doRetrieveByEmail", email);
+
+        if (studenteBean != null) {
+
+            String message = "Esiste un account registrato con questa email!";
+            request.setAttribute("message", message);
+
+            dispatcher.forward(request, response);
+
+        } else {
+
+            String nome = request.getParameter("nome");
+            String cognome = request.getParameter("cognome");
+            String matricola = request.getParameter("matricola");
+            String password = request.getParameter("password");
+            int anno=Integer.parseInt(request.getParameter("anno"));
+            String dipartimento=request.getParameter("dipartimento");
+
+            studenteBean = new StudenteBean(nome, cognome, matricola, email, SHA512Utils.getSHA512(password), anno, dipartimento);
+
+            Integer success = (Integer) StudenteDAO.doQuery("doSave", studenteBean);
+
+            String message;
+
+            if (success != null && success > 0) {
+                message = "Registrazione effettuata con successo";
+            } else {
+                message = "Registrazione fallita. Si prega di riprovare";
+            }
+
+            request.setAttribute("message", message);
+            dispatcher.forward(request, response);
+
+        }
 
     }
+
 }

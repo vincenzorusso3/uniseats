@@ -1,5 +1,6 @@
 package it.uniseats.control.gestione_utente;
 
+
 import it.uniseats.model.beans.StudenteBean;
 import it.uniseats.model.dao.StudenteDAO;
 
@@ -22,47 +23,77 @@ public class ProfiloUtenteServlet extends HttpServlet {
      * @throws ServletException
      * @throws IOException
      */
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
         String action = request.getParameter("action");
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ProfiloUtenteView.jsp");
+
+        String JSP_PATH = "/view/profilo_utente/ProfiloUtenteView.jsp";
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_PATH);
 
         if (action != null) {
 
-            if(action.equalsIgnoreCase("confermaDelete")){
-                try {
-                    StudenteDAO.doQuery("doDelete",request.getParameter("matricola"));
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
+            switch (action) {
 
-                String message = "Profilo eliminato con successo";
-                request.setAttribute("errore", message);
-                dispatcher = getServletContext().getRequestDispatcher("Home/.jsp");
-                dispatcher.forward(request, response);
+                case "confermaDelete":
+                    try {
+                        deleteProfile(request,response);
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
+                    break;
+
+                case "confermaUpdate":
+                    try {
+                        updateAnno(request,response,dispatcher);
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
+                    break;
             }
 
-
-            if(action.equalsIgnoreCase("confermaUpdate")){
-                try {
-                    StudenteBean studMod= (StudenteBean) StudenteDAO.doQuery("doRetrieveByMatricola",request.getParameter("matricola"));
-                    studMod.setAnno(Integer.parseInt(request.getParameter("annomod")));
-                    StudenteDAO.doQuery("doUpdate",studMod);
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-
-
-
-
-            }
+        } else {
             dispatcher.forward(request, response);
-
-
-
         }
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
     }
+
+    private void updateAnno(HttpServletRequest request, HttpServletResponse response, RequestDispatcher dispatcher) throws SQLException, ServletException, IOException {
+
+        StudenteBean studMod= (StudenteBean) StudenteDAO.doQuery("doRetrieveByMatricola",request.getParameter("matricola"));
+
+        if (studMod != null){
+
+            int anno = Integer.parseInt(request.getParameter("anno"));
+            studMod.setAnno(anno);
+            StudenteDAO.doQuery("doUpdate",studMod);
+
+        } else {
+
+            String message = "Si è verificato un errore";
+            request.setAttribute("errore", message);
+
+        }
+
+        dispatcher.forward(request,response);
+
+    }
+
+
+    private void deleteProfile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+
+        StudenteDAO.doQuery("doDelete",request.getParameter("matricola"));
+
+        String message = "Profilo eliminato con successo";
+        request.setAttribute("errore", message);
+
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("");
+        dispatcher.forward(request, response);
+
+    }
+
 }

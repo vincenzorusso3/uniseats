@@ -15,7 +15,7 @@
 
 
         <!--per il percorso dell'immagine usiamo il contesto-->
-        <a id="linkhome" href="">
+        <a id="linkhome" href="${pageContext.servletContext.contextPath}">
             <img class="logo" src="${pageContext.servletContext.contextPath}/img/LogoUniseats.png">
         </a>
 
@@ -40,8 +40,8 @@
 
     <div class="left">
 
-        <a class="link hover" href="./view/prenotazione/NuovaPrenotazioneView.jsp">Prenota</a>
-        <a class="link hover" href="<%=response.encodeURL("ManagePrenotazioneServlet?action=visualizzaPrenotazioni") %>">Prenotazioni effettuate</a>
+        <a class="link hover" href="${pageContext.servletContext.contextPath}/view/prenotazione/NuovaPrenotazioneView.jsp">Prenota</a>
+        <a class="link hover" href="${pageContext.servletContext.contextPath}/view/prenotazione/VisualizzaPrenotazioniView.jsp">Prenotazioni effettuate</a>
         <a class="link hover" href="${pageContext.servletContext.contextPath}/logout">Logout</a>
     </div>
 

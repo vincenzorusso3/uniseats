@@ -25,6 +25,8 @@ public class PrenotazioneServlet extends HttpServlet {
     private final String AULE_FULL = "Nessun posto disponibile per la data selezionata!";
     private final String HAS_PRENOTATION = "Hai già una prenotazione per questa data!";
     private final String INVALID_DATE = "La data scelta non è valida!";
+    
+    private final String JSP_PATH = "/view/prenotazione/NuovaPrenotazioneView.jsp";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -57,7 +59,7 @@ public class PrenotazioneServlet extends HttpServlet {
                     break;
             }
         }else{
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/view/prenotazione/NuovaPrenotazioneView.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_PATH);
             dispatcher.forward(request, response);
         }
     }
@@ -65,7 +67,7 @@ public class PrenotazioneServlet extends HttpServlet {
     private void prenotazione(HttpServletRequest request, HttpServletResponse response, boolean isPrenotazioneSingola) throws ParseException, SQLException, ServletException, IOException {
         String date;
 
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/view/prenotazione/NuovaPrenotazioneView.jsp");
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_PATH);
 
         if (isPrenotazioneSingola)
             date = request.getParameter("dateValueSingolo");
