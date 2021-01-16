@@ -15,11 +15,19 @@ import java.sql.SQLException;
 @WebServlet(name = "ProfiloUtenteServlet")
 public class ProfiloUtenteServlet extends HttpServlet {
 
+    /**
+     * Metodo per effettuare richieste doPost
+     * @param request HttpServletRequest
+     * @param response HttpServletResponse
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ProfiloUtenteView.jsp");
 
         if (action != null) {
+
             if(action.equalsIgnoreCase("confermaDelete")){
                 try {
                     StudenteDAO.doQuery("doDelete",request.getParameter("matricola"));
