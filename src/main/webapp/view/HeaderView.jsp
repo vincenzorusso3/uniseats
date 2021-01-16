@@ -22,6 +22,7 @@
 
         <!--se loggato visualizzo le opzioni-->
         <%
+            System.out.println("sono qui");
             Boolean logged = (Boolean) request.getSession().getAttribute("logged");
             if (logged == null || !logged) {
         %>

@@ -3,8 +3,8 @@
 
 <%
     // Check logged
-    Boolean logged = (Boolean) session.getAttribute("logged");
-    if ((logged == null) || (!logged)) {
+    Boolean loggato = (Boolean) session.getAttribute("logged");
+    if ((loggato == null) || (!loggato)) {
         response.sendRedirect("/login/LoginView.jsp");
         return;
     }

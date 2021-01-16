@@ -163,14 +163,13 @@ public class StudenteDAO {
     private static StudenteBean getStudentInfo(ResultSet rs) throws SQLException {
 
         StudenteBean studenteBean = new StudenteBean();
-
         studenteBean.setNome(rs.getString("nome"));
         studenteBean.setCognome(rs.getString("cognome"));
         studenteBean.setMatricola(rs.getString("matricola"));
         studenteBean.setEmail(rs.getString("email"));
         studenteBean.setPassword(rs.getString("password"));
         studenteBean.setAnno(rs.getInt("anno"));
-        studenteBean.setDipartimento(rs.getString("diparimento"));
+        studenteBean.setDipartimento(rs.getString("dipartimento"));
 
         return studenteBean;
     }
