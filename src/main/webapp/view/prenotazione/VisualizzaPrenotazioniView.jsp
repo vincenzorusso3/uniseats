@@ -26,7 +26,7 @@
     <title>Visualizza Prenotazioni</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-    <link href="../../css/VisualizzaPrenotazioni.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.servletContext.contextPath}/css/VisualizzaPrenotazioni.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
@@ -54,14 +54,14 @@
         <h5 class="date"><%=bean.getData()%></h5>
 
         <div class="leftC">
-            <h6 class="edificio">Edificio: <%=bean.getEdificio()%> - Aula: <%=bean.getCodiceAula()%></h6>
+            <h6 class="edificio">Aula: <%=bean.getCodiceAula()%></h6>
             <h6 class="posto">Posto: <%=bean.getCodicePosto()%></h6>
         </div>
 
         <h6><%=bean.getCodice()%></h6>
 
 
-        <form method="POST" action="../../managePrenotazione">
+        <form method="POST" action="${pageContext.servletContext.contextPath}/managePrenotazione">
             <input name="action" value="modifica" hidden>
             <input type="button" name="modifica" value="Modifica"/>
         </form>

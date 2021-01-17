@@ -15,7 +15,7 @@
 <html>
 <head>
     <title>Profilo Utente</title>
-    <link href="../../css/ProfiloUtente.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.servletContext.contextPath}/css/ProfiloUtente.css" rel="stylesheet" type="text/css">
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 </head>
 <body>

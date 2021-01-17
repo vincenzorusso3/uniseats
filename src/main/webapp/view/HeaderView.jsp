@@ -63,7 +63,7 @@
     </div>
 </div>
 
-<script src="./js/Header.js"></script>
+<script src="${pageContext.servletContext.contextPath}/js/Header.js"></script>
 
 </body>
 </html>

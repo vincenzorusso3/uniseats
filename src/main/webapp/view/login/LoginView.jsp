@@ -43,14 +43,14 @@
     <div class="message">
 
     </div>
-    <form action="../../login" method="post">
+    <form action="${pageContext.servletContext.contextPath}/login" method="post">
         <input type="hidden" value="login" name="action">
         <input id="email" type="text" name="email" placeholder="Email" required/>
         <input id="password" type="password" name="password" placeholder="Password" required/>
 
         <div class="new">
             <h6>Non hai un account ?</h6>
-            <a href="../profilo_utente/RegistrazioneView.jsp" > Registrati </a>
+            <a href="${pageContext.servletContext.contextPath}/view/profilo_utente/RegistrazioneView.jsp" > Registrati </a>
         </div>
 
         <div class="bottoni" align="center">

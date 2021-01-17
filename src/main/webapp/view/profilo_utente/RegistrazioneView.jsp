@@ -18,7 +18,7 @@
 <head>
     <title>Registrazione</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="../../css/Registrazione.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.servletContext.contextPath}/css/Registrazione.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
@@ -63,7 +63,7 @@
 <div class="form">
 
 
-    <form id="registrazione" action="../../registrazione" method="post">
+    <form id="registrazione" action="${pageContext.servletContext.contextPath}/registrazione" method="post">
 
         <input type="hidden" value="add" name="action">
 

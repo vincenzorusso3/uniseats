@@ -9,11 +9,11 @@
 <head>
     <title>Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="../css/Home.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.servletContext.contextPath}/css/Home.css" rel="stylesheet" type="text/css">
 
 </head>
 <body>
-<%@include file="/view/HeaderView.jsp" %>
+<%@include file="HeaderView.jsp" %>
 
     <%
         if (errore != null) {
