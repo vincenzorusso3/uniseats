@@ -69,12 +69,12 @@ public class ManagePrenotazioneServlet extends HttpServlet {
 
         Date dataPrenotazione = DateUtils.parseDate(dateTemp);
 
-        PrenotazioneBean prenotazioneBean = (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", codice);
+        PrenotazioneBean prenotazioneBean = (PrenotazioneBean) PrenotazioneDAO.doQuery(PrenotazioneDAO.doRetrieveByCode, codice);
 
         if (prenotazioneBean != null) {
 
             if (prenotazioneBean.getData().equals(dataPrenotazione)) {
-                PrenotazioneDAO.doQuery("doUpdateData", prenotazioneBean);
+                PrenotazioneDAO.doQuery(PrenotazioneDAO.doUpdateData, prenotazioneBean);
             }
 
         } else {
@@ -88,7 +88,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
 
     private void modificaPrenotazione(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
 
-        PrenotazioneBean prenotazioneBean = (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", request.getParameter("codice"));
+        PrenotazioneBean prenotazioneBean = (PrenotazioneBean) PrenotazioneDAO.doQuery(PrenotazioneDAO.doRetrieveByCode, request.getParameter("codice"));
         RequestDispatcher dispatcher;
 
         if (prenotazioneBean != null) {
@@ -117,7 +117,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
         String parameter = request.getParameter("matricola");
 
         request.removeAttribute("prenotazioni");
-        request.setAttribute("prenotazioni", PrenotazioneDAO.doQuery("doFindPrenotazioni", parameter));
+        request.setAttribute("prenotazioni", PrenotazioneDAO.doQuery(PrenotazioneDAO.doFindPrenotazioni, parameter));
 
         dispatcher.forward(request,response);
 

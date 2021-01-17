@@ -64,7 +64,7 @@ public class ProfiloUtenteServlet extends HttpServlet {
 
     private void updateAnno(HttpServletRequest request, HttpServletResponse response, RequestDispatcher dispatcher) throws SQLException, ServletException, IOException {
 
-        StudenteBean studMod= (StudenteBean) StudenteDAO.doQuery("doRetrieveByMatricola",request.getParameter("matricola"));
+        StudenteBean studMod= (StudenteBean) StudenteDAO.doQuery(StudenteDAO.doRetrieveByMatricola,request.getParameter("matricola"));
 
         if (studMod != null){
 
@@ -86,7 +86,7 @@ public class ProfiloUtenteServlet extends HttpServlet {
 
     private void deleteProfile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 
-        StudenteDAO.doQuery("doDelete",request.getParameter("matricola"));
+        StudenteDAO.doQuery(StudenteDAO.doDelete,request.getParameter("matricola"));
 
         String message = "Profilo eliminato con successo";
         request.setAttribute("errore", message);

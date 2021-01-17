@@ -34,7 +34,7 @@ public class LoginServlet extends HttpServlet {
 
                 String redirectedPage;
                 try {
-                    StudenteBean bean = (StudenteBean) StudenteDAO.doQuery("doRetrieveByEmail", email);
+                    StudenteBean bean = (StudenteBean) StudenteDAO.doQuery(StudenteDAO.doRetrieveByEmail, email);
                     if (bean != null && bean.getPassword().equals(encrypted)) {
 
                         System.out.println("dip"+bean.getDipartimento());

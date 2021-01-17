@@ -15,6 +15,9 @@ import java.util.ArrayList;
 
 public class PostoDAO {
 
+    public static final String doRetrieveByCode = "doRetrieveByCode";
+    public static final String doRetrieveAll = "doRetrieveAll";
+
     private static final String TABLE_NAME = "posti";
     private static final String DATASOURCE_ERROR = "[POSTODAO] Errore: il DataSource non risulta essere configurato correttamente";
 
@@ -33,12 +36,12 @@ public class PostoDAO {
 
                 switch (methodName) {
 
-                    case "doRetrieveByCode":
+                    case doRetrieveByCode:
                         querySQL = "SELECT * FROM " + TABLE_NAME + " WHERE codice=?";
                         preparedStatement = connection.prepareStatement(querySQL);
                         return doRetrieveByCode(preparedStatement, (String) parameter);
 
-                    case "doRetrieveAll":
+                    case doRetrieveAll:
                         querySQL = "SELECT * FROM " + TABLE_NAME;
                         preparedStatement = connection.prepareStatement(querySQL);
                         return doRetriveAll(preparedStatement);

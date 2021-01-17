@@ -15,6 +15,14 @@ import java.util.LinkedList;
 
 public class PrenotazioneDAO {
 
+    public static final String doRetrieveByCode = "doRetrieveByCode";
+    public static final String doFindPrenotazioni = "doFindPrenotazioni";
+    public static final String doRetrieveAll = "doRetrieveAll";
+    public static final String doSave = "doSave";
+    public static final String doUpdateData = "doUpdateData";
+    public static final String doUpdateTipo = "doUpdateTipo";
+    public static final String doDelete = "doDelete";
+
     private static final String TABLE_NAME = "prenotazione";
     private static final String DATASOURCE_ERROR = "[PRENOTAZIONEDAO] Errore: il DataSource non risulta essere configurato correttamente";
 
@@ -33,37 +41,37 @@ public class PrenotazioneDAO {
 
                 switch (methodName) {
 
-                    case "doRetrieveByCode":
+                    case doRetrieveByCode:
                         querySQL = "SELECT * FROM " + TABLE_NAME + " WHERE codice=?";
                         preparedStatement = connection.prepareStatement(querySQL);
                         return doRetrieveByCode(preparedStatement, (String) parameter);
 
-                    case "doFindPrenotazioni":
+                    case doFindPrenotazioni:
                         querySQL = "SELECT codice, dataPrenotazione, codiceAula, codicePosto, tipologia FROM "+ TABLE_NAME +" WHERE matricolaStudente=?";
                         preparedStatement = connection.prepareStatement(querySQL);
                         return doFindPrenotazioni(preparedStatement, (String) parameter);
 
-                    case "doRetrieveAll":
+                    case doRetrieveAll:
                         querySQL = "SELECT * FROM " + TABLE_NAME;
                         preparedStatement = connection.prepareStatement(querySQL);
                         return doRetrieveAll(preparedStatement);
 
-                    case "doSave":
+                    case doSave:
                         querySQL = "INSERT INTO " + TABLE_NAME + " (codice, dataPrenotazione, tipologia, codicePosto, codiceAula, matricolaStudente) VALUES (?,?,?,?,?,?)";
                         preparedStatement = connection.prepareStatement(querySQL);
                         return doSave(preparedStatement, (PrenotazioneBean) parameter);
 
-                    case "doUpdateData":
+                    case doUpdateData:
                         querySQL = "UPDATE " + TABLE_NAME + " SET dataPrenotazione=?  WHERE codice=?";
                         preparedStatement = connection.prepareStatement(querySQL);
                         return doUpdateData(preparedStatement, (PrenotazioneBean) parameter);
 
-                    case "doUpdateTipo":
+                    case doUpdateTipo:
                         querySQL = "UPDATE " + TABLE_NAME + " SET tipologia=?  WHERE codice=?";
                         preparedStatement = connection.prepareStatement(querySQL);
                         return doUpdateTipo(preparedStatement, (PrenotazioneBean) parameter);
 
-                    case "doDelete":
+                    case doDelete:
                         querySQL = "DELETE FROM " + TABLE_NAME + " WHERE codice=?";
                         preparedStatement = connection.prepareStatement(querySQL);
                         return doDelete(preparedStatement, (String) parameter);

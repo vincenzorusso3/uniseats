@@ -1,6 +1,5 @@
 package it.uniseats.model.dao;
 
-import it.uniseats.model.beans.PrenotazioneBean;
 import it.uniseats.model.beans.StudenteBean;
 import it.uniseats.utils.DataSourceUtils;
 
@@ -10,10 +9,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
 
 public class StudenteDAO {
+
+    public static final String doRetrieveByMatricola = "doRetrieveByMatricola";
+    public static final String doRetrieveAll = "doRetrieveAll";
+    public static final String doSave = "doSave";
+    public static final String doRetrieveByEmail = "doRetrieveByEmail";
+    public static final String doUpdate = "doUpdate";
+    public static final String doDelete = "doDelete";
 
     private static final String TABLE_NAME = "studente";
     private static final String DATASOURCE_ERROR = "[STUDENTEDAO] Errore: il DataSource non risulta essere configurato correttamente";
@@ -33,32 +37,32 @@ public class StudenteDAO {
 
                 switch (methodName) {
 
-                    case "doRetrieveByMatricola":
+                    case doRetrieveByMatricola:
                         querySQL = "SELECT * FROM " + TABLE_NAME + " WHERE matricola=?";
                         preparedStatement = connection.prepareStatement(querySQL);
                         return doRetrieveByMatricola(preparedStatement, (String) parameter);
 
-                    case "doRetrieveAll":
+                    case doRetrieveAll:
                         querySQL = "SELECT * FROM " + TABLE_NAME;
                         preparedStatement = connection.prepareStatement(querySQL);
                         return doRetriveAll(preparedStatement);
 
-                    case "doSave":
+                    case doSave:
                         querySQL = "INSERT INTO " + TABLE_NAME + " (anno, cognome, dipartimento, email, matricola, nome, password ) VALUES (?,?,?,?,?,?,?)";
                         preparedStatement = connection.prepareStatement(querySQL);
                         return doSave(preparedStatement, (StudenteBean) parameter);
 
-                    case "doRetrieveByEmail":
+                    case doRetrieveByEmail:
                         querySQL = "SELECT * FROM " + TABLE_NAME + " WHERE email=?";
                         preparedStatement = connection.prepareStatement(querySQL);
                         return doRetrieveByEmail(preparedStatement, (String) parameter);
 
-                    case "doUpdate":
+                    case doUpdate:
                         querySQL = "UPDATE " + TABLE_NAME + " SET anno=? WHERE matricola=?";
                         preparedStatement = connection.prepareStatement(querySQL);
                         return doUpdate(preparedStatement, (StudenteBean) parameter);
 
-                    case "doDelete":
+                    case doDelete:
                         querySQL = "DELETE FROM " + TABLE_NAME + " WHERE matricola=?";
                         preparedStatement = connection.prepareStatement(querySQL);
                         return doDelete(preparedStatement, (String) parameter);

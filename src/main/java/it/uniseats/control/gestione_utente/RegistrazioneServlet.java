@@ -57,7 +57,7 @@ public class RegistrazioneServlet extends HttpServlet {
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_PATH);
         String email = request.getParameter("email");
 
-        StudenteBean studenteBean = (StudenteBean) StudenteDAO.doQuery("doRetrieveByEmail", email);
+        StudenteBean studenteBean = (StudenteBean) StudenteDAO.doQuery(StudenteDAO.doRetrieveByEmail, email);
 
         if (studenteBean != null) {
 
@@ -77,7 +77,7 @@ public class RegistrazioneServlet extends HttpServlet {
 
             studenteBean = new StudenteBean(nome, cognome, matricola, email, SHA512Utils.getSHA512(password), anno, dipartimento);
 
-            Integer success = (Integer) StudenteDAO.doQuery("doSave", studenteBean);
+            Integer success = (Integer) StudenteDAO.doQuery(StudenteDAO.doSave, studenteBean);
 
             String message;
 

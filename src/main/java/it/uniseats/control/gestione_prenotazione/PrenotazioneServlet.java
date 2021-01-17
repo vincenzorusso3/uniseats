@@ -89,7 +89,7 @@ public class PrenotazioneServlet extends HttpServlet {
                         String qrCode = QrCodeGenerator.generateCode(matricola);
 
                         PrenotazioneBean prenotazione = new PrenotazioneBean(qrCode, new Date(), isPrenotazioneSingola, "", "", matricola);
-                        Integer result = (Integer) PrenotazioneDAO.doQuery("doSave", prenotazione);
+                        Integer result = (Integer) PrenotazioneDAO.doQuery(PrenotazioneDAO.doSave, prenotazione);
 
                         if (result != null && result > 0) {
                             //TODO Intelligenza Artificiale
@@ -139,7 +139,7 @@ public class PrenotazioneServlet extends HttpServlet {
         HttpSession session = request.getSession(true);
         String email = (String)session.getAttribute("email");
 
-        return (StudenteBean) StudenteDAO.doQuery("doRetrieveByEmail",email);
+        return (StudenteBean) StudenteDAO.doQuery(StudenteDAO.doRetrieveByEmail,email);
 
     }
 
@@ -147,7 +147,7 @@ public class PrenotazioneServlet extends HttpServlet {
 
         Date selectedDay = DateUtils.parseDate(date);
 
-        ArrayList<PrenotazioneBean> resultList = (ArrayList<PrenotazioneBean>) PrenotazioneDAO.doQuery("doFindPrenotazioni",matricola);
+        ArrayList<PrenotazioneBean> resultList = (ArrayList<PrenotazioneBean>) PrenotazioneDAO.doQuery(PrenotazioneDAO.doFindPrenotazioni,matricola);
 
         if (resultList != null) {
 
@@ -166,7 +166,7 @@ public class PrenotazioneServlet extends HttpServlet {
 
     private boolean checkPostiAule(String dipartimento) throws SQLException {
 
-        ArrayList<AulaBean> aule = (ArrayList<AulaBean>) AulaDAO.doQuery("doRetrieveAll", dipartimento);
+        ArrayList<AulaBean> aule = (ArrayList<AulaBean>) AulaDAO.doQuery(AulaDAO.doRetrieveAll, dipartimento);
 
         if (aule != null) {
 
