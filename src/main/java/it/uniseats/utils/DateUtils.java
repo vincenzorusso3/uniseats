@@ -9,7 +9,6 @@ public class DateUtils {
 
     private static final DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
 
-
     public static Date parseDate(String date) throws ParseException {
         date = date.replace("-","/");
         return df.parse(date);
