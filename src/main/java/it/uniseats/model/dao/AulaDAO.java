@@ -1,12 +1,10 @@
 package it.uniseats.model.dao;
 
 import it.uniseats.model.beans.AulaBean;
-import it.uniseats.model.beans.PostoBean;
-import it.uniseats.model.beans.StudenteBean;
+
 import it.uniseats.utils.DataSourceUtils;
 
 import javax.sql.DataSource;
-import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

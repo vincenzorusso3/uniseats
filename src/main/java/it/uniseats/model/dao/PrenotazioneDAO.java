@@ -1,9 +1,8 @@
 package it.uniseats.model.dao;
 
 
-import it.uniseats.model.beans.PostoBean;
+
 import it.uniseats.model.beans.PrenotazioneBean;
-import it.uniseats.model.beans.StudenteBean;
 import it.uniseats.utils.DataSourceUtils;
 
 import javax.sql.DataSource;
