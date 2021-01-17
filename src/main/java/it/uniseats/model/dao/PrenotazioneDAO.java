@@ -44,9 +44,9 @@ public class PrenotazioneDAO {
                         return doFindPrenotazioni(preparedStatement, (String) parameter);
 
                     case "doRetrieveAll":
-                        querySQL = "SELECT * FROM " + TABLE_NAME + " WHERE matricolaStudente=?";
+                        querySQL = "SELECT * FROM " + TABLE_NAME;
                         preparedStatement = connection.prepareStatement(querySQL);
-                        return doRetrieveAll(preparedStatement, (String) parameter);
+                        return doRetrieveAll(preparedStatement);
 
                     case "doSave":
                         querySQL = "INSERT INTO " + TABLE_NAME + " (codice, dataPrenotazione, tipologia, codicePosto, codiceAula, matricolaStudente) VALUES (?,?,?,?,?,?)";
@@ -127,10 +127,10 @@ public class PrenotazioneDAO {
 
     }
 
-    private static synchronized ArrayList<PrenotazioneBean> doRetrieveAll(PreparedStatement preparedStatement, String matricolaStudente) throws SQLException {
+    private static synchronized ArrayList<PrenotazioneBean> doRetrieveAll(PreparedStatement preparedStatement) throws SQLException {
 
         ArrayList<PrenotazioneBean> list = new ArrayList<>();
-        preparedStatement.setString(1, matricolaStudente);
+
         ResultSet rs = preparedStatement.executeQuery();
 
         while (rs.next()) {

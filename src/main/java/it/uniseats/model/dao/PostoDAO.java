@@ -95,7 +95,6 @@ public class PostoDAO {
 
     }
 
-    //TODO queries
 
     private static PostoBean getPostoInfo(ResultSet rs) throws SQLException {
 
