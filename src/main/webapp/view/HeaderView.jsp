@@ -41,7 +41,7 @@
     <div class="left">
 
         <a class="link hover" href="${pageContext.servletContext.contextPath}/view/prenotazione/NuovaPrenotazioneView.jsp">Prenota</a>
-        <a class="link hover" href="${pageContext.servletContext.contextPath}/view/prenotazione/VisualizzaPrenotazioniView.jsp">Prenotazioni effettuate</a>
+        <a class="link hover" href="${pageContext.servletContext.contextPath}/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp">Prenotazioni effettuate</a>
         <a class="link hover" href="${pageContext.servletContext.contextPath}/logout">Logout</a>
     </div>
 

@@ -167,6 +167,7 @@ public class PrenotazioneDAO {
     private static synchronized int doUpdateTipo(PreparedStatement preparedStatement, PrenotazioneBean prenotazioneBean) throws SQLException {
 
         preparedStatement.setBoolean(1, prenotazioneBean.isSingolo());
+        preparedStatement.setString(2, prenotazioneBean.getCodice());
         return preparedStatement.executeUpdate();
 
     }
