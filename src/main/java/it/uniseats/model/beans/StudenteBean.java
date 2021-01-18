@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
     /**
     * Un oggetto <code>StudenteBean</code> rappresenta uno studente. Ogni studente ha nome e cognome,
-     * una email e password, una matricola (0512105851, 0512107883), anno (1,2,3,4,..), e un dipartimento (F, B1,..)
+     * una email e password, una matricola (0512105851, 0512107883), anno (1,2,3,4,..), e un dipartimento (Fisica, Farmacia, ..)
     */
 public class StudenteBean {
 
