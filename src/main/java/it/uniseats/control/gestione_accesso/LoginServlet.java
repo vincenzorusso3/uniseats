@@ -56,7 +56,7 @@ public class LoginServlet extends HttpServlet {
                     StudenteBean bean = (StudenteBean) StudenteDAO.doQuery(StudenteDAO.doRetrieveByEmail, email);
                     if (bean != null && bean.getPassword().equals(encrypted)) {
 
-                        System.out.println("dip"+bean.getDipartimento());
+
                         request.getSession().setAttribute("logged", true);
                         request.getSession().setAttribute("nome", bean.getNome());
                         request.getSession().setAttribute("cognome", bean.getCognome());

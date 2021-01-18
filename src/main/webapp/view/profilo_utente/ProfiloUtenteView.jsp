@@ -83,7 +83,7 @@
 
         <form action="../../profilo" method="post">
 
-        <select class="md-textfield-input" id="anno" name="anno" required >
+        <select class="md-textfield-input" id="anno" name="annomod" required >
             <option value="1">Primo anno</option>
             <option value="2">Secondo anno</option>
             <option value="3">Terzo anno</option>

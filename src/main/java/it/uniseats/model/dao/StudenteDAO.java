@@ -149,6 +149,7 @@ public class StudenteDAO {
     private static synchronized int doUpdate(PreparedStatement preparedStatement, StudenteBean studenteBean) throws SQLException {
 
         preparedStatement.setInt(1, studenteBean.getAnno());
+
         preparedStatement.setString(2, studenteBean.getMatricola());
 
         return preparedStatement.executeUpdate();
