@@ -11,6 +11,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Classe <code>AulaDAO</code> che ci permette di effettuare operazioni su AulaBean
+ */
 public class AulaDAO {
 
     public static final String doRetrieveByCode = "doRetrieveByCode";
@@ -19,6 +22,13 @@ public class AulaDAO {
     private static final String TABLE_NAME = "aula";
     private static final String DATASOURCE_ERROR = "[AULADAO] Errore: il DataSource non risulta essere configurato correttamente";
 
+    /**
+     * Metodo per effettuare le query
+     * @param methodName nome della <b>query</b>
+     * @param parameter <b>parametro</b> passato alla query
+     * @return un <b>object</b>
+     * @throws SQLException
+     */
     public static synchronized Object doQuery(String methodName, Object parameter) throws SQLException {
 
         DataSource ds = DataSourceUtils.getDataSource();
@@ -71,6 +81,13 @@ public class AulaDAO {
 
     }
 
+    /**
+     * Query per effettuare una ricerca per codice di un AulaBean
+     * @param preparedStatement <b>query SQL</b>
+     * @param codice <b>codice</b> dell'aula che si vuole cercare
+     * @return l'<b>aula</b> associata a quel codice
+     * @throws SQLException
+     */
     private static synchronized AulaBean doRetrieveByCode(PreparedStatement preparedStatement, String codice) throws SQLException {
 
         preparedStatement.setString(1, codice);
@@ -86,6 +103,13 @@ public class AulaDAO {
 
     }
 
+    /**
+     * Metodo per cercare tutte le aule di un dato dipartimento
+     * @param preparedStatement <b>query SQL</b>
+     * @param dipartimento quale aule continene un dato <b>dipartimento</b>
+     * @return tutte le <b>aule</b> di un dato dipartimento
+     * @throws SQLException
+     */
     private static synchronized ArrayList<AulaBean> doRetriveAll(PreparedStatement preparedStatement, String dipartimento) throws SQLException {
 
         if (dipartimento != null)
@@ -103,6 +127,12 @@ public class AulaDAO {
 
     }
 
+    /**
+     * Metodo per le info di un'aula
+     * @param rs ResultSet
+     * @return <b>aulaBean</b>
+     * @throws SQLException
+     */
     private static AulaBean getAulaInfo(ResultSet rs) throws SQLException {
 
         AulaBean aulaBean = new AulaBean();
