@@ -57,9 +57,13 @@ h6.edificio, h6.posto{
     font-weight: 100;
 }
 
+.code{
+    color:#236292;
+}
+
 .card a{
     position:sticky;
-    color:#236292;
+    color: #236292;
 }
 
 .card .fa, .card .fas{

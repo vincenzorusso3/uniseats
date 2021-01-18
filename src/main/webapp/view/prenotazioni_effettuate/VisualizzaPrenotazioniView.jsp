@@ -18,7 +18,7 @@
         return;
     }
 
-    PrenotazioneBean prenotazioneBean = (PrenotazioneBean) request.getAttribute("prenotazioni");
+
 %>
 
 <html>
@@ -65,7 +65,7 @@
             <h6 class="tipo"><%=tipo%></h6>"/>
         </div>
 
-        <h6><%=bean.getCodice()%></h6>
+        <h6 class="code">Cod:<%=bean.getCodice()%></h6>
 
 
         <form method="POST" action="${pageContext.servletContext.contextPath}/managePrenotazione">

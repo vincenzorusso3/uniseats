@@ -25,7 +25,7 @@ import java.util.*;
 @WebServlet(name="ManagePrenotazioneServlet")
 public class ManagePrenotazioneServlet extends HttpServlet {
 
-    private final String JSP_PATH = "/view/prenotazione/VisualizzaPrenotazioniView.jsp";
+    private final String JSP_PATH = "/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp";
     private final String INVALID_DATE = "La data scelta non è corretta";
     private final String TOO_LATE = "Non è più possibile modificare la prenotazione";
     private final String IMPOSSIBLE_CHANGE = "Impossible effettuare la modifica";
@@ -186,7 +186,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
 
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_PATH);
 
-        String parameter = request.getParameter("matricola");
+        String parameter = (String) request.getSession().getAttribute("matricola");
 
         request.removeAttribute("prenotazioni");
         request.setAttribute("prenotazioni", PrenotazioneDAO.doQuery(PrenotazioneDAO.doFindPrenotazioni, parameter));
