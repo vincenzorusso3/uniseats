@@ -5,19 +5,38 @@ import it.uniseats.model.dao.StudenteDAO;
 import it.uniseats.utils.SHA512Utils;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Servlet per effettuare la login
+ */
+
 @WebServlet(name = "LoginServlet")
 public class LoginServlet extends HttpServlet {
+
+
+    private final String JSP_PATH= "/view/login/LoginView.jsp";
+
+    /**
+     * Metodo per effettuare richieste doPost
+     * @param request HttpServletRequest
+     * @param response HttpServletResponse
+     * @throws IOException
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         doGet(request, response);
     }
 
+    /**
+     * Metodo per effettuare richieste doGet
+     * @param request HttpServletRequest
+     * @param response HttpServletResponse
+     * @throws IOException
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         String action = request.getParameter("action");
@@ -54,7 +73,7 @@ public class LoginServlet extends HttpServlet {
                     } else {
                         String message = "Username e/o password non validi!";
                         request.setAttribute("errore", message);
-                        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/view/login/LoginView.jsp");
+                        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_PATH);
                         dispatcher.forward(request, response);
                     }
 
@@ -66,7 +85,7 @@ public class LoginServlet extends HttpServlet {
             }
 
         } else {
-            response.sendRedirect(request.getContextPath() + "/view/login/LoginView.jsp");
+            response.sendRedirect(request.getContextPath() + JSP_PATH);
         }
     }
 

@@ -13,6 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * Servlet per la gestione del profilo utente
+ */
+
 @WebServlet(name = "ProfiloUtenteServlet")
 public class ProfiloUtenteServlet extends HttpServlet {
 
@@ -29,6 +33,7 @@ public class ProfiloUtenteServlet extends HttpServlet {
         String action = request.getParameter("action");
 
         String JSP_PATH = "/view/profilo_utente/ProfiloUtenteView.jsp";
+
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_PATH);
 
         if (action != null) {
@@ -37,6 +42,7 @@ public class ProfiloUtenteServlet extends HttpServlet {
 
                 case "confermaDelete":
                     try {
+                        //si effettua la cancellazione del profilo dello studente
                         deleteProfile(request,response);
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
@@ -45,6 +51,7 @@ public class ProfiloUtenteServlet extends HttpServlet {
 
                 case "confermaUpdate":
                     try {
+                        //si incrementa l'anno di corso dello studente
                         updateAnno(request,response,dispatcher);
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
@@ -58,10 +65,26 @@ public class ProfiloUtenteServlet extends HttpServlet {
 
     }
 
+    /**
+     * Metodo per effettuare richieste doGet
+     * @param request HttpServletRequest
+     * @param response HttpServletResponse
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
     }
 
+    /**
+     * Metodo per effettuare l'incremento dell'anno di corso dello studente di una unità
+     * @param request HttpServletRequest
+     * @param response HttpServletResponse
+     * @param dispatcher RequestDispatcher
+     * @throws SQLException
+     * @throws ServletException
+     * @throws IOException
+     */
     private void updateAnno(HttpServletRequest request, HttpServletResponse response, RequestDispatcher dispatcher) throws SQLException, ServletException, IOException {
 
         StudenteBean studMod= (StudenteBean) StudenteDAO.doQuery(StudenteDAO.doRetrieveByMatricola,request.getParameter("matricola"));
@@ -83,7 +106,14 @@ public class ProfiloUtenteServlet extends HttpServlet {
 
     }
 
-
+    /**
+     * Metodo per eliminare il profilo di uno studente
+     * @param request HttpServletRequest
+     * @param response HttpServletResponse
+     * @throws ServletException
+     * @throws IOException
+     * @throws SQLException
+     */
     private void deleteProfile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 
         StudenteDAO.doQuery(StudenteDAO.doDelete,request.getParameter("matricola"));
