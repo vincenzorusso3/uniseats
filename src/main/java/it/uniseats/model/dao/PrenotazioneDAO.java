@@ -259,7 +259,7 @@ public class PrenotazioneDAO {
 
         prenotazioneBean.setCodice(rs.getString("codice"));
         prenotazioneBean.setData(rs.getDate("dataPrenotazione"));
-        prenotazioneBean.setSingolo(rs.getBoolean("gruppo"));
+        prenotazioneBean.setSingolo(rs.getBoolean("tipologia"));
         prenotazioneBean.setMatricolaStudente(rs.getString("matricolaStudente"));
         prenotazioneBean.setCodicePosto(rs.getString("codicePosto"));
         prenotazioneBean.setCodiceAula(rs.getString("codiceAula"));
