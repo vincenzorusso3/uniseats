@@ -2,6 +2,13 @@ package it.uniseats.model.beans;
 
 import java.util.Date;
 
+/**
+ * Un oggetto <code>PrenotazioneBean</code> rappresenta la prenotazione di un posto. Ogni prenotazione
+ * ha un codice identificativo, una data. Singolo rappresenta il tipo di prenotazione (true = gruppo, false = singolo).
+ * Inoltre ha un codice posto (A1-01, ..), un codice aula (A1, B2,..) e la matricola dello studente che
+ * ha effettuato la prenotazione (0512105851,...)
+ */
+
 public class PrenotazioneBean {
 
     /**
@@ -23,12 +30,12 @@ public class PrenotazioneBean {
     /**
      * Costruttore
      *
-     * @param codice            il codice della prenotazione
-     * @param data              la data per la quale è prevista la prenotazione
-     * @param singolo            la tipologia di prenotazione (1 = gruppo, 0 = singolo)
-     * @param codicePosto       il codice del posto a sedere nell'aula
-     * @param codiceAula        il codice dell'aula per la quale si prenota un posto
-     * @param matricolaStudente la matricola dello studente che effettua la prenotazione
+     * @param codice il <b>codice</b> della prenotazione
+     * @param data la <b>data</b> per la quale è prevista la prenotazione
+     * @param singolo la <b>tipologia</b> di prenotazione (true = gruppo, false = singolo)
+     * @param codicePosto il <b>codice</b> del posto a sedere nell'aula
+     * @param codiceAula il <b>codice</b> dell'aula per la quale si prenota un posto
+     * @param matricolaStudente la <b>matricola</b> dello studente che effettua la prenotazione
      */
     public PrenotazioneBean(String codice, Date data, boolean singolo, String codicePosto, String codiceAula, String matricolaStudente) {
         this.codice = codice;
@@ -40,42 +47,42 @@ public class PrenotazioneBean {
     }
 
     /**
-     * @return il codice della prenotazione
+     * @return il <b>codice</b> della prenotazione
      */
     public String getCodice() {
         return codice;
     }
 
     /**
-     * @return la data della prenotazione
+     * @return la <b>data</b> della prenotazione
      */
     public Date getData() {
         return data;
     }
 
     /**
-     * @return 1 se la prenotazione è in gruppo, 0 se la prenotazione è singola
+     * @return true se la <b>prenotazione</b> è in gruppo, false se la prenotazione è singola
      */
     public boolean isSingolo() {
         return singolo;
     }
 
     /**
-     * @return il codice del posto prenotato
+     * @return il <b>codice</b> del posto prenotato
      */
     public String getCodicePosto() {
         return codicePosto;
     }
 
     /**
-     * @return l'aula per cui si effettua la prenotazione
+     * @return l'<b>aula</b> per cui si effettua la prenotazione
      */
     public String getCodiceAula() {
         return codiceAula;
     }
 
     /**
-     * @return la matricola dello studente che effettua la prenotazione
+     * @return la <b>matricola</b> dello studente che effettua la prenotazione
      */
     public String getMatricolaStudente() {
         return matricolaStudente;
@@ -85,7 +92,7 @@ public class PrenotazioneBean {
     /**
      * Modifica il codice del posto
      *
-     * @param codicePosto il codice del posto a sedere nell'aula
+     * @param codicePosto il <b>codice</b> del posto a sedere nell'aula
      */
     public void setCodicePosto(String codicePosto) {
         this.codicePosto = codicePosto;
@@ -94,7 +101,7 @@ public class PrenotazioneBean {
     /**
      * Modifica il codice dell'aula
      *
-     * @param codiceAula il codice dell'aula per la quale si prenota un posto
+     * @param codiceAula il <b>codice</b> dell'aula per la quale si prenota un posto
      */
     public void setCodiceAula(String codiceAula) {
         this.codiceAula = codiceAula;
@@ -103,7 +110,7 @@ public class PrenotazioneBean {
     /**
      * Modifica la matricola dello studente
      *
-     * @param matricolaStudente la matricola dello studente che effettua la prenotazione
+     * @param matricolaStudente la <b>matricola</b> dello studente che effettua la prenotazione
      */
     public void setMatricolaStudente(String matricolaStudente) {
         this.matricolaStudente = matricolaStudente;
@@ -112,7 +119,7 @@ public class PrenotazioneBean {
     /**
      * Modifica la data della prenotazione
      *
-     * @param data la data per la quale è prevista la prenotazione
+     * @param data la <b>data</b> per la quale è prevista la prenotazione
      */
     public void setData(Date data) {
         this.data = data;
@@ -121,7 +128,7 @@ public class PrenotazioneBean {
     /**
      * Modifica la tipologia della prenotazione
      *
-     * @param gruppo la tipologia di prenotazione (1 = gruppo, 0 = singolo)
+     * @param gruppo la <b>tipologia</b> di prenotazione (true = gruppo, false = singolo)
      */
     public void setSingolo(boolean gruppo) {
         this.singolo = singolo;
@@ -130,7 +137,7 @@ public class PrenotazioneBean {
     /**
      * Modifica il codice della prenotazione
      *
-     * @param codice il codice della prenotazione
+     * @param codice il <b>codice</b> della prenotazione
      */
     public void setCodice(String codice) {
         this.codice = codice;
