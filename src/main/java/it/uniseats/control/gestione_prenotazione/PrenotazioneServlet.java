@@ -153,7 +153,7 @@ public class PrenotazioneServlet extends HttpServlet {
     }
 
     /**
-     * Controllo che la data inserita per la prenotazione singola
+     * Controllo che la data inserita per la prenotazione
      * @param date la <b>data</b> selezionata per la prenotazione
      * @param isPrenotazioneSingola la <b>tipologia</b> di prenotazione
      * @return <b>true</b> se date != CALENDAR.Today;

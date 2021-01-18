@@ -92,14 +92,20 @@ public class ManagePrenotazioneServlet extends HttpServlet {
         String dateTemp = request.getParameter("data");
 
         Date dataPrenotazione = DateUtils.parseDate(dateTemp);
-
+        Date today = new Date();
         PrenotazioneBean prenotazioneBean = (PrenotazioneBean) PrenotazioneDAO.doQuery(PrenotazioneDAO.doRetrieveByCode, codice);
 
         if (prenotazioneBean != null) {
 
             //controllo che la data inserita sia diversa dalla data attuale della prenotazione
             if (prenotazioneBean.getData().equals(dataPrenotazione)) {
-                PrenotazioneDAO.doQuery(PrenotazioneDAO.doUpdateData, prenotazioneBean);
+                //controllo che la modifica della prenotazione venga effettuata prima delle 07:00 del giorno della prenotazione o in un giorno antecedente la data per cui è prevista la prenotazione
+                if(checkData(prenotazioneBean.getData())) {
+                    //la modifica è possibile solo se la nuova data è oggi e il tipo di prenotazione sia singola o in generale se la nuova data è diversa dalla data corrente
+                    if((dataPrenotazione.compareTo(today)==0 && prenotazioneBean.isSingolo()) || dataPrenotazione.compareTo(today)>0) {
+                        PrenotazioneDAO.doQuery(PrenotazioneDAO.doUpdateData, prenotazioneBean);
+                    }
+                }
             }
 
         } else {
@@ -129,29 +135,21 @@ public class ManagePrenotazioneServlet extends HttpServlet {
 
             request.setAttribute("codice", prenotazioneBean.getCodice());
 
-
-            //TODO aggiungere lo stesso controllo anche al modifica data che sta sopra
-            Date today = new Date();
-            LocalTime time = LocalTime.now();
-            boolean isbefore = time.isBefore(LocalTime.parse("07:00"));
-
-            //controllo che la modifica della prenotazione avvenga prima delle 7 am del giorno della prenotazione oppure avvenga in un giorno antecedente alla data della prenotazione
-            if (((prenotazioneBean.getData().compareTo(today) == 0) && isbefore == true) || prenotazioneBean.getData().compareTo(today) > 0) {
-
-                //TODO: DA FINIRE
-            }
+           if(checkData(prenotazioneBean.getData())){
+               //TODO invocaione metodo canIupdate passandogli il nuovo tipo e la data della prenotazione se true allora consenti la modifica
+           }
 
 
             dispatcher = request.getServletContext().getRequestDispatcher("/view/prenotazione/ModificaPrenotazioniView.jsp");
 
-        }else {
+        } else {
 
             request.setAttribute("message", "Si è verificato un errore");
             dispatcher = request.getServletContext().getRequestDispatcher(JSP_PATH);
 
         }
 
-        dispatcher.forward(request,response);
+        dispatcher.forward(request, response);
 
     }
 
@@ -165,13 +163,14 @@ public class ManagePrenotazioneServlet extends HttpServlet {
         request.removeAttribute("prenotazioni");
         request.setAttribute("prenotazioni", PrenotazioneDAO.doQuery(PrenotazioneDAO.doFindPrenotazioni, parameter));
 
-        dispatcher.forward(request,response);
+        dispatcher.forward(request, response);
 
     }
 
     /**
      * Metodo per effettuare richieste doGet
-     * @param request HttpServletRequest
+     *
+     * @param request  HttpServletRequest
      * @param response HttpServletResponse
      * @throws ServletException
      * @throws IOException
@@ -180,4 +179,48 @@ public class ManagePrenotazioneServlet extends HttpServlet {
         doPost(request, response);
     }
 
-}
+    /**
+     * Metodo che controlla se la <b>data della prenotazione</b>
+     * @param date la <b>data</b> della p
+     * @return true se la <b>data della prenotazione è oggi e l'orario in cui si chiede la modifica è antecedente alle 7 del mattino</b>
+     * oppure se la <b>data della prenotazione è successiva alla data per la quale si richiede la modifica</b>
+     * @return  false altrimenti
+     */
+    private boolean checkData(Date date) {
+        Date today = new Date();
+        LocalTime time = LocalTime.now();
+        boolean isbefore = time.isBefore(LocalTime.parse("07:00"));
+        if (((date.compareTo(today) == 0) && isbefore == true) || date.compareTo(today) > 0) {
+            return true;
+        }
+        else return false;
+    }
+
+    /**
+     * Metodo che controlla se è possibile modificare il tipo di prenotazione
+     * @param singolo nuova tipologia di prenotazione <b>true</b> se il nuovo tipo è singolo, <b>false</b> se il nuovo tipo è gruppo
+     * @param date la data per la quale è prevista la prenotazione
+     * @return true se è possibile effettuare la modifca
+     * @return false se non è possibile effettuare la modifica
+     */
+    private boolean canIUpdate(Boolean singolo, Date date) {
+        Date today = new Date();
+        //se la nuova tipologia di prenotazione è singola, posso sempre modificare
+        if ((singolo == true && ((date.compareTo(today) == 0) || date.compareTo(today) > 0))) {
+
+            return true;
+
+        } else
+                //se la nuova tipologia è gruppo, non posso modificare se la data della prenotazione è la data corrente
+                if (singolo == false && date.compareTo(today) == 0) {
+
+            return false;
+
+        } else
+            //in tutti gli altri casi posso effettuare la modifica
+            return true;
+         }
+
+    }
+
+
