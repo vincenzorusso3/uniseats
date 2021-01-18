@@ -100,7 +100,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
         if (prenotazioneBean != null) {
 
             //controllo che la data inserita sia diversa dalla data attuale della prenotazione
-            if (prenotazioneBean.getData().equals(dataPrenotazione)) {
+            if (!prenotazioneBean.getData().equals(dataPrenotazione)) {
                 //controllo che la modifica della prenotazione venga effettuata prima delle 07:00 del giorno della prenotazione o in un giorno antecedente la data per cui è prevista la prenotazione
                 if (checkData(prenotazioneBean.getData())) {
                     //la modifica è possibile solo se la nuova data è oggi e il tipo di prenotazione sia singola o in generale se la nuova data è diversa dalla data corrente
