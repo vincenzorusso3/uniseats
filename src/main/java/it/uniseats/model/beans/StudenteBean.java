@@ -2,6 +2,10 @@ package it.uniseats.model.beans;
 
 import java.util.ArrayList;
 
+    /**
+    * Un oggetto <code>StudenteBean</code> rappresenta uno studente. Ogni studente ha nome e cognome,
+     * una email e password, una matricola (0512105851, 0512107883), anno (1,2,3,4,..), e un dipartimento (F, B1,..)
+    */
 public class StudenteBean {
 
     /**
@@ -25,13 +29,13 @@ public class StudenteBean {
     /**
      * Costruttore
      *
-     * @param nome è il nome dello studente
-     * @param cognome è il cognome dello studente
-     * @param matricola è la matricola dello studente
-     * @param email è l'email che lo studente usa per loggarsi al sito
-     * @param password è la password che lo studente usa per loggarsi al sito
-     * @param anno è l'anno di corso dello studente (1,2,3,4,5,6)
-     * @param dipartimento è il dipartimento di appartenenza dello studente
+     * @param nome è il <b>nome</b> dello studente
+     * @param cognome è il <b>cognome</b> dello studente
+     * @param matricola è la <b>matricola</b> dello studente
+     * @param email è l'<b>email</b> che lo studente usa per loggarsi al sito
+     * @param password è la <b>password</b> che lo studente usa per loggarsi al sito
+     * @param anno è l' <b>anno</b> di corso dello studente (1,2,3,4,5,6)
+     * @param dipartimento è il <b>dipartimento</b> di appartenenza dello studente
      */
 
     public StudenteBean(String nome, String cognome, String matricola, String email, String password, int anno, String dipartimento) {
@@ -45,49 +49,49 @@ public class StudenteBean {
     }
 
     /**
-     * @return il nome dello studente
+     * @return il <b>nome</b> dello studente
      */
     public String getNome() {
         return nome;
     }
 
     /**
-     * @return il cognome dello studente
+     * @return il <b>cognome</b> dello studente
      */
     public String getCognome() {
         return cognome;
     }
 
     /**
-     * @return la matricola dello studente
+     * @return la <b>matricola</b> dello studente
      */
     public String getMatricola() {
         return matricola;
     }
 
     /**
-     * @return l'email dello studente
+     * @return l' <b>email</b> dello studente
      */
     public String getEmail() {
         return email;
     }
 
     /**
-     * @return la password dello studente
+     * @return la <b>password</b> dello studente
      */
     public String getPassword() {
         return password;
     }
 
     /**
-     * @return l'anno di corso dello studente
+     * @return l'<b>anno</b> di corso dello studente
      */
     public int getAnno() {
         return anno;
     }
 
     /**
-     * @return il dipartimento di appartenenza dello studente
+     * @return il <b>dipartimento</b> di appartenenza dello studente
      */
     public String getDipartimento() {
         return dipartimento;
@@ -95,43 +99,43 @@ public class StudenteBean {
 
     /**
      * Modifica il nome dello studente
-     * @param nome è il nome dello studente
+     * @param nome è il <b>nome</b> dello studente
      */
     public void setNome(String nome) { this.nome = nome; }
 
     /**
      * Modifica il cognome dello studente
-     * @param cognome è il cognome dello studente
+     * @param cognome è il <b>cognome</b> dello studente
      */
     public void setCognome(String cognome) { this.cognome = cognome; }
 
     /**
      * Modifica la matricola dello studente
-     * @param matricola è la matricola dello studente
+     * @param matricola è la <b>matricola</b> dello studente
      */
     public void setMatricola(String matricola) { this.matricola = matricola; }
 
     /**
      * Modifica l'email dello studente
-     * @param email è l'email che lo studente usa per loggarsi al sito
+     * @param email è l' <b>email</b> che lo studente usa per loggarsi al sito
      */
     public void setEmail(String email) { this.email = email; }
 
     /**
      * Modifica la password dello studente
-     * @param password è la password che lo studente usa per loggarsi al sito
+     * @param password è la <b>password</b> che lo studente usa per loggarsi al sito
      */
     public void setPassword(String password) { this.password = password; }
 
     /**
      * Modifica l'anno di corso dello studente
-     * @param anno è l'anno di corso dello studente
+     * @param anno è l'<b>anno</b> di corso dello studente
      */
     public void setAnno(int anno) { this.anno = anno; }
 
     /**
      * Modifica il dipartimento dello studente
-     * @param dipartimento è il dipartimento di appartenenza dello studente
+     * @param dipartimento è il <b>dipartimento</b> di appartenenza dello studente
      */
     public void setDipartimento(String dipartimento) { this.dipartimento = dipartimento; }
 }
