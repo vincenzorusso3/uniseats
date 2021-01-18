@@ -4,7 +4,7 @@ package it.uniseats.control.visualizzaPrenotazioni;
 import it.uniseats.model.beans.PrenotazioneBean;
 import it.uniseats.model.dao.PrenotazioneDAO;
 import it.uniseats.utils.DateUtils;
-import sun.util.resources.ext.CalendarData_it;
+
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

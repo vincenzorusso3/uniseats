@@ -90,12 +90,12 @@ public class ProfiloUtenteServlet extends HttpServlet {
 
     private void deleteProfile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 
-        StudenteDAO.doQuery(StudenteDAO.doDelete,request.getParameter("matricola"));
+        StudenteDAO.doQuery(StudenteDAO.doDelete,request.getSession().getAttribute("matricola"));
 
         String message = "Profilo eliminato con successo";
         request.setAttribute("errore", message);
-
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("");
+        request.getSession().invalidate();
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/view/login/LoginView.jsp");
         dispatcher.forward(request, response);
 
 

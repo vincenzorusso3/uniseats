@@ -66,7 +66,7 @@
 
         <div class="content">
             <a class="btn btn-success btn-md" href="#" >No</a>
-            <form action="../../profilo" method="post">
+            <form action="${pageContext.servletContext.contextPath}/profilo" method="post">
                 <input type="hidden" value="confermaDelete" name="action">
                 <button class="btn btn-danger btn-md" >Si</button>
             </form>
@@ -81,7 +81,7 @@
     <div class="popup">
         <h2>Modifica anno di corso</h2>
 
-        <form action="../../profilo" method="post">
+        <form action="${pageContext.servletContext.contextPath}/profilo" method="post">
 
         <select class="md-textfield-input" id="anno" name="annomod" required >
             <option value="1">Primo anno</option>

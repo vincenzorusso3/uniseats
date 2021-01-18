@@ -5,6 +5,7 @@ import it.uniseats.model.dao.StudenteDAO;
 import it.uniseats.utils.SHA512Utils;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -47,14 +48,21 @@ public class LoginServlet extends HttpServlet {
             if (action.equalsIgnoreCase("Login")) {
 
                 String email = request.getParameter("email");
+                System.out.println(email);
+
                 String password = request.getParameter("password");
+
 
                 String encrypted = SHA512Utils.getSHA512(password);
 
                 String redirectedPage;
                 try {
+
                     StudenteBean bean = (StudenteBean) StudenteDAO.doQuery(StudenteDAO.doRetrieveByEmail, email);
+
+
                     if (bean != null && bean.getPassword().equals(encrypted)) {
+
 
 
                         request.getSession().setAttribute("logged", true);
@@ -71,7 +79,9 @@ public class LoginServlet extends HttpServlet {
                         redirectedPage = "/view/LandingPageView.jsp";
                         response.sendRedirect(request.getContextPath() + redirectedPage);
                     } else {
+
                         String message = "Username e/o password non validi!";
+
                         request.setAttribute("errore", message);
                         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_PATH);
                         dispatcher.forward(request, response);
@@ -80,6 +90,15 @@ public class LoginServlet extends HttpServlet {
 
                 } catch (Exception e) {
                     System.out.println(e);
+                    String message = "Username e/o password non validi!";
+
+                    request.setAttribute("errore", message);
+                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_PATH);
+                    try {
+                        dispatcher.forward(request, response);
+                    } catch (ServletException servletException) {
+                        servletException.printStackTrace();
+                    }
                 }
 
             }
