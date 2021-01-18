@@ -9,7 +9,9 @@
 <%@ page import="java.util.Iterator" %>
 <%@ page import="it.uniseats.model.beans.StudenteBean" %>
 
-
+<%
+    String errore = (String) request.getAttribute("errore");
+%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <html>
@@ -25,6 +27,19 @@
 <div class="background">
 
     <h1>Profilo utente</h1>
+
+</div>
+
+<div class="message">
+
+    <%
+        if (errore != null) {
+
+    %>
+    <h3><%=errore%></h3>
+    <%
+        }
+    %>
 
 </div>
 
