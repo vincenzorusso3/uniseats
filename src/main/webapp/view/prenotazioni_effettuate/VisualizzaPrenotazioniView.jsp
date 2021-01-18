@@ -56,6 +56,13 @@
         <div class="leftC">
             <h6 class="edificio">Aula: <%=bean.getCodiceAula()%></h6>
             <h6 class="posto">Posto: <%=bean.getCodicePosto()%></h6>
+            <%
+                String tipo="";
+                if(prenotazioneBean.isSingolo()==true) {
+                    tipo = "Singolo";
+                }else tipo="Gruppo";
+            %>
+            <h6 class="tipo"><%=tipo%></h6>"/>
         </div>
 
         <h6><%=bean.getCodice()%></h6>

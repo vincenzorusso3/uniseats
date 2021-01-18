@@ -26,7 +26,9 @@ import java.util.*;
 public class ManagePrenotazioneServlet extends HttpServlet {
 
     private final String JSP_PATH = "/view/prenotazione/VisualizzaPrenotazioniView.jsp";
-
+    private final String INVALID_DATE = "La data scelta non è corretta";
+    private final String TOO_LATE = "Non è più possibile modificare la prenotazione";
+    private final String IMPOSSIBLE_CHANGE = "Impossible effettuare la modifica";
     /**
      * Metodo per effettuare richieste doPost
      *
@@ -100,14 +102,20 @@ public class ManagePrenotazioneServlet extends HttpServlet {
             //controllo che la data inserita sia diversa dalla data attuale della prenotazione
             if (prenotazioneBean.getData().equals(dataPrenotazione)) {
                 //controllo che la modifica della prenotazione venga effettuata prima delle 07:00 del giorno della prenotazione o in un giorno antecedente la data per cui è prevista la prenotazione
-                if(checkData(prenotazioneBean.getData())) {
+                if (checkData(prenotazioneBean.getData())) {
                     //la modifica è possibile solo se la nuova data è oggi e il tipo di prenotazione sia singola o in generale se la nuova data è diversa dalla data corrente
-                    if((dataPrenotazione.compareTo(today)==0 && prenotazioneBean.isSingolo()) || dataPrenotazione.compareTo(today)>0) {
+                    if ((dataPrenotazione.compareTo(today) == 0 && prenotazioneBean.isSingolo()) || dataPrenotazione.compareTo(today) > 0) {
+                        prenotazioneBean.setData(dataPrenotazione);
                         PrenotazioneDAO.doQuery(PrenotazioneDAO.doUpdateData, prenotazioneBean);
+                    } else {
+                        request.setAttribute("error", IMPOSSIBLE_CHANGE);
                     }
+                } else {
+                    request.setAttribute("error", TOO_LATE );
                 }
+            }else{
+                request.setAttribute("error",INVALID_DATE );
             }
-
         } else {
             request.setAttribute("message", "Si è verificato un errore");
         }
@@ -130,14 +138,34 @@ public class ManagePrenotazioneServlet extends HttpServlet {
 
         PrenotazioneBean prenotazioneBean = (PrenotazioneBean) PrenotazioneDAO.doQuery(PrenotazioneDAO.doRetrieveByCode, request.getParameter("codice"));
         RequestDispatcher dispatcher;
+        String tipologia = request.getParameter("tipologia");
+        boolean singolo = false;
+
+        if(tipologia.equalsIgnoreCase("singolo")){
+            singolo = true;
+        }else singolo = false;
 
         if (prenotazioneBean != null) {
 
             request.setAttribute("codice", prenotazioneBean.getCodice());
 
-           if(checkData(prenotazioneBean.getData())){
-               //TODO invocaione metodo canIupdate passandogli il nuovo tipo e la data della prenotazione se true allora consenti la modifica
+            //controllo che la modifica della prenotazione venga effettuata prima delle 07:00 del giorno della prenotazione o in un giorno antecedente la data per cui è prevista la prenotazione
+            if(checkData(prenotazioneBean.getData())){
+                //controllo che sia possibile modificare la prenotazione
+                if(canIUpdate(singolo, prenotazioneBean.getData())){
+                    if(singolo==true){
+                    prenotazioneBean.setSingolo(true);
+                    PrenotazioneDAO.doQuery(PrenotazioneDAO.doUpdateData, prenotazioneBean);
+                    }else
+                        prenotazioneBean.setSingolo(false);
+                    PrenotazioneDAO.doQuery(PrenotazioneDAO.doUpdateData, prenotazioneBean);
            }
+            else{
+                request.setAttribute("error", IMPOSSIBLE_CHANGE);
+            }
+            }else{
+                request.setAttribute("error", TOO_LATE );
+            }
 
 
             dispatcher = request.getServletContext().getRequestDispatcher("/view/prenotazione/ModificaPrenotazioniView.jsp");

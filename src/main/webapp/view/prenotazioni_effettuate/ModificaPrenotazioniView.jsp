@@ -15,13 +15,27 @@
 </head>
 <body>
 
-<form action="${pageContext.servletContext.contextPath}/managePrenotazione">
-    <input type="text" name="action" value="modificaData" hidden>
-    <input type="date" name="data" value="codice" placeholder="<%=prenotazioneBean.getCodice()%>"><br>
-    <input type="date" name="data" value="date" placeholder="<%=prenotazioneBean.getData()%>"><br>
+<form action="${pageContext.servletContext.contextPath}/managePrenotazione" method="post">
+    <input type="text" name="action" value="modificaData" hidden/>
+    <label><%=prenotazioneBean.getCodice()%>"></label><br>
+    <input type="date" name="data" value="date" placeholder="<%=prenotazioneBean.getData()%>"/><br>
     <label><%=prenotazioneBean.getCodiceAula()%></label>
     <label><%=prenotazioneBean.getCodicePosto()%></label>
-    //TODO mostrare il tipo di prenotazione
+    <%
+        String tipo="";
+        if(prenotazioneBean.isSingolo()==true) {
+             tipo = "Singolo";
+        }else tipo="Gruppo";
+    %>
+    <input type="text" name="tipo" value="tipo" placeholder="<%=tipo%>"/>
+    <input type="subit" value="Conferma"/>
+
+
+
+
+
+
+
 
 
     <input type="submit" value="Submit">
