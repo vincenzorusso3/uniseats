@@ -13,17 +13,34 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * Servlet per la registrazione di un nuovo studente
+ */
 @WebServlet(name = "RegistrazioneServlet")
 public class RegistrazioneServlet extends HttpServlet {
     
     private final String JSP_PATH = "/view/profilo_utente/RegistrazioneView.jsp";
 
+    /**
+     * Metodo per effettuare richieste doPost
+     * @param request HttpServletRequest
+     * @param response HttpServletResponse
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         doGet(request, response);
     }
 
+    /**
+     * Metodo per effettuare richieste doGet
+     * @param request HttpServletRequest
+     * @param response HttpServletResponse
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -52,6 +69,14 @@ public class RegistrazioneServlet extends HttpServlet {
 
     }
 
+    /**
+     * Metodo per aggiungere un nuovo studente
+     * @param request HttpServletRequest
+     * @param response HttpServletResponse
+     * @throws SQLException
+     * @throws ServletException
+     * @throws IOException
+     */
     private void addUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
 
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_PATH);
