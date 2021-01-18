@@ -14,7 +14,7 @@
     Collection<?> prenotazioni = (Collection<?>)  request.getAttribute("prenotazioni");
 
     if(prenotazioni==null){
-        response.sendRedirect(response.encodeRedirectURL("../../managePrenotazione?action=visualizzaPrenotazioni"));
+        response.sendRedirect(response.encodeRedirectURL(request.getContextPath()+"/managePrenotazione?action=visualizzaPrenotazioni"));
         return;
     }
 
@@ -58,20 +58,25 @@
             <h6 class="posto">Posto: <%=bean.getCodicePosto()%></h6>
             <%
                 String tipo="";
-                if(prenotazioneBean.isSingolo()==true) {
+                if(bean.isSingolo()==true) {
                     tipo = "Singolo";
                 }else tipo="Gruppo";
             %>
-            <h6 class="tipo"><%=tipo%></h6>"/>
+            <h6 class="tipo"><%=tipo%></h6>
         </div>
 
         <h6 class="code">Cod:<%=bean.getCodice()%></h6>
 
 
-        <form method="POST" action="${pageContext.servletContext.contextPath}/managePrenotazione">
-            <input name="action" value="modifica" hidden>
-            <input type="button" name="modifica" value="Modifica"/>
-        </form>
+
+
+
+
+
+            <a href="${pageContext.servletContext.contextPath}/view/prenotazioni_effettuate/ModificaPrenotazioniView.jsp?cod=<%=bean.getCodice()%>">
+                <input type="button" name="modifica" value="Modifica">
+            </a>
+
 
     </div>
 

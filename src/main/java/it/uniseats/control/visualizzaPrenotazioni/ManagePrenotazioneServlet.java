@@ -55,6 +55,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
 
                 case "modificaPrenotazione":
                     try {
+
                         modificaPrenotazione(request, response);
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
@@ -65,6 +66,15 @@ public class ManagePrenotazioneServlet extends HttpServlet {
                     try {
                         modificaData(request, response);
                     } catch (SQLException | ParseException throwables) {
+                        throwables.printStackTrace();
+                    }
+                    break;
+
+
+                case "getSinglePren":
+                    try {
+                        getSinglePren(request, response);
+                    } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }
                     break;
@@ -248,6 +258,20 @@ public class ManagePrenotazioneServlet extends HttpServlet {
             //in tutti gli altri casi posso effettuare la modifica
             return true;
          }
+
+
+    private void getSinglePren(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/view/prenotazioni_effettuate/ModificaPrenotazioniView.jsp");
+
+        String cod =(String) request.getParameter("cod");
+
+
+        request.setAttribute("prenotazionemod", PrenotazioneDAO.doQuery(PrenotazioneDAO.doRetrieveByCode, cod));
+
+        dispatcher.forward(request, response);
+
+    }
 
     }
 
