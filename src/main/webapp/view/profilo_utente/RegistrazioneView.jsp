@@ -19,6 +19,8 @@
     <title>Registrazione</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="${pageContext.servletContext.contextPath}/css/Registrazione.css" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/jquery.validate.min.js"></script>
 </head>
 <body>
 
@@ -71,8 +73,8 @@
             <input class="md-textfield-input" id="email" type="text" name="email" required
                    onchange="emailObserver()"/>
 
-            <label id="email_l" for="email">Email istituzionale
-            </label>
+            <label id="email_l" for="email">Email istituzionale</label>
+
             <div class="indicator"></div>
         </div>
 
@@ -108,7 +110,7 @@
 
         <div class="md-textfield">
             <input class="md-textfield-input" id="matricola" type="text" name="matricola" required
-                   onchange="indirizzoObserver()"/>
+                   onchange="matricolaObserver()"/>
 
             <label id="matricola_l" for="matricola">Matricola</label>
             <div class="indicator"></div>
@@ -147,7 +149,7 @@
 
 
 </div>
-
+                <script src="../../js/Registrazione.js"></script>
 
 </body>
 </html>
