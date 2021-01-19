@@ -131,7 +131,7 @@ public class PrenotazioneBean {
      * @param gruppo la <b>tipologia</b> di prenotazione (true = gruppo, false = singolo)
      */
     public void setSingolo(boolean gruppo) {
-        this.singolo = singolo;
+        this.singolo = gruppo;
     }
 
     /**
