@@ -3,11 +3,8 @@ package it.uniseats.model.dao;
 
 
 import it.uniseats.model.beans.PrenotazioneBean;
-import it.uniseats.utils.DataSourceUtils;
 import it.uniseats.utils.DriverManagerConnectionPool;
 
-import javax.sql.DataSource;
-import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;

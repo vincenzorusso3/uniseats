@@ -2,10 +2,7 @@ package it.uniseats.model.dao;
 
 
 import it.uniseats.model.beans.PostoBean;
-import it.uniseats.utils.DataSourceUtils;
 import it.uniseats.utils.DriverManagerConnectionPool;
-
-import javax.sql.DataSource;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
