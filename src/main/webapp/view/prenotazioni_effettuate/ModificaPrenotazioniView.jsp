@@ -33,6 +33,7 @@
 <div class="card">
 <form action="${pageContext.servletContext.contextPath}/managePrenotazione" method="post">
     <input type="text" name="action" value="modificaData" hidden/>
+    <input type="text" name="codice" value="<%=prenotazioneBean.getCodice()%>" hidden/>
 
 
     <p class="title">codice Prenotazione:<br><label><%=prenotazioneBean.getCodice()%></label></p>

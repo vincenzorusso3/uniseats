@@ -58,7 +58,7 @@
             <h6 class="posto">Posto: <%=bean.getCodicePosto()%></h6>
             <%
                 String tipo="";
-                if(bean.isSingolo()==true) {
+                if(bean.isSingolo()) {
                     tipo = "Singolo";
                 }else tipo="Gruppo";
             %>

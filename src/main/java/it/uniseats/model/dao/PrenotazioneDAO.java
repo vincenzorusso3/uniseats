@@ -3,6 +3,7 @@ package it.uniseats.model.dao;
 
 
 import it.uniseats.model.beans.PrenotazioneBean;
+import it.uniseats.utils.DateUtils;
 import it.uniseats.utils.DriverManagerConnectionPool;
 
 import java.sql.*;
@@ -198,8 +199,13 @@ public class PrenotazioneDAO {
 
     private static synchronized int doUpdateData(PreparedStatement preparedStatement, PrenotazioneBean prenotazioneBean) throws SQLException {
 
-        preparedStatement.setDate(1, (Date) prenotazioneBean.getData());
+
+        Date date = new Date(prenotazioneBean.getData().getTime());
+
+        preparedStatement.setDate(1, date);
         preparedStatement.setString(2, prenotazioneBean.getCodice());
+
+        preparedStatement.executeUpdate();
 
         return preparedStatement.executeUpdate();
 
