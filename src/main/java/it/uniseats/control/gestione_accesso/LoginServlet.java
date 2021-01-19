@@ -38,7 +38,7 @@ public class LoginServlet extends HttpServlet {
      * @param response HttpServletResponse
      * @throws IOException
      */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         String action = request.getParameter("action");
 
