@@ -1,5 +1,6 @@
 import it.uniseats.control.gestione_accesso.LoginServlet;
 import it.uniseats.control.gestione_accesso.LogoutServlet;
+import it.uniseats.model.beans.StudenteBean;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -19,6 +20,7 @@ public class LogoutServletTest {
     private MockHttpServletRequest request;
     private MockHttpServletResponse response;
     private MockHttpSession session;
+    private StudenteBean s;
 
     @BeforeEach
     public void setUp() {
@@ -27,7 +29,8 @@ public class LogoutServletTest {
         response = new MockHttpServletResponse();
         request.setSession(session);
 
-    }
+
+}
 
     @Test
     public void oneWaySetup() throws ServletException{
