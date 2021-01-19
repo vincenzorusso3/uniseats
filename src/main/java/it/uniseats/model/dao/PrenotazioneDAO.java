@@ -178,8 +178,10 @@ public class PrenotazioneDAO {
      */
     private static synchronized int doSave(PreparedStatement preparedStatement, PrenotazioneBean prenotazioneBean) throws SQLException {
 
+        java.sql.Date dateSql = new java.sql.Date(prenotazioneBean.getData().getTime());
+
         preparedStatement.setString(1, prenotazioneBean.getCodice());
-        preparedStatement.setDate(2, (Date) prenotazioneBean.getData());
+        preparedStatement.setDate(2, dateSql);
         preparedStatement.setBoolean(3, prenotazioneBean.isSingolo());
         preparedStatement.setString(4, prenotazioneBean.getCodicePosto());
         preparedStatement.setString(5, prenotazioneBean.getCodiceAula());

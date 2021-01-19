@@ -1,11 +1,8 @@
 
-import it.uniseats.control.gestione_accesso.LoginServlet;
-import it.uniseats.control.gestione_accesso.LogoutServlet;
 import it.uniseats.control.gestione_utente.ProfiloUtenteServlet;
 import it.uniseats.model.beans.StudenteBean;
 import it.uniseats.model.dao.StudenteDAO;
-import org.junit.After;
-import org.junit.jupiter.api.BeforeAll;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
