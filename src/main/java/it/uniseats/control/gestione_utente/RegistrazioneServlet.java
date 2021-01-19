@@ -81,21 +81,33 @@ public class RegistrazioneServlet extends HttpServlet {
 
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_PATH);
         String email = request.getParameter("email");
+        String matricola=request.getParameter("matricola");
 
-        StudenteBean studenteBean = (StudenteBean) StudenteDAO.doQuery(StudenteDAO.doRetrieveByEmail, email);
+        StudenteBean studenteBean = (StudenteBean) StudenteDAO.doQuery(StudenteDAO.doRetrieveByEmail,email);
+        String emailNull=studenteBean.getEmail();
+        studenteBean= (StudenteBean) StudenteDAO.doQuery(StudenteDAO.doRetrieveByMatricola, matricola);
+        String matricolaNull=studenteBean.getMatricola();
 
-        if (studenteBean != null) {
 
-            String message = "Esiste un account registrato con questa email!";
+        if (emailNull != null) {
+            System.out.println("cane");
+            String message = "Esiste già un account con questa e-mail";
             request.setAttribute("message", message);
 
             dispatcher.forward(request, response);
 
-        } else {
+        }else if(matricolaNull != null){
+            System.out.println("cane2");
+            String message = "Esiste già un account con questa Matricola";
+            request.setAttribute("message", message);
 
+            dispatcher.forward(request, response);
+        }
+        else {
+            System.out.println("cane3");
             String nome = request.getParameter("nome");
             String cognome = request.getParameter("cognome");
-            String matricola = request.getParameter("matricola");
+
             String password = request.getParameter("password");
             int anno=Integer.parseInt(request.getParameter("anno"));
             String dipartimento=request.getParameter("dipartimento");
