@@ -90,21 +90,21 @@ public class RegistrazioneServlet extends HttpServlet {
 
 
         if (emailNull != null) {
-            System.out.println("cane");
+
             String message = "Esiste già un account con questa e-mail";
             request.setAttribute("message", message);
 
             dispatcher.forward(request, response);
 
         }else if(matricolaNull != null){
-            System.out.println("cane2");
+
             String message = "Esiste già un account con questa Matricola";
             request.setAttribute("message", message);
 
             dispatcher.forward(request, response);
         }
         else {
-            System.out.println("cane3");
+
             String nome = request.getParameter("nome");
             String cognome = request.getParameter("cognome");
 
