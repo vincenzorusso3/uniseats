@@ -199,8 +199,7 @@ public class PrenotazioneDAO {
 
     private static synchronized int doUpdateData(PreparedStatement preparedStatement, PrenotazioneBean prenotazioneBean) throws SQLException {
 
-
-        Date date = new Date(prenotazioneBean.getData().getTime());
+        java.sql.Date date = new java.sql.Date(prenotazioneBean.getData().getTime());
 
         preparedStatement.setDate(1, date);
         preparedStatement.setString(2, prenotazioneBean.getCodice());
