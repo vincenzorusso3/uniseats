@@ -1,4 +1,4 @@
-package it.uniseats.model;
+package it.uniseats.utils;
 
 
 import java.sql.Connection;

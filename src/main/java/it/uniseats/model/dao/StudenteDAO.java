@@ -1,9 +1,8 @@
 package it.uniseats.model.dao;
 
+import it.uniseats.utils.DriverManagerConnectionPool;
 import it.uniseats.model.beans.StudenteBean;
-import it.uniseats.utils.DataSourceUtils;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -34,16 +33,12 @@ public class StudenteDAO {
      */
     public static synchronized Object doQuery(String methodName, Object parameter) throws SQLException {
 
-        DataSource ds = DataSourceUtils.getDataSource();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-
-        if (ds != null) {
-
-            String querySQL;
+        String querySQL;
 
             try {
-                connection = ds.getConnection();
+                connection = DriverManagerConnectionPool.getConnection();
 
                 switch (methodName) {
 
@@ -88,18 +83,14 @@ public class StudenteDAO {
                     if (preparedStatement != null)
                         preparedStatement.close();
                 } finally {
-                    if (connection != null)
-                        connection.close();
+                    DriverManagerConnectionPool.releaseConnection(connection);
                 }
 
             }
 
-        } else {
-            System.out.println(DATASOURCE_ERROR);
-            return null;
         }
 
-    }
+
 
     /**
      * Query che effettua una ricerca per matricola di uno Studente
