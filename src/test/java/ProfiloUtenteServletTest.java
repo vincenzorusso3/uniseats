@@ -70,7 +70,7 @@ public class ProfiloUtenteServletTest {
 
     }
 
-    @Test()
+    @Test
     public void deleteTest() throws ServletException, IOException{
 
         StudenteBean bean=new StudenteBean("Daniele","Salerno","0512137888","d.salerno7@studenti.unisa,it",
