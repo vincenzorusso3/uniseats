@@ -4,6 +4,7 @@ package it.uniseats.model.dao;
 
 import it.uniseats.model.beans.PrenotazioneBean;
 import it.uniseats.utils.DataSourceUtils;
+import it.uniseats.utils.DriverManagerConnectionPool;
 
 import javax.sql.DataSource;
 import javax.swing.*;
@@ -37,16 +38,12 @@ public class PrenotazioneDAO {
      */
     public static synchronized Object doQuery(String methodName, Object parameter) throws SQLException {
 
-        DataSource ds = DataSourceUtils.getDataSource();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-
-        if (ds != null) {
-
-            String querySQL;
+        String querySQL;
 
             try {
-                connection = ds.getConnection();
+                connection = DriverManagerConnectionPool.getConnection();
 
                 switch (methodName) {
 
@@ -96,15 +93,10 @@ public class PrenotazioneDAO {
                     if (preparedStatement != null)
                         preparedStatement.close();
                 } finally {
-                    if (connection != null)
-                        connection.close();
-                }
+                    DriverManagerConnectionPool.releaseConnection(connection);
 
             }
 
-        } else {
-            System.out.println(DATASOURCE_ERROR);
-            return null;
         }
 
     }

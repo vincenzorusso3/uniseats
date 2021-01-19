@@ -1,6 +1,6 @@
-import it.uniseats.model.beans.PostoBean;
+
 import it.uniseats.model.beans.StudenteBean;
-import it.uniseats.model.dao.PostoDAO;
+
 import it.uniseats.model.dao.StudenteDAO;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;

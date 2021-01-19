@@ -3,6 +3,7 @@ package it.uniseats.model.dao;
 import it.uniseats.model.beans.AulaBean;
 
 import it.uniseats.utils.DataSourceUtils;
+import it.uniseats.utils.DriverManagerConnectionPool;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -31,16 +32,13 @@ public class AulaDAO {
      */
     public static synchronized Object doQuery(String methodName, Object parameter) throws SQLException {
 
-        DataSource ds = DataSourceUtils.getDataSource();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-
-        if (ds != null) {
 
             String querySQL;
 
             try {
-                connection = ds.getConnection();
+                connection = DriverManagerConnectionPool.getConnection();
 
                 switch (methodName) {
 
@@ -68,16 +66,11 @@ public class AulaDAO {
                     if (preparedStatement != null)
                         preparedStatement.close();
                 } finally {
-                    if (connection != null)
-                        connection.close();
+                    DriverManagerConnectionPool.releaseConnection(connection);
                 }
 
             }
 
-        } else {
-            System.out.println(DATASOURCE_ERROR);
-            return null;
-        }
 
     }
 

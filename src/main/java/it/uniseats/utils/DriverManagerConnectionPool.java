@@ -25,9 +25,9 @@ import java.util.List;
             Connection newConnection = null;
             String ip = "localhost";
             String port = "3306";
-            String db = "progetto";
-            String username = "tsw";
-            String password = "adminadmin";
+            String db = "uniseats";
+            String username = "root";
+            String password = "admin";
 
             newConnection = DriverManager.getConnection("jdbc:mysql://"+ ip+":"+
                             port+"/"+db+"?serverTimezone=UTC",

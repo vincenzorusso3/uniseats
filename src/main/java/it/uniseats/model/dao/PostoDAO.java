@@ -3,6 +3,7 @@ package it.uniseats.model.dao;
 
 import it.uniseats.model.beans.PostoBean;
 import it.uniseats.utils.DataSourceUtils;
+import it.uniseats.utils.DriverManagerConnectionPool;
 
 import javax.sql.DataSource;
 
@@ -33,16 +34,13 @@ public class PostoDAO {
      */
     public static synchronized Object doQuery(String methodName, Object parameter) throws SQLException {
 
-        DataSource ds = DataSourceUtils.getDataSource();
+
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-
-        if (ds != null) {
-
-            String querySQL;
+        String querySQL;
 
             try {
-                connection = ds.getConnection();
+                connection = DriverManagerConnectionPool.getConnection();
 
                 switch (methodName) {
 
@@ -67,18 +65,14 @@ public class PostoDAO {
                     if (preparedStatement != null)
                         preparedStatement.close();
                 } finally {
-                    if (connection != null)
-                        connection.close();
+                    DriverManagerConnectionPool.releaseConnection(connection);
                 }
 
             }
 
-        } else {
-            System.out.println(DATASOURCE_ERROR);
-            return null;
         }
 
-    }
+
     /**
      * Query che effettua una ricerca per codice di un Posto
      * @param preparedStatement <b>query SQL</b>
