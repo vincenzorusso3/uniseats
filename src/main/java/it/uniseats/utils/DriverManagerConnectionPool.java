@@ -33,7 +33,7 @@ public class DriverManagerConnectionPool {
                         port+"/"+db+"?serverTimezone=UTC", username, password);
 
         System.out.println("Create a new DB connection");
-        newConnection.setAutoCommit(false);
+        newConnection.setAutoCommit(true);
         return newConnection;
     }
 
