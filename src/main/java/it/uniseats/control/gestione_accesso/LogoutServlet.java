@@ -31,7 +31,7 @@ public class LogoutServlet extends HttpServlet {
      * @param response HttpServletResponse
      * @throws IOException
      */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         request.getSession().invalidate();
 
