@@ -1,10 +1,5 @@
 language: java
-sudo: false # faster builds
-
-jdk:
-  - oraclejdk11
-
-script: mvn test
-
+sudo: false
+script: mvn clear verify
 after_success:
   - bash <(curl -s https://codecov.io/bash)
