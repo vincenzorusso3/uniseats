@@ -11,6 +11,8 @@ import java.util.Date;
 import java.util.Locale;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+
+import it.uniseats.utils.DateEnglishToItalian;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -52,7 +54,11 @@ class ManagePrenotazioneServletTest {
   public void updateDataTest() throws ParseException, SQLException, ServletException, IOException {
     DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
     PrenotazioneBean prenotazioneBean =
-        (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "0001-0512105033");
+        (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "9-0512108336-21/01/2021");
+    System.out.println("data nel db "+prenotazioneBean.getData());
+
+
+
 
     Date date1 = df.parse("25/02/2021");
     System.out.println("date Test " + date1);

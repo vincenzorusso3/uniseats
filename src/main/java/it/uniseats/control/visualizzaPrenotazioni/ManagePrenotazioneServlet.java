@@ -3,6 +3,7 @@ package it.uniseats.control.visualizzaPrenotazioni;
 
 import it.uniseats.model.beans.PrenotazioneBean;
 import it.uniseats.model.dao.PrenotazioneDAO;
+import it.uniseats.utils.DateEnglishToItalian;
 import it.uniseats.utils.DateUtils;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -114,8 +115,12 @@ public class ManagePrenotazioneServlet extends HttpServlet {
 
     String codice = request.getParameter("codice");
     String dateTemp = request.getParameter("data");
+    System.out.println("DateTemp "+dateTemp);
+    DateEnglishToItalian dateEnglishToItalian=new DateEnglishToItalian();
+    System.out.println("DATA CONVERTITA" + dateEnglishToItalian.transform(dateTemp));
 
-    Date dataPrenotazione = DateUtils.parseDate(dateTemp);
+    String dataTransformed=dateEnglishToItalian.transform(dateTemp);
+    Date dataPrenotazione = DateUtils.parseDate(dataTransformed);
     Date today = new Date();
     PrenotazioneBean prenotazioneBean =
         (PrenotazioneBean) PrenotazioneDAO.doQuery(PrenotazioneDAO.doRetrieveByCode, codice);
@@ -131,7 +136,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
           //la modifica è possibile solo se la nuova data è oggi e il tipo di prenotazione sia singola o in generale se la nuova data è diversa dalla data corrente
           if ((dataPrenotazione.compareTo(today) == 0 && prenotazioneBean.isSingolo())
               || dataPrenotazione.compareTo(today) > 0) {
-
+            System.out.println("DATA INTO SERVLET "+dataPrenotazione);
             prenotazioneBean.setData(dataPrenotazione);
             PrenotazioneDAO.doQuery(PrenotazioneDAO.doUpdateData, prenotazioneBean);
 
@@ -253,6 +258,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
   private boolean checkData(Date date) {
 
     Date today = new Date();
+
     LocalTime time = LocalTime.now();
     boolean isbefore = time.isBefore(LocalTime.parse("07:00"));
 

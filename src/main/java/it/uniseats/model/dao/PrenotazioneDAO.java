@@ -27,7 +27,7 @@ public class PrenotazioneDAO {
   public static final String doUpdateTipo = "doUpdateTipo";
   public static final String doDelete = "doDelete";
   public static final String findByDataDipartimento = "findByDataDipartimento";
-
+  public static final Long day1=86400000L;
   private static final String TABLE_NAME = "prenotazione";
   private static final String DATASOURCE_ERROR =
       "[PRENOTAZIONEDAO] Errore: il DataSource non risulta essere configurato correttamente";
@@ -264,9 +264,12 @@ public class PrenotazioneDAO {
   private static synchronized int doUpdateData(PreparedStatement preparedStatement,
                                                PrenotazioneBean prenotazioneBean)
       throws SQLException {
+    System.out.println("date from bean DAO "+prenotazioneBean.getData());
+    java.util.Date date1=prenotazioneBean.getData();
 
     java.sql.Date date = new java.sql.Date(prenotazioneBean.getData().getTime());
-
+    date.setTime(prenotazioneBean.getData().getTime()+day1);
+    System.out.println("DATE INTO DAO"+date);
     preparedStatement.setDate(1, date);
     preparedStatement.setString(2, prenotazioneBean.getCodice());
 

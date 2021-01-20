@@ -77,8 +77,8 @@
 
                 <p>Aula: <label><%=prenotazioneBean.getCodiceAula()%></label></p>
                 <p>Posto: <label><%=prenotazioneBean.getCodicePosto()%></label></p>
-                <p><input type="date" name="data" value="date" placeholder="<%=prenotazioneBean.getData()%>"/><p/>
-
+                <p><input type="date" name="data" value="<%=prenotazioneBean.getData()%>"%>"/><p/>
+                    <input type="hidden" name="codice" value="<%=prenotazioneBean.getCodice()%>">
 
                 <input type="submit" value="ConfermaData" class="buttonConf"/>
 
