@@ -1,3 +1,6 @@
 language: java
+jdk: oraclejdk11
 sudo: false
-script: mvn clean verify
+script:
+  - ./mvnw clean install
+  - bash <(curl -s https://codecov.io/bash)
