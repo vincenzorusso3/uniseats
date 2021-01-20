@@ -13,9 +13,10 @@
     // Check logged
     Boolean loggato = (Boolean) session.getAttribute("logged");
     if ((loggato == null) || (!loggato)) {
-        response.sendRedirect("../login/LoginView.jsp");
+        response.sendRedirect(request.getContextPath()+"/view/login/LoginView.jsp");
         return;
     }
+
 %>
 
 <%

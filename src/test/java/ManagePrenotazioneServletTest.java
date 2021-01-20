@@ -55,8 +55,11 @@ class ManagePrenotazioneServletTest {
         (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "0001-0512105033");
 
     Date date1 = df.parse("25/02/2021");
+    System.out.println("date Test " + date1);
     request.addParameter("action", "modificaPrenotazione");
     request.getSession().setAttribute("codice", prenotazioneBean.getCodice());
+    System.out.println("Attributo codice sessione Test " + request.getSession().getAttribute("codice"));
+    System.out.println("Codice prenotazione test " + prenotazioneBean.getCodice());
     request.getSession().setAttribute("data", date1);
     request.addParameter("tipologia", "singolo");
 
