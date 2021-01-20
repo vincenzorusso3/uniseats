@@ -32,15 +32,51 @@ class LoginServletTest {
     ServletConfig sg = new MockServletConfig();
     servlet.init(sg);
   }
-
+  //TC_1.2_08
   @Test
-  public void loginTest() throws ServletException, IOException {
+  public void loginTestSuccessfull() throws ServletException, IOException {
     request.getSession().setAttribute("logged", false);
     request.addParameter("action", "Login");
     request.addParameter("email", "a.sabia15@studenti.unisa.it");
     request.addParameter("password", "accioLaurea");
     servlet.doGet(request, response);
     assertEquals(true,request.getSession().getAttribute("logged"));
+  }
+
+  //TC_1.2_03
+  @Test
+  public void loginTestFailedEmailNonEsistente() throws IOException {
+    request.getSession().setAttribute("logged", false);
+    request.addParameter("action", "Login");
+    request.addParameter("email", "a.sabia@studenti.unisa.it");
+    request.addParameter("password", "accioLaurea");
+    servlet.doGet(request, response);
+    assertEquals("Username e/o password non validi!", request.getAttribute("errore"));
+
+  }
+
+  //TC_1.2_06
+  @Test
+  public void loginTestFailedPasswordNonEsistente() throws IOException {
+    request.getSession().setAttribute("logged", false);
+    request.addParameter("action", "Login");
+    request.addParameter("email", "a.sabia15@studenti.unisa.it");
+    request.addParameter("password", "accioLaurea1");
+    servlet.doGet(request, response);
+    assertEquals("Username e/o password non validi!", request.getAttribute("errore"));
+
+
+  }
+
+  //TC_1.2_07
+  @Test
+  public void loginTestFailedPasswordNonCorrispondente() throws IOException {
+    request.getSession().setAttribute("logged", false);
+    request.addParameter("action", "Login");
+    request.addParameter("email", "a.sabia15@studenti.unisa.it");
+    request.addParameter("password", "Alessia3000");
+    servlet.doGet(request, response);
+    assertEquals("Username e/o password non validi!", request.getAttribute("errore"));
   }
 
 }
