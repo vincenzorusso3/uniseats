@@ -1,14 +1,15 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
+
 <%
-   /* // Check logged
+   // Check logged
     Boolean loggato = (Boolean) session.getAttribute("logged");
     if ((loggato == null) || (!loggato)) {
-        response.sendRedirect("/login/LoginView.jsp");
+        response.sendRedirect("./login/LoginView.jsp");
         return;
     }
-    */
+
 
 %>
 
@@ -18,6 +19,7 @@
     <title>LandingPage</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="${pageContext.servletContext.contextPath}/css/LandingPage.css" rel="stylesheet" type="text/css">
+
 </head>
 <body>
 <%@include file="/view/HeaderView.jsp" %>
