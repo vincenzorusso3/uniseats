@@ -7,15 +7,15 @@ import java.util.Locale;
 
 public class DateUtils {
 
-    private static final DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
+  private static final DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
 
-    public static Date parseDate(String date) throws ParseException {
-        date = date.replace("-","/");
-        return df.parse(date);
-    }
+  public static Date parseDate(String date) throws ParseException {
+    date = date.replace("-", "/");
+    return df.parse(date);
+  }
 
-    public static String dateToString(Date date){
-        return df.format(date).replace("-","/");
-    }
+  public static String dateToString(Date date) {
+    return df.format(date).replace("-", "/");
+  }
 
 }
