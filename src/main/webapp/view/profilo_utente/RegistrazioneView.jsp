@@ -1,5 +1,6 @@
 <%@ page import="java.util.Collection" %>
-<%@ page import="java.util.Iterator" %><%--
+<%@ page import="java.util.Iterator" %>
+<%--
   Created by IntelliJ IDEA.
   User: benedettosimone
   Date: 30/12/20
@@ -9,22 +10,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <%
-
-    Collection<?> dipartimenti = (Collection<?>)  request.getAttribute("dipartimenti");
-
+    String message = (String) request.getAttribute("message");
+    System.out.println(message+" questo");
+    Collection<?> dipartimenti = (Collection<?>)  request.getSession().getAttribute("dipartimenti");
     if(dipartimenti==null){
         response.sendRedirect(response.encodeRedirectURL(request.getContextPath()+"/registrazione?action=getDipartimenti"));
         return;
     }
-
-
-
-
-
-    String message = (String) request.getAttribute("message");
-
-
-
 %>
 
 <html>

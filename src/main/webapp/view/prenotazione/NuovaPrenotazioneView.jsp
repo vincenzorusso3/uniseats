@@ -1,13 +1,16 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: silve
-  Date: 13/01/2021
-  Time: 10:31
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
+<%
+    // Check logged
+    String s= request.getParameter("from");
+    request.getSession().setAttribute("from",s);
 
+    Boolean loggato = (Boolean) session.getAttribute("logged");
+    if ((loggato == null) || (!loggato)) {
+        response.sendRedirect("./login/LoginView.jsp");
+        return;
+    }
+%>
 
 
 <html>
@@ -20,6 +23,12 @@
     <link href="${pageContext.servletContext.contextPath}/css/NuovaPrenotazione.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+
+
+
+
+
+
 
 <%@include file="../HeaderView.jsp" %>
 <div class="background">

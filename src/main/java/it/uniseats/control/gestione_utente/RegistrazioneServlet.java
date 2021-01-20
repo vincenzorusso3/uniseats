@@ -169,7 +169,8 @@ public class RegistrazioneServlet extends HttpServlet {
     ArrayList<String> dip= (ArrayList<String>) AulaDAO.doQuery(AulaDAO.getDipartimenti,"Temp");
 
     RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/view/profilo_utente/RegistrazioneView.jsp");
-    request.setAttribute("dipartimenti",dip);
+    request.getSession().setAttribute("dipartimenti",dip);
+
 
     dispatcher.forward(request, response);
 
