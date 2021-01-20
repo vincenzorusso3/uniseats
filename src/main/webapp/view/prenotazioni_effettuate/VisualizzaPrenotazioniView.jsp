@@ -9,6 +9,14 @@
   To change this template use File | Settings | File Templates.
 --%>
 
+<%
+    // Check logged
+    Boolean loggato = (Boolean) session.getAttribute("logged");
+    if ((loggato == null) || (!loggato)) {
+        response.sendRedirect("../login/LoginView.jsp");
+        return;
+    }
+%>
 
 <%
     Collection<?> prenotazioni = (Collection<?>)  request.getAttribute("prenotazioni");

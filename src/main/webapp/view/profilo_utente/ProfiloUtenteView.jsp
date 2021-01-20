@@ -10,6 +10,15 @@
 <%@ page import="it.uniseats.model.beans.StudenteBean" %>
 
 <%
+    // Check logged
+    Boolean loggato = (Boolean) session.getAttribute("logged");
+    if ((loggato == null) || (!loggato)) {
+        response.sendRedirect("../login/LoginView.jsp");
+        return;
+    }
+%>
+
+<%
     String errore = (String) request.getAttribute("errore");
 %>
 
@@ -19,6 +28,7 @@
     <title>Profilo Utente</title>
     <link href="${pageContext.servletContext.contextPath}/css/ProfiloUtente.css" rel="stylesheet" type="text/css">
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
 </head>
 <body>
 
