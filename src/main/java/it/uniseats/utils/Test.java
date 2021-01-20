@@ -36,7 +36,17 @@ public class Test {
       pList.removeIf(prenotazione -> !prenotazione.getCodiceAula().equals("00"));
 
       if (pList.size() == 20) {
+
         //parte JARVIS
+        int[] prenotazioni = new int[pList.size()];
+
+        for (int i = 0; i < pList.size(); i++) {
+          if (pList.get(i).isSingolo())
+            prenotazioni[i] = 0;
+          else
+            prenotazioni[i] = 1;
+        }
+
         int[] disposizione;
 
         ArrayList<AulaBean> listaAule =
@@ -79,8 +89,11 @@ public class Test {
                 }
 
               }
+
             }
+
           }
+
         }
 
       }
@@ -88,31 +101,5 @@ public class Test {
     }
 
   }
-
-  public void x(String dipartimento) throws SQLException {
-    ArrayList<AulaBean> listaAule =
-        (ArrayList<AulaBean>) AulaDAO.doQuery(AulaDAO.doRetrieveAll, dipartimento);
-
-    if (listaAule != null) {
-
-      for (AulaBean a : listaAule) {
-
-        int nposti = a.getnPosti();
-        if (nposti != 0) {
-          nposti--;
-          a.setnPosti(nposti);
-          if (nposti == 0) {
-            //Parte algoritmo
-            int[] array; // Posti organizzati by AI
-
-          }
-          break;
-        }
-
-      }
-
-    }
-  }
-
 
 }
