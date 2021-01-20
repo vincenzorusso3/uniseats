@@ -27,7 +27,9 @@ body {
     text-align: center;
 }
 
-
+h6{
+    color:gray;
+}
 
 /* p Button */
 .b1{
@@ -81,7 +83,7 @@ body {
     .column {
         width: 80%;
         display: block;
-        margin-bottom: 30px;
+        margin-bottom: -4px;
         margin-left:10%;
     }
 
@@ -114,4 +116,33 @@ body {
     }
 
 }
+@media screen and (max-width: 375px) {
+
+    .title{
+        font-size: 22px;
+    }
+
+    .column {
+        width: 100%;
+        margin-left: 0%;
+    }
+
+    .buttonC{
+        padding: 10px 24px;
+    }
+
+
+}
+
+
+@media screen and (max-width: 356px) {
+
+    .title{
+        height: 84px;
+        padding: 26px 24px 4px 24px;
+        font-size: 18px;
+    }
+
+}
+
 
