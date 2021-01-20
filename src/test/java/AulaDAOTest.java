@@ -28,4 +28,9 @@ class AulaDAOTest {
     assertNotNull(beans);
   }
 
+  @Test
+  void getDipartimenti() throws SQLException {
+    ArrayList<String> dipartimenti = (ArrayList<String>) AulaDAO.doQuery("getDipartimenti","Infromatica" );
+    assertNotNull(dipartimenti);
+  }
 }

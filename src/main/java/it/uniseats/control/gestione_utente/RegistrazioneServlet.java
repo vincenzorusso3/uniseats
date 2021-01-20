@@ -30,7 +30,7 @@ public class RegistrazioneServlet extends HttpServlet {
    * @throws ServletException
    * @throws IOException
    */
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+  public void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
 
     doGet(request, response);

@@ -14,6 +14,9 @@
           <element id="module-output" name="UniSeats" />
         </element>
         <element id="directory" name="lib">
+          <element id="archive" name="UniSeats-1.0-SNAPSHOT.jar">
+            <element id="module-output" name="UniSeats" />
+          </element>
           <element id="library" level="project" name="Maven: org.springframework:spring-core:5.3.3" />
           <element id="library" level="project" name="Maven: org.springframework:spring-jcl:5.3.3" />
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:8.0.12" />

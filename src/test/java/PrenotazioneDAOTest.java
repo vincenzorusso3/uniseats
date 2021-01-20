@@ -1,3 +1,4 @@
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -50,4 +51,67 @@ class PrenotazioneDAOTest {
     assertNotNull(prenotazioni);
   }
 
+  @Test
+  void doDeleteTest() throws SQLException, ParseException {
+    DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
+    PrenotazioneBean bean =
+        new PrenotazioneBean("1-11111111-111111", df.parse("21/01/2021"), true, "00", "00",
+            "0512105933");
+    PrenotazioneDAO.doQuery("doSave", bean);
+
+    PrenotazioneBean expected =
+        (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "1-11111111-111111");
+
+    boolean i = (boolean) PrenotazioneDAO.doQuery("doDelete", "1-11111111-111111");
+    assertEquals(i, true);
+  }
+
+  @Test
+  void doSaveTest() throws SQLException, ParseException {
+    DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
+    PrenotazioneBean bean =
+        new PrenotazioneBean("1-11111111-111111", df.parse("21/01/2021"), true, "00", "00",
+            "0512105933");
+    PrenotazioneDAO.doQuery("doSave", bean);
+
+    PrenotazioneBean expected =
+        (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "1-11111111-111111");
+
+    PrenotazioneDAO.doQuery("doDelete", "1-11111111-111111");
+
+    assertEquals(bean.getCodice(), expected.getCodice());
+  }
+
+  @Test
+  void doUpdateDataTest() throws SQLException, ParseException {
+    DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
+    PrenotazioneBean bean =
+        new PrenotazioneBean("1-11111111-111111", df.parse("21/01/2021"), true, "00", "00",
+            "0512105933");
+    PrenotazioneDAO.doQuery("doSave", bean);
+    bean.setData(df.parse("23/01/2021"));
+    int i = (int) PrenotazioneDAO.doQuery("doUpdateData", bean);
+
+    PrenotazioneDAO.doQuery("doDelete", "1-11111111-111111");
+
+    assertEquals(i, 1);
+
+  }
+
+  @Test
+  void doUpdateTipoTest() throws SQLException, ParseException {
+    DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
+    PrenotazioneBean bean =
+        new PrenotazioneBean("1-11111111-111111", df.parse("21/01/2021"), true, "00", "00",
+            "0512105933");
+    PrenotazioneDAO.doQuery("doSave", bean);
+    bean.setSingolo(false);
+    int i = (int) PrenotazioneDAO.doQuery("doUpdateTipo", bean);
+
+    PrenotazioneDAO.doQuery("doDelete", "1-11111111-111111");
+
+    assertEquals(i, 1);
+  }
+
 }
+
