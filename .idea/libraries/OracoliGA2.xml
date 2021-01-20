@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="OracoliGA">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/main/webapp/WEB-INF/lib/OracoliGA.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
