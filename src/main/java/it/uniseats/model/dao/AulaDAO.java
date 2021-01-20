@@ -1,8 +1,6 @@
 package it.uniseats.model.dao;
 
 import it.uniseats.model.beans.AulaBean;
-
-
 import it.uniseats.utils.DriverManagerConnectionPool;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -153,10 +151,11 @@ public class AulaDAO {
     aulaBean.setEdificio(rs.getString("edificio"));
 
     return aulaBean;
+
   }
 
   /**
-   * Metodo per cercare tutti i dipartimenti
+   * Metodo per cercare tutti i dipartimenti.
    *
    * @param preparedStatement <b>query SQL</b>
    * @return lista di tutti i  <b>dipartimenti</b>
