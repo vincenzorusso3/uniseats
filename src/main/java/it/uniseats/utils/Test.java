@@ -1,4 +1,4 @@
-package it.uniseats.utils;
+/*package it.uniseats.utils;
 
 import it.uniseats.model.beans.AulaBean;
 import it.uniseats.model.beans.PrenotazioneBean;
@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+
 
 public class Test {
 
@@ -47,7 +48,7 @@ public class Test {
             prenotazioni[i] = 1;
         }
 
-        int[] disposizione; //TODO: collegare jarvis
+        int[] disposizione=; //TODO: collegare jarvis
 
         ArrayList<AulaBean> listaAule =
             (ArrayList<AulaBean>) AulaDAO.doQuery(AulaDAO.doRetrieveAll, dipartimento);
@@ -100,6 +101,9 @@ public class Test {
 
     }
 
+
+
   }
 
 }
+*/

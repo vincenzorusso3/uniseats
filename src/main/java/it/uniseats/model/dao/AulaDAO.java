@@ -49,7 +49,7 @@ public class AulaDAO {
                     case getDipartimenti:
                         querySQL = "SELECT DISTINCT dipartimento FROM " + TABLE_NAME + " WHERE dipartimento!=?";
                         preparedStatement = connection.prepareStatement(querySQL);
-                        return getDipartimenti(preparedStatement);
+                        return getDipartimenti(preparedStatement, (String) parameter);
 
 
 
@@ -152,7 +152,7 @@ public class AulaDAO {
      * @return lista di tutti i  <b>dipartimenti</b>
      * @throws SQLException
      */
-    private static synchronized ArrayList<String> getDipartimenti(PreparedStatement preparedStatement) throws SQLException {
+    private static synchronized ArrayList<String> getDipartimenti(PreparedStatement preparedStatement, String parameter) throws SQLException {
 
         preparedStatement.setString(1, temp);
         ArrayList<String> list = new ArrayList<>();

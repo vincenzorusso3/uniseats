@@ -10,9 +10,7 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-public class RegistrazioneServletTest {
+public class RegistrazioneTest {
 
     private RegistrazioneServlet servlet;
     private MockHttpServletRequest request;
@@ -34,8 +32,10 @@ public class RegistrazioneServletTest {
         servlet.init(sg);
     }
 
+    //TC_1.1_01
     @Test
-    public void registrazioneTest() throws ServletException, IOException {
+    public void emptyEmail() throws ServletException, IOException {
+
         request.addParameter("action", "add");
 
         request.addParameter("email", "");
@@ -46,7 +46,9 @@ public class RegistrazioneServletTest {
         request.addParameter("nome", "Antonio");
         request.addParameter("cognome", "Allidato");
         servlet.doPost(request, response);
-        assertEquals("Registrazione ", request.getAttribute("message"));
+
+
     }
+
 
 }

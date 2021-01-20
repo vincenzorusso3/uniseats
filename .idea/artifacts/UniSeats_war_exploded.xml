@@ -18,6 +18,9 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-jcl:5.3.3" />
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:8.0.12" />
           <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java:2.6.0" />
+          <element id="archive" name="UniSeats-1.0-SNAPSHOT.jar">
+            <element id="module-output" name="UniSeats" />
+          </element>
         </element>
       </element>
       <element id="directory" name="META-INF">
