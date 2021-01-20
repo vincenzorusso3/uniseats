@@ -27,9 +27,63 @@ public class Test {
 
     if (pList != null) {
 
+      ArrayList<String> auleUtilizzate = new ArrayList<>();
+      for (PrenotazioneBean prenotazione : pList) {
+        if (!auleUtilizzate.contains(prenotazione.getCodiceAula()))
+          auleUtilizzate.add(prenotazione.getCodiceAula());
+      }
+
       pList.removeIf(prenotazione -> !prenotazione.getCodiceAula().equals("00"));
 
+      if (pList.size() == 20) {
+        //parte JARVIS
+        int[] disposizione;
 
+        ArrayList<AulaBean> listaAule =
+            (ArrayList<AulaBean>) AulaDAO.doQuery(AulaDAO.doRetrieveAll, dipartimento);
+
+        AulaBean aulaDaUtilizzare = null;
+        for (AulaBean aula : listaAule) {
+
+          if (!auleUtilizzate.contains(aula.getCodice())) {
+            aulaDaUtilizzare = aula;
+            break;
+          }
+
+        }
+
+        if (aulaDaUtilizzare == null) {
+
+          int count = 0;
+          for (int i : disposizione) {
+
+            if (i == 0) { //prenotazione singola
+
+              for (PrenotazioneBean pren : pList) {
+
+                if (pren.isSingolo()) {
+                  pren.setCodiceAula(aulaDaUtilizzare.getCodice());
+                  pren.setCodicePosto(aulaDaUtilizzare.getCodice() + "-" + count);
+                  count++;
+                }
+
+              }
+
+            } else { //prenotazione in gruppo
+              for (PrenotazioneBean pren : pList) {
+
+                if (!pren.isSingolo()) {
+                  pren.setCodiceAula(aulaDaUtilizzare.getCodice());
+                  pren.setCodicePosto(aulaDaUtilizzare.getCodice() + "-" + count);
+                  count++;
+                }
+
+              }
+            }
+          }
+        }
+
+      }
 
     }
 
