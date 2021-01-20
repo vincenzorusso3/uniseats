@@ -1,5 +1,5 @@
 language: java
 sudo: false
-script: mvn test
+script: mvn clean verify
 after_success:
   - bash <(curl -s https://codecov.io/bash)
