@@ -41,6 +41,8 @@ public class LoginServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
     String action = request.getParameter("action");
+    String from=request.getParameter("from");
+
 
     if (action != null) {
 
@@ -68,6 +70,15 @@ public class LoginServlet extends HttpServlet {
 
             //redirect to LandindPage
             redirectedPage = "/view/LandingPageView.jsp";
+
+            if(from.equals("inizia")){
+              //redirect to NuovaPrenotazione
+
+              redirectedPage = "/view/prenotazione/NuovaPrenotazioneView.jsp";
+
+            }
+
+
             response.sendRedirect(request.getContextPath() + redirectedPage);
 
           } else {

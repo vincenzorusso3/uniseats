@@ -3,13 +3,24 @@
 <%
     // Check logged
     String s= request.getParameter("from");
-    request.getSession().setAttribute("from",s);
+
 
     Boolean loggato = (Boolean) session.getAttribute("logged");
-    if ((loggato == null) || (!loggato)) {
-        response.sendRedirect("./login/LoginView.jsp");
+
+
+
+
+    if ((loggato == null) || (!loggato)&& s.equalsIgnoreCase("inizia")) {
+        response.sendRedirect(request.getContextPath()+"/view/login/LoginView.jsp?from=inizia");
         return;
     }
+    if ((loggato == null) || (!loggato)) {
+        response.sendRedirect(request.getContextPath()+"/view/login/LoginView.jsp");
+        return;
+    }
+
+
+
 %>
 
 

@@ -25,13 +25,13 @@
     %>
 
 <div>
-    <div class="background">
+    <a class="background">
 
         <h1>Prenota il tuo posto
         in aula con Uniseats</h1>
 
-        <button class="buttonHome">Inizia ora</button>
-
+        <button class="buttonHome"><a href="${pageContext.servletContext.contextPath}/view/prenotazione/NuovaPrenotazioneView.jsp?from=inizia">Inizia ora</a></button>
+    </a>
     </div>
 
 </div>

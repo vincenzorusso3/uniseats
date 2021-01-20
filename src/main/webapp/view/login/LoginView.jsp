@@ -3,6 +3,7 @@
 
 <%
     String errore = (String) request.getAttribute("errore");
+    String from= (String) request.getParameter("from");
 %>
 
 <%--
@@ -44,6 +45,7 @@
 
     </div>
     <form action="${pageContext.servletContext.contextPath}/login" method="post">
+        <input type="hidden" value="<%=from%>"   name="from">
         <input type="hidden" value="Login" name="action">
         <input id="email" type="text" name="email" placeholder="Email" required/>
         <input id="password" type="password" name="password" placeholder="Password" required/>
