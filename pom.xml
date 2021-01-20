@@ -73,6 +73,20 @@
             <artifactId>protobuf-java</artifactId>
             <version>2.6.0</version>
         </dependency>
+        <dependency>
+            <groupId>ga-core</groupId>
+            <artifactId>ga-core</artifactId>
+            <type>jar</type>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/ga-core.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>OracoliGA</groupId>
+            <artifactId>OracoliGA</artifactId>
+            <type>jar</type>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/OracoliGA.jar</systemPath>
+        </dependency>
     </dependencies>
 
     <build>
