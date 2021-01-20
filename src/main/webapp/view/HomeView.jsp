@@ -30,7 +30,7 @@
         <h1>Prenota il tuo posto
         in aula con Uniseats</h1>
 
-        <button class="buttonHome"><a href="${pageContext.servletContext.contextPath}/view/prenotazione/NuovaPrenotazioneView.jsp?from=inizia">Inizia ora</a></button>
+        <button class="buttonHome"><a id="inizia" href="${pageContext.servletContext.contextPath}/view/prenotazione/NuovaPrenotazioneView.jsp?from=inizia">Inizia ora</a></button>
     </a>
     </div>
 

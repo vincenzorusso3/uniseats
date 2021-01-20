@@ -37,6 +37,11 @@ h3{
 }
 
 
+#inizia{
+    text-decoration: none;
+    color:white;
+}
+
 h1{
     margin-top: 64px;
     float: left;
