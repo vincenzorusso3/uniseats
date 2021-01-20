@@ -47,7 +47,7 @@ public class Test {
             prenotazioni[i] = 1;
         }
 
-        int[] disposizione;
+        int[] disposizione; //TODO: collegare jarvis
 
         ArrayList<AulaBean> listaAule =
             (ArrayList<AulaBean>) AulaDAO.doQuery(AulaDAO.doRetrieveAll, dipartimento);
