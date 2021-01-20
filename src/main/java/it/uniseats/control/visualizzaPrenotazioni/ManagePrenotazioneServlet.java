@@ -168,9 +168,10 @@ public class ManagePrenotazioneServlet extends HttpServlet {
   private void modificaPrenotazione(HttpServletRequest request, HttpServletResponse response)
       throws SQLException, ServletException, IOException {
 
-    PrenotazioneBean prenotazioneBean = (PrenotazioneBean) PrenotazioneDAO
-        .doQuery(PrenotazioneDAO.doRetrieveByCode, request.getParameter("codice"));
+    PrenotazioneBean prenotazioneBean = (PrenotazioneBean) PrenotazioneDAO.doQuery(PrenotazioneDAO.doRetrieveByCode, request.getParameter("codice"));
     RequestDispatcher dispatcher;
+    System.out.println("prenotazione bean codice servlet " + prenotazioneBean.getCodice());
+    System.out.println("prenotazione bean data servlet " + prenotazioneBean.getData());
     String tipologia = request.getParameter("tipologia");
     boolean singolo = false;
 
@@ -184,7 +185,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
 
       //La modifica della prenotazione deve essere effettuata prima delle 07:00 del giorno prenotato
       //o in un giorno antecedente la data per cui è prevista la prenotazione
-      if (checkData(prenotazioneBean.getData())) {
+      if (!checkData(prenotazioneBean.getData())) {
 
         //controllo che sia possibile modificare la prenotazione
         if (canIUpdate(singolo, prenotazioneBean.getData())) {
@@ -247,16 +248,20 @@ public class ManagePrenotazioneServlet extends HttpServlet {
   /**
    * Metodo che controlla se la <b>data della prenotazione</b>.
    *
-   * @param date la <b>data</b> della p
+   * @param date la <b>data</b> della prenotazione
    * @return false altrimenti
    */
   private boolean checkData(Date date) {
 
     Date today = new Date();
+    System.out.println("today"+ today);
+    System.out.println("date" + date);
     LocalTime time = LocalTime.now();
-    boolean isbefore = time.isBefore(LocalTime.parse("07:00"));
+    System.out.println("time"+time);
+    //boolean isbefore = time.isBefore(LocalTime.parse("07:00"));
 
-    return (((date.compareTo(today) == 0) && isbefore) || date.compareTo(today) > 0);
+      return ((date.compareTo(today) == 0)  || (date.compareTo(today) > 0));
+
 
   }
 
