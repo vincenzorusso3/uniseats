@@ -5,6 +5,7 @@
       <map>
         <entry key="file://$PROJECT_DIR$/src/main/webapp/view/HeaderView.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/view/prenotazione/VisualizzaPrenotazioni.jsp" value="file://$PROJECT_DIR$/src/main/webapp/view/prenotazione" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/view/prenotazioni_effettuate/ModificaPrenotazioniView.jsp" value="file://$PROJECT_DIR$/src/main/webapp/view/prenotazioni_effettuate" />
       </map>
     </option>
   </component>
