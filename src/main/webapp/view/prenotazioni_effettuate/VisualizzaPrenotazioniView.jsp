@@ -27,6 +27,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <link href="${pageContext.servletContext.contextPath}/css/VisualizzaPrenotazioni.css" rel="stylesheet" type="text/css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+
 </head>
 <body>
 
@@ -65,7 +68,11 @@
             <h6 class="tipo"><%=tipo%></h6>
         </div>
 
-        <h6 class="code">Cod:<%=bean.getCodice()%></h6>
+        <div id="qrcode<%=bean.getCodice()%>" class="qrcode">
+        <input id="text<%=bean.getCodice()%>" type="text" value="<%=bean.getCodice()%>" hidden/>
+        </div>
+
+
 
 
 
@@ -77,7 +84,34 @@
                 <input type="button" name="modifica" value="Modifica">
             </a>
 
+        <script>
 
+            var qrcode = new QRCode("qrcode<%=bean.getCodice()%>");
+            var elText = document.getElementById("text<%=bean.getCodice()%>");
+            function makeCode () {
+
+
+                if (!elText.value) {
+                    alert("Input a text");
+                    elText.focus();
+                    return;
+                }
+
+                qrcode.makeCode(elText.value);
+            }
+
+            makeCode();
+
+            $("#text").
+            on("blur", function () {
+                makeCode();
+            }).
+            on("keydown", function (e) {
+                if (e.keyCode == 13) {
+                    makeCode();
+                }
+            });
+        </script>
     </div>
 
                 <%
@@ -86,7 +120,11 @@
 
                 %>
 
-</div>
+
+
+
+
+    </div>
 
 
 </body>
