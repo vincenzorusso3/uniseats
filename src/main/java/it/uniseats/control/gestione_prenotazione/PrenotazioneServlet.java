@@ -133,12 +133,12 @@ public class PrenotazioneServlet extends HttpServlet {
         if (checkPrenotazioni(matricola, date)) {
 
           //contollo la disponibilità di posti nelle aule
-          if (checkPostiAule(user.getDipartimento())) {
+          if (checkPostiAule(user.getDipartimento(), date)) {
 
             //lo studente NON ha prenotazioni e c'e' almeno un posto libero
             String qrCode = QrCodeGenerator.generateCode(matricola);
 
-            PrenotazioneBean prenotazione = new PrenotazioneBean(qrCode, new Date(), isPrenotazioneSingola, "00", "00", matricola);
+            PrenotazioneBean prenotazione = new PrenotazioneBean(qrCode, DateUtils.parseDate(date), isPrenotazioneSingola, "00", "00", matricola);
             Integer result = (Integer) PrenotazioneDAO.doQuery(PrenotazioneDAO.doSave, prenotazione);
 
             //se la prenotazione è stata salvata nel database con successo, viene inoltrata al modulo IA oper l'assegnazione del posto a sedere.
@@ -248,18 +248,20 @@ public class PrenotazioneServlet extends HttpServlet {
    * @return <b>false</b> altrimenti
    * @throws SQLException
    */
-  private boolean checkPostiAule(String dipartimento) throws SQLException {
+  private boolean checkPostiAule(String dipartimento, String data)
+      throws SQLException, ParseException {
 
-    ArrayList<AulaBean> aule = (ArrayList<AulaBean>) AulaDAO.doQuery(AulaDAO.doRetrieveAll, dipartimento);
+    ArrayList<String> parameter = new ArrayList<>();
+    parameter.add(dipartimento);
+    parameter.add(data);
 
-    if (aule != null) {
-      int totPosti = 0;
-      for (AulaBean aula : aule) {
-        totPosti += aula.getnPosti();
-      }
-      return totPosti != 0;
+    ArrayList<PrenotazioneBean> pList = (ArrayList<PrenotazioneBean>) PrenotazioneDAO.doQuery(PrenotazioneDAO.findByDataDipartimento, parameter);
+
+    if (pList != null) {
+      return pList.size() < 60;
     }
     return false;
+
   }
 
 }

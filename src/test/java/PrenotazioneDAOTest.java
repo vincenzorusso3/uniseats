@@ -20,31 +20,31 @@ class PrenotazioneDAOTest {
         (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "5-0512105933-21/01/2021");
     DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
     PrenotazioneBean expected =
-        new PrenotazioneBean("5-0512105933-21/01/2021", df.parse("21/01/2021"), false, "00", "00",
+        new PrenotazioneBean("5-0512105933-21/01/2021", df.parse("21/01/2021"), true, "00", "00",
             "0512105933");
-    assertTrue(expected.getCodice().equals(prenotazione.getCodice()) &&
-        expected.isSingolo() == prenotazione.isSingolo() &&
-        expected.getCodice().equals(prenotazione.getCodice()) &&
-        expected.getCodiceAula().equals(prenotazione.getCodiceAula()) &&
-        expected.getMatricolaStudente().equals(prenotazione.getMatricolaStudente()));
+    assertTrue(expected.getCodice().equals(prenotazione.getCodice())
+        && expected.isSingolo() == prenotazione.isSingolo()
+        && expected.getCodicePosto().equals(prenotazione.getCodicePosto())
+        && expected.getCodiceAula().equals(prenotazione.getCodiceAula())
+        && expected.getMatricolaStudente().equals(prenotazione.getMatricolaStudente()));
   }
 
   @Test
-  void doRetrieveByCodeFailTest() throws SQLException {
+  void doRetrieveByCodeFailTest() throws SQLException, ParseException {
     PrenotazioneBean prenotazione =
         (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "dhjkah");
     assertNull(prenotazione.getCodice());
   }
 
   @Test
-  void doFindPrenotazioniTest() throws SQLException {
+  void doFindPrenotazioniTest() throws SQLException, ParseException {
     LinkedList<PrenotazioneBean> prenotazioni =
         (LinkedList<PrenotazioneBean>) PrenotazioneDAO.doQuery("doFindPrenotazioni", "0512105933");
     assertNotNull(prenotazioni);
   }
 
   @Test
-  void doRetrieveAllTest() throws SQLException {
+  void doRetrieveAllTest() throws SQLException, ParseException {
     ArrayList<PrenotazioneBean> prenotazioni =
         (ArrayList<PrenotazioneBean>) PrenotazioneDAO.doQuery("doRetrieveAll", null);
     assertNotNull(prenotazioni);

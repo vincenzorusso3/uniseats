@@ -49,7 +49,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
 
             visualizzaPrenotazioni(request, response);
 
-          } catch (SQLException throwables) {
+          } catch (SQLException | ParseException throwables) {
             throwables.printStackTrace();
           }
           break;
@@ -59,7 +59,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
 
             modificaPrenotazione(request, response);
 
-          } catch (SQLException throwables) {
+          } catch (SQLException | ParseException throwables) {
             throwables.printStackTrace();
           }
           break;
@@ -80,7 +80,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
 
             getSinglePren(request, response);
 
-          } catch (SQLException throwables) {
+          } catch (SQLException | ParseException throwables) {
             throwables.printStackTrace();
           }
           break;
@@ -166,7 +166,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
    * @throws IOException
    */
   private void modificaPrenotazione(HttpServletRequest request, HttpServletResponse response)
-      throws SQLException, ServletException, IOException {
+      throws SQLException, ServletException, IOException, ParseException {
 
     PrenotazioneBean prenotazioneBean = (PrenotazioneBean) PrenotazioneDAO
         .doQuery(PrenotazioneDAO.doRetrieveByCode, request.getParameter("codice"));
@@ -217,7 +217,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
 
 
   private void visualizzaPrenotazioni(HttpServletRequest request, HttpServletResponse response)
-      throws SQLException, ServletException, IOException {
+      throws SQLException, ServletException, IOException, ParseException {
 
     RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_PATH);
 
@@ -282,7 +282,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
 
 
   private void getSinglePren(HttpServletRequest request, HttpServletResponse response)
-      throws SQLException, ServletException, IOException {
+      throws SQLException, ServletException, IOException, ParseException {
 
     RequestDispatcher dispatcher = getServletContext()
         .getRequestDispatcher("/view/prenotazioni_effettuate/ModificaPrenotazioniView.jsp");

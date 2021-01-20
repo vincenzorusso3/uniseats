@@ -25,8 +25,13 @@ public class Test {
 
     ArrayList<PrenotazioneBean> pList = (ArrayList<PrenotazioneBean>) PrenotazioneDAO.doQuery(PrenotazioneDAO.findByDataDipartimento, parameter);
 
-    for ()
+    if (pList != null) {
 
+      pList.removeIf(prenotazione -> !prenotazione.getCodiceAula().equals("00"));
+
+
+
+    }
 
   }
 
