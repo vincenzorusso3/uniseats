@@ -22,6 +22,7 @@ function emailObserver() {
         label.css('color', '#9E9E9E');
         email.css('border-color', 'lightgray');
 
+        emailGlobal=  true;
     }
 }
 
@@ -143,7 +144,7 @@ $(document).on("submit", "#registrazione", function (event) {
     let nome = nomeObserver();
     let cognome = cognomeObserver();
     let password = passwordObserver();
-    let matricola=matricolaObserver();
+    let matricola= matricolaObserver();
 
     if (emailGlobal && nome && cognome && password && matricola){
 

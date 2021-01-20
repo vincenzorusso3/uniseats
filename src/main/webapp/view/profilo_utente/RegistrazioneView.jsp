@@ -1,4 +1,5 @@
-<%--
+<%@ page import="java.util.Collection" %>
+<%@ page import="java.util.Iterator" %><%--
   Created by IntelliJ IDEA.
   User: benedettosimone
   Date: 30/12/20
@@ -9,7 +10,19 @@
 
 <%
 
+    Collection<?> dipartimenti = (Collection<?>)  request.getAttribute("dipartimenti");
+
+    if(dipartimenti==null){
+        response.sendRedirect(response.encodeRedirectURL(request.getContextPath()+"/registrazione?action=getDipartimenti"));
+        return;
+    }
+
+
+
+
+
     String message = (String) request.getAttribute("message");
+
 
 
 %>
@@ -54,7 +67,7 @@
 
         <% } %>
 
-            <%=message%>
+        <%=message%>
 
     </h3>
             <%
@@ -62,94 +75,111 @@
         		  %>
 
 
-<div class="form">
+        <div class="form">
 
 
-    <form id="registrazione" action="${pageContext.servletContext.contextPath}/registrazione" method="post">
+            <form id="registrazione" action="${pageContext.servletContext.contextPath}/registrazione" method="post">
 
-        <input type="hidden" value="add" name="action">
+                <input type="hidden" value="add" name="action">
 
-        <div class="md-textfield">
-            <input class="md-textfield-input" id="email" type="text" name="email" required
-                   onchange="emailObserver()"/>
+                <div class="md-textfield">
+                    <input class="md-textfield-input" id="email" type="text" name="email" required
+                           onchange="emailObserver()"/>
 
-            <label id="email_l" for="email">Email istituzionale</label>
+                    <label id="email_l" for="email">Email istituzionale</label>
 
-            <div class="indicator"></div>
+                    <div class="indicator"></div>
+                </div>
+
+
+                <div class="md-textfield">
+                    <input class="md-textfield-input" id="password" type="password" name="password" required
+                           onchange="passwordObserver()"/>
+
+                    <label id="password_l" for="password">Password</label>
+                    <div class="indicator"></div>
+                </div>
+
+                <br>
+
+                <div class="md-textfield x1">
+                    <input class="md-textfield-input" id="nome" type="text" name="nome" required
+                           onchange="nomeObserver()"/>
+
+                    <label id="nome_l" for="nome">Nome</label>
+                    <div class="indicator"></div>
+                </div>
+
+
+                <div class="md-textfield x">
+                    <input class="md-textfield-input" id="cognome" type="text" name="cognome" required
+                           onchange="cognomeObserver()"/>
+
+                    <label id="cognome_l" for="cognome">Cognome</label>
+                    <div class="indicator"></div>
+                </div>
+
+                <br>
+
+                <div class="md-textfield">
+                    <input class="md-textfield-input" id="matricola" type="text" name="matricola" required
+                           onchange="matricolaObserver()"/>
+
+                    <label id="matricola_l" for="matricola">Matricola</label>
+                    <div class="indicator"></div>
+                </div>
+
+                <br>
+
+                <div class="md-textfield">
+                    <select class="md-textfield-input" id="dipartimento" name="dipartimento" required >
+
+                        <%
+                            if(dipartimenti.size()>0){
+                                Iterator<?> it = dipartimenti.iterator();
+                                while(it.hasNext()){
+                                    String d = (String) it.next();
+
+                        %>
+
+
+
+                        <option value="<%=d%>"><%=d%></option>
+
+                        <%
+                                }
+                            }
+
+                        %>
+                    </select>
+                </div>
+
+
+
+                <div class="md-textfield ">
+
+                    <select class="md-textfield-input" id="anno" name="anno" required >
+                        <option value="1">Primo anno</option>
+                        <option value="2">Secondo anno</option>
+                        <option value="3">Terzo anno</option>
+                        <option value="4">Quarto anno</option>
+                        <option value="5">Quinto anno</option>
+                    </select>
+
+
+                </div>
+
+                <br>
+
+
+                <div class="bottoni">
+                    <input type="submit" value="Registrati"/>
+                </div>
+            </form>
+
+
         </div>
-
-
-        <div class="md-textfield">
-            <input class="md-textfield-input" id="password" type="password" name="password" required
-                   onchange="passwordObserver()"/>
-
-            <label id="password_l" for="password">Password</label>
-            <div class="indicator"></div>
-        </div>
-
-        <br>
-
-        <div class="md-textfield x1">
-            <input class="md-textfield-input" id="nome" type="text" name="nome" required
-                   onchange="nomeObserver()"/>
-
-            <label id="nome_l" for="nome">Nome</label>
-            <div class="indicator"></div>
-        </div>
-
-
-        <div class="md-textfield x">
-            <input class="md-textfield-input" id="cognome" type="text" name="cognome" required
-                   onchange="cognomeObserver()"/>
-
-            <label id="cognome_l" for="cognome">Cognome</label>
-            <div class="indicator"></div>
-        </div>
-
-        <br>
-
-        <div class="md-textfield">
-            <input class="md-textfield-input" id="matricola" type="text" name="matricola" required
-                   onchange="matricolaObserver()"/>
-
-            <label id="matricola_l" for="matricola">Matricola</label>
-            <div class="indicator"></div>
-        </div>
-
-        <br>
-
-        <div class="md-textfield">
-            <select class="md-textfield-input" id="dipartimento" name="dipartimento" required >
-                <option value="-">------</option>
-            </select>
-        </div>
-
-
-
-        <div class="md-textfield ">
-
-            <select class="md-textfield-input" id="anno" name="anno" required >
-                <option value="1">Primo anno</option>
-                <option value="2">Secondo anno</option>
-                <option value="3">Terzo anno</option>
-                <option value="4">Quarto anno</option>
-                <option value="5">Quinto anno</option>
-            </select>
-
-
-        </div>
-
-        <br>
-
-
-        <div class="bottoni">
-            <input type="submit" value="Registrati"/>
-        </div>
-    </form>
-
-
-</div>
-                <script src="../../js/Registrazione.js"></script>
+        <script src="${pageContext.servletContext.contextPath}/js/Registrazione.js"></script>
 
 </body>
 </html>

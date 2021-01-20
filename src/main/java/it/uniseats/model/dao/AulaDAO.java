@@ -18,7 +18,7 @@ public class AulaDAO {
     public static final String doRetrieveByCode = "doRetrieveByCode";
     public static final String doRetrieveAll = "doRetrieveAll";
     public static final String getDipartimenti = "getDipartimenti";
-
+    public static final String temp = "temp";
     private static final String TABLE_NAME = "aula";
     private static final String DATASOURCE_ERROR = "[AULADAO] Errore: il DataSource non risulta essere configurato correttamente";
 
@@ -47,7 +47,7 @@ public class AulaDAO {
                         return doRetrieveByCode(preparedStatement, (String) parameter);
 
                     case getDipartimenti:
-                        querySQL = "SELECT DISTINCT dipartimento FROM " + TABLE_NAME + " WHERE dipartimento!=Temp";
+                        querySQL = "SELECT DISTINCT dipartimento FROM " + TABLE_NAME + " WHERE dipartimento!=?";
                         preparedStatement = connection.prepareStatement(querySQL);
                         return getDipartimenti(preparedStatement);
 
@@ -154,7 +154,7 @@ public class AulaDAO {
      */
     private static synchronized ArrayList<String> getDipartimenti(PreparedStatement preparedStatement) throws SQLException {
 
-
+        preparedStatement.setString(1, temp);
         ArrayList<String> list = new ArrayList<>();
         ResultSet rs = preparedStatement.executeQuery();
 

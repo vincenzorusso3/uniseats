@@ -1,10 +1,12 @@
 package it.uniseats.control.gestione_utente;
 
 import it.uniseats.model.beans.StudenteBean;
+import it.uniseats.model.dao.AulaDAO;
 import it.uniseats.model.dao.StudenteDAO;
 import it.uniseats.utils.SHA512Utils;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,7 +31,7 @@ public class RegistrazioneServlet extends HttpServlet {
    * @throws IOException
    */
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+          throws ServletException, IOException {
 
     doGet(request, response);
   }
@@ -43,7 +45,7 @@ public class RegistrazioneServlet extends HttpServlet {
    * @throws IOException
    */
   public void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+          throws ServletException, IOException {
 
     String action = request.getParameter("action");
     RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_PATH);
@@ -57,6 +59,20 @@ public class RegistrazioneServlet extends HttpServlet {
         } catch (SQLException throwables) {
 
           String message = "Registrazione fallita. Si prega di riprovare";
+          request.setAttribute("message", message);
+
+          dispatcher.forward(request, response);
+
+        }
+      }
+
+      if (action.equals("getDipartimenti")) {
+        try {
+
+          getDip(request, response);
+        } catch (SQLException throwables) {
+
+          String message = "Errore. Si prega di riprovare";
           request.setAttribute("message", message);
 
           dispatcher.forward(request, response);
@@ -80,14 +96,14 @@ public class RegistrazioneServlet extends HttpServlet {
    * @throws IOException
    */
   private void addUser(HttpServletRequest request, HttpServletResponse response)
-      throws SQLException, ServletException, IOException {
+          throws SQLException, ServletException, IOException {
 
     RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_PATH);
     String email = request.getParameter("email");
     String matricola = request.getParameter("matricola");
 
     StudenteBean studenteBean =
-        (StudenteBean) StudenteDAO.doQuery(StudenteDAO.doRetrieveByEmail, email);
+            (StudenteBean) StudenteDAO.doQuery(StudenteDAO.doRetrieveByEmail, email);
     String emailNull = studenteBean.getEmail();
     studenteBean = (StudenteBean) StudenteDAO.doQuery(StudenteDAO.doRetrieveByMatricola, matricola);
     String matricolaNull = studenteBean.getMatricola();
@@ -116,8 +132,8 @@ public class RegistrazioneServlet extends HttpServlet {
       String dipartimento = request.getParameter("dipartimento");
 
       studenteBean =
-          new StudenteBean(nome, cognome, matricola, email, SHA512Utils.getSHA512(password), anno,
-              dipartimento);
+              new StudenteBean(nome, cognome, matricola, email, SHA512Utils.getSHA512(password), anno,
+                      dipartimento);
 
       Integer success = (Integer) StudenteDAO.doQuery(StudenteDAO.doSave, studenteBean);
 
@@ -136,4 +152,32 @@ public class RegistrazioneServlet extends HttpServlet {
 
   }
 
+  /**
+   * Metodo per la lista dei dipartimenti
+   * @param request  HttpServletRequest
+   * @param response HttpServletResponse
+   * @throws SQLException
+   * @throws ServletException
+   * @throws IOException
+   */
+
+
+  private void getDip(HttpServletRequest request, HttpServletResponse response)
+          throws SQLException, ServletException, IOException {
+
+
+    ArrayList<String> dip= (ArrayList<String>) AulaDAO.doQuery(AulaDAO.getDipartimenti,"Temp");
+
+    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/view/profilo_utente/RegistrazioneView.jsp");
+    request.setAttribute("dipartimenti",dip);
+
+    dispatcher.forward(request, response);
+
+
+
+
+  }
+
 }
+
+
