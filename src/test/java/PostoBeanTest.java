@@ -1,60 +1,59 @@
-import it.uniseats.model.beans.AulaBean;
-import it.uniseats.model.beans.PostoBean;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class PostoBeanTest {
+import it.uniseats.model.beans.PostoBean;
+import org.junit.jupiter.api.Test;
 
-    /**
-     * Constructors Testing
-     */
+class PostoBeanTest {
 
-    @Test
-    void testEmptyPostoConstructor() {
-        PostoBean posto = new PostoBean();
-        assertNotNull(posto);
-    }
+  /**
+   * Constructors Testing.
+   */
 
-    @Test
-    void testPostoConstructor() {
-        PostoBean posto = new PostoBean("A1-01", "A1");
-        assertNotNull(posto);
-    }
+  @Test
+  void testEmptyPostoConstructor() {
+    PostoBean posto = new PostoBean();
+    assertNotNull(posto);
+  }
 
-    /**
-     * Getter Methods Testing
-     */
+  @Test
+  void testPostoConstructor() {
+    PostoBean posto = new PostoBean("A1-01", "A1");
+    assertNotNull(posto);
+  }
 
-    @Test
-    void testGetCodice() {
-        PostoBean posto = new PostoBean("A1-01", "A1");
-        assertEquals("A1-01", posto.getCodice());
-    }
+  /**
+   * Getter Methods Testing.
+   */
 
-    @Test
-    void testGetCodiceAula() {
-        PostoBean posto = new PostoBean("A1-01", "A1");
-        assertEquals("A1", posto.getCodiceAula());
-    }
+  @Test
+  void testGetCodice() {
+    PostoBean posto = new PostoBean("A1-01", "A1");
+    assertEquals("A1-01", posto.getCodice());
+  }
 
-    /**
-     * Setter Metods Testing
-     */
+  @Test
+  void testGetCodiceAula() {
+    PostoBean posto = new PostoBean("A1-01", "A1");
+    assertEquals("A1", posto.getCodiceAula());
+  }
 
-    @Test
-    void testSetCodice() {
-        PostoBean posto = new PostoBean();
-        posto.setCodice("A1-01");
-        assertEquals("A1-01", posto.getCodice());
-    }
+  /**
+   * Setter Metods Testing.
+   */
 
-    @Test
-    void testSetCodiceAula() {
-        PostoBean posto = new PostoBean();
-        posto.setCodiceAula("A1");
-        assertEquals("A1", posto.getCodiceAula());
-    }
+  @Test
+  void testSetCodice() {
+    PostoBean posto = new PostoBean();
+    posto.setCodice("A1-01");
+    assertEquals("A1-01", posto.getCodice());
+  }
+
+  @Test
+  void testSetCodiceAula() {
+    PostoBean posto = new PostoBean();
+    posto.setCodiceAula("A1");
+    assertEquals("A1", posto.getCodiceAula());
+  }
 
 }
