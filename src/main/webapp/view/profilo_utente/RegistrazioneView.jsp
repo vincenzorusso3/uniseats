@@ -11,7 +11,7 @@
 
 <%
     String message = (String) request.getAttribute("message");
-    System.out.println(message+" questo");
+
     Collection<?> dipartimenti = (Collection<?>)  request.getSession().getAttribute("dipartimenti");
     if(dipartimenti==null){
         response.sendRedirect(response.encodeRedirectURL(request.getContextPath()+"/registrazione?action=getDipartimenti"));
@@ -44,7 +44,7 @@
         if (message.contains("Esiste")) {
 
 %>
-<h3 class="esistente"> <%
+<h3 class="fallita"> <%
 
 			}else if(message.contains("successo")){
 
