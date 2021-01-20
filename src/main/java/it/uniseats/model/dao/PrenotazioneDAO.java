@@ -2,11 +2,14 @@ package it.uniseats.model.dao;
 
 
 import it.uniseats.model.beans.PrenotazioneBean;
+import it.uniseats.utils.DateUtils;
 import it.uniseats.utils.DriverManagerConnectionPool;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -23,6 +26,7 @@ public class PrenotazioneDAO {
   public static final String doUpdateData = "doUpdateData";
   public static final String doUpdateTipo = "doUpdateTipo";
   public static final String doDelete = "doDelete";
+  public static final String findByDataDipartimento = "findByDataDipartimento";
 
   private static final String TABLE_NAME = "prenotazione";
   private static final String DATASOURCE_ERROR =
@@ -37,7 +41,7 @@ public class PrenotazioneDAO {
    * @throws SQLException
    */
   public static synchronized Object doQuery(String methodName, Object parameter)
-      throws SQLException {
+      throws SQLException, ParseException {
 
     Connection connection = null;
     PreparedStatement preparedStatement = null;
@@ -66,7 +70,8 @@ public class PrenotazioneDAO {
 
         case doSave:
           querySQL = "INSERT INTO " + TABLE_NAME
-              + " (codice, dataPrenotazione, tipologia, codicePosto, codiceAula, matricolaStudente) VALUES (?,?,?,?,?,?)";
+              +
+              " (codice, dataPrenotazione, tipologia, codicePosto, codiceAula, matricolaStudente) VALUES (?,?,?,?,?,?)";
           preparedStatement = connection.prepareStatement(querySQL);
           return doSave(preparedStatement, (PrenotazioneBean) parameter);
 
@@ -84,6 +89,16 @@ public class PrenotazioneDAO {
           querySQL = "DELETE FROM " + TABLE_NAME + " WHERE codice=?";
           preparedStatement = connection.prepareStatement(querySQL);
           return doDelete(preparedStatement, (String) parameter);
+
+        case findByDataDipartimento:
+          querySQL = "SELECT * FROM " + TABLE_NAME
+              + " WHERE dataPrenotazione = ? "
+              + "AND exists ( "
+              + "SELECT * FROM studente AS s "
+              + "WHERE s.dipartimento = ? AND matricolaStudente = s.matricola "
+              + ")";
+          preparedStatement = connection.prepareStatement(querySQL);
+          return findByDataDipartimento(preparedStatement, (ArrayList<String>) parameter);
 
         default:
           return null;
@@ -106,6 +121,34 @@ public class PrenotazioneDAO {
 
   }
 
+  private static Collection<PrenotazioneBean> findByDataDipartimento(
+      PreparedStatement preparedStatement, ArrayList<String> parameter)
+      throws ParseException, SQLException {
+
+    Collection<PrenotazioneBean> prenotazioni = new LinkedList<PrenotazioneBean>();
+
+    if (parameter != null) {
+
+      java.util.Date data = DateUtils.parseDate(parameter.get(0));
+      String dip = parameter.get(1);
+
+      preparedStatement.setDate(1, new Date(data.getTime()));
+      preparedStatement.setString(2, dip);
+
+      ResultSet rs = preparedStatement.executeQuery();
+
+      while (rs.next()) {
+        prenotazioni.add(getPrenotazioneInfo(rs));
+      }
+
+      return prenotazioni;
+
+    } else {
+      return null;
+    }
+
+  }
+
   /**
    * Metodo per effettuare una ricerca per matricola.
    *
@@ -114,7 +157,8 @@ public class PrenotazioneDAO {
    * @return tutte le <b>prenotazioni</b> di un dato studente
    * @throws SQLException
    */
-  private static synchronized Collection<PrenotazioneBean> doFindPrenotazioni(PreparedStatement preparedStatement, String matricola) throws SQLException {
+  private static synchronized Collection<PrenotazioneBean> doFindPrenotazioni(
+      PreparedStatement preparedStatement, String matricola) throws SQLException {
 
     Collection<PrenotazioneBean> prenotazioni = new LinkedList<PrenotazioneBean>();
 
@@ -146,7 +190,8 @@ public class PrenotazioneDAO {
    * @return <b>prenotazione</b> con un dato codice
    * @throws SQLException
    */
-  private static synchronized PrenotazioneBean doRetrieveByCode(PreparedStatement preparedStatement, String codice) throws SQLException {
+  private static synchronized PrenotazioneBean doRetrieveByCode(PreparedStatement preparedStatement,
+                                                                String codice) throws SQLException {
 
     preparedStatement.setString(1, codice);
     ResultSet rs = preparedStatement.executeQuery();
@@ -167,7 +212,8 @@ public class PrenotazioneDAO {
    * @return lista di <b>prenotazioni</b>
    * @throws SQLException
    */
-  private static synchronized ArrayList<PrenotazioneBean> doRetrieveAll(PreparedStatement preparedStatement) throws SQLException {
+  private static synchronized ArrayList<PrenotazioneBean> doRetrieveAll(
+      PreparedStatement preparedStatement) throws SQLException {
 
     ArrayList<PrenotazioneBean> list = new ArrayList<>();
 
@@ -190,7 +236,8 @@ public class PrenotazioneDAO {
    * @return <b>1</b> = successo, <b>0</b>=fallimento
    * @throws SQLException
    */
-  private static synchronized int doSave(PreparedStatement preparedStatement, PrenotazioneBean prenotazioneBean) throws SQLException {
+  private static synchronized int doSave(PreparedStatement preparedStatement,
+                                         PrenotazioneBean prenotazioneBean) throws SQLException {
 
     java.sql.Date dateSql = new java.sql.Date(prenotazioneBean.getData().getTime());
 
@@ -214,7 +261,9 @@ public class PrenotazioneDAO {
    * @throws SQLException
    */
 
-  private static synchronized int doUpdateData(PreparedStatement preparedStatement, PrenotazioneBean prenotazioneBean) throws SQLException {
+  private static synchronized int doUpdateData(PreparedStatement preparedStatement,
+                                               PrenotazioneBean prenotazioneBean)
+      throws SQLException {
 
     java.sql.Date date = new java.sql.Date(prenotazioneBean.getData().getTime());
 
@@ -235,7 +284,9 @@ public class PrenotazioneDAO {
    * @return <b>1</b> = successo, <b>0</b>=fallimento
    * @throws SQLException
    */
-  private static synchronized int doUpdateTipo(PreparedStatement preparedStatement, PrenotazioneBean prenotazioneBean) throws SQLException {
+  private static synchronized int doUpdateTipo(PreparedStatement preparedStatement,
+                                               PrenotazioneBean prenotazioneBean)
+      throws SQLException {
 
     preparedStatement.setBoolean(1, prenotazioneBean.isSingolo());
     preparedStatement.setString(2, prenotazioneBean.getCodice());
@@ -253,7 +304,8 @@ public class PrenotazioneDAO {
    * @return <b>true</b>= successo, <b>false</b>=fallimento
    * @throws SQLException
    */
-  private static synchronized boolean doDelete(PreparedStatement preparedStatement, String codice) throws SQLException {
+  private static synchronized boolean doDelete(PreparedStatement preparedStatement, String codice)
+      throws SQLException {
 
     preparedStatement.setString(1, codice);
     return (preparedStatement.executeUpdate() != 0);
