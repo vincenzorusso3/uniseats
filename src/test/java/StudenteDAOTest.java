@@ -61,10 +61,20 @@ class StudenteDAOTest {
     StudenteBean bean = (StudenteBean) StudenteDAO.doQuery("doRetrieveByEmail", "hdhjs");
     assertNull(bean.getEmail());
   }
+  @Test
+  void doSaveTest() throws SQLException {
+    StudenteBean bean = new StudenteBean("TestNome", "TestCognome", "0512103231",
+        "testnome.testcognome@studenti.unisa.it", "testnomecognome", 2, "Matematica");
+    int i = (int) StudenteDAO.doQuery("doSave", bean);
+
+    StudenteDAO.doQuery("doDelete", bean.getMatricola());
+
+    assertEquals(i,1);
+  }
 
   @Test
   void doDelete() throws SQLException {
-    StudenteBean bean = new StudenteBean("TestNome", "TestCognome", "0512103333",
+    StudenteBean bean = new StudenteBean("TestNome", "TestCognome", "0512103231",
         "testnome.testcognome@studenti.unisa.it", "testnomecognome", 2, "Matematica");
     StudenteDAO.doQuery("doSave", bean);
 
@@ -78,17 +88,6 @@ class StudenteDAOTest {
     boolean i = (boolean) StudenteDAO.doQuery("doDelete", "00102124256");
 
     assertFalse(i);
-  }
-
-  @Test
-  void doSaveTest() throws SQLException {
-    StudenteBean bean = new StudenteBean("TestNome", "TestCognome", "0512103231",
-        "testnome.testcognome@studenti.unisa.it", "testnomecognome", 2, "Matematica");
-    int i = (int) StudenteDAO.doQuery("doSave", bean);
-
-    StudenteDAO.doQuery("doDelete", bean.getMatricola());
-
-    assertEquals(i,1);
   }
 
   @Test

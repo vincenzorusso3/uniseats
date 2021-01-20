@@ -71,7 +71,7 @@ public class LoginServlet extends HttpServlet {
             //redirect to LandindPage
             redirectedPage = "/view/LandingPageView.jsp";
 
-            if(from.equals("inizia")){
+            if (from.equals("inizia")){
               //redirect to NuovaPrenotazione
 
               redirectedPage = "/view/prenotazione/NuovaPrenotazioneView.jsp";

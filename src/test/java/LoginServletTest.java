@@ -27,7 +27,7 @@ class LoginServletTest {
 
   }
 
-  @Test
+  @BeforeEach
   public void oneWaySetup() throws ServletException {
     ServletConfig sg = new MockServletConfig();
     servlet.init(sg);
@@ -35,11 +35,12 @@ class LoginServletTest {
 
   @Test
   public void loginTest() throws ServletException, IOException {
+    request.getSession().setAttribute("logged", false);
     request.addParameter("action", "Login");
     request.addParameter("email", "a.sabia15@studenti.unisa.it");
     request.addParameter("password", "accioLaurea");
     servlet.doGet(request, response);
-    assertEquals("/view/LandingPageView.jsp", response.getRedirectedUrl());
+    assertEquals(true,request.getSession().getAttribute("logged"));
   }
 
 }

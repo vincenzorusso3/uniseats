@@ -1,9 +1,12 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import it.uniseats.control.gestione_utente.RegistrazioneServlet;
+import it.uniseats.model.dao.StudenteDAO;
 import java.io.IOException;
+import java.sql.SQLException;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -34,7 +37,7 @@ class RegistrazioneServletTest {
   }
 
   @Test
-  void registrazioneTest() throws ServletException, IOException {
+  void registrazioneFailTest() throws ServletException, IOException, SQLException {
     request.addParameter("action", "add");
 
     request.addParameter("email", "");
@@ -44,8 +47,12 @@ class RegistrazioneServletTest {
     request.addParameter("dipartimento", "Informatica");
     request.addParameter("nome", "Antonio");
     request.addParameter("cognome", "Allidato");
+
     servlet.doPost(request, response);
-    assertEquals("Registrazione ", request.getAttribute("message"));
+
+    assertEquals("Esiste già un account con questa e-mail", request.getAttribute("message"));
   }
+
+
 
 }
