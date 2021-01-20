@@ -79,6 +79,7 @@
             <type>jar</type>
             <scope>system</scope>
             <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/ga-core.jar</systemPath>
+            <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>OracoliGA</groupId>
@@ -86,6 +87,7 @@
             <type>jar</type>
             <scope>system</scope>
             <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/OracoliGA.jar</systemPath>
+            <version>1.0</version>
         </dependency>
     </dependencies>
 
