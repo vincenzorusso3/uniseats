@@ -54,24 +54,19 @@ class ManagePrenotazioneServletTest {
     DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
     PrenotazioneBean prenotazioneBean =
         (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "9-0512108336-21/01/2021");
-    System.out.println("data nel db "+prenotazioneBean.getData());
-
-
-
 
     Date date1 = df.parse("25/02/2021");
-    System.out.println("date Test " + date1);
+
     request.addParameter("action", "modificaPrenotazione");
     request.getSession().setAttribute("codice", prenotazioneBean.getCodice());
-    System.out.println("Attributo codice sessione Test " + request.getSession().getAttribute("codice"));
-    System.out.println("Codice prenotazione test " + prenotazioneBean.getCodice());
+
     request.getSession().setAttribute("data", date1);
     request.addParameter("tipologia", "singolo");
-
+    request.addParameter("codice", prenotazioneBean.getCodice());
     servlet.doPost(request, response);
-    assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp",
-        response.getForwardedUrl());
+    assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp", response.getForwardedUrl());
   }
+
 
 }
 

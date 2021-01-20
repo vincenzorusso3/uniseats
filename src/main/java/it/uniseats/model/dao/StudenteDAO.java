@@ -207,7 +207,7 @@ public class StudenteDAO {
    * Query per eliminare uno Studente dal database.
    *
    * @param preparedStatement <b>query SQL</b>
-   * @param matricola         la <b>matricola</b>  dello studente che si vuole eliminare dal database
+   * @param matricola la <b>matricola</b>  dello studente che si vuole eliminare dal database
    * @return <b>1</b> se l'operazione ha successo, <b>0</b> se l'operazione non ha successo
    * @throws SQLException
    */

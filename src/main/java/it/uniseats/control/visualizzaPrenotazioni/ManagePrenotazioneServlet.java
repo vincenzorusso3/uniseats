@@ -204,7 +204,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
       }
 
       dispatcher = request.getServletContext()
-          .getRequestDispatcher("/view/prenotazione/ModificaPrenotazioniView.jsp");
+          .getRequestDispatcher("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp");
 
     } else {
 
