@@ -5,19 +5,28 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
 
+/**
+ * Classe per la creazione di una stringa per generare un QRCode.
+ */
 public class QrCodeGenerator {
 
-    public static String generateCode(String s) {
+  /**
+   * Metodo statico per generare una stringa unica.
+   *
+   * @param s e' la matricola dello studente
+   * @return la stringa per generare il QRCode
+   */
+  public static String generateCode(String s) {
 
-        DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
+    DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
 
-        Random random = new Random(10000);
+    Random random = new Random(10000);
 
-        int codice = random.nextInt();
-        String date = df.format(new Date());
-        date = date.replace("/","");
+    int codice = random.nextInt();
+    String date = df.format(new Date());
+    date = date.replace("/", "");
 
-        return codice+"-"+s+"-"+date;
+    return codice + "-" + s + "-" + date;
 
-    }
+  }
 }

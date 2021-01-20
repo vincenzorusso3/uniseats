@@ -8,15 +8,18 @@ import it.uniseats.model.dao.PrenotazioneDAO;
 import it.uniseats.model.dao.StudenteDAO;
 import it.uniseats.utils.DateUtils;
 import it.uniseats.utils.QrCodeGenerator;
-
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet per la creazione di una nuova prenotazione.
@@ -25,225 +28,238 @@ import java.util.*;
 @WebServlet(name = "PrenotazioneServlet", value = "/PrenotazioneServlet")
 public class PrenotazioneServlet extends HttpServlet {
 
-    private final String DB_ERROR = "Impossibile procedere con la prenotazione, riprova più tardi!";
-    private final String AULE_FULL = "Nessun posto disponibile per la data selezionata!";
-    private final String HAS_PRENOTATION = "Hai già una prenotazione per questa data!";
-    private final String INVALID_DATE = "La data scelta non è valida!";
-    
-    private final String JSP_PATH = "/view/prenotazione/NuovaPrenotazioneView.jsp";
+  private final String DB_ERROR = "Impossibile procedere con la prenotazione, riprova più tardi!";
+  private final String AULE_FULL = "Nessun posto disponibile per la data selezionata!";
+  private final String HAS_PRENOTATION = "Hai già una prenotazione per questa data!";
+  private final String INVALID_DATE = "La data scelta non è valida!";
 
-    @Override
-    /**
-     * Metodo per effettuare richieste doGet
-     * @param request HttpServletRequest
-     * @param response HttpServletResponse
-     * @throws ServletException
-     * @throws IOException
-     */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request,response);
+  private final String JSP_PATH = "/view/prenotazione/NuovaPrenotazioneView.jsp";
+
+  /**
+   * Metodo per effettuare richieste doGet.
+   *
+   * @param request HttpServletRequest
+   * @param response HttpServletResponse
+   * @throws ServletException
+   * @throws IOException
+   */
+  @Override
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+    doPost(request, response);
+  }
+
+  @Override
+  /**
+   * Metodo per effettuare richieste doPost
+   * @param request HttpServletRequest
+   * @param response HttpServletResponse
+   * @throws ServletException
+   * @throws IOException
+   */
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+
+    String action = request.getParameter("action");
+
+    if (action != null) {
+
+      switch (action) {
+
+        case "prenotazioneSingola":
+          try {
+            prenotazione(request, response, true);
+          } catch (ParseException | SQLException e) {
+            e.printStackTrace();
+          }
+          break;
+
+        case "prenotazioneGruppo":
+          try {
+            prenotazione(request, response, false);
+          } catch (ParseException | SQLException e) {
+            e.printStackTrace();
+          }
+          break;
+
+        default:
+          break;
+
+      }
+
+    } else {
+
+      RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_PATH);
+      dispatcher.forward(request, response);
+
     }
 
-    @Override
-    /**
-     * Metodo per effettuare richieste doPost
-     * @param request HttpServletRequest
-     * @param response HttpServletResponse
-     * @throws ServletException
-     * @throws IOException
-     */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  }
 
-        String action = request.getParameter("action");
+  /**
+   * Metodo per creare una nuova prenotazione.
+   *
+   * @param request               HttpServletRequest
+   * @param response              HttpServletResponse
+   * @param isPrenotazioneSingola per verificare se la prenotazione è singola
+   * @throws ParseException
+   * @throws SQLException
+   * @throws ServletException
+   * @throws IOException
+   */
+  private void prenotazione(HttpServletRequest request, HttpServletResponse response,
+                            boolean isPrenotazioneSingola)
+      throws ParseException, SQLException, ServletException, IOException {
 
-        if (action != null) {
+    String date;
 
-            switch (action){
+    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_PATH);
 
-                case "prenotazioneSingola":
-                    try {
-                        prenotazione(request, response, true);
-                    } catch (ParseException | SQLException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-
-                case "prenotazioneGruppo":
-                    try {
-                        prenotazione(request, response, false);
-                    } catch (ParseException | SQLException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-            }
-        }else{
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_PATH);
-            dispatcher.forward(request, response);
-        }
+    if (isPrenotazioneSingola) {
+      date = request.getParameter("dateValueSingolo");
+    } else {
+      date = request.getParameter("dateValueGruppo");
     }
 
-    /**
-     * Metodo per creare una nuova prenotazione
-     * @param request HttpServletRequest
-     * @param response HttpServletResponse
-     * @param isPrenotazioneSingola per verificare se la prenotazione è singola
-     * @throws ParseException
-     * @throws SQLException
-     * @throws ServletException
-     * @throws IOException
-     */
-    private void prenotazione(HttpServletRequest request, HttpServletResponse response, boolean isPrenotazioneSingola) throws ParseException, SQLException, ServletException, IOException {
-        String date;
+    if (date != null) {
 
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_PATH);
+      //controllo la validità della data selezionata
+      if (isDateValid(date, isPrenotazioneSingola)) {
 
-        if (isPrenotazioneSingola)
-            date = request.getParameter("dateValueSingolo");
-        else
-            date = request.getParameter("dateValueGruppo");
+        StudenteBean user = getUser(request);
+        String matricola = user.getMatricola();
 
-        if (date != null) {
+        //controllo l'assenza di prenotazioni già effettuate per la data inserita
+        if (checkPrenotazioni(matricola, date)) {
 
-            //controllo la validità della data selezionata
-            if (isDateValid(date,isPrenotazioneSingola)) {
+          //contollo la disponibilità di posti nelle aule
+          if (checkPostiAule(user.getDipartimento())) {
 
-                StudenteBean user = getUser(request);
-                String matricola = user.getMatricola();
+            //lo studente NON ha prenotazioni e c'e' almeno un posto libero
+            String qrCode = QrCodeGenerator.generateCode(matricola);
 
-                //controllo l'assenza di prenotazioni già effettuate per la data inserita
-                if (checkPrenotazioni(matricola,date)) {
+            PrenotazioneBean prenotazione = new PrenotazioneBean(qrCode, new Date(), isPrenotazioneSingola, "00", "00", matricola);
+            Integer result = (Integer) PrenotazioneDAO.doQuery(PrenotazioneDAO.doSave, prenotazione);
 
-                        //contollo la disponibilità di posti nelle aule
-                    if (checkPostiAule(user.getDipartimento())) {
+            //se la prenotazione è stata salvata nel database con successo, viene inoltrata al modulo IA oper l'assegnazione del posto a sedere.
+            if (result != null && result > 0) {
+              //TODO Intelligenza Artificiale
 
-                        //lo studente NON ha prenotazioni e c'e' almeno un posto libero
-                        String qrCode = QrCodeGenerator.generateCode(matricola);
-
-                        PrenotazioneBean prenotazione = new PrenotazioneBean(qrCode, new Date(), isPrenotazioneSingola, "", "", matricola);
-                        Integer result = (Integer) PrenotazioneDAO.doQuery(PrenotazioneDAO.doSave, prenotazione);
-
-                        //se la prenotazione è stata salvata nel database con successo, viene inoltrata al modulo IA oper l'assegnazione del posto a sedere
-                        if (result != null && result > 0) {
-                            //TODO Intelligenza Artificiale
-
-                            dispatcher = getServletContext().getRequestDispatcher("/view/prenotazione/VisualizzaPrenotazioniView.jsp");
-
-                        } else {
-                            request.setAttribute("errore", DB_ERROR);
-                        }
-
-                    } else {
-                        request.setAttribute("errore", AULE_FULL);
-                    }
-
-                } else {
-                    request.setAttribute("errore", HAS_PRENOTATION);
-                }
+              dispatcher = getServletContext().getRequestDispatcher("/view/prenotazione/VisualizzaPrenotazioniView.jsp");
 
             } else {
-                request.setAttribute("errore", INVALID_DATE);
+              request.setAttribute("errore", DB_ERROR);
             }
+
+          } else {
+            request.setAttribute("errore", AULE_FULL);
+          }
 
         } else {
-            request.setAttribute("errore", INVALID_DATE);
+          request.setAttribute("errore", HAS_PRENOTATION);
         }
 
-        dispatcher.forward(request, response);
+      } else {
+        request.setAttribute("errore", INVALID_DATE);
+      }
 
+    } else {
+      request.setAttribute("errore", INVALID_DATE);
     }
 
-    /**
-     * Controllo che la data inserita per la prenotazione
-     * @param date la <b>data</b> selezionata per la prenotazione
-     * @param isPrenotazioneSingola la <b>tipologia</b> di prenotazione
-     * @return <b>true</b> se date != CALENDAR.Today;
-     * @return <b>true</b> se la tipologia della prenotazione è singola, false se la tipologia della prenotazione è in gruppo
-     * @return <b>false</b> altrimenti
-     * @throws ParseException
-     */
-    private boolean isDateValid(String date, boolean isPrenotazioneSingola) throws ParseException {
+    dispatcher.forward(request, response);
 
-        Date today = new Date();
-        Date selectedDay = DateUtils.parseDate(date);
+  }
 
-        if (selectedDay.compareTo(today) > 0)
-            return true;
+  /**
+   * Controllo che la data inserita per la prenotazione.
+   *
+   * @param date                  la <b>data</b> selezionata per la prenotazione
+   * @param isPrenotazioneSingola la <b>tipologia</b> di prenotazione
+   * @return <b>false</b> altrimenti
+   * @throws ParseException
+   */
+  private boolean isDateValid(String date, boolean isPrenotazioneSingola) throws ParseException {
 
-        if (selectedDay.compareTo(today) == 0)
-            return isPrenotazioneSingola;
+    Date today = new Date();
+    Date selectedDay = DateUtils.parseDate(date);
 
-        return false;
+    if (selectedDay.compareTo(today) > 0) {
+      return true;
     }
 
-    /**
-     * Restituisce lo studente loggato
-     * @param request HttpServletRequest
-     * @return lo <b>studente</b> loggato
-     * @throws SQLException
-     */
-    private StudenteBean getUser(HttpServletRequest request) throws SQLException {
-
-        HttpSession session = request.getSession(true);
-        String email = (String)session.getAttribute("email");
-
-        return (StudenteBean) StudenteDAO.doQuery(StudenteDAO.doRetrieveByEmail,email);
-
+    if (selectedDay.compareTo(today) == 0) {
+      return isPrenotazioneSingola;
     }
 
-    /**
-     *  Controllo che lo studente non abbia già effettuato una prenotazione per la stessa data
-     * @param matricola la <b>matricola</b> dello studente
-     * @param date la <b>data di prenotazione</b> selezionata
-     * @return <b>true</b> se non esistono prenotazioni per la data selezionata
-     * @return  <b>false</b> altrimenti
-     * @throws SQLException
-     * @throws ParseException
-     */
-    private boolean checkPrenotazioni(String matricola, String date) throws SQLException, ParseException {
+    return false;
 
-        Date selectedDay = DateUtils.parseDate(date);
+  }
 
-        ArrayList<PrenotazioneBean> resultList = (ArrayList<PrenotazioneBean>) PrenotazioneDAO.doQuery(PrenotazioneDAO.doFindPrenotazioni,matricola);
+  /**
+   * Restituisce lo studente loggato
+   *
+   * @param request HttpServletRequest
+   * @return lo <b>studente</b> loggato
+   * @throws SQLException
+   */
+  private StudenteBean getUser(HttpServletRequest request) throws SQLException {
 
-        if (resultList != null) {
+    HttpSession session = request.getSession(true);
+    String email = (String) session.getAttribute("email");
 
-            for (PrenotazioneBean p : resultList) {
-                if (p.getData().compareTo(selectedDay) == 0)
-                    return false;
-            }
+    return (StudenteBean) StudenteDAO.doQuery(StudenteDAO.doRetrieveByEmail, email);
 
-            return true;
+  }
 
-        } else {
-            return false;
+  /**
+   * Controllo che lo studente non abbia già effettuato una prenotazione per la stessa data.
+   *
+   * @param matricola la <b>matricola</b> dello studente
+   * @param date      la <b>data di prenotazione</b> selezionata
+   * @return <b>false</b> altrimenti
+   * @throws SQLException
+   * @throws ParseException
+   */
+  private boolean checkPrenotazioni(String matricola, String date)
+      throws SQLException, ParseException {
+
+    Date selectedDay = DateUtils.parseDate(date);
+
+    ArrayList<PrenotazioneBean> resultList = (ArrayList<PrenotazioneBean>) PrenotazioneDAO.doQuery(PrenotazioneDAO.doFindPrenotazioni, matricola);
+
+    if (resultList != null) {
+      for (PrenotazioneBean p : resultList) {
+        if (p.getData().compareTo(selectedDay) == 0) {
+          return false;
         }
-
+      }
+      return true;
+    } else {
+      return false;
     }
 
-    /**
-     * Controllo la disponibilità di posti a sedere nelle aule
-     * @param dipartimento il dipartimento per la quale si effettua il controllo delle aule ( corrisponde al dipartimento dello studente)
-     * @return <b>true</b> se ci sono posti disponibili
-     * @return <b>false</b> altrimenti
-     * @throws SQLException
-     */
-    private boolean checkPostiAule(String dipartimento) throws SQLException {
+  }
 
-        ArrayList<AulaBean> aule = (ArrayList<AulaBean>) AulaDAO.doQuery(AulaDAO.doRetrieveAll, dipartimento);
+  /**
+   * Controllo la disponibilità di posti a sedere nelle aule.
+   *
+   * @param dipartimento il dipartimento per la quale si effettua il controllo delle aule ( corrisponde al dipartimento dello studente)
+   * @return <b>false</b> altrimenti
+   * @throws SQLException
+   */
+  private boolean checkPostiAule(String dipartimento) throws SQLException {
 
-        if (aule != null) {
+    ArrayList<AulaBean> aule = (ArrayList<AulaBean>) AulaDAO.doQuery(AulaDAO.doRetrieveAll, dipartimento);
 
-            int totPosti = 0;
-
-            for (AulaBean aula : aule) {
-                totPosti += aula.getnPosti();
-            }
-
-            return totPosti != 0;
-
-        }
-
-        return false;
-
+    if (aule != null) {
+      int totPosti = 0;
+      for (AulaBean aula : aule) {
+        totPosti += aula.getnPosti();
+      }
+      return totPosti != 0;
     }
+    return false;
+  }
+
 }
