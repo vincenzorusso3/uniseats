@@ -93,23 +93,46 @@ input[type="button"]{
 
 
 
-
-@media screen and (max-width: 470px){
-
+@media screen and (max-width: 540px){
     h1{
-        font-size:38px;
+        font-size:34px;
         margin-top:36px;
     }
 }
 
 
+@media screen and (max-width: 414px) {
+    h1{
+        font-size:32px;
+        margin-top:36px;
+    }
 
-@media screen and (max-width: 350px){
+    .cardContainer{
+        width: 238px;
+    }
+
+    .qrcode{
+        margin-left:184px;
+    }
+
+}
+
+
+@media screen and (max-width: 394px){
 
     h1{
-        font-size:20px;
+        font-size:28px;
         margin-top:36px;
-        margin-left: 15px;
+    }
+
+}
+
+
+@media screen and (max-width: 365px) {
+
+    h1 {
+        font-size: 23px;
+        margin-top: 43px;
     }
 
 }
