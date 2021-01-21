@@ -1,3 +1,5 @@
+package control;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import it.uniseats.control.gestione_utente.RegistrazioneServlet;

@@ -1,3 +1,5 @@
+package utils;
+
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import it.uniseats.utils.DriverManagerConnectionPool;

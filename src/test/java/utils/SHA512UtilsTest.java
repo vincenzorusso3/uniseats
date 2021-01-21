@@ -1,3 +1,5 @@
+package utils;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import it.uniseats.utils.SHA512Utils;
