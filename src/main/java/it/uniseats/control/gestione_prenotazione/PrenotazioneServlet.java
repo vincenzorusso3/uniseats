@@ -64,6 +64,7 @@ public class PrenotazioneServlet extends HttpServlet {
 
     if (action != null) {
 
+
       switch (action) {
 
         case "prenotazioneSingola":
@@ -146,6 +147,7 @@ public class PrenotazioneServlet extends HttpServlet {
 
           //se la prenotazione è stata salvata nel database con successo, viene inoltrata al modulo IA oper l'assegnazione del posto a sedere.
           if (result != null && result > 0) {
+
 
             Adapter.listener(prenotazione, user);
 

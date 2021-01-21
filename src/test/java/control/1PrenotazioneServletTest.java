@@ -17,6 +17,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.mock.web.MockServletConfig;
+import org.springframework.test.annotation.Rollback;
 
 class PrenotazioneServletTest {
 
@@ -40,6 +41,7 @@ class PrenotazioneServletTest {
   }
 
   @Test
+  @Rollback
   void prenotazioneSingolaTest() throws ServletException, IOException, SQLException,
       ParseException {
 
@@ -47,44 +49,18 @@ class PrenotazioneServletTest {
     request.addParameter("dateValueSingolo", "2021/02/13");
     request.getSession().setAttribute("email", "a.sabia15@studenti.unisa.it");
     servlet.doPost(request, response);
-
-    LinkedList<PrenotazioneBean> beans =
-        (LinkedList<PrenotazioneBean>) PrenotazioneDAO.doQuery(PrenotazioneDAO.doFindPrenotazioni, "0512105949");
-    String codice = "";
-    for (PrenotazioneBean b : beans) {
-
-      if (b.getData().equals("2021-02-13")) {
-        codice = b.getCodice();
-      }
-
-    }
-
-    System.out.println(codice);
-    PrenotazioneDAO.doQuery(PrenotazioneDAO.doDelete, codice);
     assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp",
         response.getForwardedUrl());
 
   }
 
   @Test
+  @Rollback
   void prenotazioneGruppoTest() throws ServletException, IOException, SQLException, ParseException {
     request.addParameter("action", "prenotazioneGruppo");
     request.addParameter("dateValueGruppo","2021/02/18");
     request.getSession().setAttribute("email","a.sabia15@studenti.unisa.it");
     servlet.doPost(request,response);
-    LinkedList<PrenotazioneBean> beans = (LinkedList<PrenotazioneBean>)PrenotazioneDAO.doQuery(PrenotazioneDAO.doFindPrenotazioni,"0512105949");
-    String codice = "";
-
-    for (PrenotazioneBean b : beans) {
-
-      if (b.getData().equals("2021-02-13")) {
-        codice = b.getCodice();
-      }
-
-    }
-
-    System.out.println(codice);
-    PrenotazioneDAO.doQuery(PrenotazioneDAO.doDelete,codice);
 
     assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp", response.getForwardedUrl());
 
