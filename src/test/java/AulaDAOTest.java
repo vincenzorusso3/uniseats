@@ -15,7 +15,7 @@ class AulaDAOTest {
   @Test
   void doRetrieveByCodeTest() throws SQLException {
     AulaBean bean = (AulaBean) AulaDAO.doQuery("doRetrieveByCode", "A1");
-    AulaBean expected = new AulaBean("A1", "Scienze Aziendali", 15, "D1");
+    AulaBean expected = new AulaBean("A1", "Scienze Aziendali", 20, "D1");
     assertTrue(expected.getCodice().equals(bean.getCodice())
         && expected.getDipartimento().equals(bean.getDipartimento())
         && expected.getnPosti() == bean.getnPosti()
@@ -33,4 +33,5 @@ class AulaDAOTest {
     ArrayList<String> dipartimenti = (ArrayList<String>) AulaDAO.doQuery("getDipartimenti","Infromatica" );
     assertNotNull(dipartimenti);
   }
+
 }

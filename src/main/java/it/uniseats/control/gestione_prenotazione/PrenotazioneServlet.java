@@ -6,6 +6,7 @@ import it.uniseats.model.beans.StudenteBean;
 import it.uniseats.model.dao.AulaDAO;
 import it.uniseats.model.dao.PrenotazioneDAO;
 import it.uniseats.model.dao.StudenteDAO;
+import it.uniseats.utils.Adapter;
 import it.uniseats.utils.DateUtils;
 import it.uniseats.utils.QrCodeGenerator;
 import java.io.IOException;
@@ -69,7 +70,7 @@ public class PrenotazioneServlet extends HttpServlet {
         case "prenotazioneSingola":
           try {
             prenotazione(request, response, true);
-          } catch (ParseException | SQLException e) {
+          } catch (ParseException | SQLException | CloneNotSupportedException e) {
             e.printStackTrace();
           }
           break;
@@ -77,7 +78,7 @@ public class PrenotazioneServlet extends HttpServlet {
         case "prenotazioneGruppo":
           try {
             prenotazione(request, response, false);
-          } catch (ParseException | SQLException e) {
+          } catch (ParseException | SQLException | CloneNotSupportedException e) {
             e.printStackTrace();
           }
           break;
@@ -109,7 +110,8 @@ public class PrenotazioneServlet extends HttpServlet {
    */
   private void prenotazione(HttpServletRequest request, HttpServletResponse response,
                             boolean isPrenotazioneSingola)
-      throws ParseException, SQLException, ServletException, IOException {
+      throws ParseException, SQLException, ServletException, IOException,
+      CloneNotSupportedException {
 
     String date;
 
@@ -143,7 +145,8 @@ public class PrenotazioneServlet extends HttpServlet {
 
             //se la prenotazione è stata salvata nel database con successo, viene inoltrata al modulo IA oper l'assegnazione del posto a sedere.
             if (result != null && result > 0) {
-              //TODO Intelligenza Artificiale
+
+              Adapter.listener(prenotazione, user);
 
               dispatcher = getServletContext().getRequestDispatcher("/view/prenotazione/VisualizzaPrenotazioniView.jsp");
 

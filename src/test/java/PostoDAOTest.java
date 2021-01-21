@@ -22,4 +22,13 @@ class PostoDAOTest {
     ArrayList<PostoBean> beans = (ArrayList<PostoBean>) PostoDAO.doQuery("doRetrieveAll", null);
     assertNotNull(beans);
   }
+
+  @Test
+  void doRetrieveByAulaCodeTest() throws SQLException {
+    ArrayList<PostoBean> beans = (ArrayList<PostoBean>) PostoDAO.doQuery(PostoDAO.doRetrieveByAulaCode, "A1");
+    assertNotNull(beans);
+  }
+
+
+
 }
