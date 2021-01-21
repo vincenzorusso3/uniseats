@@ -124,11 +124,12 @@ public class ManagePrenotazioneServlet extends HttpServlet {
   private void eliminaPrenotazione(HttpServletRequest request, HttpServletResponse response)
           throws ParseException, SQLException, ServletException, IOException {
 
-    String codice = request.getParameter("codice");
+    String codice = request.getParameter("cod");
 
     PrenotazioneDAO.doQuery(PrenotazioneDAO.doDelete, codice);
 
     RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(JSP_PATH);
+    request.setAttribute("message", "L'eliminazione è avvenuta con successo.");
     dispatcher.forward(request, response);
 
   }
