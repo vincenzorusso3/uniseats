@@ -33,4 +33,10 @@ class DateUtilsTest {
     assertEquals(dateString, "12/01/21");
   }
 
+  @Test
+  void englishToItalianTestTest() {
+    String dateString = DateUtils.englishToItalian("2021/01/21");
+    assertEquals(dateString, "21/01/2021");
+  }
+
 }

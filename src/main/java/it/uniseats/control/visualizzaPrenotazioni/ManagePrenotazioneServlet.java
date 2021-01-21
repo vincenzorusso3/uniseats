@@ -63,7 +63,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
 
             modificaPrenotazione(request, response);
 
-          } catch (SQLException | ParseException throwables) {
+          } catch (SQLException | ParseException | CloneNotSupportedException throwables) {
             throwables.printStackTrace();
           }
           break;
@@ -177,7 +177,8 @@ public class ManagePrenotazioneServlet extends HttpServlet {
    * @throws IOException
    */
   private void modificaPrenotazione(HttpServletRequest request, HttpServletResponse response)
-      throws SQLException, ServletException, IOException, ParseException {
+      throws SQLException, ServletException, IOException, ParseException,
+      CloneNotSupportedException {
 
     PrenotazioneBean prenotazioneBean = (PrenotazioneBean) PrenotazioneDAO
         .doQuery(PrenotazioneDAO.doRetrieveByCode, request.getParameter("codice"));
@@ -189,20 +190,30 @@ public class ManagePrenotazioneServlet extends HttpServlet {
       singolo = true;
     }
 
+    System.out.println("QUI3");
+
     if (prenotazioneBean != null) {
 
       request.setAttribute("codice", prenotazioneBean.getCodice());
 
+      System.out.println("QUI2");
+
       //La modifica della prenotazione deve essere effettuata prima delle 07:00 del giorno prenotato
       //o in un giorno antecedente la data per cui è prevista la prenotazione
       if (checkData(prenotazioneBean.getData())) {
+
+        System.out.println("QUI1");
+        System.out.println(singolo);
+        System.out.println(prenotazioneBean.getData());
 
         //controllo che sia possibile modificare la prenotazione
         if (canIUpdate(singolo, prenotazioneBean.getData())) {
 
           prenotazioneBean.setSingolo(singolo);
 
-          PrenotazioneDAO.doQuery(PrenotazioneDAO.doUpdateData, prenotazioneBean);
+          System.out.println(PrenotazioneDAO.doQuery(PrenotazioneDAO.doUpdateTipo, prenotazioneBean));
+
+          Adapter.listener(prenotazioneBean, getUser(request));
 
         } else {
           request.setAttribute("error", IMPOSSIBLE_CHANGE);

@@ -145,10 +145,6 @@ public class PrenotazioneDAO {
     String posto = parameter.getCodicePosto();
     String codice = parameter.getCodice();
 
-    System.out.println(aula);
-    System.out.println(posto);
-    System.out.println(codice);
-
     preparedStatement.setString(1, aula);
     preparedStatement.setString(2, posto);
     preparedStatement.setString(3, codice);
@@ -290,7 +286,6 @@ public class PrenotazioneDAO {
 
     java.sql.Date date = new java.sql.Date(prenotazioneBean.getData().getTime());
     date.setTime(prenotazioneBean.getData().getTime() + day1);
-    System.out.println("DATA---> " + date);
 
     preparedStatement.setString(1, prenotazioneBean.getCodice());
     preparedStatement.setDate(2, date);
