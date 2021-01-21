@@ -44,6 +44,8 @@ public class ManagePrenotazioneServlet extends HttpServlet {
 
     String action = request.getParameter("action");
 
+
+
     if (action != null) {
 
       switch (action) {
@@ -184,6 +186,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
             Adapter.listener(prenotazioneBean, getUser(request));
 
           } else {
+
             request.setAttribute("error", IMPOSSIBLE_CHANGE);
           }
 
