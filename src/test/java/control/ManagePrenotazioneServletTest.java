@@ -1,6 +1,7 @@
 package control;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import it.uniseats.control.visualizzaPrenotazioni.ManagePrenotazioneServlet;
 import it.uniseats.model.beans.PrenotazioneBean;
@@ -51,6 +52,58 @@ class ManagePrenotazioneServletTest {
   }
 
   @Test
+  public void deletePrenotazioneSuccesfull() throws ParseException, SQLException, ServletException, IOException {
+
+    PrenotazioneBean prenotazioneBean =
+            (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "9-0512108336-21/01/2021");
+
+
+    request.addParameter("action", "eliminaPrenotazione");
+    request.addParameter("codice", prenotazioneBean.getCodice());
+
+
+    servlet.doPost(request, response);
+    assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp", response.getForwardedUrl());
+  }
+
+  //TC_1.5_01
+  @Test
+  public void updateDataFailedTestDataPrecedente() throws ParseException, SQLException, ServletException, IOException {
+    DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
+    PrenotazioneBean prenotazioneBean =
+        (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "9-0512108336-21/01/2021");
+
+    request.addParameter("action", "modificaPrenotazione");
+    request.getSession().setAttribute("codice", prenotazioneBean.getCodice());
+
+    request.getSession().setAttribute("data", df.parse("15/01/2021"));
+
+    request.addParameter("tipologia", "singolo");
+    request.addParameter("codice", prenotazioneBean.getCodice());
+    servlet.doPost(request, response);
+    assertNotEquals(prenotazioneBean.getData(), df.parse("15/01/2021"));
+  }
+
+  //TC_1.5_02
+  @Test
+  public void updateDataFailedTestSameDate() throws ParseException, SQLException, ServletException, IOException {
+    DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
+    PrenotazioneBean prenotazioneBean =
+        (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "9-0512108336-21/01/2021");
+
+    request.addParameter("action", "modificaPrenotazione");
+    request.getSession().setAttribute("codice", prenotazioneBean.getCodice());
+
+    request.getSession().setAttribute("data", prenotazioneBean.getData());
+
+    request.addParameter("tipologia", "singolo");
+    request.addParameter("codice", prenotazioneBean.getCodice());
+    servlet.doPost(request, response);
+    assertEquals("Non è più possibile modificare la prenotazione", request.getAttribute("error"));
+  }
+
+  //TC_1.5_03
+  @Test
   public void updateDataTestSuccesfull() throws ParseException, SQLException, ServletException, IOException {
     DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
     PrenotazioneBean prenotazioneBean =
@@ -64,40 +117,6 @@ class ManagePrenotazioneServletTest {
     request.getSession().setAttribute("data", date1);
     request.addParameter("tipologia", "singolo");
     request.addParameter("codice", prenotazioneBean.getCodice());
-    servlet.doPost(request, response);
-    assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp", response.getForwardedUrl());
-  }
-
-  @Test
-  public void updateDataTestSameDate() throws ParseException, SQLException, ServletException, IOException {
-    DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
-    PrenotazioneBean prenotazioneBean =
-        (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "9-0512108336-21/01/2021");
-
-
-
-    request.addParameter("action", "modificaPrenotazione");
-    request.getSession().setAttribute("codice", prenotazioneBean.getCodice());
-
-    request.getSession().setAttribute("data", prenotazioneBean.getData());
-
-    request.addParameter("tipologia", "singolo");
-    request.addParameter("codice", prenotazioneBean.getCodice());
-    servlet.doPost(request, response);
-    assertEquals("Non è più possibile modificare la prenotazione", request.getAttribute("error"));
-  }
-
-  @Test
-  public void deletePrenotazioneSuccesfull() throws ParseException, SQLException, ServletException, IOException {
-
-    PrenotazioneBean prenotazioneBean =
-            (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "9-0512108336-21/01/2021");
-
-
-    request.addParameter("action", "eliminaPrenotazione");
-    request.addParameter("codice", prenotazioneBean.getCodice());
-
-
     servlet.doPost(request, response);
     assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp", response.getForwardedUrl());
   }
