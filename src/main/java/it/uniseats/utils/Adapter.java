@@ -49,14 +49,14 @@ public class Adapter {
           int[] disposizioneTemp = Jarvis.disponiPrenotazioni(codiciPrenotazioni);
           ArrayList<Integer> disposizioneArrayList = new ArrayList<>();
 
-          for (int i = 0; i < disposizioneTemp.length; i++) {
-            disposizioneArrayList.add(disposizioneTemp[i]);
+          for (int j : disposizioneTemp) {
+            disposizioneArrayList.add(j);
           }
 
           for (int i = 0; count != 0; i++) {
             if (disposizioneArrayList.get(i) == 0) {
               disposizioneArrayList.remove(i);
-              count++;
+              count--;
             }
           }
 
