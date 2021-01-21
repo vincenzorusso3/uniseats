@@ -57,7 +57,7 @@ public class PrenotazioneServlet extends HttpServlet {
    * @throws ServletException
    * @throws IOException
    */
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+  public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
     String action = request.getParameter("action");
