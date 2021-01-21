@@ -8,7 +8,6 @@ import it.uniseats.model.dao.PrenotazioneDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -43,21 +42,29 @@ class PrenotazioneServletTest {
   @Test
   void prenotazioneSingolaTest() throws ServletException, IOException, SQLException,
       ParseException {
+
     request.addParameter("action", "prenotazioneSingola");
-    request.addParameter("dateValueSingolo","2021/02/13");
-    request.getSession().setAttribute("email","a.sabia15@studenti.unisa.it");
-    servlet.doPost(request,response);
-    ArrayList<PrenotazioneBean> beans = (ArrayList<PrenotazioneBean>) PrenotazioneDAO.doQuery(PrenotazioneDAO.doFindPrenotazioni,"0512105949");
+    request.addParameter("dateValueSingolo", "2021/02/13");
+    request.getSession().setAttribute("email", "a.sabia15@studenti.unisa.it");
+    servlet.doPost(request, response);
+
+    LinkedList<PrenotazioneBean> beans =
+        (LinkedList<PrenotazioneBean>) PrenotazioneDAO.doQuery(PrenotazioneDAO.doFindPrenotazioni, "0512105949");
     String codice = "";
-    for(PrenotazioneBean b : beans){
-      if(b.getData().equals("2021-02-13")){
+    for (PrenotazioneBean b : beans) {
+
+      if (b.getData().equals("2021-02-13")) {
         codice = b.getCodice();
       }
+
     }
+
     System.out.println(codice);
-    PrenotazioneDAO.doQuery(PrenotazioneDAO.doDelete,codice);
-    assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp", response.getForwardedUrl());
- }
+    PrenotazioneDAO.doQuery(PrenotazioneDAO.doDelete, codice);
+    assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp",
+        response.getForwardedUrl());
+
+  }
 
   @Test
   void prenotazioneGruppoTest() throws ServletException, IOException, SQLException, ParseException {
@@ -67,21 +74,20 @@ class PrenotazioneServletTest {
     servlet.doPost(request,response);
     LinkedList<PrenotazioneBean> beans = (LinkedList<PrenotazioneBean>)PrenotazioneDAO.doQuery(PrenotazioneDAO.doFindPrenotazioni,"0512105949");
     String codice = "";
-    for(PrenotazioneBean b : beans){
-      if(b.getData().equals("2021-02-13")){
+
+    for (PrenotazioneBean b : beans) {
+
+      if (b.getData().equals("2021-02-13")) {
         codice = b.getCodice();
       }
+
     }
+
     System.out.println(codice);
     PrenotazioneDAO.doQuery(PrenotazioneDAO.doDelete,codice);
 
     assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp", response.getForwardedUrl());
 
-
-
-
   }
-
-
 
 }
