@@ -160,7 +160,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
     if (prenotazioneBean != null) {
 
       //controllo che la data inserita sia diversa dalla data attuale della prenotazione
-      if (!prenotazioneBean.getData().equals(dataPrenotazione)) {
+      if (prenotazioneBean.getData().compareTo(dataPrenotazione)==0) {
 
         //controllo che la modifica della prenotazione venga effettuata prima delle 07:00 del giorno della prenotazione o in un giorno antecedente la data per cui è prevista la prenotazione
         if (checkData(prenotazioneBean.getData())) {
@@ -299,9 +299,9 @@ public class ManagePrenotazioneServlet extends HttpServlet {
     Date today = new Date();
 
     LocalTime time = LocalTime.now();
-    boolean isbefore = time.isBefore(LocalTime.parse("07:00"));
 
-    return (((date.compareTo(today) == 0) && isbefore) || date.compareTo(today) > 0);
+
+    return (((date.compareTo(today) == 0)) || date.compareTo(today) > 0);
 
   }
 
