@@ -78,7 +78,6 @@ public class ManagePrenotazioneServlet extends HttpServlet {
           }
           break;
 
-
         case "getSinglePren":
           try {
 
@@ -87,9 +86,6 @@ public class ManagePrenotazioneServlet extends HttpServlet {
           } catch (SQLException | ParseException throwables) {
             throwables.printStackTrace();
           }
-          break;
-
-        default:
           break;
 
         case "eliminaPrenotazione":
@@ -101,6 +97,10 @@ public class ManagePrenotazioneServlet extends HttpServlet {
             throwables.printStackTrace();
           }
           break;
+
+        default:
+          break;
+
       }
 
     } else {
@@ -126,12 +126,11 @@ public class ManagePrenotazioneServlet extends HttpServlet {
 
     String codice = request.getParameter("codice");
 
-
-      System.out.println("Prenotazione into servlet");
-      PrenotazioneDAO.doQuery(PrenotazioneDAO.doDelete, codice);
+    PrenotazioneDAO.doQuery(PrenotazioneDAO.doDelete, codice);
 
     RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(JSP_PATH);
     dispatcher.forward(request, response);
+
   }
 
   /**
