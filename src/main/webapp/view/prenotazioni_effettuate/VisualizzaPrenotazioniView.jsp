@@ -93,6 +93,10 @@
                 <input type="button" name="modifica" value="Modifica">
             </a>
 
+        <a href="${pageContext.servletContext.contextPath}/managePrenotazione?cod=<%=bean.getCodice()%>&action=">
+            <input type="button" name="elimina" value="Elimina">
+        </a>
+
         <script>
 
             var qrcode = new QRCode("qrcode<%=bean.getCodice()%>");

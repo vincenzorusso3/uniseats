@@ -88,6 +88,15 @@ public class ManagePrenotazioneServlet extends HttpServlet {
         default:
           break;
 
+        case "eliminaPrenotazione":
+          try {
+
+            eliminaPrenotazione(request, response);
+
+          } catch (SQLException | ParseException throwables) {
+            throwables.printStackTrace();
+          }
+          break;
       }
 
     } else {
@@ -97,6 +106,28 @@ public class ManagePrenotazioneServlet extends HttpServlet {
 
     }
 
+  }
+
+  /**
+   * Metedo per eliminare una prenotazione.
+   * @param request  HttpServletRequest
+   * @param response HttpSErvletResponse
+   * @throws ParseException
+   * @throws SQLException
+   * @throws ServletException
+   * @throws IOException
+   */
+  private void eliminaPrenotazione(HttpServletRequest request, HttpServletResponse response)
+          throws ParseException, SQLException, ServletException, IOException {
+
+    String codice = request.getParameter("codice");
+
+
+      System.out.println("Prenotazione into servlet");
+      PrenotazioneDAO.doQuery(PrenotazioneDAO.doDelete, codice);
+
+    RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(JSP_PATH);
+    dispatcher.forward(request, response);
   }
 
   /**

@@ -87,6 +87,21 @@ class ManagePrenotazioneServletTest {
     assertEquals("Non è più", request.getAttribute("error"));
   }
 
+  @Test
+  public void deletePrenotazioneSuccesfull() throws ParseException, SQLException, ServletException, IOException {
+
+    PrenotazioneBean prenotazioneBean =
+            (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "9-0512108336-21/01/2021");
+
+
+    request.addParameter("action", "eliminaPrenotazione");
+    request.addParameter("codice", prenotazioneBean.getCodice());
+
+
+    servlet.doPost(request, response);
+    assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp", response.getForwardedUrl());
+  }
+
 
 
 
