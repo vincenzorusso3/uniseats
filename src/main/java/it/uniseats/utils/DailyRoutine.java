@@ -1,9 +1,10 @@
 package it.uniseats.utils;
 
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.TimeZone;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -22,6 +23,11 @@ public class DailyRoutine extends TimerTask {
       if (!runnedJ) {
 
         //MODULO
+        try {
+          Adapter.todaySchedule();
+        } catch (SQLException | CloneNotSupportedException | ParseException throwables) {
+          throwables.printStackTrace();
+        }
 
         runned = false;
         runnedJ = true;
@@ -57,8 +63,6 @@ public class DailyRoutine extends TimerTask {
   }
 
   public static void startTask() {
-
-    System.out.println("AVVIO IL TASK");
 
     if (!runned) {
 

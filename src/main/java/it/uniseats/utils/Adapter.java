@@ -17,7 +17,6 @@ import java.util.LinkedList;
 
 public class Adapter {
 
-
   public static void todaySchedule() throws SQLException, ParseException,
       CloneNotSupportedException {
 
@@ -41,7 +40,30 @@ public class Adapter {
           prenotazioniList.removeIf(prenotazione -> !prenotazione.getCodiceAula().equals("00"));
 
           int[] codiciPrenotazioni = getCodiciPrenotazioni(prenotazioniList);
-          int[] disposizione = Jarvis.disponiPrenotazioni(codiciPrenotazioni);
+          int count = 0;
+          for (int i = prenotazioniList.size(); i < 20; i++) {
+            codiciPrenotazioni[i] = 0;
+            count++;
+          }
+
+          int[] disposizioneTemp = Jarvis.disponiPrenotazioni(codiciPrenotazioni);
+          ArrayList<Integer> disposizioneArrayList = new ArrayList<>();
+
+          for (int i = 0; i < disposizioneTemp.length; i++) {
+            disposizioneArrayList.add(disposizioneTemp[i]);
+          }
+
+          for (int i = 0; count != 0; i++) {
+            if (disposizioneArrayList.get(i) == 0) {
+              disposizioneArrayList.remove(i);
+              count++;
+            }
+          }
+
+          int[] disposizione = new int[disposizioneArrayList.size()];
+          for (int i = 0; i < disposizione.length; i++) {
+            disposizione[i] = disposizioneArrayList.get(i);
+          }
 
           ArrayList<AulaBean> listaAule =
               (ArrayList<AulaBean>) AulaDAO.doQuery(AulaDAO.doRetrieveAll, dipartimento);
@@ -54,7 +76,7 @@ public class Adapter {
 
               ArrayList<PrenotazioneBean> settedPrenotazioni = new ArrayList<>();
 
-              for (int i = 0; i < prenotazioniList.size(); i++) {
+              for (int i = 0; i < disposizione.length; i++) {
                 updatePrenotazione(i, prenotazioniList, disposizione[i], aulaDaUtilizzare,
                     settedPrenotazioni);
               }
@@ -67,12 +89,8 @@ public class Adapter {
 
         }
 
-
-
-
-
-
         parameter.remove(dipartimento);
+
       }
 
     }
@@ -258,7 +276,7 @@ public class Adapter {
 
   private static int[] getCodiciPrenotazioni(LinkedList<PrenotazioneBean> prenotazioniList) {
 
-    int[] prenotazioni = new int[prenotazioniList.size()];
+    int[] prenotazioni = new int[20];
 
     for (int i = 0; i < prenotazioniList.size(); i++) {
       if (prenotazioniList.get(i).isSingolo()) {
