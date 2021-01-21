@@ -71,16 +71,6 @@ class LoginServletTest {
 
   }
 
-  //TC_1.2_03
-  @Test
-  public void loginTestFailedPasswordNonCorrispondente() throws IOException {
-    request.getSession().setAttribute("logged", false);
-    request.addParameter("action", "Login");
-    request.addParameter("email", "a.sabia15@studenti.unisa.it");
-    request.addParameter("password", "Alessia3000");
-    servlet.doGet(request, response);
-    assertEquals("Username e/o password non validi!", request.getAttribute("errore"));
-  }
 
 }
 
