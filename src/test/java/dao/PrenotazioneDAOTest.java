@@ -64,7 +64,7 @@ class PrenotazioneDAOTest {
   void doDeleteTest() throws SQLException, ParseException {
     DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
     PrenotazioneBean bean =
-        new PrenotazioneBean("1-11111111-111111", df.parse("21/01/2021"), true, "00", "00",
+        new PrenotazioneBean("1-11111111-111111", df.parse("25/12/2021"), true, "00", "00",
             "0512105933");
     PrenotazioneDAO.doQuery("doSave", bean);
 
@@ -79,7 +79,7 @@ class PrenotazioneDAOTest {
   void doSaveTest() throws SQLException, ParseException {
     DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
     PrenotazioneBean bean =
-        new PrenotazioneBean("1-11111111-111111", df.parse("21/01/2021"), true, "00", "00",
+        new PrenotazioneBean("1-11111111-111111", df.parse("25/12/2021"), true, "00", "00",
             "0512105933");
     PrenotazioneDAO.doQuery("doSave", bean);
 
@@ -95,10 +95,10 @@ class PrenotazioneDAOTest {
   void doUpdateDataTest() throws SQLException, ParseException {
     DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
     PrenotazioneBean bean =
-        new PrenotazioneBean("1-11111111-111111", df.parse("21/01/2021"), true, "00", "00",
+        new PrenotazioneBean("1-11111111-111111", df.parse("25/12/2021"), true, "00", "00",
             "0512105933");
     PrenotazioneDAO.doQuery("doSave", bean);
-    bean.setData(df.parse("23/01/2021"));
+    bean.setData(df.parse("26/12/2021"));
     int i = (int) PrenotazioneDAO.doQuery("doUpdateData", bean);
 
     PrenotazioneDAO.doQuery("doDelete", "1-11111111-111111");
@@ -111,7 +111,7 @@ class PrenotazioneDAOTest {
   void doUpdateTipoTest() throws SQLException, ParseException {
     DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
     PrenotazioneBean bean =
-        new PrenotazioneBean("1-11111111-111111", df.parse("21/01/2021"), true, "00", "00",
+        new PrenotazioneBean("1-11111111-111111", df.parse("25/12/2021"), true, "00", "00",
             "0512105933");
     PrenotazioneDAO.doQuery("doSave", bean);
     bean.setSingolo(false);
