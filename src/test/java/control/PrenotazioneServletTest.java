@@ -34,9 +34,6 @@ class PrenotazioneServletTest {
   @Test
   void prenotazioneSingolaTest() {
 
-
-
-
   }
 
   @Test

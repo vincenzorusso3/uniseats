@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@page import="java.util.Collection" %>
 <%@ page import="java.util.Iterator" %>
-<%@ page import="it.uniseats.model.beans.PrenotazioneBean" %><%--
+<%@ page import="it.uniseats.model.beans.PrenotazioneBean" %>
+<%@ page import="it.uniseats.utils.DateUtils" %><%--
   Created by IntelliJ IDEA.
   User: alessiasabia
   Date: 12/01/2021
@@ -17,6 +18,7 @@
         return;
     }
 
+    String errore = (String) request.getAttribute("errore");
 %>
 
 <%
@@ -50,6 +52,18 @@
 
     </div>
 
+<div class="message">
+
+    <%
+        if (errore != null) {
+
+    %>
+    <h3><%=errore%></h3>
+    <%
+        }
+    %>
+</div>
+
 <div class="cardContainer">
 
 
@@ -63,7 +77,7 @@
 
     <div class="card">
 
-        <h5 class="date"><%=bean.getData()%></h5>
+        <h5 class="date"><%=DateUtils.englishToItalian(bean.getData().toString())%></h5>
 
         <div class="leftC">
             <h6 class="edificio">Aula: <%=bean.getCodiceAula()%></h6>
@@ -93,7 +107,7 @@
                 <input type="button" name="modifica" value="Modifica">
             </a>
 
-        <a href="${pageContext.servletContext.contextPath}/managePrenotazione?cod=<%=bean.getCodice()%>&action=">
+        <a href="${pageContext.servletContext.contextPath}/managePrenotazione?cod=<%=bean.getCodice()%>&action=eliminaPrenotazione">
             <input type="button" name="elimina" value="Elimina">
         </a>
 
