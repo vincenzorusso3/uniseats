@@ -1,7 +1,10 @@
+<%@ page import="it.uniseats.utils.DailyRoutine" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 
 <%
+
+    DailyRoutine.startTask();
     String errore = (String) request.getAttribute("errore");
 %>
 

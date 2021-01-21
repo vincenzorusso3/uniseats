@@ -48,10 +48,9 @@ public class AulaDAO {
           return doRetrieveByCode(preparedStatement, (String) parameter);
 
         case getDipartimenti:
-          querySQL = "SELECT DISTINCT dipartimento FROM " + TABLE_NAME + " WHERE dipartimento!=?";
+          querySQL = "SELECT DISTINCT dipartimento FROM " + TABLE_NAME + " WHERE dipartimento != ?";
           preparedStatement = connection.prepareStatement(querySQL);
           return getDipartimenti(preparedStatement, (String) parameter);
-
 
         case doRetrieveAll:
           if (parameter == null) {
