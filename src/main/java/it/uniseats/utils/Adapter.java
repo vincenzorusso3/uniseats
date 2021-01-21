@@ -25,8 +25,10 @@ public class Adapter {
     Date todayTemp = new Date();
     DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
     Date today = DateUtils.parseDate(df.format(todayTemp));
+    String todayString = DateUtils.dateToString(today);
+    String prenDateString = DateUtils.dateToString(p.getData());
 
-    if (p.getData().equals(today)) {
+    if (todayString.equals(prenDateString)) {
 
       prenotazioneGiornoCorrente(p, s);
 
@@ -91,13 +93,22 @@ public class Adapter {
         if (listaAule != null) {
 
           for (AulaBean aula : listaAule) {
+            System.out.println(aula.getCodice());
 
             ArrayList<PostoBean> posti =
                 (ArrayList<PostoBean>) PostoDAO.doQuery(PostoDAO.doRetrieveByAulaCode, aula.getCodice());
 
             for (PostoBean posto : posti) {
+              System.out.println(posto.getCodice());
+
+              if (prenotazioniList.isEmpty()) {
+                p.setCodiceAula(aula.getCodice());
+                p.setCodicePosto(posto.getCodice());
+                break;
+              }
 
               for (PrenotazioneBean prenotazione : prenotazioniList) {
+                System.out.println(prenotazione.getCodice());
 
                 if (!posto.getCodice().equals(prenotazione.getCodicePosto())) {
 
@@ -109,17 +120,25 @@ public class Adapter {
 
               }
 
+              if (!p.getCodicePosto().equals("00"))
+                break;
+
             }
+
+            if (!p.getCodicePosto().equals("00"))
+              break;
 
           }
 
           if (!p.getCodicePosto().equals("00")) {
+
             //la prenotazione e' andata a buon fine
             PrenotazioneDAO.doQuery(PrenotazioneDAO.doUpdateAulaPosto, p);
 
           } else {
 
             //ERRORE
+            System.out.println("ERRORE");
 
           }
 
