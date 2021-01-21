@@ -13,20 +13,17 @@ public class QrCodeGenerator {
   /**
    * Metodo statico per generare una stringa unica.
    *
-   * @param s e' la matricola dello studente
+   * @param matricola e' la matricola dello studente
    * @return la stringa per generare il QRCode
    */
-  public static String generateCode(String s) {
+  public static String generateCode(String matricola, String data) {
 
     DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
 
     Random random = new Random(10000);
-
     int codice = random.nextInt();
-    String date = df.format(new Date());
-    date = date.replace("/", "");
 
-    return codice + "-" + s + "-" + date;
+    return codice + "-" + matricola + "-" + data;
 
   }
 }

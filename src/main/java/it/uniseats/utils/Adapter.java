@@ -13,6 +13,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.Locale;
 
 
@@ -31,7 +32,7 @@ public class Adapter {
 
     } else {
 
-      ArrayList<PrenotazioneBean> prenotazioniList = getPrenotazioni(p, s);
+      LinkedList<PrenotazioneBean> prenotazioniList = getPrenotazioni(p, s);
 
       if (prenotazioniList != null) {
 
@@ -78,7 +79,7 @@ public class Adapter {
 
   private static void prenotazioneGiornoCorrente(PrenotazioneBean p, StudenteBean s)
       throws SQLException, ParseException {
-    ArrayList<PrenotazioneBean> prenotazioniList = getPrenotazioni(p, s);
+    LinkedList<PrenotazioneBean> prenotazioniList = getPrenotazioni(p, s);
 
     if (prenotazioniList != null) {
 
@@ -139,7 +140,7 @@ public class Adapter {
 
   }
 
-  private static void updatePrenotazione(int i, ArrayList<PrenotazioneBean> prenotazioni, int tipo,
+  private static void updatePrenotazione(int i, LinkedList<PrenotazioneBean> prenotazioni, int tipo,
                                          AulaBean aulaDaUtilizzare,
                                          ArrayList<PrenotazioneBean> settedPrenotazioni) {
 
@@ -189,7 +190,7 @@ public class Adapter {
 
   }
 
-  private static int[] getCodiciPrenotazioni(ArrayList<PrenotazioneBean> prenotazioniList) {
+  private static int[] getCodiciPrenotazioni(LinkedList<PrenotazioneBean> prenotazioniList) {
 
     int[] prenotazioni = new int[prenotazioniList.size()];
 
@@ -205,7 +206,7 @@ public class Adapter {
 
   }
 
-  private static ArrayList<String> getAuleUtilizzate(ArrayList<PrenotazioneBean> prenotazioniList) {
+  private static ArrayList<String> getAuleUtilizzate(LinkedList<PrenotazioneBean> prenotazioniList) {
 
     ArrayList<String> auleUtilizzate = new ArrayList<>();
     for (PrenotazioneBean prenotazione : prenotazioniList) {
@@ -218,7 +219,7 @@ public class Adapter {
 
   }
 
-  private static ArrayList<PrenotazioneBean> getPrenotazioni(PrenotazioneBean p, StudenteBean s)
+  private static LinkedList<PrenotazioneBean> getPrenotazioni(PrenotazioneBean p, StudenteBean s)
       throws SQLException, ParseException {
     Date date = p.getData();
     String dipartimento = s.getDipartimento();
@@ -228,7 +229,7 @@ public class Adapter {
     parameter.add(DateUtils.dateToString(date));
     parameter.add(dipartimento);
 
-    return (ArrayList<PrenotazioneBean>) PrenotazioneDAO
+    return (LinkedList<PrenotazioneBean>) PrenotazioneDAO
         .doQuery(PrenotazioneDAO.findByDataDipartimento, parameter);
   }
 

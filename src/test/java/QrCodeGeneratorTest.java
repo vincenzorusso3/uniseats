@@ -8,7 +8,7 @@ class QrCodeGeneratorTest {
 
   @Test
   void generateCode() {
-    String code = QrCodeGenerator.generateCode("0111111111");
+    String code = QrCodeGenerator.generateCode("0111111111", "21/01/2021");
     assertNotNull(code);
   }
 

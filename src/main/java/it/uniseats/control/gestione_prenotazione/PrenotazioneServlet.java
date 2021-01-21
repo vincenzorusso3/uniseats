@@ -112,15 +112,17 @@ public class PrenotazioneServlet extends HttpServlet {
       throws ParseException, SQLException, ServletException, IOException,
       CloneNotSupportedException {
 
-    String date;
+    String dateTemp;
 
     RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_PATH);
 
     if (isPrenotazioneSingola) {
-      date = request.getParameter("dateValueSingolo");
+      dateTemp = request.getParameter("dateValueSingolo");
     } else {
-      date = request.getParameter("dateValueGruppo");
+      dateTemp = request.getParameter("dateValueGruppo");
     }
+
+    String date = DateUtils.englishToItalian(dateTemp);
 
     if (date != null) {
 
@@ -137,7 +139,7 @@ public class PrenotazioneServlet extends HttpServlet {
           if (checkPostiAule(user.getDipartimento(), date)) {
 
             //lo studente NON ha prenotazioni e c'e' almeno un posto libero
-            String qrCode = QrCodeGenerator.generateCode(matricola);
+            String qrCode = QrCodeGenerator.generateCode(matricola, date);
 
             PrenotazioneBean prenotazione = new PrenotazioneBean(qrCode, DateUtils.parseDate(date), isPrenotazioneSingola, "00", "00", matricola);
             Integer result = (Integer) PrenotazioneDAO.doQuery(PrenotazioneDAO.doSave, prenotazione);
@@ -147,7 +149,7 @@ public class PrenotazioneServlet extends HttpServlet {
 
               Adapter.listener(prenotazione, user);
 
-              dispatcher = getServletContext().getRequestDispatcher("/view/prenotazione/VisualizzaPrenotazioniView.jsp");
+              dispatcher = getServletContext().getRequestDispatcher("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp");
 
             } else {
               request.setAttribute("errore", DB_ERROR);
@@ -190,7 +192,10 @@ public class PrenotazioneServlet extends HttpServlet {
       return true;
     }
 
-    if (selectedDay.compareTo(today) == 0) {
+    String todayString = DateUtils.dateToString(today);
+    String selectedDayString = DateUtils.dateToString(selectedDay);
+
+    if (selectedDayString.equals(todayString)) {
       return isPrenotazioneSingola;
     }
 
@@ -254,10 +259,10 @@ public class PrenotazioneServlet extends HttpServlet {
       throws SQLException, ParseException {
 
     ArrayList<String> parameter = new ArrayList<>();
-    parameter.add(dipartimento);
     parameter.add(data);
+    parameter.add(dipartimento);
 
-    ArrayList<PrenotazioneBean> pList = (ArrayList<PrenotazioneBean>) PrenotazioneDAO.doQuery(PrenotazioneDAO.findByDataDipartimento, parameter);
+    LinkedList<PrenotazioneBean> pList = (LinkedList<PrenotazioneBean>) PrenotazioneDAO.doQuery(PrenotazioneDAO.findByDataDipartimento, parameter);
 
     if (pList != null) {
       return pList.size() < 60;
