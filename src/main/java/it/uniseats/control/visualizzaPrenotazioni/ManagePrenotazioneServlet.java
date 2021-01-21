@@ -114,6 +114,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
 
   /**
    * Metedo per eliminare una prenotazione.
+   *
    * @param request  HttpServletRequest
    * @param response HttpSErvletResponse
    * @throws ParseException
@@ -122,7 +123,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
    * @throws IOException
    */
   private void eliminaPrenotazione(HttpServletRequest request, HttpServletResponse response)
-          throws ParseException, SQLException, ServletException, IOException {
+      throws ParseException, SQLException, ServletException, IOException {
 
     String codice = request.getParameter("cod");
 
@@ -152,7 +153,6 @@ public class ManagePrenotazioneServlet extends HttpServlet {
     String dateTemp = request.getParameter("data");
 
 
-
     String dataTransformed = DateUtils.englishToItalian(dateTemp);
 
     Date dataPrenotazione = DateUtils.parseDate(dataTransformed);
@@ -165,7 +165,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
     if (prenotazioneBean != null) {
 
       //controllo che la data inserita sia diversa dalla data attuale della prenotazione
-      if (prenotazioneBean.getData().compareTo(dataPrenotazione)!=0) {
+      if (prenotazioneBean.getData().compareTo(dataPrenotazione) != 0) {
 
 
         //controllo che la modifica della prenotazione venga effettuata prima delle 07:00 del giorno della prenotazione o in un giorno antecedente la data per cui è prevista la prenotazione
@@ -219,15 +219,20 @@ public class ManagePrenotazioneServlet extends HttpServlet {
 
     PrenotazioneBean prenotazioneBean = (PrenotazioneBean) PrenotazioneDAO
         .doQuery(PrenotazioneDAO.doRetrieveByCode, request.getParameter("codice"));
+
+
     RequestDispatcher dispatcher;
     String tipologia = request.getParameter("tipologia");
+
     boolean singolo = false;
 
     if (tipologia.equalsIgnoreCase("singolo")) {
       singolo = true;
     }
 
+
     if (prenotazioneBean != null) {
+
 
       request.setAttribute("codice", prenotazioneBean.getCodice());
 
@@ -239,8 +244,8 @@ public class ManagePrenotazioneServlet extends HttpServlet {
         if (canIUpdate(singolo, prenotazioneBean.getData())) {
 
           prenotazioneBean.setSingolo(singolo);
-
-          System.out.println(PrenotazioneDAO.doQuery(PrenotazioneDAO.doUpdateTipo, prenotazioneBean));
+          System.out
+              .println(PrenotazioneDAO.doQuery(PrenotazioneDAO.doUpdateTipo, prenotazioneBean));
 
           Adapter.listener(prenotazioneBean, getUser(request));
 

@@ -57,7 +57,7 @@
 <div class="card">
 <form action="${pageContext.servletContext.contextPath}/managePrenotazione" method="post">
 
-    <input type="hidden" name="action" value="modificaData" />
+    <input id="actionValue" type="hidden" name="action" value="modificaData" />
 
 
     <p class="title">codice Prenotazione:<br><label><%=prenotazioneBean.getCodice()%></label></p>
@@ -77,7 +77,7 @@
 
                 <p>Aula: <label><%=prenotazioneBean.getCodiceAula()%></label></p>
                 <p>Posto: <label><%=prenotazioneBean.getCodicePosto()%></label></p>
-                <p><input type="date" name="data" value="<%=prenotazioneBean.getData()%>"%>"/><p/>
+                <p><input type="date" name="data" value="<%=prenotazioneBean.getData()%>"><p/>
                     <input type="hidden" name="codice" value="<%=prenotazioneBean.getCodice()%>">
 
                 <input type="submit" value="ConfermaData" class="buttonConf"/>
@@ -93,14 +93,24 @@
                 <p> Posto: <label><%=prenotazioneBean.getCodicePosto()%></label></p>
 
                 <div class="tipo">
-                Tipo: <select name="tipo1" id="tipo1" placeholder="<%=tipo%>"/>
-                <option value="0">Singolo</option>
-                <option value="2">Gruppo</option>
+                Tipo: <select name="tipologia" id="tipo1" placeholder="<%=tipo%>"/>
+                <option value="singolo">Singolo</option>
+                <option value="gruppo">Gruppo</option>
 
                 </div>
 
 
-                <input type="submit" value="ConfermaTipo" class="buttonConf"/>
+                <input id="btnTipo" type="submit" value="ConfermaTipo" class="buttonConf"/>
+
+                <script>
+
+                    $("#btnTipo").on('click', () => {
+
+                        $("#actionValue").attr("value","modificaPrenotazione");
+
+                    });
+
+                </script>
 
             </div>
 
