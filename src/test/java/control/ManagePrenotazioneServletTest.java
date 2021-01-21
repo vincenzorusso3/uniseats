@@ -3,6 +3,7 @@ package control;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+import it.uniseats.control.gestione_prenotazione.PrenotazioneServlet;
 import it.uniseats.control.visualizzaPrenotazioni.ManagePrenotazioneServlet;
 import it.uniseats.model.beans.PrenotazioneBean;
 import it.uniseats.model.dao.PrenotazioneDAO;
@@ -118,7 +119,6 @@ class ManagePrenotazioneServletTest {
     assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp",
         response.getForwardedUrl());
   }
-
 
 
 
