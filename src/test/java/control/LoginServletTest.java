@@ -1,3 +1,5 @@
+package control;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import it.uniseats.control.gestione_accesso.LoginServlet;
@@ -32,7 +34,8 @@ class LoginServletTest {
     ServletConfig sg = new MockServletConfig();
     servlet.init(sg);
   }
-  //TC_1.2_08
+
+  //TC_1.2_04
   @Test
   public void loginTestSuccessfull() throws ServletException, IOException {
     request.getSession().setAttribute("logged", false);
@@ -43,7 +46,7 @@ class LoginServletTest {
     assertEquals(true,request.getSession().getAttribute("logged"));
   }
 
-  //TC_1.2_03
+  //TC_1.2_01
   @Test
   public void loginTestFailedEmailNonEsistente() throws IOException {
     request.getSession().setAttribute("logged", false);
@@ -55,7 +58,7 @@ class LoginServletTest {
 
   }
 
-  //TC_1.2_06
+  //TC_1.2_02
   @Test
   public void loginTestFailedPasswordNonEsistente() throws IOException {
     request.getSession().setAttribute("logged", false);
@@ -68,7 +71,7 @@ class LoginServletTest {
 
   }
 
-  //TC_1.2_07
+  //TC_1.2_03
   @Test
   public void loginTestFailedPasswordNonCorrispondente() throws IOException {
     request.getSession().setAttribute("logged", false);
