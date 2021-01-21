@@ -43,27 +43,6 @@ class RegistrazioneServletTest {
     servlet.init(sg);
   }
 
-  @Test
-  void registrazioneFailTest() throws ServletException, IOException, SQLException {
-
-    StudenteDAO.doQuery("doSave", bean);
-
-    request.addParameter("action", "add");
-    request.addParameter("email", "b.simone@studenti.unisa.it");
-    request.addParameter("password", "Antonio1234-");
-    request.addParameter("matricola", "0512102852");
-    request.addParameter("anno", "1");
-    request.addParameter("dipartimento", "Informatica");
-    request.addParameter("nome", "Antonio");
-    request.addParameter("cognome", "Allidato");
-
-    servlet.doPost(request, response);
-    assertEquals("Esiste già un account con questa e-mail", request.getAttribute("message"));
-
-
-
-
-  }
 
   //TC_1.1_01
   @Test
