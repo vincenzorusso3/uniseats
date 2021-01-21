@@ -54,7 +54,7 @@ class ManagePrenotazioneServletTest {
   public void updateDataTestSuccesfull() throws ParseException, SQLException, ServletException, IOException {
     DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
     PrenotazioneBean prenotazioneBean =
-        (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "9-0512108336-21/01/2021");
+        (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "5-0212761212-21/01/2021");
 
     Date date1 = df.parse("25/02/2021");
 
@@ -72,9 +72,7 @@ class ManagePrenotazioneServletTest {
   public void updateDataTestSameDate() throws ParseException, SQLException, ServletException, IOException {
     DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
     PrenotazioneBean prenotazioneBean =
-        (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "9-0512108336-21/01/2021");
-
-
+        (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "5-0212761212-21/01/2021");
 
     request.addParameter("action", "modificaPrenotazione");
     request.getSession().setAttribute("codice", prenotazioneBean.getCodice());
