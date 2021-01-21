@@ -67,7 +67,7 @@ class ManagePrenotazioneServletTest {
     assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp", response.getForwardedUrl());
   }
 
-  //TC_1.4_01
+  //TC_1.3_01
   @Test
   public void updateDataFailedTestDataPrecedente() throws ParseException, SQLException, ServletException, IOException {
     DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
@@ -87,7 +87,7 @@ class ManagePrenotazioneServletTest {
 
 
 
-  //TC_1.4_02
+  //TC_1.3_02
   @Test
   public void updateDataTestSuccesfull() throws ParseException, SQLException, ServletException, IOException {
     DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
