@@ -2,8 +2,10 @@
          pageEncoding="UTF-8" %>
 <%
     // Check logged
-    String s= request.getParameter("from");
+    String message = (String) request.getAttribute("errore");
 
+
+    String s= request.getParameter("from");
 
     Boolean loggato = (Boolean) session.getAttribute("logged");
 
@@ -18,6 +20,8 @@
         response.sendRedirect(request.getContextPath()+"/view/login/LoginView.jsp");
         return;
     }
+
+
 
 
 
@@ -47,6 +51,20 @@
     <h1>Nuova prenotazione</h1>
 
 </div>
+
+<%
+
+    if (message != null) {
+
+%>
+<h3 class="fallita">
+
+        <%=message%>
+
+    </h3>
+            <%
+        	 }
+        		  %>
 
 <div class="form">
     <label for="calendar">Seleziona la data della prenotazione:</label><br>
