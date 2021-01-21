@@ -7,10 +7,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import it.uniseats.model.beans.PrenotazioneBean;
 import it.uniseats.model.dao.PrenotazioneDAO;
+import it.uniseats.utils.DateUtils;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.Locale;
 import org.junit.jupiter.api.Test;
@@ -120,6 +122,22 @@ class PrenotazioneDAOTest {
     PrenotazioneDAO.doQuery("doDelete", "1-11111111-111111");
 
     assertEquals(i, 1);
+  }
+
+  @Test
+  void findByDataDipartimentoTest() throws SQLException, ParseException {
+
+    Date date = new Date();
+    ArrayList<String> parameter = new ArrayList<>();
+
+    parameter.add(DateUtils.dateToString(date));
+    parameter.add("Informatica");
+
+    LinkedList<PrenotazioneBean> lista = (LinkedList<PrenotazioneBean>) PrenotazioneDAO
+        .doQuery(PrenotazioneDAO.findByDataDipartimento, parameter);
+
+    assertNotNull(lista);
+
   }
 
 }
