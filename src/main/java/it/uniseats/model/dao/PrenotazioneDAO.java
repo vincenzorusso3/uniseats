@@ -131,7 +131,7 @@ public class PrenotazioneDAO {
   }
 
   /**
-   * Metodo per assegnare ad una prenotazione il codice aula e il codice posto
+   * Metodo per assegnare ad una prenotazione il codice aula e il codice posto.
    * @param preparedStatement <b>query SQL</b>
    * @param parameter prenotazione
    * @return object
@@ -151,7 +151,7 @@ public class PrenotazioneDAO {
 
     preparedStatement.setString(1, aula);
     preparedStatement.setString(2, posto);
-    preparedStatement.setString(3,codice);
+    preparedStatement.setString(3, codice);
 
     return preparedStatement.executeUpdate();
 
@@ -178,7 +178,10 @@ public class PrenotazioneDAO {
       java.util.Date data = DateUtils.parseDate(parameter.get(0));
       String dip = parameter.get(1);
 
-      preparedStatement.setDate(1, new Date(data.getTime()));
+      java.sql.Date date = new java.sql.Date(data.getTime());
+      date.setTime(data.getTime() + day1);
+
+      preparedStatement.setDate(1, date);
       preparedStatement.setString(2, dip);
 
       ResultSet rs = preparedStatement.executeQuery();
@@ -287,6 +290,7 @@ public class PrenotazioneDAO {
 
     java.sql.Date date = new java.sql.Date(prenotazioneBean.getData().getTime());
     date.setTime(prenotazioneBean.getData().getTime() + day1);
+    System.out.println("DATA---> " + date);
 
     preparedStatement.setString(1, prenotazioneBean.getCodice());
     preparedStatement.setDate(2, date);
@@ -311,12 +315,10 @@ public class PrenotazioneDAO {
   private static synchronized int doUpdateData(PreparedStatement preparedStatement,
                                                PrenotazioneBean prenotazioneBean)
       throws SQLException {
-    System.out.println("date from bean DAO " + prenotazioneBean.getData());
-    java.util.Date date1 = prenotazioneBean.getData();
 
     java.sql.Date date = new java.sql.Date(prenotazioneBean.getData().getTime());
     date.setTime(prenotazioneBean.getData().getTime() + day1);
-    System.out.println("DATE INTO DAO" + date);
+
     preparedStatement.setDate(1, date);
     preparedStatement.setString(2, prenotazioneBean.getCodice());
 

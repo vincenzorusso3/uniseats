@@ -76,6 +76,7 @@ public class Adapter {
 
   private static void prenotazioneGiornoCorrente(PrenotazioneBean p, StudenteBean s)
       throws SQLException, ParseException {
+
     LinkedList<PrenotazioneBean> prenotazioniList = getPrenotazioni(p, s);
 
     if (prenotazioniList != null) {
@@ -93,35 +94,23 @@ public class Adapter {
             ArrayList<PostoBean> posti =
                 (ArrayList<PostoBean>) PostoDAO.doQuery(PostoDAO.doRetrieveByAulaCode, aula.getCodice());
 
-            for (PostoBean posto : posti) {
-              System.out.println(posto.getCodice());
+            if (posti != null) {
 
-              if (prenotazioniList.isEmpty()) {
+              for (PrenotazioneBean pren : prenotazioniList) {
+
+                posti.removeIf(posto -> posto.getCodice().equals(pren.getCodicePosto()));
+
+              }
+
+              if (!posti.isEmpty()) {
+
+                p.setCodicePosto(posti.get(0).getCodice());
                 p.setCodiceAula(aula.getCodice());
-                p.setCodicePosto(posto.getCodice());
                 break;
-              }
-
-              for (PrenotazioneBean prenotazione : prenotazioniList) {
-                System.out.println(prenotazione.getCodice());
-
-                if (!posto.getCodice().equals(prenotazione.getCodicePosto())) {
-
-                  p.setCodiceAula(aula.getCodice());
-                  p.setCodicePosto(posto.getCodice());
-                  break;
-
-                }
 
               }
-
-              if (!p.getCodicePosto().equals("00"))
-                break;
 
             }
-
-            if (!p.getCodicePosto().equals("00"))
-              break;
 
           }
 
