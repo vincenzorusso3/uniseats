@@ -18,8 +18,8 @@ public class QrCodeGenerator {
    */
   public static String generateCode(String matricola, String data) {
 
-    Random random = new Random(10000);
-    int codice = random.nextInt();
+    Random random = new Random();
+    int codice = random.nextInt(10000);
 
     return codice + "-" + matricola + "-" + data;
 

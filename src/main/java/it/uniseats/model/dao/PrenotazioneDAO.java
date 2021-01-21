@@ -79,7 +79,7 @@ public class PrenotazioneDAO {
           return doSave(preparedStatement, (PrenotazioneBean) parameter);
 
         case doUpdateData:
-          querySQL = "UPDATE " + TABLE_NAME + " SET dataPrenotazione=?  WHERE codice=?";
+          querySQL = "UPDATE " + TABLE_NAME + " SET dataPrenotazione=?, codiceAula='00', codicePosto='00'  WHERE codice=?";
           preparedStatement = connection.prepareStatement(querySQL);
           return doUpdateData(preparedStatement, (PrenotazioneBean) parameter);
 
@@ -144,10 +144,6 @@ public class PrenotazioneDAO {
     String aula = parameter.getCodiceAula();
     String posto = parameter.getCodicePosto();
     String codice = parameter.getCodice();
-
-    System.out.println(aula);
-    System.out.println(posto);
-    System.out.println(codice);
 
     preparedStatement.setString(1, aula);
     preparedStatement.setString(2, posto);
@@ -290,7 +286,6 @@ public class PrenotazioneDAO {
 
     java.sql.Date date = new java.sql.Date(prenotazioneBean.getData().getTime());
     date.setTime(prenotazioneBean.getData().getTime() + day1);
-    System.out.println("DATA---> " + date);
 
     preparedStatement.setString(1, prenotazioneBean.getCodice());
     preparedStatement.setDate(2, date);

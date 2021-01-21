@@ -84,7 +84,7 @@ class ManagePrenotazioneServletTest {
     request.addParameter("tipologia", "singolo");
     request.addParameter("codice", prenotazioneBean.getCodice());
     servlet.doPost(request, response);
-    assertEquals("Non è più", request.getAttribute("error"));
+    assertEquals("Non è più possibile modificare la prenotazione", request.getAttribute("error"));
   }
 
   @Test

@@ -2,7 +2,10 @@ package it.uniseats.control.visualizzaPrenotazioni;
 
 
 import it.uniseats.model.beans.PrenotazioneBean;
+import it.uniseats.model.beans.StudenteBean;
 import it.uniseats.model.dao.PrenotazioneDAO;
+import it.uniseats.model.dao.StudenteDAO;
+import it.uniseats.utils.Adapter;
 import it.uniseats.utils.DateUtils;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -15,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Gestisce le prenotazioni effettuate in termini di modifica o eliminazione di una prenotazione.
@@ -59,7 +63,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
 
             modificaPrenotazione(request, response);
 
-          } catch (SQLException | ParseException throwables) {
+          } catch (SQLException | ParseException | CloneNotSupportedException throwables) {
             throwables.printStackTrace();
           }
           break;
@@ -69,7 +73,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
 
             modificaData(request, response);
 
-          } catch (SQLException | ParseException throwables) {
+          } catch (SQLException | ParseException | CloneNotSupportedException throwables) {
             throwables.printStackTrace();
           }
           break;
@@ -141,7 +145,8 @@ public class ManagePrenotazioneServlet extends HttpServlet {
    * @throws IOException
    */
   private void modificaData(HttpServletRequest request, HttpServletResponse response)
-      throws ParseException, SQLException, ServletException, IOException {
+      throws ParseException, SQLException, ServletException, IOException,
+      CloneNotSupportedException {
 
     String codice = request.getParameter("codice");
     String dateTemp = request.getParameter("data");
@@ -164,9 +169,13 @@ public class ManagePrenotazioneServlet extends HttpServlet {
           //la modifica è possibile solo se la nuova data è oggi e il tipo di prenotazione sia singola o in generale se la nuova data è diversa dalla data corrente
           if ((dataPrenotazione.compareTo(today) == 0 && prenotazioneBean.isSingolo())
               || dataPrenotazione.compareTo(today) > 0) {
-            System.out.println("DATA INTO SERVLET "+dataPrenotazione);
+
+            prenotazioneBean.setCodiceAula("00");
+            prenotazioneBean.setCodicePosto("00");
             prenotazioneBean.setData(dataPrenotazione);
             PrenotazioneDAO.doQuery(PrenotazioneDAO.doUpdateData, prenotazioneBean);
+
+            Adapter.listener(prenotazioneBean, getUser(request));
 
           } else {
             request.setAttribute("error", IMPOSSIBLE_CHANGE);
@@ -199,7 +208,8 @@ public class ManagePrenotazioneServlet extends HttpServlet {
    * @throws IOException
    */
   private void modificaPrenotazione(HttpServletRequest request, HttpServletResponse response)
-      throws SQLException, ServletException, IOException, ParseException {
+      throws SQLException, ServletException, IOException, ParseException,
+      CloneNotSupportedException {
 
     PrenotazioneBean prenotazioneBean = (PrenotazioneBean) PrenotazioneDAO
         .doQuery(PrenotazioneDAO.doRetrieveByCode, request.getParameter("codice"));
@@ -224,7 +234,9 @@ public class ManagePrenotazioneServlet extends HttpServlet {
 
           prenotazioneBean.setSingolo(singolo);
 
-          PrenotazioneDAO.doQuery(PrenotazioneDAO.doUpdateData, prenotazioneBean);
+          System.out.println(PrenotazioneDAO.doQuery(PrenotazioneDAO.doUpdateTipo, prenotazioneBean));
+
+          Adapter.listener(prenotazioneBean, getUser(request));
 
         } else {
           request.setAttribute("error", IMPOSSIBLE_CHANGE);
@@ -327,6 +339,22 @@ public class ManagePrenotazioneServlet extends HttpServlet {
         PrenotazioneDAO.doQuery(PrenotazioneDAO.doRetrieveByCode, cod));
 
     dispatcher.forward(request, response);
+
+  }
+
+  /**
+   * Restituisce lo studente loggato
+   *
+   * @param request HttpServletRequest
+   * @return lo <b>studente</b> loggato
+   * @throws SQLException
+   */
+  private StudenteBean getUser(HttpServletRequest request) throws SQLException {
+
+    HttpSession session = request.getSession(true);
+    String email = (String) session.getAttribute("email");
+
+    return (StudenteBean) StudenteDAO.doQuery(StudenteDAO.doRetrieveByEmail, email);
 
   }
 

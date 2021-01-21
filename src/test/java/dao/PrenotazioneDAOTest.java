@@ -19,17 +19,24 @@ class PrenotazioneDAOTest {
 
   @Test
   void doRetrieveByCodeTest() throws SQLException, ParseException {
-    PrenotazioneBean prenotazione =
-        (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "5-0512105933-21/01/2021");
+
     DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
     PrenotazioneBean expected =
-        new PrenotazioneBean("5-0512105933-21/01/2021", df.parse("21/01/2021"), true, "00", "00",
+        new PrenotazioneBean("5-0512105933-25/12/2021", df.parse("25/12/2021"), false, "00", "00",
             "0512105933");
+    PrenotazioneDAO.doQuery(PrenotazioneDAO.doSave, expected);
+
+    PrenotazioneBean prenotazione =
+        (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "5-0512105933-25/12/2021");
+
     assertTrue(expected.getCodice().equals(prenotazione.getCodice())
         && expected.isSingolo() == prenotazione.isSingolo()
         && expected.getCodicePosto().equals(prenotazione.getCodicePosto())
         && expected.getCodiceAula().equals(prenotazione.getCodiceAula())
         && expected.getMatricolaStudente().equals(prenotazione.getMatricolaStudente()));
+
+    PrenotazioneDAO.doQuery(PrenotazioneDAO.doDelete, expected.getCodice());
+
   }
 
   @Test
