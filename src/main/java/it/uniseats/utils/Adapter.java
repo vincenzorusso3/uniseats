@@ -17,6 +17,68 @@ import java.util.LinkedList;
 
 public class Adapter {
 
+
+  public static void todaySchedule() throws SQLException, ParseException,
+      CloneNotSupportedException {
+
+    String today = DateUtils.dateToString(new Date());
+
+    ArrayList<String> list = (ArrayList<String>) AulaDAO.doQuery(AulaDAO.getDipartimenti, "temp");
+
+    if (list != null) {
+
+      ArrayList<String> parameter = new ArrayList<>();
+      parameter.add(today);
+      for (String dipartimento : list) {
+        parameter.add(dipartimento);
+
+        LinkedList<PrenotazioneBean> prenotazioniList =
+            (LinkedList<PrenotazioneBean>) PrenotazioneDAO.doQuery(PrenotazioneDAO.findByDataDipartimento, parameter);
+
+        if (prenotazioniList != null) {
+
+          ArrayList<String> auleUtilizzate = getAuleUtilizzate(prenotazioniList);
+          prenotazioniList.removeIf(prenotazione -> !prenotazione.getCodiceAula().equals("00"));
+
+          int[] codiciPrenotazioni = getCodiciPrenotazioni(prenotazioniList);
+          int[] disposizione = Jarvis.disponiPrenotazioni(codiciPrenotazioni);
+
+          ArrayList<AulaBean> listaAule =
+              (ArrayList<AulaBean>) AulaDAO.doQuery(AulaDAO.doRetrieveAll, dipartimento);
+
+          if (listaAule != null) {
+
+            AulaBean aulaDaUtilizzare = getAulaVuota(listaAule, auleUtilizzate);
+
+            if (aulaDaUtilizzare != null) {
+
+              ArrayList<PrenotazioneBean> settedPrenotazioni = new ArrayList<>();
+
+              for (int i = 0; i < prenotazioniList.size(); i++) {
+                updatePrenotazione(i, prenotazioniList, disposizione[i], aulaDaUtilizzare,
+                    settedPrenotazioni);
+              }
+
+              updateDataBase(settedPrenotazioni);
+
+            }
+
+          }
+
+        }
+
+
+
+
+
+
+        parameter.remove(dipartimento);
+      }
+
+    }
+
+  }
+
   public static void listener(PrenotazioneBean p, StudenteBean s)
       throws SQLException, ParseException, CloneNotSupportedException {
 
@@ -92,7 +154,8 @@ public class Adapter {
             System.out.println(aula.getCodice());
 
             ArrayList<PostoBean> posti =
-                (ArrayList<PostoBean>) PostoDAO.doQuery(PostoDAO.doRetrieveByAulaCode, aula.getCodice());
+                (ArrayList<PostoBean>) PostoDAO
+                    .doQuery(PostoDAO.doRetrieveByAulaCode, aula.getCodice());
 
             if (posti != null) {
 
@@ -209,7 +272,8 @@ public class Adapter {
 
   }
 
-  private static ArrayList<String> getAuleUtilizzate(LinkedList<PrenotazioneBean> prenotazioniList) {
+  private static ArrayList<String> getAuleUtilizzate(
+      LinkedList<PrenotazioneBean> prenotazioniList) {
 
     ArrayList<String> auleUtilizzate = new ArrayList<>();
     for (PrenotazioneBean prenotazione : prenotazioniList) {
