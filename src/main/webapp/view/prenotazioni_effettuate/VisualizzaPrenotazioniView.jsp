@@ -18,7 +18,7 @@
         return;
     }
 
-    String errore = (String) request.getAttribute("errore");
+    String errore = (String) request.getAttribute("error");
 %>
 
 <%

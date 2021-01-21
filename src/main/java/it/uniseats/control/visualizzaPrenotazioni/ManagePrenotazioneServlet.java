@@ -133,7 +133,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
     PrenotazioneDAO.doQuery(PrenotazioneDAO.doDelete, codice);
 
     RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(JSP_PATH);
-    request.setAttribute("message", "L'eliminazione è avvenuta con successo.");
+    request.setAttribute("error", "L'eliminazione è avvenuta con successo.");
     dispatcher.forward(request, response);
 
   }
@@ -152,6 +152,8 @@ public class ManagePrenotazioneServlet extends HttpServlet {
       throws ParseException, SQLException, ServletException, IOException,
       CloneNotSupportedException {
 
+    RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(JSP_PATH);
+
     String codice = request.getParameter("codice");
     String dateTemp = request.getParameter("data");
 
@@ -168,11 +170,11 @@ public class ManagePrenotazioneServlet extends HttpServlet {
     if (prenotazioneBean != null) {
 
       //controllo che la data inserita sia diversa dalla data attuale della prenotazione
-      if (prenotazioneBean.getData().compareTo(dataPrenotazione) != 0) {
+      if (prenotazioneBean.getData().compareTo(dataPrenotazione) != 0 && checkPrenotazioni(getUser(request).getMatricola(), DateUtils.dateToString(dataPrenotazione))) {
 
 
         //controllo che la modifica della prenotazione venga effettuata prima delle 07:00 del giorno della prenotazione o in un giorno antecedente la data per cui è prevista la prenotazione
-        if (checkData(prenotazioneBean.getData()) && checkPrenotazioni(getUser(request).getMatricola(), DateUtils.dateToString(dataPrenotazione))) {
+        if (checkData(prenotazioneBean.getData())) {
 
 
           //la modifica è possibile solo se la nuova data è oggi e il tipo di prenotazione sia singola o in generale se la nuova data è diversa dalla data corrente
@@ -200,10 +202,9 @@ public class ManagePrenotazioneServlet extends HttpServlet {
       }
 
     } else {
-      request.setAttribute("message", "Si è verificato un errore");
+      request.setAttribute("error", "Si è verificato un errore");
     }
 
-    RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(JSP_PATH);
     dispatcher.forward(request, response);
 
   }
@@ -266,7 +267,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
 
     } else {
 
-      request.setAttribute("message", "Si è verificato un errore");
+      request.setAttribute("error", "Si è verificato un errore");
       dispatcher = request.getServletContext().getRequestDispatcher(JSP_PATH);
 
     }
