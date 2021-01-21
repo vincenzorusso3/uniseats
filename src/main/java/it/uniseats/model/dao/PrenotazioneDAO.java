@@ -130,6 +130,13 @@ public class PrenotazioneDAO {
 
   }
 
+  /**
+   * Metodo per assegnare ad una prenotazione il codice aula e il codice posto
+   * @param preparedStatement <b>query SQL</b>
+   * @param parameter prenotazione
+   * @return object
+   * @throws SQLException
+   */
   private static synchronized Object doUpdateAulaPosto(PreparedStatement preparedStatement,
                                                        PrenotazioneBean parameter)
       throws SQLException {
@@ -150,6 +157,15 @@ public class PrenotazioneDAO {
 
 
   }
+
+  /**
+   * Metodo per la ricerca di prenotazioni da parte di studenti di uno stesso dipartimento in una stessa data
+   * @param preparedStatement <b>query SQL</b>
+   * @param parameter <b>Arraylist contenente data e dipartimento</b>
+   * @return una collezione di prenotazioni
+   * @throws ParseException
+   * @throws SQLException
+   */
 
   private static synchronized Collection<PrenotazioneBean> findByDataDipartimento(
       PreparedStatement preparedStatement, ArrayList<String> parameter)

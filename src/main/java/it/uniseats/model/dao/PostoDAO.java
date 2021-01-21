@@ -78,6 +78,13 @@ public class PostoDAO {
 
   }
 
+  /**
+   * Metodo per la ricerca dei posti di un aula
+   * @param preparedStatement <b>query SQL</b>
+   * @param parameter <d>codice aula</d>
+   * @return un object
+   * @throws SQLException
+   */
   private static Object doRetrieveByAulaCode(PreparedStatement preparedStatement, String parameter)
       throws SQLException {
 

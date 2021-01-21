@@ -42,7 +42,6 @@ class ManagePrenotazioneServletTest {
     request = new MockHttpServletRequest();
     response = new MockHttpServletResponse();
     request.setSession(session);
-
   }
 
   @BeforeEach
@@ -85,8 +84,9 @@ class ManagePrenotazioneServletTest {
     request.addParameter("tipologia", "singolo");
     request.addParameter("codice", prenotazioneBean.getCodice());
     servlet.doPost(request, response);
-    assertEquals("La data scelta non è corretta", request.getAttribute("error"));
+    assertEquals("Non è più", request.getAttribute("error"));
   }
+
 
 
 
