@@ -150,8 +150,12 @@ public class ManagePrenotazioneServlet extends HttpServlet {
     String codice = request.getParameter("codice");
     String dateTemp = request.getParameter("data");
 
+
+
     String dataTransformed = DateUtils.englishToItalian(dateTemp);
+
     Date dataPrenotazione = DateUtils.parseDate(dataTransformed);
+
     Date today = new Date();
 
     PrenotazioneBean prenotazioneBean =
@@ -161,6 +165,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
 
       //controllo che la data inserita sia diversa dalla data attuale della prenotazione
       if (prenotazioneBean.getData().compareTo(dataPrenotazione)==0) {
+
 
         //controllo che la modifica della prenotazione venga effettuata prima delle 07:00 del giorno della prenotazione o in un giorno antecedente la data per cui è prevista la prenotazione
         if (checkData(prenotazioneBean.getData())) {
