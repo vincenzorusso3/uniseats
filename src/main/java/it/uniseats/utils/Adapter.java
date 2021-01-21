@@ -9,12 +9,10 @@ import it.uniseats.model.dao.AulaDAO;
 import it.uniseats.model.dao.PostoDAO;
 import it.uniseats.model.dao.PrenotazioneDAO;
 import java.sql.SQLException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
-import java.util.Locale;
 
 
 public class Adapter {
@@ -22,10 +20,7 @@ public class Adapter {
   public static void listener(PrenotazioneBean p, StudenteBean s)
       throws SQLException, ParseException, CloneNotSupportedException {
 
-    Date todayTemp = new Date();
-    DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
-    Date today = DateUtils.parseDate(df.format(todayTemp));
-    String todayString = DateUtils.dateToString(today);
+    String todayString = DateUtils.dateToString(new Date());
     String prenDateString = DateUtils.dateToString(p.getData());
 
     if (todayString.equals(prenDateString)) {

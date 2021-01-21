@@ -18,12 +18,11 @@ public class QrCodeGenerator {
    */
   public static String generateCode(String matricola, String data) {
 
-    DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
-
     Random random = new Random(10000);
     int codice = random.nextInt();
 
     return codice + "-" + matricola + "-" + data;
 
   }
+
 }

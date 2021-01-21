@@ -90,7 +90,7 @@ public class PrenotazioneDAO {
 
         case doUpdateAulaPosto:
           querySQL =
-              "UPDATE " + TABLE_NAME + " SET codiceAula = ? AND codicePosto = ? WHERE codice = ?";
+              "UPDATE " + TABLE_NAME + " SET codiceAula = ?, codicePosto = ? WHERE codice = ?";
           preparedStatement = connection.prepareStatement(querySQL);
           return doUpdateAulaPosto(preparedStatement, (PrenotazioneBean) parameter);
 
