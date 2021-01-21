@@ -1,9 +1,7 @@
 package it.uniseats.control.gestione_prenotazione;
 
-import it.uniseats.model.beans.AulaBean;
 import it.uniseats.model.beans.PrenotazioneBean;
 import it.uniseats.model.beans.StudenteBean;
-import it.uniseats.model.dao.AulaDAO;
 import it.uniseats.model.dao.PrenotazioneDAO;
 import it.uniseats.model.dao.StudenteDAO;
 import it.uniseats.utils.Adapter;
@@ -14,6 +12,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -229,10 +228,10 @@ public class PrenotazioneServlet extends HttpServlet {
 
     Date selectedDay = DateUtils.parseDate(date);
 
-    ArrayList<PrenotazioneBean> resultList = (ArrayList<PrenotazioneBean>) PrenotazioneDAO.doQuery(PrenotazioneDAO.doFindPrenotazioni, matricola);
-
-    if (resultList != null) {
-      for (PrenotazioneBean p : resultList) {
+    LinkedList<PrenotazioneBean> prenotazioni =
+        (LinkedList<PrenotazioneBean>) PrenotazioneDAO.doQuery("doFindPrenotazioni", matricola);
+    if (prenotazioni != null) {
+      for (PrenotazioneBean p : prenotazioni) {
         if (p.getData().compareTo(selectedDay) == 0) {
           return false;
         }
