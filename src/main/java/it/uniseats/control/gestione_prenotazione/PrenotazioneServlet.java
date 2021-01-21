@@ -38,7 +38,7 @@ public class PrenotazioneServlet extends HttpServlet {
   /**
    * Metodo per effettuare richieste doGet.
    *
-   * @param request HttpServletRequest
+   * @param request  HttpServletRequest
    * @param response HttpServletResponse
    * @throws ServletException
    * @throws IOException
@@ -124,47 +124,44 @@ public class PrenotazioneServlet extends HttpServlet {
 
     String date = DateUtils.englishToItalian(dateTemp);
 
-    if (date != null) {
+    //controllo la validità della data selezionata
+    if (isDateValid(date, isPrenotazioneSingola)) {
 
-      //controllo la validità della data selezionata
-      if (isDateValid(date, isPrenotazioneSingola)) {
+      StudenteBean user = getUser(request);
+      String matricola = user.getMatricola();
 
-        StudenteBean user = getUser(request);
-        String matricola = user.getMatricola();
+      //controllo l'assenza di prenotazioni già effettuate per la data inserita
+      if (checkPrenotazioni(matricola, date)) {
 
-        //controllo l'assenza di prenotazioni già effettuate per la data inserita
-        if (checkPrenotazioni(matricola, date)) {
+        //contollo la disponibilità di posti nelle aule
+        if (checkPostiAule(user.getDipartimento(), date)) {
 
-          //contollo la disponibilità di posti nelle aule
-          if (checkPostiAule(user.getDipartimento(), date)) {
+          //lo studente NON ha prenotazioni e c'e' almeno un posto libero
+          String qrCode = QrCodeGenerator.generateCode(matricola, date);
 
-            //lo studente NON ha prenotazioni e c'e' almeno un posto libero
-            String qrCode = QrCodeGenerator.generateCode(matricola, date);
+          PrenotazioneBean prenotazione =
+              new PrenotazioneBean(qrCode, DateUtils.parseDate(date), isPrenotazioneSingola, "00",
+                  "00", matricola);
+          Integer result = (Integer) PrenotazioneDAO.doQuery(PrenotazioneDAO.doSave, prenotazione);
 
-            PrenotazioneBean prenotazione = new PrenotazioneBean(qrCode, DateUtils.parseDate(date), isPrenotazioneSingola, "00", "00", matricola);
-            Integer result = (Integer) PrenotazioneDAO.doQuery(PrenotazioneDAO.doSave, prenotazione);
+          //se la prenotazione è stata salvata nel database con successo, viene inoltrata al modulo IA oper l'assegnazione del posto a sedere.
+          if (result != null && result > 0) {
 
-            //se la prenotazione è stata salvata nel database con successo, viene inoltrata al modulo IA oper l'assegnazione del posto a sedere.
-            if (result != null && result > 0) {
+            Adapter.listener(prenotazione, user);
 
-              Adapter.listener(prenotazione, user);
-
-              dispatcher = getServletContext().getRequestDispatcher("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp");
-
-            } else {
-              request.setAttribute("errore", DB_ERROR);
-            }
+            dispatcher = getServletContext().getRequestDispatcher(
+                "/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp");
 
           } else {
-            request.setAttribute("errore", AULE_FULL);
+            request.setAttribute("errore", DB_ERROR);
           }
 
         } else {
-          request.setAttribute("errore", HAS_PRENOTATION);
+          request.setAttribute("errore", AULE_FULL);
         }
 
       } else {
-        request.setAttribute("errore", INVALID_DATE);
+        request.setAttribute("errore", HAS_PRENOTATION);
       }
 
     } else {
@@ -237,7 +234,8 @@ public class PrenotazioneServlet extends HttpServlet {
         (LinkedList<PrenotazioneBean>) PrenotazioneDAO.doQuery("doFindPrenotazioni", matricola);
     if (prenotazioni != null) {
       for (PrenotazioneBean p : prenotazioni) {
-        if (p.getData().compareTo(selectedDay) == 0) {
+
+        if (DateUtils.parseDate(DateUtils.dateToString(p.getData())).compareTo(selectedDay) == 0) {
           return false;
         }
       }
@@ -262,7 +260,8 @@ public class PrenotazioneServlet extends HttpServlet {
     parameter.add(data);
     parameter.add(dipartimento);
 
-    LinkedList<PrenotazioneBean> pList = (LinkedList<PrenotazioneBean>) PrenotazioneDAO.doQuery(PrenotazioneDAO.findByDataDipartimento, parameter);
+    LinkedList<PrenotazioneBean> pList = (LinkedList<PrenotazioneBean>) PrenotazioneDAO
+        .doQuery(PrenotazioneDAO.findByDataDipartimento, parameter);
 
     if (pList != null) {
       return pList.size() < 60;
