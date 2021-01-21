@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.LinkedList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -169,7 +170,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
 
 
         //controllo che la modifica della prenotazione venga effettuata prima delle 07:00 del giorno della prenotazione o in un giorno antecedente la data per cui è prevista la prenotazione
-        if (checkData(prenotazioneBean.getData())) {
+        if (checkData(prenotazioneBean.getData()) && checkPrenotazioni(getUser(request).getMatricola(), DateUtils.dateToString(dataPrenotazione))) {
 
 
           //la modifica è possibile solo se la nuova data è oggi e il tipo di prenotazione sia singola o in generale se la nuova data è diversa dalla data corrente
@@ -309,11 +310,37 @@ public class ManagePrenotazioneServlet extends HttpServlet {
   private boolean checkData(Date date) {
 
     Date today = new Date();
-
-    LocalTime time = LocalTime.now();
-
-
     return (((date.compareTo(today) == 0)) || date.compareTo(today) > 0);
+
+  }
+
+  /**
+   * Controllo che lo studente non abbia già effettuato una prenotazione per la stessa data.
+   *
+   * @param matricola la <b>matricola</b> dello studente
+   * @param date      la <b>data di prenotazione</b> selezionata
+   * @return <b>false</b> altrimenti
+   * @throws SQLException
+   * @throws ParseException
+   */
+  private boolean checkPrenotazioni(String matricola, String date)
+      throws SQLException, ParseException {
+
+    Date selectedDay = DateUtils.parseDate(date);
+
+    LinkedList<PrenotazioneBean> prenotazioni =
+        (LinkedList<PrenotazioneBean>) PrenotazioneDAO.doQuery("doFindPrenotazioni", matricola);
+    if (prenotazioni != null) {
+      for (PrenotazioneBean p : prenotazioni) {
+
+        if (DateUtils.parseDate(DateUtils.dateToString(p.getData())).compareTo(selectedDay) == 0) {
+          return false;
+        }
+      }
+      return true;
+    } else {
+      return false;
+    }
 
   }
 
