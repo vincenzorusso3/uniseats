@@ -17,6 +17,7 @@ public class PostoDAO {
 
   public static final String doRetrieveByCode = "doRetrieveByCode";
   public static final String doRetrieveAll = "doRetrieveAll";
+  public static final String doRetrieveByAulaCode = "doRetrieveByAulaCode";
 
   private static final String TABLE_NAME = "posti";
   private static final String DATASOURCE_ERROR =
@@ -53,6 +54,11 @@ public class PostoDAO {
           preparedStatement = connection.prepareStatement(querySQL);
           return doRetriveAll(preparedStatement);
 
+        case doRetrieveByAulaCode:
+          querySQL = "SELECT * FROM UniSeats.posti WHERE codiceAula = ?;";
+          preparedStatement = connection.prepareStatement(querySQL);
+          return doRetrieveByAulaCode(preparedStatement, (String) parameter);
+
         default:
           return null;
 
@@ -69,6 +75,22 @@ public class PostoDAO {
       }
 
     }
+
+  }
+
+  private static Object doRetrieveByAulaCode(PreparedStatement preparedStatement, String parameter)
+      throws SQLException {
+
+    preparedStatement.setString(1, parameter);
+    ResultSet rs = preparedStatement.executeQuery();
+    ArrayList<PostoBean> posti = new ArrayList<>();
+
+    while (rs.next()) {
+      PostoBean postoBean = getPostoInfo(rs);
+      posti.add(postoBean);
+    }
+
+    return posti;
 
   }
 

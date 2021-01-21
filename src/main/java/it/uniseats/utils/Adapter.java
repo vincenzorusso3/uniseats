@@ -2,14 +2,18 @@ package it.uniseats.utils;
 
 import com.stark.ai.Jarvis;
 import it.uniseats.model.beans.AulaBean;
+import it.uniseats.model.beans.PostoBean;
 import it.uniseats.model.beans.PrenotazioneBean;
 import it.uniseats.model.beans.StudenteBean;
 import it.uniseats.model.dao.AulaDAO;
+import it.uniseats.model.dao.PostoDAO;
 import it.uniseats.model.dao.PrenotazioneDAO;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 
 public class Adapter {
@@ -17,49 +21,112 @@ public class Adapter {
   public static void listener(PrenotazioneBean p, StudenteBean s)
       throws SQLException, ParseException, CloneNotSupportedException {
 
+    Date todayTemp = new Date();
+    DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
+    Date today = DateUtils.parseDate(df.format(todayTemp));
 
+    if (p.getData().equals(today)) {
+
+      prenotazioneGiornoCorrente(p, s);
+
+    } else {
+
+      ArrayList<PrenotazioneBean> prenotazioniList = getPrenotazioni(p, s);
+
+      if (prenotazioniList != null) {
+
+        ArrayList<String> auleUtilizzate = getAuleUtilizzate(prenotazioniList);
+
+        prenotazioniList.removeIf(prenotazione -> !prenotazione.getCodiceAula().equals("00"));
+
+        if (prenotazioniList.size() == 20) {
+
+          //parte JARVIS
+          int[] codiciPrenotazioni = getCodiciPrenotazioni(prenotazioniList);
+
+          int[] disposizione = Jarvis.disponiPrenotazioni(codiciPrenotazioni);
+
+          ArrayList<AulaBean> listaAule =
+              (ArrayList<AulaBean>) AulaDAO.doQuery(AulaDAO.doRetrieveAll, s.getDipartimento());
+
+          if (listaAule != null) {
+
+            AulaBean aulaDaUtilizzare = getAulaVuota(listaAule, auleUtilizzate);
+
+            if (aulaDaUtilizzare != null) {
+
+              ArrayList<PrenotazioneBean> settedPrenotazioni = new ArrayList<>();
+
+              for (int i = 0; i < disposizione.length; i++) {
+                updatePrenotazione(i, prenotazioniList, disposizione[i], aulaDaUtilizzare,
+                    settedPrenotazioni);
+              }
+
+              updateDataBase(settedPrenotazioni);
+
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+  private static void prenotazioneGiornoCorrente(PrenotazioneBean p, StudenteBean s)
+      throws SQLException, ParseException {
     ArrayList<PrenotazioneBean> prenotazioniList = getPrenotazioni(p, s);
 
     if (prenotazioniList != null) {
 
-      ArrayList<String> auleUtilizzate = getAuleUtilizzate(prenotazioniList);
-
-      prenotazioniList.removeIf(prenotazione -> !prenotazione.getCodiceAula().equals("00"));
-
-      if (prenotazioniList.size() == 20) {
-
-        //parte JARVIS
-        int[] codiciPrenotazioni = getCodiciPrenotazioni(prenotazioniList);
-
-        int[] disposizione = Jarvis.disponiPrenotazioni(codiciPrenotazioni);
+      if (prenotazioniList.size() < 60) {
 
         ArrayList<AulaBean> listaAule =
             (ArrayList<AulaBean>) AulaDAO.doQuery(AulaDAO.doRetrieveAll, s.getDipartimento());
 
         if (listaAule != null) {
 
-          AulaBean aulaDaUtilizzare = getAulaVuota(listaAule, auleUtilizzate);
+          for (AulaBean aula : listaAule) {
 
-          if (aulaDaUtilizzare != null) {
+            ArrayList<PostoBean> posti =
+                (ArrayList<PostoBean>) PostoDAO.doQuery(PostoDAO.doRetrieveByAulaCode, aula.getCodice());
 
-            ArrayList<PrenotazioneBean> settedPrenotazioni = new ArrayList<>();
+            for (PostoBean posto : posti) {
 
-            for (int i = 0; i < disposizione.length; i++) {
-              updatePrenotazione(i, prenotazioniList, disposizione[i], aulaDaUtilizzare,
-                  settedPrenotazioni);
+              for (PrenotazioneBean prenotazione : prenotazioniList) {
+
+                if (!posto.getCodice().equals(prenotazione.getCodicePosto())) {
+
+                  p.setCodiceAula(aula.getCodice());
+                  p.setCodicePosto(posto.getCodice());
+                  break;
+
+                }
+
+              }
+
             }
 
-            updateDataBase(settedPrenotazioni);
+          }
+
+          if (!p.getCodicePosto().equals("00")) {
+            //la prenotazione e' andata a buon fine
+            PrenotazioneDAO.doQuery(PrenotazioneDAO.doUpdateAulaPosto, p);
+
+          } else {
+
+            //ERRORE
 
           }
 
         }
 
-
       }
 
     }
-
 
   }
 
