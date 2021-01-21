@@ -76,6 +76,7 @@ public class Adapter {
 
   private static void prenotazioneGiornoCorrente(PrenotazioneBean p, StudenteBean s)
       throws SQLException, ParseException {
+
     LinkedList<PrenotazioneBean> prenotazioniList = getPrenotazioni(p, s);
 
     if (prenotazioniList != null) {
@@ -97,6 +98,7 @@ public class Adapter {
               System.out.println(posto.getCodice());
 
               if (prenotazioniList.isEmpty()) {
+                System.out.println("LISTA VUOTA");
                 p.setCodiceAula(aula.getCodice());
                 p.setCodicePosto(posto.getCodice());
                 break;
