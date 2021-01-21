@@ -65,21 +65,6 @@ class RegistrazioneServletTest {
 
   }
 
-  //TC_1.1_03
-  @Test
-  void registrazioneTestSuccessfull() throws ServletException, IOException {
-    request.addParameter("action", "add");
-    request.addParameter("email", "c.cattanio1@studenti.unisa.it");
-    request.addParameter("password", "A3wdwr4-");
-    request.addParameter("matricola", "0512164137");
-    request.addParameter("anno", "1");
-    request.addParameter("dipartimento", "Informatica");
-    request.addParameter("nome", "Carlo");
-    request.addParameter("cognome", "Cattanio");
-
-    servlet.doPost(request, response);
-    assertEquals("Registrazione effettuata con successo", request.getAttribute("message"));
-  }
   //TC_1.1_01
   @Test
   void registrazioneTestFailedEmailEsistente() throws ServletException, IOException {
@@ -97,7 +82,7 @@ class RegistrazioneServletTest {
 
   }
 
-  //TC_1.2_01
+  //TC_1.1_02
   @Test
   void registrazioneTestFailedMatricolaEsistente() throws ServletException, IOException {
     request.addParameter("action", "add");
@@ -113,5 +98,22 @@ class RegistrazioneServletTest {
     assertEquals("Esiste già un account con questa Matricola", request.getAttribute("message"));
 
   }
+
+  //TC_1.1_03
+  @Test
+  void registrazioneTestSuccessfull() throws ServletException, IOException {
+    request.addParameter("action", "add");
+    request.addParameter("email", "c.cattanio1@studenti.unisa.it");
+    request.addParameter("password", "A3wdwr4-");
+    request.addParameter("matricola", "0512164137");
+    request.addParameter("anno", "1");
+    request.addParameter("dipartimento", "Informatica");
+    request.addParameter("nome", "Carlo");
+    request.addParameter("cognome", "Cattanio");
+
+    servlet.doPost(request, response);
+    assertEquals("Registrazione effettuata con successo", request.getAttribute("message"));
+  }
+
 
 }
