@@ -154,10 +154,24 @@ class PrenotazioneServletTest {
 
 
     int Matricola = 2000;
-
+    StudenteBean studenteBean=new StudenteBean();
     for (int i = 0; i < 60; i++) {
       Matricola++;
-      StudenteDAO.doQuery(StudenteDAO.doDelete,"05121"+Matricola);
+      studenteBean.setAnno(2);
+      studenteBean.setCognome("Test"+i);
+      studenteBean.setNome("Prova"+i);
+      studenteBean.setDipartimento("Informatica");
+
+      studenteBean.setMatricola("051210"+(Matricola));
+      studenteBean.setEmail("ProvaTest"+i+"@studenti.unisa.it");
+      studenteBean.setPassword("password"+i);
+
+
+
+
+
+      StudenteBean delete = (StudenteBean) StudenteDAO.doQuery(StudenteDAO.doRetrieveByMatricola, studenteBean.getMatricola());
+      StudenteDAO.doQuery(StudenteDAO.doDelete, delete.getMatricola());
     }
   }
 
