@@ -257,6 +257,38 @@ class ManagePrenotazioneServletTest {
   }
 
 
+  @Test
+  public void ModificaPrenotazioneCanIUpdateFalseGruppo() throws SQLException, ParseException, ServletException, IOException{
+    PrenotazioneBean prenotazioneBean=new PrenotazioneBean();
+    prenotazioneBean.setCodice(QrCodeGenerator.generateCode("0156835647","2021/02/22"));
+    prenotazioneBean.setCodiceAula("00");
+    prenotazioneBean.setCodicePosto("00");
+    prenotazioneBean.setSingolo(true);
+    prenotazioneBean.setMatricolaStudente("0156835647");
+    Date d=new Date("2021/04/18");
+
+    prenotazioneBean.setData(d);
+    PrenotazioneDAO.doQuery(PrenotazioneDAO.doSave,prenotazioneBean);
+
+
+    request.addParameter("action", "modificaPrenotazione");
+    request.addParameter("tipologia","gruppo");
+    request.addParameter("codice",prenotazioneBean.getCodice());
+    servlet.doPost(request,response);
+
+
+
+    assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp",
+            response.getForwardedUrl());
+
+    PrenotazioneDAO.doQuery(PrenotazioneDAO.doDelete,prenotazioneBean.getCodice());
+
+
+
+  }
+
+
+
 
 }
 
