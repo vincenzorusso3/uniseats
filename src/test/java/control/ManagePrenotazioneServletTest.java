@@ -17,8 +17,11 @@ import java.util.Locale;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 
+import it.uniseats.utils.QrCodeGenerator;
+import org.junit.Rule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.rules.ExpectedException;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockHttpSession;
@@ -39,6 +42,9 @@ class ManagePrenotazioneServletTest {
   }
   */
 
+  @Rule
+  public ExpectedException expectedException = ExpectedException.none();
+
   @BeforeEach
   public void setUp() {
     servlet = new ManagePrenotazioneServlet();
@@ -57,15 +63,15 @@ class ManagePrenotazioneServletTest {
   public void actionNull() throws ParseException, SQLException, ServletException, IOException {
     servlet.doPost(request, response);
     assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp",
-        response.getForwardedUrl());
+            response.getForwardedUrl());
   }
 
   @Test
   public void deletePrenotazioneSuccesfull()
-      throws ParseException, SQLException, ServletException, IOException {
+          throws ParseException, SQLException, ServletException, IOException {
 
     PrenotazioneBean prenotazioneBean =
-        (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "9-0512108336-21/01/2021");
+            (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "9-0512108336-21/01/2021");
 
 
     request.addParameter("action", "eliminaPrenotazione");
@@ -74,16 +80,16 @@ class ManagePrenotazioneServletTest {
 
     servlet.doPost(request, response);
     assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp",
-        response.getForwardedUrl());
+            response.getForwardedUrl());
   }
 
   //TC_1.3_01
   @Test
   public void updateDataFailedTestDataPrecedente()
-      throws ParseException, SQLException, ServletException, IOException {
+          throws ParseException, SQLException, ServletException, IOException {
     DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
     PrenotazioneBean prenotazioneBean =
-        (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "10-0512354364-21/01/2021");
+            (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "10-0512354364-21/01/2021");
 
     request.addParameter("action", "modificaPrenotazione");
     request.getSession().setAttribute("codice", prenotazioneBean.getCodice());
@@ -99,10 +105,10 @@ class ManagePrenotazioneServletTest {
   //TC_1.3_02
   @Test
   public void updateDataTestSuccesfullSingolo()
-      throws ParseException, SQLException, ServletException, IOException {
+          throws ParseException, SQLException, ServletException, IOException {
     DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
     PrenotazioneBean prenotazioneBean = (PrenotazioneBean) PrenotazioneDAO
-        .doQuery("doRetrieveByCode", "10-0512354364-21/01/2021");
+            .doQuery("doRetrieveByCode", "10-0512354364-21/01/2021");
 
     request.addParameter("action", "modificaData");
     request.addParameter("codice", prenotazioneBean.getCodice());
@@ -116,17 +122,17 @@ class ManagePrenotazioneServletTest {
     request.addParameter("codice", prenotazioneBean.getCodice());
     servlet.doPost(request, response);
     assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp",
-        response.getForwardedUrl());
+            response.getForwardedUrl());
   }
 
 
   //TC_1.3_02
   @Test
   public void updateDataTestSuccesfull()
-      throws ParseException, SQLException, ServletException, IOException {
+          throws ParseException, SQLException, ServletException, IOException {
     DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
     PrenotazioneBean prenotazioneBean =
-        (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "10-0512354364-21/01/2021");
+            (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "10-0512354364-21/01/2021");
 
     request.addParameter("action", "modificaData");
     request.addParameter("codice", prenotazioneBean.getCodice());
@@ -136,29 +142,29 @@ class ManagePrenotazioneServletTest {
     request.addParameter("codice", prenotazioneBean.getCodice());
     servlet.doPost(request, response);
     assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp",
-        response.getForwardedUrl());
+            response.getForwardedUrl());
   }
 
   @Test
   public void visualizzaPrenotazioniTest()
-      throws ParseException, SQLException, ServletException, IOException {
+          throws ParseException, SQLException, ServletException, IOException {
     DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
     PrenotazioneBean prenotazioneBean =
-        (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "10-0512354364-21/01/2021");
+            (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "10-0512354364-21/01/2021");
 
     request.addParameter("action", "visualizzaPrenotazioni");
     request.getSession().setAttribute("matricola", "0512105949");
     servlet.doPost(request, response);
     assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp",
-        response.getForwardedUrl());
+            response.getForwardedUrl());
   }
 
   @Test
   public void modificaDataPassata()
-      throws ParseException, SQLException, ServletException, IOException {
+          throws ParseException, SQLException, ServletException, IOException {
     DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
     PrenotazioneBean prenotazioneBean =
-        (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "5-4107147896-21/01/2021");
+            (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "5-4107147896-21/01/2021");
 
     request.addParameter("action", "modificaData");
     request.addParameter("codice", prenotazioneBean.getCodice());
@@ -168,8 +174,57 @@ class ManagePrenotazioneServletTest {
     request.addParameter("codice", prenotazioneBean.getCodice());
     servlet.doPost(request, response);
     assertEquals("Non è più possibile modificare la prenotazione",
-        request.getAttribute("error"));
+            request.getAttribute("error"));
   }
+
+
+  @Test
+  public void ExceptionSQLprova() {
+
+      request.addParameter("action", "visualizzaPrenotazioni");
+  }
+
+
+  @Test
+  public void getSinglePren()
+          throws ParseException, SQLException, ServletException, IOException {
+    PrenotazioneBean prenotazioneBean=new PrenotazioneBean();
+    prenotazioneBean.setCodice(QrCodeGenerator.generateCode("0156835647","2021/02/22"));
+    prenotazioneBean.setCodiceAula("00");
+    prenotazioneBean.setCodicePosto("00");
+    prenotazioneBean.setSingolo(true);
+    prenotazioneBean.setMatricolaStudente("0156835647");
+    Date d=new Date("2021/03/22");
+
+    prenotazioneBean.setData(d);
+    PrenotazioneDAO.doQuery(PrenotazioneDAO.doSave,prenotazioneBean);
+
+    request.addParameter("action", "getSinglePren");
+    request.addParameter("cod", prenotazioneBean.getCodice());
+
+
+    servlet.doPost(request, response);
+
+    assertEquals("/view/prenotazioni_effettuate/ModificaPrenotazioniView.jsp",
+            response.getForwardedUrl());
+
+    PrenotazioneDAO.doQuery(PrenotazioneDAO.doDelete,prenotazioneBean.getCodice());
+  }
+
+  @Test
+  public void ModificaPrenotazionePrenNull() throws ServletException, IOException {
+    request.addParameter("action", "modificaPrenotazione");
+    request.addParameter("tipologia","singolo");
+    request.addParameter("codice","");
+    request.addParameter("data","2021/03/17");
+    servlet.doPost(request,response);
+    assertEquals("Si è verificato un errore",request.getAttribute("error"));
+    assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp",response.getForwardedUrl());
+
+
+    ;
+  }
+
 
 
 }
