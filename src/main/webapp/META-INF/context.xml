@@ -8,12 +8,4 @@
               password="admin"
               url="jdbc:mysql://localhost:3306/uniseats?allowPublicKeyRetrieval=true&amp;useSSL=false&amp;useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"/>
 
-
-<Resource name="jdbc/uniseatsTest"
-          auth="Container"
-          driverClassName="com.mysql.cj.jdbc.Driver"
-          type="javax.sql.DataSource"
-          username="root"
-          password="admin"
-          url="jdbc:mysql://localhost:3306/uniseatsTest?allowPublicKeyRetrieval=true&amp;useSSL=false&amp;useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"/>
 </Context>
