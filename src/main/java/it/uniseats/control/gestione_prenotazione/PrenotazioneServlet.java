@@ -128,14 +128,20 @@ public class PrenotazioneServlet extends HttpServlet {
     //controllo la validità della data selezionata
     if (isDateValid(date, isPrenotazioneSingola)) {
 
+      System.out.println("date ok");
+
       StudenteBean user = getUser(request);
       String matricola = user.getMatricola();
 
       //controllo l'assenza di prenotazioni già effettuate per la data inserita
       if (checkPrenotazioni(matricola, date)) {
 
+        System.out.println("prenotazioni ok");
+
         //contollo la disponibilità di posti nelle aule
         if (checkPostiAule(user.getDipartimento(), date)) {
+
+          System.out.println("aule ok");
 
           //lo studente NON ha prenotazioni e c'e' almeno un posto libero
           String qrCode = QrCodeGenerator.generateCode(matricola, date);
@@ -145,6 +151,7 @@ public class PrenotazioneServlet extends HttpServlet {
                   "00", matricola);
           Integer result = (Integer) PrenotazioneDAO.doQuery(PrenotazioneDAO.doSave, prenotazione);
 
+          System.out.println("doSave " + result);
           //se la prenotazione è stata salvata nel database con successo, viene inoltrata al modulo IA oper l'assegnazione del posto a sedere.
           if (result != null && result > 0) {
 
@@ -232,8 +239,8 @@ public class PrenotazioneServlet extends HttpServlet {
 
     Date selectedDay = DateUtils.parseDate(date);
 
-    LinkedList<PrenotazioneBean> prenotazioni =
-        (LinkedList<PrenotazioneBean>) PrenotazioneDAO.doQuery("doFindPrenotazioni", matricola);
+    ArrayList<PrenotazioneBean> prenotazioni =
+        (ArrayList<PrenotazioneBean>) PrenotazioneDAO.doQuery("doFindPrenotazioni", matricola);
     if (prenotazioni != null) {
       for (PrenotazioneBean p : prenotazioni) {
 

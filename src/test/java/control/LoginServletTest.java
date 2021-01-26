@@ -1,6 +1,7 @@
 package control;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import it.uniseats.control.gestione_accesso.LoginServlet;
 import java.io.IOException;
@@ -81,5 +82,31 @@ class LoginServletTest {
     servlet.doGet(request, response);
     assertEquals(true,request.getSession().getAttribute("logged"));
   }
+
+  // action null
+/*  @Test
+  public void loginTestFailedActionNull() throws IOException {
+    request.getSession().setAttribute("logged", false);
+    request.addParameter("action", "");
+    request.addParameter("email", "a.sabia15@studenti.unisa.it");
+    request.addParameter("password", "accioLaurea");
+    servlet.doGet(request, response);
+    assertEquals(request.getContextPath()+"/view/login/LoginView.jsp",response.getRedirectedUrl());
+
+  }*/
+
+  // inizia
+  @Test
+  public void iniziaTest() throws IOException {
+    request.getSession().setAttribute("logged", false);
+    request.addParameter("action", "Login");
+    request.addParameter("email", "a.sabia15@studenti.unisa.it");
+    request.addParameter("password", "accioLaurea");
+    request.addParameter("from", "inizia");
+    servlet.doGet(request, response);
+    assertEquals("/view/prenotazione/NuovaPrenotazioneView.jsp", response.getRedirectedUrl());
+
+  }
+
 }
 

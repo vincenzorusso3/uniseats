@@ -202,10 +202,10 @@ public class PrenotazioneDAO {
    * @return tutte le <b>prenotazioni</b> di un dato studente
    * @throws SQLException
    */
-  private static synchronized Collection<PrenotazioneBean> doFindPrenotazioni(
+  private static synchronized ArrayList<PrenotazioneBean> doFindPrenotazioni(
       PreparedStatement preparedStatement, String matricola) throws SQLException {
 
-    Collection<PrenotazioneBean> prenotazioni = new LinkedList<PrenotazioneBean>();
+    ArrayList<PrenotazioneBean> prenotazioni = new ArrayList<>();
 
     preparedStatement.setString(1, matricola);
 
