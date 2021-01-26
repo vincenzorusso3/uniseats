@@ -45,7 +45,28 @@ class RegistrazioneServletTest {
     servlet.init(sg);
   }
 
+  @Test
+  void actionNull() throws ServletException, IOException {
 
+    servlet.doPost(request, response);
+
+    assertEquals("/view/profilo_utente/RegistrazioneView.jsp", response.getForwardedUrl());
+  }
+
+  @Test
+  void registrazioneEmpty() throws ServletException, IOException {
+
+    request.addParameter("action", "add");
+    request.addParameter("email", "");
+    request.addParameter("password", "");
+    request.addParameter("anno", "0");
+    request.addParameter("dipartimento", "");
+    request.addParameter("nome", "");
+    request.addParameter("cognome", "");
+    servlet.doPost(request, response);
+
+    assertEquals("Registrazione fallita. Si prega di riprovare", request.getAttribute("message"));
+  }
 
   @Test
   void registrazioneMatricolaVuota() throws ServletException, IOException {

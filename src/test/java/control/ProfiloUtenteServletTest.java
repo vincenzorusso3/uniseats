@@ -1,6 +1,7 @@
 package control;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import it.uniseats.control.gestione_utente.ProfiloUtenteServlet;
 import it.uniseats.model.beans.StudenteBean;
@@ -113,6 +114,15 @@ class ProfiloUtenteServletTest {
     assertEquals("/view/profilo_utente/ProfiloUtenteView.jsp", response.getForwardedUrl());
 
   }
+
+
+  @Test
+  void actionNull() throws ServletException, IOException {
+    request.getSession().setAttribute("logged", true);
+    servlet.doGet(request, response);
+    assertEquals("/view/profilo_utente/ProfiloUtenteView.jsp", response.getForwardedUrl());
+  }
+
 
 }
 
