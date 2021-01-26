@@ -68,14 +68,10 @@ public class AulaDAO {
 
     } finally {
 
-      try {
-        if (preparedStatement != null) {
-          preparedStatement.close();
-        }
-      } finally {
-        DriverManagerConnectionPool.releaseConnection(connection);
+      if (preparedStatement != null) {
+        preparedStatement.close();
       }
-
+      DriverManagerConnectionPool.releaseConnection(connection);
     }
 
 
@@ -161,7 +157,8 @@ public class AulaDAO {
    * @throws SQLException
    */
   private static synchronized ArrayList<String> getDipartimenti(PreparedStatement preparedStatement,
-                                                                String parameter) throws SQLException {
+                                                                String parameter)
+      throws SQLException {
 
     preparedStatement.setString(1, temp);
     ArrayList<String> list = new ArrayList<>();

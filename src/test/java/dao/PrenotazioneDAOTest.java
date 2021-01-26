@@ -5,7 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import it.uniseats.model.beans.AulaBean;
 import it.uniseats.model.beans.PrenotazioneBean;
+import it.uniseats.model.dao.AulaDAO;
 import it.uniseats.model.dao.PrenotazioneDAO;
 import it.uniseats.utils.DateUtils;
 import java.sql.SQLException;
@@ -18,6 +20,12 @@ import java.util.Locale;
 import org.junit.jupiter.api.Test;
 
 class PrenotazioneDAOTest {
+
+  @Test
+  void fail() throws SQLException, ParseException {
+    ArrayList<PrenotazioneBean> beans = (ArrayList<PrenotazioneBean>) PrenotazioneDAO.doQuery("metodonontrovato", null);
+    assertNull(beans);
+  }
 
   @Test
   void doRetrieveByCodeTest() throws SQLException, ParseException {
@@ -102,6 +110,23 @@ class PrenotazioneDAOTest {
     PrenotazioneDAO.doQuery("doSave", bean);
     bean.setData(df.parse("26/12/2021"));
     int i = (int) PrenotazioneDAO.doQuery("doUpdateData", bean);
+
+    PrenotazioneDAO.doQuery("doDelete", "1-11111111-111111");
+
+    assertEquals(i, 1);
+
+  }
+
+  @Test
+  void doUpdateAulaPosto() throws SQLException, ParseException {
+
+    DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
+    PrenotazioneBean bean =
+        new PrenotazioneBean("1-11111111-111111", df.parse("25/12/2021"), true, "00", "00",
+            "0512105933");
+    PrenotazioneDAO.doQuery("doSave", bean);
+    bean.setData(df.parse("26/12/2021"));
+    int i = (int) PrenotazioneDAO.doQuery("doUpdateAulaPosto", bean);
 
     PrenotazioneDAO.doQuery("doDelete", "1-11111111-111111");
 

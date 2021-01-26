@@ -66,13 +66,11 @@ public class PostoDAO {
 
     } finally {
 
-      try {
-        if (preparedStatement != null) {
-          preparedStatement.close();
-        }
-      } finally {
-        DriverManagerConnectionPool.releaseConnection(connection);
+      if (preparedStatement != null) {
+        preparedStatement.close();
       }
+
+      DriverManagerConnectionPool.releaseConnection(connection);
 
     }
 
@@ -80,8 +78,9 @@ public class PostoDAO {
 
   /**
    * Metodo per la ricerca dei posti di un aula
+   *
    * @param preparedStatement <b>query SQL</b>
-   * @param parameter <d>codice aula</d>
+   * @param parameter         <d>codice aula</d>
    * @return un object
    * @throws SQLException
    */

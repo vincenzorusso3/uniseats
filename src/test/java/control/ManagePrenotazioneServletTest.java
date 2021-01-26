@@ -7,6 +7,7 @@ import it.uniseats.control.gestione_prenotazione.PrenotazioneServlet;
 import it.uniseats.control.visualizzaPrenotazioni.ManagePrenotazioneServlet;
 import it.uniseats.model.beans.PrenotazioneBean;
 import it.uniseats.model.dao.PrenotazioneDAO;
+import it.uniseats.utils.DateUtils;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -53,10 +54,18 @@ class ManagePrenotazioneServletTest {
   }
 
   @Test
-  public void deletePrenotazioneSuccesfull() throws ParseException, SQLException, ServletException, IOException {
+  public void actionNull() throws ParseException, SQLException, ServletException, IOException {
+    servlet.doPost(request, response);
+    assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp",
+        response.getForwardedUrl());
+  }
+
+  @Test
+  public void deletePrenotazioneSuccesfull()
+      throws ParseException, SQLException, ServletException, IOException {
 
     PrenotazioneBean prenotazioneBean =
-            (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "9-0512108336-21/01/2021");
+        (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "9-0512108336-21/01/2021");
 
 
     request.addParameter("action", "eliminaPrenotazione");
@@ -64,12 +73,14 @@ class ManagePrenotazioneServletTest {
 
 
     servlet.doPost(request, response);
-    assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp", response.getForwardedUrl());
+    assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp",
+        response.getForwardedUrl());
   }
 
   //TC_1.3_01
   @Test
-  public void updateDataFailedTestDataPrecedente() throws ParseException, SQLException, ServletException, IOException {
+  public void updateDataFailedTestDataPrecedente()
+      throws ParseException, SQLException, ServletException, IOException {
     DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
     PrenotazioneBean prenotazioneBean =
         (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "10-0512354364-21/01/2021");
@@ -85,13 +96,37 @@ class ManagePrenotazioneServletTest {
     assertNotEquals(prenotazioneBean.getData(), df.parse("15/01/2021"));
   }
 
+  //TC_1.3_02
+  @Test
+  public void updateDataTestSuccesfullSingolo()
+      throws ParseException, SQLException, ServletException, IOException {
+    DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
+    PrenotazioneBean prenotazioneBean = (PrenotazioneBean) PrenotazioneDAO
+        .doQuery("doRetrieveByCode", "10-0512354364-21/01/2021");
+
+    request.addParameter("action", "modificaData");
+    request.addParameter("codice", prenotazioneBean.getCodice());
+
+    String[] s = DateUtils.dateToString(new Date()).replace("21", "2021").split("/");
+    String data = s[2] + "/" + s[1] + "/" + s[0];
+    System.out.println(data);
+
+    request.addParameter("data", data);
+    request.addParameter("tipologia", "singolo");
+    request.addParameter("codice", prenotazioneBean.getCodice());
+    servlet.doPost(request, response);
+    assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp",
+        response.getForwardedUrl());
+  }
 
 
   //TC_1.3_02
   @Test
-  public void updateDataTestSuccesfull() throws ParseException, SQLException, ServletException, IOException {
+  public void updateDataTestSuccesfull()
+      throws ParseException, SQLException, ServletException, IOException {
     DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
-    PrenotazioneBean prenotazioneBean = (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "10-0512354364-21/01/2021");
+    PrenotazioneBean prenotazioneBean =
+        (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "10-0512354364-21/01/2021");
 
     request.addParameter("action", "modificaData");
     request.addParameter("codice", prenotazioneBean.getCodice());
@@ -105,9 +140,11 @@ class ManagePrenotazioneServletTest {
   }
 
   @Test
-  public void visualizzaPrenotazioniTest() throws ParseException, SQLException, ServletException, IOException {
+  public void visualizzaPrenotazioniTest()
+      throws ParseException, SQLException, ServletException, IOException {
     DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
-    PrenotazioneBean prenotazioneBean = (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "10-0512354364-21/01/2021");
+    PrenotazioneBean prenotazioneBean =
+        (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "10-0512354364-21/01/2021");
 
     request.addParameter("action", "visualizzaPrenotazioni");
     request.getSession().setAttribute("matricola", "0512105949");
@@ -115,10 +152,13 @@ class ManagePrenotazioneServletTest {
     assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp",
         response.getForwardedUrl());
   }
+
   @Test
-  public void modificaDataPassata() throws ParseException, SQLException, ServletException, IOException {
+  public void modificaDataPassata()
+      throws ParseException, SQLException, ServletException, IOException {
     DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
-    PrenotazioneBean prenotazioneBean = (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "5-4107147896-21/01/2021");
+    PrenotazioneBean prenotazioneBean =
+        (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "5-4107147896-21/01/2021");
 
     request.addParameter("action", "modificaData");
     request.addParameter("codice", prenotazioneBean.getCodice());
@@ -130,13 +170,6 @@ class ManagePrenotazioneServletTest {
     assertEquals("Non è più possibile modificare la prenotazione",
         request.getAttribute("error"));
   }
-
-
-
-
-
-
-
 
 
 }

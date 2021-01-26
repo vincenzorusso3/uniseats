@@ -1,6 +1,7 @@
 package dao;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import it.uniseats.model.beans.AulaBean;
@@ -29,6 +30,18 @@ class AulaDAOTest {
   void doRetrieveAll() throws SQLException {
     ArrayList<AulaBean> beans = (ArrayList<AulaBean>) AulaDAO.doQuery("doRetrieveAll", null);
     assertNotNull(beans);
+  }
+
+  @Test
+  void doRetrieveAllDip() throws SQLException {
+    ArrayList<AulaBean> beans = (ArrayList<AulaBean>) AulaDAO.doQuery("doRetrieveAll", "Informatica");
+    assertNotNull(beans);
+  }
+
+  @Test
+  void fail() throws SQLException {
+    ArrayList<AulaBean> beans = (ArrayList<AulaBean>) AulaDAO.doQuery("metodonontrovato", null);
+    assertNull(beans);
   }
 
   @Test

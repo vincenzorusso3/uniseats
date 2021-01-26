@@ -168,7 +168,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
     PrenotazioneBean prenotazioneBean =
         (PrenotazioneBean) PrenotazioneDAO.doQuery(PrenotazioneDAO.doRetrieveByCode, codice);
 
-    if (prenotazioneBean != null) {
+    if (prenotazioneBean.getData() != null) {
 
       //controllo che la data inserita sia diversa dalla data attuale della prenotazione
       if (prenotazioneBean.getData().compareTo(dataPrenotazione) != 0 && checkPrenotazioni(getUser(request).getMatricola(), DateUtils.dateToString(dataPrenotazione))) {

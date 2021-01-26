@@ -32,7 +32,8 @@ public class StudenteDAO {
    * @return un <b>object</b>
    * @throws SQLException
    */
-  public static synchronized Object doQuery(String methodName, Object parameter) throws SQLException {
+  public static synchronized Object doQuery(String methodName, Object parameter)
+      throws SQLException {
 
     Connection connection = null;
     PreparedStatement preparedStatement = null;
@@ -55,7 +56,8 @@ public class StudenteDAO {
           return doRetriveAll(preparedStatement);
 
         case doSave:
-          querySQL = "INSERT INTO " + TABLE_NAME + " (anno, cognome, dipartimento, email, matricola, nome, password ) VALUES (?,?,?,?,?,?,?)";
+          querySQL = "INSERT INTO " + TABLE_NAME +
+              " (anno, cognome, dipartimento, email, matricola, nome, password ) VALUES (?,?,?,?,?,?,?)";
           preparedStatement = connection.prepareStatement(querySQL);
           return doSave(preparedStatement, (StudenteBean) parameter);
 
@@ -81,17 +83,11 @@ public class StudenteDAO {
 
     } finally {
 
-      try {
-
-        if (preparedStatement != null) {
-          preparedStatement.close();
-        }
-
-      } finally {
-
-        DriverManagerConnectionPool.releaseConnection(connection);
-
+      if (preparedStatement != null) {
+        preparedStatement.close();
       }
+
+      DriverManagerConnectionPool.releaseConnection(connection);
 
     }
 
@@ -106,7 +102,8 @@ public class StudenteDAO {
    * @return lo studente associato alla matricola
    * @throws SQLException
    */
-  private static synchronized StudenteBean doRetrieveByMatricola(PreparedStatement preparedStatement, String matricola) throws SQLException {
+  private static synchronized StudenteBean doRetrieveByMatricola(
+      PreparedStatement preparedStatement, String matricola) throws SQLException {
 
     preparedStatement.setString(1, matricola);
     ResultSet rs = preparedStatement.executeQuery();
@@ -127,7 +124,8 @@ public class StudenteDAO {
    * @return una lista di Studenti
    * @throws SQLException
    */
-  private static synchronized ArrayList<StudenteBean> doRetriveAll(PreparedStatement preparedStatement) throws SQLException {
+  private static synchronized ArrayList<StudenteBean> doRetriveAll(
+      PreparedStatement preparedStatement) throws SQLException {
 
     ArrayList<StudenteBean> list = new ArrayList<>();
     ResultSet rs = preparedStatement.executeQuery();
@@ -149,7 +147,8 @@ public class StudenteDAO {
    * @return <b>1</b> se l'operazione ha successo, <b>0</b> se l'operazione non ha successo
    * @throws SQLException
    */
-  private static synchronized int doSave(PreparedStatement preparedStatement, StudenteBean studente) throws SQLException {
+  private static synchronized int doSave(PreparedStatement preparedStatement, StudenteBean studente)
+      throws SQLException {
 
     preparedStatement.setInt(1, studente.getAnno());
     preparedStatement.setString(2, studente.getCognome());
@@ -171,7 +170,8 @@ public class StudenteDAO {
    * @return lo studente associato alla email
    * @throws SQLException
    */
-  private static synchronized StudenteBean doRetrieveByEmail(PreparedStatement preparedStatement, String email) throws SQLException {
+  private static synchronized StudenteBean doRetrieveByEmail(PreparedStatement preparedStatement,
+                                                             String email) throws SQLException {
 
     preparedStatement.setString(1, email);
     ResultSet rs = preparedStatement.executeQuery();
@@ -193,7 +193,8 @@ public class StudenteDAO {
    * @return <b>1</b> se l'operazione ha successo, <b>0</b> se l'operazione non ha successo
    * @throws SQLException
    */
-  private static synchronized int doUpdate(PreparedStatement preparedStatement, StudenteBean studenteBean) throws SQLException {
+  private static synchronized int doUpdate(PreparedStatement preparedStatement,
+                                           StudenteBean studenteBean) throws SQLException {
 
     preparedStatement.setInt(1, studenteBean.getAnno());
 
@@ -207,11 +208,12 @@ public class StudenteDAO {
    * Query per eliminare uno Studente dal database.
    *
    * @param preparedStatement <b>query SQL</b>
-   * @param matricola la <b>matricola</b>  dello studente che si vuole eliminare dal database
+   * @param matricola         la <b>matricola</b>  dello studente che si vuole eliminare dal database
    * @return <b>1</b> se l'operazione ha successo, <b>0</b> se l'operazione non ha successo
    * @throws SQLException
    */
-  private static synchronized boolean doDelete(PreparedStatement preparedStatement, String matricola) throws SQLException {
+  private static synchronized boolean doDelete(PreparedStatement preparedStatement,
+                                               String matricola) throws SQLException {
 
     preparedStatement.setString(1, matricola);
 

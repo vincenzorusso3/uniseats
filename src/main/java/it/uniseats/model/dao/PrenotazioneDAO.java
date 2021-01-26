@@ -79,7 +79,8 @@ public class PrenotazioneDAO {
           return doSave(preparedStatement, (PrenotazioneBean) parameter);
 
         case doUpdateData:
-          querySQL = "UPDATE " + TABLE_NAME + " SET dataPrenotazione=?, codiceAula='00', codicePosto='00'  WHERE codice=?";
+          querySQL = "UPDATE " + TABLE_NAME +
+              " SET dataPrenotazione=?, codiceAula='00', codicePosto='00'  WHERE codice=?";
           preparedStatement = connection.prepareStatement(querySQL);
           return doUpdateData(preparedStatement, (PrenotazioneBean) parameter);
 
@@ -116,15 +117,11 @@ public class PrenotazioneDAO {
 
     } finally {
 
-      try {
-        if (preparedStatement != null) {
-          preparedStatement.close();
-        }
-      } finally {
-
-        DriverManagerConnectionPool.releaseConnection(connection);
-
+      if (preparedStatement != null) {
+        preparedStatement.close();
       }
+
+      DriverManagerConnectionPool.releaseConnection(connection);
 
     }
 
@@ -132,8 +129,9 @@ public class PrenotazioneDAO {
 
   /**
    * Metodo per assegnare ad una prenotazione il codice aula e il codice posto.
+   *
    * @param preparedStatement <b>query SQL</b>
-   * @param parameter prenotazione
+   * @param parameter         prenotazione
    * @return object
    * @throws SQLException
    */
@@ -156,8 +154,9 @@ public class PrenotazioneDAO {
 
   /**
    * Metodo per la ricerca di prenotazioni da parte di studenti di uno stesso dipartimento in una stessa data
+   *
    * @param preparedStatement <b>query SQL</b>
-   * @param parameter <b>Arraylist contenente data e dipartimento</b>
+   * @param parameter         <b>Arraylist contenente data e dipartimento</b>
    * @return una collezione di prenotazioni
    * @throws ParseException
    * @throws SQLException
