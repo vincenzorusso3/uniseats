@@ -1,12 +1,14 @@
 package control;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import it.uniseats.control.gestione_utente.RegistrazioneServlet;
 import it.uniseats.model.beans.StudenteBean;
 import it.uniseats.model.dao.StudenteDAO;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import org.junit.jupiter.api.BeforeEach;
@@ -42,6 +44,24 @@ class RegistrazioneServletTest {
     ServletConfig sg = new MockServletConfig();
     servlet.init(sg);
   }
+
+
+
+  @Test
+  void registrazioneMatricolaVuota() throws ServletException, IOException {
+    request.addParameter("action", "add");
+    request.addParameter("email", "a.sabia16@studenti.unisa.it");
+    request.addParameter("password", "A3wdwr4-");
+    request.addParameter("anno", "1");
+    request.addParameter("dipartimento", "Informatica");
+    request.addParameter("nome", "Carlo");
+    request.addParameter("cognome", "Cattanio");
+
+    servlet.doPost(request, response);
+
+    assertEquals("Registrazione fallita. Si prega di riprovare", request.getAttribute("message"));
+  }
+
 
 
   //TC_1.1_01
@@ -92,6 +112,17 @@ class RegistrazioneServletTest {
 
     servlet.doPost(request, response);
     assertEquals("Registrazione effettuata con successo", request.getAttribute("message"));
+  }
+
+
+  @Test
+  void TestDipartimenti() throws ServletException, IOException {
+    request.addParameter("action", "getDipartimenti");
+    servlet.doPost(request, response);
+    ArrayList<String> listDip=
+        (ArrayList<String>) request.getSession().getAttribute("dipartimenti");
+    assertNotNull(listDip);
+
   }
 
 
