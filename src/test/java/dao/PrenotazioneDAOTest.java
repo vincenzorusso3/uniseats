@@ -50,8 +50,8 @@ class PrenotazioneDAOTest {
 
   @Test
   void doFindPrenotazioniTest() throws SQLException, ParseException {
-    LinkedList<PrenotazioneBean> prenotazioni =
-        (LinkedList<PrenotazioneBean>) PrenotazioneDAO.doQuery("doFindPrenotazioni", "0512105933");
+    ArrayList<PrenotazioneBean> prenotazioni =
+        (ArrayList<PrenotazioneBean>) PrenotazioneDAO.doQuery("doFindPrenotazioni", "0512105933");
     assertNotNull(prenotazioni);
   }
 
