@@ -108,5 +108,15 @@ class LoginServletTest {
 
   }
 
+  @Test
+  void LoginNull() throws IOException {
+    request.getSession().setAttribute("logged", false);
+    servlet.doGet(request, response);
+    assertEquals("/view/login/LoginView.jsp", response.getRedirectedUrl());
+
+
+
+  }
+
 }
 
