@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import javax.servlet.RequestDispatcher;
@@ -332,8 +333,8 @@ public class ManagePrenotazioneServlet extends HttpServlet {
 
     Date selectedDay = DateUtils.parseDate(date);
 
-    LinkedList<PrenotazioneBean> prenotazioni =
-        (LinkedList<PrenotazioneBean>) PrenotazioneDAO.doQuery("doFindPrenotazioni", matricola);
+    ArrayList<PrenotazioneBean> prenotazioni =
+        (ArrayList<PrenotazioneBean>) PrenotazioneDAO.doQuery("doFindPrenotazioni", matricola);
     if (prenotazioni != null) {
       for (PrenotazioneBean p : prenotazioni) {
 
