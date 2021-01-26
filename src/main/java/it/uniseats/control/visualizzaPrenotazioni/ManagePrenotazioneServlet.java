@@ -237,7 +237,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
     }
 
 
-    if (prenotazioneBean != null) {
+    if (prenotazioneBean.getCodice() != null) {
 
 
       request.setAttribute("codice", prenotazioneBean.getCodice());
