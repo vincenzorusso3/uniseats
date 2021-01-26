@@ -104,6 +104,32 @@ class ManagePrenotazioneServletTest {
         response.getForwardedUrl());
   }
 
+  @Test
+  public void visualizzaPrenotazioniTest() throws ParseException, SQLException, ServletException, IOException {
+    DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
+    PrenotazioneBean prenotazioneBean = (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "10-0512354364-21/01/2021");
+
+    request.addParameter("action", "visualizzaPrenotazioni");
+    request.getSession().setAttribute("matricola", "0512105949");
+    servlet.doPost(request, response);
+    assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp",
+        response.getForwardedUrl());
+  }
+  @Test
+  public void modificaDataPassata() throws ParseException, SQLException, ServletException, IOException {
+    DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
+    PrenotazioneBean prenotazioneBean = (PrenotazioneBean) PrenotazioneDAO.doQuery("doRetrieveByCode", "5-4107147896-21/01/2021");
+
+    request.addParameter("action", "modificaData");
+    request.addParameter("codice", prenotazioneBean.getCodice());
+
+    request.addParameter("data", "2021/02/25");
+    request.addParameter("tipologia", "gruppo");
+    request.addParameter("codice", prenotazioneBean.getCodice());
+    servlet.doPost(request, response);
+    assertEquals("Non è più possibile modificare la prenotazione",
+        request.getAttribute("error"));
+  }
 
 
 

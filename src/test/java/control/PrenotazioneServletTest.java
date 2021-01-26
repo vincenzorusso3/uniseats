@@ -48,10 +48,6 @@ class PrenotazioneServletTest {
       PrenotazioneBean prenotazioni = prenotazioniLaurati.get(0);
       PrenotazioneDAO.doQuery("doDelete", prenotazioni.getCodice());
     }
-
-
-
-
   }
 
 
