@@ -35,12 +35,16 @@ class PrenotazioneServletTest {
     request = new MockHttpServletRequest();
     response = new MockHttpServletResponse();
     request.setSession(session);
+
     ArrayList<PrenotazioneBean> prenotazioniLaurati = (ArrayList<PrenotazioneBean>) PrenotazioneDAO.doQuery("doFindPrenotazioni", "0156835647");
 
-    System.out.println("Empty " +  prenotazioniLaurati.isEmpty());
-    PrenotazioneBean remove = prenotazioniLaurati.remove(0);
+    if(!prenotazioniLaurati.isEmpty()){
+      PrenotazioneBean prenotazioni = prenotazioniLaurati.get(0);
+      PrenotazioneDAO.doQuery("doDelete", prenotazioni.getCodice());
+    }
 
-    PrenotazioneDAO.doQuery("doDelete", remove.getCodice());
+
+
 
   }
 
@@ -64,11 +68,10 @@ class PrenotazioneServletTest {
   }
 
   @Test
-  @Rollback
   void prenotazioneGruppoTest() throws ServletException, IOException, SQLException, ParseException {
     request.addParameter("action", "prenotazioneGruppo");
     request.addParameter("dateValueGruppo","2021/02/18");
-    request.getSession().setAttribute("email","p.melodi@studenti.unisa.it");
+    request.getSession().setAttribute("email","a.laurati@studenti.unisa.it");
     servlet.doPost(request,response);
 
     assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp", response.getForwardedUrl());
