@@ -90,6 +90,30 @@ class ProfiloUtenteServletTest {
   }
 
 
+  @Test
+  public void updateTestMatricolaNonEsistente() throws ServletException, IOException, SQLException {
+    StudenteBean bean =
+            new StudenteBean("NotExist", "NotExist", "0111101000", "NotExist@studenti.unisa,it",
+                    "carrello", 3, "Informatica");
+
+    request.addParameter("action", "confermaUpdate");
+
+    request.addParameter("annomod", "5");
+    request.getSession().setAttribute("logged", true);
+    request.getSession().setAttribute("nome", bean.getNome());
+    request.getSession().setAttribute("cognome", bean.getCognome());
+    request.getSession().setAttribute("matricola", bean.getMatricola());
+    request.getSession().setAttribute("email", bean.getEmail());
+    request.getSession().setAttribute("anno", bean.getAnno());
+    request.getSession().setAttribute("dipartimento", bean.getDipartimento());
+
+
+    servlet.doGet(request, response);
+    assertEquals("Si è verificato un errore", request.getAttribute("errore"));
+    assertEquals("/view/profilo_utente/ProfiloUtenteView.jsp", response.getForwardedUrl());
+
+  }
+
 }
 
 

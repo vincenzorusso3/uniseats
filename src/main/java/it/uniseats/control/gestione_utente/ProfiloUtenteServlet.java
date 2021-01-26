@@ -76,8 +76,9 @@ public class ProfiloUtenteServlet extends HttpServlet {
 
     StudenteBean studMod = (StudenteBean) StudenteDAO
         .doQuery(StudenteDAO.doRetrieveByMatricola, request.getSession().getAttribute("matricola"));
+    
 
-    if (studMod != null) {
+    if (studMod.getMatricola() != null) {
 
       int anno = Integer.parseInt(request.getParameter("annomod"));
       studMod.setAnno(anno);
@@ -86,7 +87,7 @@ public class ProfiloUtenteServlet extends HttpServlet {
       StudenteDAO.doQuery("doUpdate", studMod);
       request.getSession().setAttribute("anno", studMod.getAnno());
 
-    } else {
+    } else{
 
       String message = "Si è verificato un errore";
       request.setAttribute("errore", message);

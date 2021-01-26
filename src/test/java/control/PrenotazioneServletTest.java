@@ -56,7 +56,7 @@ class PrenotazioneServletTest {
     StudenteBean studenteBean=new StudenteBean();
     int Matricola=2000;
 
-    System.out.println("05121"+Matricola);
+
     PrenotazioneBean prenotazioneBean=new PrenotazioneBean();
     for(int i=0;i<60;i++){
       Matricola++;
@@ -64,27 +64,20 @@ class PrenotazioneServletTest {
       studenteBean.setCognome("Test"+i);
       studenteBean.setNome("Prova"+i);
       studenteBean.setDipartimento("Informatica");
-
       studenteBean.setMatricola("051210"+(Matricola));
       studenteBean.setEmail("ProvaTest"+i+"@studenti.unisa.it");
       studenteBean.setPassword("password"+i);
       StudenteDAO.doQuery(StudenteDAO.doSave,studenteBean);
-
-
       prenotazioneBean.setCodice(QrCodeGenerator.generateCode(studenteBean.getMatricola(),"2021/03/22"));
       prenotazioneBean.setCodiceAula("00");
       prenotazioneBean.setCodicePosto("00");
       prenotazioneBean.setSingolo(true);
       prenotazioneBean.setMatricolaStudente("051210"+(Matricola));
-
       Date d=new Date("2021/03/22");
-      prenotazioneBean.setData(d);
 
+      prenotazioneBean.setData(d);
       PrenotazioneDAO.doQuery(PrenotazioneDAO.doSave,prenotazioneBean);
     }
-
-    System.out.println("fatto");
-
   }
 
 
