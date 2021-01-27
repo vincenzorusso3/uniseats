@@ -103,9 +103,22 @@ class LoginServletTest {
     servlet.doGet(request, response);
     assertEquals("/view/login/LoginView.jsp", response.getRedirectedUrl());
 
+  }
+
+
+  @Test
+  void actionNotLogin() throws IOException {
+
+    request.getSession().setAttribute("logged", false);
+    request.addParameter("action", "NotLogin");
+    request.addParameter("email", "a.sabia15@studenti.unisa.it");
+    request.addParameter("password", "accioLaurea");
+    servlet.doGet(request, response);
+
 
 
   }
+
 
 }
 
