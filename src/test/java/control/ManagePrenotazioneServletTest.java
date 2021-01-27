@@ -225,7 +225,7 @@ class ManagePrenotazioneServletTest {
     ;
   }
 
-// TC_1.5
+// TC_1.5_02
   @Test
   public void ModificaPrenotazioneCanIUpdateTrue() throws SQLException, ParseException, ServletException, IOException{
     PrenotazioneBean prenotazioneBean=new PrenotazioneBean();
@@ -256,7 +256,7 @@ class ManagePrenotazioneServletTest {
 
   }
 
-  //TC_1.5_
+  //TC_1.5_01
 
   @Test
   public void ModificaPrenotazioneCanIUpdateFalseGruppo() throws SQLException, ParseException, ServletException, IOException{
