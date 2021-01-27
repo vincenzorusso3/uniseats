@@ -83,19 +83,7 @@ class LoginServletTest {
     assertEquals(true,request.getSession().getAttribute("logged"));
   }
 
-  // action null
-/*  @Test
-  public void loginTestFailedActionNull() throws IOException {
-    request.getSession().setAttribute("logged", false);
-    request.addParameter("action", "");
-    request.addParameter("email", "a.sabia15@studenti.unisa.it");
-    request.addParameter("password", "accioLaurea");
-    servlet.doGet(request, response);
-    assertEquals(request.getContextPath()+"/view/login/LoginView.jsp",response.getRedirectedUrl());
 
-  }*/
-
-  // inizia
   @Test
   public void iniziaTest() throws IOException {
     request.getSession().setAttribute("logged", false);
@@ -108,8 +96,9 @@ class LoginServletTest {
 
   }
 
+
   @Test
-  void LoginNull() throws IOException {
+  void actionNullTest() throws IOException {
     request.getSession().setAttribute("logged", false);
     servlet.doGet(request, response);
     assertEquals("/view/login/LoginView.jsp", response.getRedirectedUrl());
