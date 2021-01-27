@@ -47,7 +47,6 @@ public class ManagePrenotazioneServlet extends HttpServlet {
     String action = request.getParameter("action");
 
 
-
     if (action != null) {
 
       switch (action) {
@@ -163,7 +162,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
 
     Date dataPrenotazione = DateUtils.parseDate(dataTransformed);
 
-    Date today = new Date();
+    Date today = DateUtils.parseDate(DateUtils.dateToString(new Date()));
 
     PrenotazioneBean prenotazioneBean =
         (PrenotazioneBean) PrenotazioneDAO.doQuery(PrenotazioneDAO.doRetrieveByCode, codice);
@@ -171,7 +170,9 @@ public class ManagePrenotazioneServlet extends HttpServlet {
     if (prenotazioneBean.getData() != null) {
 
       //controllo che la data inserita sia diversa dalla data attuale della prenotazione
-      if (prenotazioneBean.getData().compareTo(dataPrenotazione) != 0 && checkPrenotazioni(getUser(request).getMatricola(), DateUtils.dateToString(dataPrenotazione))) {
+      if (DateUtils.parseDate(DateUtils.dateToString(prenotazioneBean.getData()))
+          .compareTo(dataPrenotazione) != 0 &&
+          checkPrenotazioni(prenotazioneBean.getMatricolaStudente(), dataTransformed)) {
 
 
         //controllo che la modifica della prenotazione venga effettuata prima delle 07:00 del giorno della prenotazione o in un giorno antecedente la data per cui è prevista la prenotazione
@@ -335,13 +336,17 @@ public class ManagePrenotazioneServlet extends HttpServlet {
 
     ArrayList<PrenotazioneBean> prenotazioni =
         (ArrayList<PrenotazioneBean>) PrenotazioneDAO.doQuery("doFindPrenotazioni", matricola);
-    if (prenotazioni != null) {
+
+    if (prenotazioni != null && prenotazioni.size() > 0) {
+
       for (PrenotazioneBean p : prenotazioni) {
 
         if (DateUtils.parseDate(DateUtils.dateToString(p.getData())).compareTo(selectedDay) == 0) {
           return false;
         }
+
       }
+
       return true;
     } else {
       return false;
