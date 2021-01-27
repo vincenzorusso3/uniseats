@@ -114,6 +114,31 @@ class LoginServletTest {
     request.addParameter("email", "a.sabia15@studenti.unisa.it");
     request.addParameter("password", "accioLaurea");
     servlet.doGet(request, response);
+  }
+
+
+  @Test
+  void StudenteBeanNull() throws IOException {
+
+    request.getSession().setAttribute("logged", false);
+    request.addParameter("action", "NotLogin");
+
+    request.addParameter("email", "notin@studenti.unisa.it");
+    request.addParameter("password", "accioLaurea");
+    servlet.doGet(request, response);
+  }
+
+
+
+  @Test
+  void FromDiverso() throws IOException {
+
+
+    request.addParameter("action", "Login");
+    request.addParameter("email", "a.sabia15@studenti.unisa.it");
+    request.addParameter("password", "accioLaurea");
+    request.addParameter("from", "notIt");
+    servlet.doGet(request, response);
 
 
 

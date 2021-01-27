@@ -26,7 +26,7 @@ public class LoginServlet extends HttpServlet {
    * @param response HttpServletResponse
    * @throws IOException
    */
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+  public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws IOException {
     doGet(request, response);
   }
@@ -58,7 +58,7 @@ public class LoginServlet extends HttpServlet {
 
           StudenteBean bean = (StudenteBean) StudenteDAO.doQuery(StudenteDAO.doRetrieveByEmail, email);
 
-          if (bean != null && bean.getPassword().equals(encrypted)) {
+          if (bean.getMatricola() != null && bean.getPassword().equals(encrypted)) {
 
             request.getSession().setAttribute("logged", true);
             request.getSession().setAttribute("nome", bean.getNome());
@@ -72,10 +72,9 @@ public class LoginServlet extends HttpServlet {
             redirectedPage = "/view/LandingPageView.jsp";
 
             if (from.equals("inizia")){
+
               //redirect to NuovaPrenotazione
-
               redirectedPage = "/view/prenotazione/NuovaPrenotazioneView.jsp";
-
             }
 
 
