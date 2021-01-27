@@ -5,14 +5,25 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import it.uniseats.model.beans.PrenotazioneBean;
 import it.uniseats.model.beans.StudenteBean;
+import it.uniseats.model.dao.PrenotazioneDAO;
 import it.uniseats.model.dao.StudenteDAO;
 import it.uniseats.utils.SHA512Utils;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 class StudenteDAOTest {
+
+  @Test
+  void fail() throws SQLException{
+    ArrayList<StudenteBean> beans = (ArrayList<StudenteBean>) StudenteDAO
+        .doQuery("metodonontrovato", null);
+    assertNull(beans);
+  }
 
   @Test
   void doRetrieveByMatricolaTest() throws SQLException {
