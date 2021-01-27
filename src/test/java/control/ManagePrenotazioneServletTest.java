@@ -102,7 +102,7 @@ class ManagePrenotazioneServletTest {
     assertNotEquals(prenotazioneBean.getData(), df.parse("15/01/2021"));
   }
 
-  //TC_1.3_02
+
   @Test
   public void updateDataTestSuccesfullSingolo()
           throws ParseException, SQLException, ServletException, IOException {
@@ -126,7 +126,7 @@ class ManagePrenotazioneServletTest {
   }
 
 
-  //TC_1.3_04
+  //TC_1.3_03
   @Test
   public void updateDataTestSuccesfull()
           throws ParseException, SQLException, ServletException, IOException {
@@ -158,7 +158,7 @@ class ManagePrenotazioneServletTest {
     assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp",
             response.getForwardedUrl());
   }
-  // TC_1.3_03
+  // TC_1.3_02
   @Test
   public void modificaDataPassata()
           throws ParseException, SQLException, ServletException, IOException {

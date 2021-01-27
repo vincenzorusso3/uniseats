@@ -53,6 +53,7 @@ class RegistrazioneServletTest {
     assertEquals("/view/profilo_utente/RegistrazioneView.jsp", response.getForwardedUrl());
   }
 
+  // TC_1.1_01
   @Test
   void registrazioneEmpty() throws ServletException, IOException {
 
@@ -68,6 +69,7 @@ class RegistrazioneServletTest {
     assertEquals("Registrazione fallita. Si prega di riprovare", request.getAttribute("message"));
   }
 
+  //TC_1.1_02
   @Test
   void registrazioneMatricolaVuota() throws ServletException, IOException {
     request.addParameter("action", "add");
@@ -85,7 +87,7 @@ class RegistrazioneServletTest {
 
 
 
-  //TC_1.1_01
+  //TC_1.1_03
   @Test
   void registrazioneTestFailedEmailEsistente() throws ServletException, IOException {
     request.addParameter("action", "add");
@@ -102,7 +104,7 @@ class RegistrazioneServletTest {
 
   }
 
-  //TC_1.1_02
+  //TC_1.1_04
   @Test
   void registrazioneTestFailedMatricolaEsistente() throws ServletException, IOException {
     request.addParameter("action", "add");
@@ -119,7 +121,7 @@ class RegistrazioneServletTest {
 
   }
 
-  //TC_1.1_03
+  //TC_1.1_05
   @Test
   void registrazioneTestSuccessfull() throws ServletException, IOException {
     request.addParameter("action", "add");
