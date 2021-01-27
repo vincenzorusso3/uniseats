@@ -165,5 +165,19 @@ class PrenotazioneDAOTest {
 
   }
 
+
+  @Test
+  void findByDataDipartimentoNullTest() throws SQLException, ParseException {
+
+    Date date = new Date();
+    ArrayList<String> parameter = null;
+
+    LinkedList<PrenotazioneBean> lista = (LinkedList<PrenotazioneBean>) PrenotazioneDAO
+        .doQuery(PrenotazioneDAO.findByDataDipartimento, parameter);
+
+    assertEquals(null, lista);
+
+  }
+
 }
 
