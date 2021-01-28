@@ -38,8 +38,8 @@ public class ManagePrenotazioneServlet extends HttpServlet {
    *
    * @param request  HttpServletRequest
    * @param response HttpServletResponse
-   * @throws ServletException
-   * @throws IOException
+   * @throws ServletException se si verifica una eccezione
+   * @throws IOException se si verifica una eccezione
    */
   public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
@@ -120,10 +120,10 @@ public class ManagePrenotazioneServlet extends HttpServlet {
    *
    * @param request  HttpServletRequest
    * @param response HttpSErvletResponse
-   * @throws ParseException
-   * @throws SQLException
-   * @throws ServletException
-   * @throws IOException
+   * @throws ParseException se si verifica una eccezione
+   * @throws SQLException se si verifica una eccezione
+   * @throws ServletException se si verifica una eccezione
+   * @throws IOException se si verifica una eccezione
    */
   private void eliminaPrenotazione(HttpServletRequest request, HttpServletResponse response)
       throws ParseException, SQLException, ServletException, IOException {
@@ -143,10 +143,10 @@ public class ManagePrenotazioneServlet extends HttpServlet {
    *
    * @param request  HttpServletRequest
    * @param response HttpSErvletResponse
-   * @throws ParseException
-   * @throws SQLException
-   * @throws ServletException
-   * @throws IOException
+   * @throws ParseException se si verifica una eccezione
+   * @throws SQLException se si verifica una eccezione
+   * @throws ServletException se si verifica una eccezione
+   * @throws IOException se si verifica una eccezione
    */
   private void modificaData(HttpServletRequest request, HttpServletResponse response)
       throws ParseException, SQLException, ServletException, IOException,
@@ -216,9 +216,9 @@ public class ManagePrenotazioneServlet extends HttpServlet {
    *
    * @param request  HttpServletRequest
    * @param response HttpServletResponse
-   * @throws SQLException
-   * @throws ServletException
-   * @throws IOException
+   * @throws SQLException se si verifica una eccezione
+   * @throws ServletException se si verifica una eccezione
+   * @throws IOException se si verifica una eccezione
    */
   private void modificaPrenotazione(HttpServletRequest request, HttpServletResponse response)
       throws SQLException, ServletException, IOException, ParseException,
@@ -278,7 +278,15 @@ public class ManagePrenotazioneServlet extends HttpServlet {
 
   }
 
-
+  /**
+   * Metodo per visualizzare le prenotazioni di uno studente
+   * @param request HttpServletRequest
+   * @param response HttpServletResponse
+   * @throws SQLException se si verifica una eccezione
+   * @throws ServletException se si verifica una eccezione
+   * @throws IOException se si verifica una eccezione
+   * @throws ParseException se si verifica una eccezione
+   */
   private void visualizzaPrenotazioni(HttpServletRequest request, HttpServletResponse response)
       throws SQLException, ServletException, IOException, ParseException {
 
@@ -299,8 +307,8 @@ public class ManagePrenotazioneServlet extends HttpServlet {
    *
    * @param request  HttpServletRequest
    * @param response HttpServletResponse
-   * @throws ServletException
-   * @throws IOException
+   * @throws ServletException se si verifica una eccezione
+   * @throws IOException se si verifica una eccezione
    */
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
@@ -326,8 +334,8 @@ public class ManagePrenotazioneServlet extends HttpServlet {
    * @param matricola la <b>matricola</b> dello studente
    * @param date      la <b>data di prenotazione</b> selezionata
    * @return <b>false</b> altrimenti
-   * @throws SQLException
-   * @throws ParseException
+   * @throws SQLException se si verifica una eccezione
+   * @throws ParseException se si verifica una eccezione
    */
   private boolean checkPrenotazioni(String matricola, String date)
       throws SQLException, ParseException {
@@ -374,7 +382,15 @@ public class ManagePrenotazioneServlet extends HttpServlet {
     }
   }
 
-
+  /**
+   * Metodo che restituisce una prenotazione singola
+   * @param request HttpServletRequest
+   * @param response HttpServletResponse
+   * @throws SQLException se si verifica una eccezione
+   * @throws ServletException se si verifica una eccezione
+   * @throws IOException se si verifica una eccezione
+   * @throws ParseException se si verifica una eccezione
+   */
   private void getSinglePren(HttpServletRequest request, HttpServletResponse response)
       throws SQLException, ServletException, IOException, ParseException {
 
@@ -395,7 +411,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
    *
    * @param request HttpServletRequest
    * @return lo <b>studente</b> loggato
-   * @throws SQLException
+   * @throws SQLException se si verifica una eccezione
    */
   private StudenteBean getUser(HttpServletRequest request) throws SQLException {
 

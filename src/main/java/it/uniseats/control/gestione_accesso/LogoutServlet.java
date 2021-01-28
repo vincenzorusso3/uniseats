@@ -18,7 +18,7 @@ public class LogoutServlet extends HttpServlet {
    *
    * @param request  HttpServletRequest
    * @param response HttpServletResponse
-   * @throws IOException
+   * @throws IOException se si verifica una eccezione
    */
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
@@ -31,7 +31,7 @@ public class LogoutServlet extends HttpServlet {
    *
    * @param request  HttpServletRequest
    * @param response HttpServletResponse
-   * @throws IOException
+   * @throws IOException se si verifica una eccezione
    */
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 

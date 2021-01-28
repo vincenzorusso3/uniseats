@@ -27,8 +27,8 @@ public class RegistrazioneServlet extends HttpServlet {
    *
    * @param request  HttpServletRequest
    * @param response HttpServletResponse
-   * @throws ServletException
-   * @throws IOException
+   * @throws ServletException se si verifica una eccezione
+   * @throws IOException se si verifica una eccezione
    */
   public void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
@@ -41,8 +41,8 @@ public class RegistrazioneServlet extends HttpServlet {
    *
    * @param request  HttpServletRequest
    * @param response HttpServletResponse
-   * @throws ServletException
-   * @throws IOException
+   * @throws ServletException se si verifica una eccezione
+   * @throws IOException se si verifica una eccezione
    */
   public void doGet(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
@@ -91,9 +91,9 @@ public class RegistrazioneServlet extends HttpServlet {
    *
    * @param request  HttpServletRequest
    * @param response HttpServletResponse
-   * @throws SQLException
-   * @throws ServletException
-   * @throws IOException
+   * @throws SQLException se si verifica una eccezione
+   * @throws ServletException se si verifica una eccezione
+   * @throws IOException se si verifica una eccezione
    */
   private void addUser(HttpServletRequest request, HttpServletResponse response)
           throws SQLException, ServletException, IOException {
@@ -156,9 +156,9 @@ public class RegistrazioneServlet extends HttpServlet {
    * Metodo per la lista dei dipartimenti
    * @param request  HttpServletRequest
    * @param response HttpServletResponse
-   * @throws SQLException
-   * @throws ServletException
-   * @throws IOException
+   * @throws SQLException se si verifica una eccezione
+   * @throws ServletException se si verifica una eccezione
+   * @throws IOException se si verifica una eccezione
    */
 
 

@@ -20,8 +20,8 @@ public class ProfiloUtenteServlet extends HttpServlet {
    *
    * @param request  HttpServletRequest
    * @param response HttpServletResponse
-   * @throws ServletException
-   * @throws IOException
+   * @throws ServletException se si verifica una eccezione
+   * @throws IOException se si verifica una eccezione
    */
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -70,6 +70,15 @@ public class ProfiloUtenteServlet extends HttpServlet {
     doPost(request, response);
   }
 
+  /**
+   * Metodo per aggiornare l'anno di corso di uno studente
+   * @param request HttpServletRequest
+   * @param response HttpServletResponse
+   * @param dispatcher Dispatcher
+   * @throws SQLException se si verifica una eccezione
+   * @throws ServletException se si verifica una eccezione
+   * @throws IOException se si verifica una eccezione
+   */
   private void updateAnno(HttpServletRequest request, HttpServletResponse response,
                           RequestDispatcher dispatcher)
       throws SQLException, ServletException, IOException {
@@ -99,6 +108,14 @@ public class ProfiloUtenteServlet extends HttpServlet {
   }
 
 
+  /**
+   * Metodo per eliminare il profilo di uno studente dal sistema UniSeats
+   * @param request HttpServletRequest
+   * @param response HttpServletResponse
+   * @throws ServletException se si verifica una eccezione
+   * @throws IOException se si verifica una eccezione
+   * @throws SQLException se si verifica una eccezione
+   */
   private void deleteProfile(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException, SQLException {
 
