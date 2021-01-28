@@ -132,8 +132,8 @@ public class RegistrazioneServlet extends HttpServlet {
       String dipartimento = request.getParameter("dipartimento");
 
       studenteBean =
-              new StudenteBean(nome, cognome, matricola, email, SHA512Utils.getSHA512(password), anno,
-                      dipartimento);
+              new StudenteBean(nome, cognome, matricola, email, SHA512Utils.getSHA512(password),
+                  anno, dipartimento);
 
       Integer success = (Integer) StudenteDAO.doQuery(StudenteDAO.doSave, studenteBean);
 
@@ -153,7 +153,8 @@ public class RegistrazioneServlet extends HttpServlet {
   }
 
   /**
-   * Metodo per la lista dei dipartimenti
+   * Metodo per la lista dei dipartimenti.
+   *
    * @param request  HttpServletRequest
    * @param response HttpServletResponse
    * @throws SQLException se si verifica una eccezione
@@ -166,10 +167,11 @@ public class RegistrazioneServlet extends HttpServlet {
           throws SQLException, ServletException, IOException {
 
 
-    ArrayList<String> dip= (ArrayList<String>) AulaDAO.doQuery(AulaDAO.getDipartimenti,"Temp");
+    ArrayList<String> dip = (ArrayList<String>) AulaDAO.doQuery(AulaDAO.getDipartimenti, "Temp");
 
-    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/view/profilo_utente/RegistrazioneView.jsp");
-    request.getSession().setAttribute("dipartimenti",dip);
+    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(
+        "/view/profilo_utente/RegistrazioneView.jsp");
+    request.getSession().setAttribute("dipartimenti", dip);
 
 
     dispatcher.forward(request, response);

@@ -9,10 +9,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- * Classe <code>StudenteDAO</code> che ci permette di effettuare operazioni sulla tabella studente del database
+ * Classe <code>StudenteDAO</code> che ci permette di effettuare
+ * operazioni sulla tabella studente del database
  * Le operazioni che è possibile effettuare sono le operazioni CRUD
- * E' possibile creare uno studente, leggere gli studenti presenti nel databse, cancellare uno studente e
- * modificare uno studente.
+ * E' possibile creare uno studente, leggere gli studenti presenti nel databse,
+ * cancellare uno studente e modificare uno studente.
  */
 public class StudenteDAO {
 
@@ -28,7 +29,7 @@ public class StudenteDAO {
       "[STUDENTEDAO] Errore: il DataSource non risulta essere configurato correttamente";
 
   /**
-   * Metodo per effettuare operazioni nel database
+   * Metodo per effettuare operazioni nel database.
    *
    * @param methodName nome della <b>operazione</b>
    * @param parameter  <b>parametro</b> passato alla operazione
@@ -59,8 +60,9 @@ public class StudenteDAO {
           return doRetriveAll(preparedStatement);
 
         case doSave:
-          querySQL = "INSERT INTO " + TABLE_NAME +
-              " (anno, cognome, dipartimento, email, matricola, nome, password ) VALUES (?,?,?,?,?,?,?)";
+          querySQL = "INSERT INTO " + TABLE_NAME
+              + " (anno, cognome, dipartimento, email, matricola, nome, password )"
+              + "VALUES (?,?,?,?,?,?,?)";
           preparedStatement = connection.prepareStatement(querySQL);
           return doSave(preparedStatement, (StudenteBean) parameter);
 
@@ -145,7 +147,7 @@ public class StudenteDAO {
   }
 
   /**
-   * Metodo per rendere persistente uno Studente nel database
+   * Metodo per rendere persistente uno Studente nel database.
    *
    * @param preparedStatement <b>doSave</b>, nome della operazione
    * @param studente lo <b>studente</b> che si vuole salvare sul database
@@ -199,7 +201,6 @@ public class StudenteDAO {
    * @return <b>1</b> se l'operazione ha successo, <b>0</b> se l'operazione non ha successo
    * @throws SQLException se si verifica una eccezione
    *
-   * @Post studenteBean.getAnno() + 1
    */
   private static synchronized int doUpdate(PreparedStatement preparedStatement,
                                            StudenteBean studenteBean) throws SQLException {

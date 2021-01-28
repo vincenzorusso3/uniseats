@@ -10,10 +10,8 @@ import it.uniseats.utils.DateUtils;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -171,15 +169,20 @@ public class ManagePrenotazioneServlet extends HttpServlet {
 
       //controllo che la data inserita sia diversa dalla data attuale della prenotazione
       if (DateUtils.parseDate(DateUtils.dateToString(prenotazioneBean.getData()))
-          .compareTo(dataPrenotazione) != 0 &&
-          checkPrenotazioni(prenotazioneBean.getMatricolaStudente(), dataTransformed)) {
+          .compareTo(dataPrenotazione) != 0
+          && checkPrenotazioni(prenotazioneBean.getMatricolaStudente(), dataTransformed)) {
 
 
-        //controllo che la modifica della prenotazione venga effettuata prima delle 07:00 del giorno della prenotazione o in un giorno antecedente la data per cui è prevista la prenotazione
+        //controllo che la modifica della prenotazione venga
+        // effettuata prima delle 07:00 del giorno
+        // della prenotazione o in un giorno antecedente
+        // la data per cui è prevista la prenotazione
         if (checkData(prenotazioneBean.getData())) {
 
 
-          //la modifica è possibile solo se la nuova data è oggi e il tipo di prenotazione sia singola o in generale se la nuova data è diversa dalla data corrente
+          //la modifica è possibile solo se la nuova data è oggi
+          // e il tipo di prenotazione sia singola o in generale
+          // se la nuova data è diversa dalla data corrente
           if ((dataPrenotazione.compareTo(today) == 0 && prenotazioneBean.isSingolo())
               || dataPrenotazione.compareTo(today) > 0) {
 
@@ -279,8 +282,9 @@ public class ManagePrenotazioneServlet extends HttpServlet {
   }
 
   /**
-   * Metodo per visualizzare le prenotazioni di uno studente
-   * @param request HttpServletRequest
+   * Metodo per visualizzare le prenotazioni di uno studente.
+   *
+   *  @param request HttpServletRequest
    * @param response HttpServletResponse
    * @throws SQLException se si verifica una eccezione
    * @throws ServletException se si verifica una eccezione
@@ -383,8 +387,9 @@ public class ManagePrenotazioneServlet extends HttpServlet {
   }
 
   /**
-   * Metodo che restituisce una prenotazione singola
-   * @param request HttpServletRequest
+   * Metodo che restituisce una prenotazione singola.
+   *
+   *  @param request HttpServletRequest
    * @param response HttpServletResponse
    * @throws SQLException se si verifica una eccezione
    * @throws ServletException se si verifica una eccezione
@@ -407,7 +412,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
   }
 
   /**
-   * Restituisce lo studente loggato
+   * Restituisce lo studente loggato.
    *
    * @param request HttpServletRequest
    * @return lo <b>studente</b> loggato

@@ -72,29 +72,34 @@ public class StudenteBean {
     return matricola;
   }
 
-  /**
+  /** Metodo di accesso.
+   *
    * @return l' <b>email</b> dello studente
    */
   public String getEmail() {
     return email;
   }
 
-  /**
+  /** Metodo di accesso.
+   *
    * @return la <b>password</b> dello studente
    */
   public String getPassword() {
     return password;
   }
 
-  /**
+  /** Metodo di accesso.
+   *
    * @return l'<b>anno</b> di corso dello studente
    */
   public int getAnno() {
     return anno;
   }
 
-  /**
-   * @return il <b>dipartimento</b> di appartenenza dello studente
+  /** Metodo di accesso.
+   *
+   *@return il <b>dipartimento</b> di appartenenza dello studente
+   *
    */
   public String getDipartimento() {
     return dipartimento;

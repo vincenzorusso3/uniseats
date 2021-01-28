@@ -11,7 +11,8 @@ import java.util.ArrayList;
 
 
 /**
- * Classe <code>PostoDAO</code> che ci permette di effettuare operazioni sulla tabella posti del database
+ * Classe <code>PostoDAO</code> che ci permette di
+ * effettuare operazioni sulla tabella posti del database
  * E' possibile leggere i posti presenti nel databse.
  */
 public class PostoDAO {
@@ -25,7 +26,7 @@ public class PostoDAO {
       "[POSTODAO] Errore: il DataSource non risulta essere configurato correttamente";
 
   /**
-   * Metodo per effettuare le operazioni nel database
+   * Metodo per effettuare le operazioni nel database.
    *
    * @param methodName nome della <b>operazione</b>
    * @param parameter  <b>parametro</b> passato alla operazione

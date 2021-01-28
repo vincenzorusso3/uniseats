@@ -41,7 +41,7 @@ public class LoginServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
     String action = request.getParameter("action");
-    String from=request.getParameter("from");
+    String from = request.getParameter("from");
 
 
     if (action != null) {
@@ -56,7 +56,8 @@ public class LoginServlet extends HttpServlet {
 
         try {
 
-          StudenteBean bean = (StudenteBean) StudenteDAO.doQuery(StudenteDAO.doRetrieveByEmail, email);
+          StudenteBean bean = (StudenteBean) StudenteDAO.doQuery(
+              StudenteDAO.doRetrieveByEmail, email);
 
           if (bean.getMatricola() != null && bean.getPassword().equals(encrypted)) {
 
@@ -71,7 +72,7 @@ public class LoginServlet extends HttpServlet {
             //redirect to LandindPage
             redirectedPage = "/view/LandingPageView.jsp";
 
-            if (from.equals("inizia")){
+            if (from.equals("inizia")) {
 
               //redirect to NuovaPrenotazione
               redirectedPage = "/view/prenotazione/NuovaPrenotazioneView.jsp";

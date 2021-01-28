@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * Un oggetto DateUtils serve per convertire una data in vari formati
+ * Un oggetto DateUtils serve per convertire una data in vari formati.
  */
 
 public class DateUtils {
@@ -14,10 +14,11 @@ public class DateUtils {
   private static final DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
 
   /**
-   * Metodo per trasfomare una stringa in Date
+   * Metodo per trasfomare una stringa in Date.
+   *
    * @param date una <b>data</b> in formato stringa
    * @return <b>data</b>trasformata
-   * @throws ParseException
+   * @throws ParseException se si verifica una eccezione
    */
   public static Date parseDate(String date) throws ParseException {
     date = date.replace("-", "/");
@@ -34,7 +35,9 @@ public class DateUtils {
   }
 
   /**
-   * Metodo per trasformare una stringa (data con formato inglese) in stringa (data con formato italiano)
+   * Metodo per trasformare una stringa (data con formato inglese).
+   * in stringa (data con formato italiano)
+   *
    * @param s <b>stringa</b> da convertire
    * @return <b>stringa</b> convertita
    */

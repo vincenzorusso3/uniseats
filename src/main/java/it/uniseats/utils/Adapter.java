@@ -14,7 +14,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 
-
+/**
+ * Classe che connette il sistema Uniseats con il modulo di intelligenza artificiale Jarvis
+ */
 public class Adapter {
 
   public static void todaySchedule() throws SQLException, ParseException,
@@ -32,7 +34,8 @@ public class Adapter {
         parameter.add(dipartimento);
 
         LinkedList<PrenotazioneBean> prenotazioniList =
-            (LinkedList<PrenotazioneBean>) PrenotazioneDAO.doQuery(PrenotazioneDAO.findByDataDipartimento, parameter);
+            (LinkedList<PrenotazioneBean>) PrenotazioneDAO.doQuery(
+                PrenotazioneDAO.findByDataDipartimento, parameter);
 
         if (prenotazioniList != null) {
 

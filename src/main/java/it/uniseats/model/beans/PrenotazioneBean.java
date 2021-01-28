@@ -3,7 +3,8 @@ package it.uniseats.model.beans;
 import java.util.Date;
 
 /**
- * La classe <code>PrenotazioneBean</code> rappresenta le prenotazioni realizzate dagli studenti nel sistema Uniseats
+ * La classe <code>PrenotazioneBean</code> rappresenta le prenotazioni realizzate
+ * dagli studenti nel sistema Uniseats
  * Un oggetto <code>PrenotazioneBean</code> rappresenta la prenotazione di un posto.
  * Ogni prenotazione ha un codice identificativo, una data.
  * Singolo rappresenta il tipo di prenotazione (true = gruppo, false = singolo).
@@ -48,42 +49,50 @@ public class PrenotazioneBean {
     this.matricolaStudente = matricolaStudente;
   }
 
-  /**
-   * @return il <b>codice</b> della prenotazione
+   /** Metodo di accesso
+    *
+    * @return il <b>codice</b> della prenotazione
    */
   public String getCodice() {
     return codice;
   }
 
-  /**
+  /** Metodo di accesso.
+   *
+   *
    * @return la <b>data</b> della prenotazione
    */
   public Date getData() {
     return data;
   }
 
-  /**
+  /**Metodo di accesso.
+   *
+   *
    * @return true se la <b>prenotazione</b> è in gruppo, false se la prenotazione è singola
    */
   public boolean isSingolo() {
     return singolo;
   }
 
-  /**
+  /**Metodo di accesso.
+   *
    * @return il <b>codice</b> del posto prenotato
    */
   public String getCodicePosto() {
     return codicePosto;
   }
 
-  /**
+  /** Metodo di accesso.
+   *
    * @return l'<b>aula</b> per cui si effettua la prenotazione
    */
   public String getCodiceAula() {
     return codiceAula;
   }
 
-  /**
+  /**Metodo di accesso.
+   *
    * @return la <b>matricola</b> dello studente che effettua la prenotazione
    */
   public String getMatricolaStudente() {

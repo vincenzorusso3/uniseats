@@ -5,7 +5,6 @@ import it.uniseats.model.beans.PrenotazioneBean;
 import it.uniseats.utils.DateUtils;
 import it.uniseats.utils.DriverManagerConnectionPool;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,10 +14,11 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 /**
- * Classe <code>PrenotazioneDAO</code> che ci permette di effettuare operazioni sulla tabella prenotazioni del database
+ * Classe <code>PrenotazioneDAO</code> che ci permette di
+ * effettuare operazioni sulla tabella prenotazioni del database
  * Le operazioni che è possibile effettuare sono le operazioni CRUD
- * E' possibile creare una prenotazione, leggere le prenotazioni presenti nel databse, cancellare una prenotazione e
- * modificare una prenotazione.
+ * E' possibile creare una prenotazione, leggere le prenotazioni presenti nel databse,
+ * cancellare una prenotazione e modificare una prenotazione.
  */
 public class PrenotazioneDAO {
 
@@ -77,13 +77,14 @@ public class PrenotazioneDAO {
         case doSave:
           querySQL = "INSERT INTO " + TABLE_NAME
               +
-              " (codice, dataPrenotazione, tipologia, codicePosto, codiceAula, matricolaStudente) VALUES (?,?,?,?,?,?)";
+              " (codice, dataPrenotazione, tipologia, codicePosto,"
+              + "codiceAula, matricolaStudente) VALUES (?,?,?,?,?,?)";
           preparedStatement = connection.prepareStatement(querySQL);
           return doSave(preparedStatement, (PrenotazioneBean) parameter);
 
         case doUpdateData:
-          querySQL = "UPDATE " + TABLE_NAME +
-              " SET dataPrenotazione=?, codiceAula='00', codicePosto='00'  WHERE codice=?";
+          querySQL = "UPDATE " + TABLE_NAME
+              + " SET dataPrenotazione=?, codiceAula='00', codicePosto='00'  WHERE codice=?";
           preparedStatement = connection.prepareStatement(querySQL);
           return doUpdateData(preparedStatement, (PrenotazioneBean) parameter);
 
@@ -157,7 +158,8 @@ public class PrenotazioneDAO {
   }
 
   /**
-   * Metodo per la ricerca di prenotazioni da parte di studenti di uno stesso dipartimento in una stessa data
+   * Metodo per la ricerca di prenotazioni da parte di studenti
+   * di uno stesso dipartimento in una stessa data.
    *
    * @param preparedStatement <b>findByDataDipartimento</b>, nome della operazione
    * @param parameter <b>Arraylist contenente data e dipartimento</b>
@@ -280,7 +282,7 @@ public class PrenotazioneDAO {
   }
 
   /**
-   * Metodo per il salvataggio di una prenotazione nel database
+   * Metodo per il salvataggio di una prenotazione nel database.
    *
    * @param preparedStatement <b>doSave</b>, nome della operazione
    * @param prenotazioneBean  <b>prenotazione</b> da salvare
@@ -305,7 +307,7 @@ public class PrenotazioneDAO {
   }
 
   /**
-   * Metodo per modificare la data di una prenotazione
+   * Metodo per modificare la data di una prenotazione.
    *
    * @param preparedStatement <b>doUpdateData</b>, nome della operazione
    * @param prenotazioneBean  <b>prenotazione</b> da modificare

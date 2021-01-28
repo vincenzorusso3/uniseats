@@ -49,14 +49,17 @@ public class PrenotazioneServlet extends HttpServlet {
     doPost(request, response);
   }
 
-  @Override
+
   /**
-   * Metodo per effettuare richieste doPost
-   * @param request HttpServletRequest
+   * Metodo per effettuare richieste doPost.
+   *
+   *
+   *  @param request HttpServletRequest
    * @param response HttpServletResponse
    * @throws ServletException se si verifica una eccezione
    * @throws IOException se si verifica una eccezione
    */
+  @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
@@ -145,7 +148,8 @@ public class PrenotazioneServlet extends HttpServlet {
                   "00", matricola);
           Integer result = (Integer) PrenotazioneDAO.doQuery(PrenotazioneDAO.doSave, prenotazione);
 
-          //se la prenotazione è stata salvata nel database con successo, viene inoltrata al modulo IA oper l'assegnazione del posto a sedere.
+          //se la prenotazione è stata salvata nel database con successo,
+          // viene inoltrata al modulo IA oper l'assegnazione del posto a sedere.
           if (result != null && result > 0) {
 
 
@@ -175,7 +179,7 @@ public class PrenotazioneServlet extends HttpServlet {
   }
 
   /**
-   * Controllo che la data inserita per la prenotazione sia valida
+   * Controllo che la data inserita per la prenotazione sia valida.
    *
    * @param date la <b>data</b> selezionata per la prenotazione
    * @param isPrenotazioneSingola la <b>tipologia</b> di prenotazione
@@ -203,7 +207,7 @@ public class PrenotazioneServlet extends HttpServlet {
   }
 
   /**
-   * Restituisce lo studente loggato
+   * Restituisce lo studente loggato.
    *
    * @param request HttpServletRequest
    * @return lo <b>studente</b> loggato
@@ -251,7 +255,8 @@ public class PrenotazioneServlet extends HttpServlet {
   /**
    * Controllo la disponibilità di posti a sedere nelle aule.
    *
-   * @param dipartimento il dipartimento per la quale si effettua il controllo delle aule ( corrisponde al dipartimento dello studente)
+   * @param dipartimento il dipartimento per la quale si effettua il controllo delle aule
+   *                     ( corrisponde al dipartimento dello studente)
    * @return <b>false</b> altrimenti
    * @throws SQLException se si verifica una eccezione
    */

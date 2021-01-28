@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Un oggetto DriverManagerConnectionPool viene utilizzato per la creazione di una connessione
+ * Un oggetto DriverManagerConnectionPool viene utilizzato per la creazione di una connessione.
  */
 
 public class DriverManagerConnectionPool {
@@ -25,9 +25,10 @@ public class DriverManagerConnectionPool {
   }
 
   /**
-   * Metodo per creare la connessione
+   * Metodo per creare la connessione.
+   *
    * @return una <b>connection</b>
-   * @throws SQLException
+   * @throws SQLException se si verifica una eccezione
    */
   private static synchronized Connection createDBConnection() throws SQLException {
     Connection newConnection;
@@ -46,9 +47,10 @@ public class DriverManagerConnectionPool {
   }
 
   /**
-   * Metodo per fare il get di una Connection
+   * Metodo per fare il get di una Connection.
+   *
    * @return una <b>connection</b>
-   * @throws SQLException
+   * @throws SQLException se si verifica una eccezione
    */
   public static synchronized Connection getConnection() throws SQLException {
     Connection connection;
@@ -73,7 +75,8 @@ public class DriverManagerConnectionPool {
   }
 
   /**
-   * Metodo per aggiungere una connessione alla lista di connessioni
+   * Metodo per aggiungere una connessione alla lista di connessioni.
+   *
    * @param connection una <b>connessione</b>
    */
   public static synchronized void releaseConnection(Connection connection) {

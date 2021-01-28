@@ -12,6 +12,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Servlet per gestire il profilo dello studente.
+ */
+
 @WebServlet(name = "ProfiloUtenteServlet")
 public class ProfiloUtenteServlet extends HttpServlet {
 
@@ -71,7 +75,8 @@ public class ProfiloUtenteServlet extends HttpServlet {
   }
 
   /**
-   * Metodo per aggiornare l'anno di corso di uno studente
+   * Metodo per aggiornare l'anno di corso di uno studente.
+   *
    * @param request HttpServletRequest
    * @param response HttpServletResponse
    * @param dispatcher Dispatcher
@@ -96,7 +101,7 @@ public class ProfiloUtenteServlet extends HttpServlet {
       StudenteDAO.doQuery("doUpdate", studMod);
       request.getSession().setAttribute("anno", studMod.getAnno());
 
-    } else{
+    } else {
 
       String message = "Si è verificato un errore";
       request.setAttribute("errore", message);
@@ -109,7 +114,8 @@ public class ProfiloUtenteServlet extends HttpServlet {
 
 
   /**
-   * Metodo per eliminare il profilo di uno studente dal sistema UniSeats
+   * Metodo per eliminare il profilo di uno studente dal sistema UniSeats.
+   *
    * @param request HttpServletRequest
    * @param response HttpServletResponse
    * @throws ServletException se si verifica una eccezione
