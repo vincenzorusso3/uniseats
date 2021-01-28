@@ -1,6 +1,7 @@
 package dao;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import it.uniseats.model.beans.PostoBean;
@@ -10,6 +11,12 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 class PostoDAOTest {
+
+  @Test
+  void fail() throws SQLException {
+    PostoBean bean = (PostoBean) PostoDAO.doQuery("metodochenonesiste", null);
+    assertNull(bean);
+  }
 
   @Test
   void doRetrieveByCodeTest() throws SQLException {
@@ -27,10 +34,10 @@ class PostoDAOTest {
 
   @Test
   void doRetrieveByAulaCodeTest() throws SQLException {
-    ArrayList<PostoBean> beans = (ArrayList<PostoBean>) PostoDAO.doQuery(PostoDAO.doRetrieveByAulaCode, "A1");
+    ArrayList<PostoBean> beans =
+        (ArrayList<PostoBean>) PostoDAO.doQuery(PostoDAO.doRetrieveByAulaCode, "A1");
     assertNotNull(beans);
   }
-
 
 
 }
