@@ -9,7 +9,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- * Classe DAO che ci permette di effettuare operazioni sullo StudenteBean.
+ * Classe <code>StudenteDAO</code> che ci permette di effettuare operazioni sulla tabella studente del database
+ * Le operazioni che è possibile effettuare sono le operazioni CRUD
+ * E' possibile creare uno studente, leggere gli studenti presenti nel databse, cancellare uno studente e
+ * modificare uno studente.
  */
 public class StudenteDAO {
 
@@ -25,12 +28,12 @@ public class StudenteDAO {
       "[STUDENTEDAO] Errore: il DataSource non risulta essere configurato correttamente";
 
   /**
-   * Metodo per effettuare query.
+   * Metodo per effettuare operazioni nel database
    *
-   * @param methodName nome della <b>query</b>
-   * @param parameter  <b>parametro</b> passato alla query
+   * @param methodName nome della <b>operazione</b>
+   * @param parameter  <b>parametro</b> passato alla operazione
    * @return un <b>object</b>
-   * @throws SQLException
+   * @throws SQLException se si verifica una eccezione
    */
   public static synchronized Object doQuery(String methodName, Object parameter)
       throws SQLException {
@@ -95,12 +98,13 @@ public class StudenteDAO {
 
 
   /**
-   * Query che effettua una ricerca per matricola di uno Studente.
+   * Metodo che effettua una ricerca per matricola di uno Studente.
    *
    * @param preparedStatement <b>query SQL</b>
-   * @param matricola         <b>matricola</b> dello studente che si intende cercare
+   * @param matricola <b>chiave primaria</b> dello studente nel database
    * @return lo studente associato alla matricola
-   * @throws SQLException
+   * @throws SQLException se si verifica una eccezione
+   *
    */
   private static synchronized StudenteBean doRetrieveByMatricola(
       PreparedStatement preparedStatement, String matricola) throws SQLException {
@@ -118,11 +122,12 @@ public class StudenteDAO {
   }
 
   /**
-   * Query che effettua una ricerca di tutti gli studenti presenti nel database.
+   * Metodo che effettua una ricerca di tutti gli studenti presenti nel database.
    *
-   * @param preparedStatement <b>query SQL</b>
+   * @param preparedStatement <b>doRetrieveAll</b>, nome della operazione
    * @return una lista di Studenti
-   * @throws SQLException
+   * @throws SQLException se si verifica una eccezione
+   *
    */
   private static synchronized ArrayList<StudenteBean> doRetriveAll(
       PreparedStatement preparedStatement) throws SQLException {
@@ -140,12 +145,13 @@ public class StudenteDAO {
   }
 
   /**
-   * Query per rendere persistente uno Studente.
+   * Metodo per rendere persistente uno Studente nel database
    *
-   * @param preparedStatement <b>query SQL</b>
-   * @param studente          lo <b>studente</b> che si vuole salvare sul database
+   * @param preparedStatement <b>doSave</b>, nome della operazione
+   * @param studente lo <b>studente</b> che si vuole salvare sul database
    * @return <b>1</b> se l'operazione ha successo, <b>0</b> se l'operazione non ha successo
-   * @throws SQLException
+   * @throws SQLException se si verifica una eccezione
+   *
    */
   private static synchronized int doSave(PreparedStatement preparedStatement, StudenteBean studente)
       throws SQLException {
@@ -163,12 +169,12 @@ public class StudenteDAO {
   }
 
   /**
-   * Query che effettua una ricerca per email di uno Studente.
+   * Metodo che effettua una ricerca per email di uno Studente.
    *
-   * @param preparedStatement <b>query SQL</b>
-   * @param email             <b>email</b> dello studente che si intende cercare
+   * @param preparedStatement <b>doRetrieveByEmail</b>, nome della operazione
+   * @param email <b>email</b> dello studente che si intende cercare
    * @return lo studente associato alla email
-   * @throws SQLException
+   * @throws SQLException se si verifica una eccezione
    */
   private static synchronized StudenteBean doRetrieveByEmail(PreparedStatement preparedStatement,
                                                              String email) throws SQLException {
@@ -186,12 +192,14 @@ public class StudenteDAO {
   }
 
   /**
-   * Query per modificare uno Studente.
+   * Metodo per modificare l'anno di corso di uno Studente.
    *
-   * @param preparedStatement <b>query SQL</b>
-   * @param studenteBean      lo <b>studente</b> che si vuole modificare
+   * @param preparedStatement <b>doUpdate</b>, nome della operazione
+   * @param studenteBean lo <b>studente</b> che si vuole modificare
    * @return <b>1</b> se l'operazione ha successo, <b>0</b> se l'operazione non ha successo
-   * @throws SQLException
+   * @throws SQLException se si verifica una eccezione
+   *
+   * @Post studenteBean.getAnno() + 1
    */
   private static synchronized int doUpdate(PreparedStatement preparedStatement,
                                            StudenteBean studenteBean) throws SQLException {
@@ -205,12 +213,12 @@ public class StudenteDAO {
   }
 
   /**
-   * Query per eliminare uno Studente dal database.
+   * Metodo per eliminare uno Studente dal database.
    *
-   * @param preparedStatement <b>query SQL</b>
-   * @param matricola         la <b>matricola</b>  dello studente che si vuole eliminare dal database
+   * @param preparedStatement <b>doDelete</b>, nome della operazione
+   * @param matricola la <b>chiave primaria</b>  dello studente che si vuole eliminare dal database
    * @return <b>1</b> se l'operazione ha successo, <b>0</b> se l'operazione non ha successo
-   * @throws SQLException
+   * @throws SQLException se si verifica una eccezione
    */
   private static synchronized boolean doDelete(PreparedStatement preparedStatement,
                                                String matricola) throws SQLException {
@@ -225,8 +233,8 @@ public class StudenteDAO {
    * Metodo per ottenere le informazioni su uno Studente.
    *
    * @param rs ResultSet
-   * @return uno studente bean
-   * @throws SQLException
+   * @return uno studenteBean
+   * @throws SQLException se si verifica una eccezione
    */
   private static StudenteBean getStudentInfo(ResultSet rs) throws SQLException {
 

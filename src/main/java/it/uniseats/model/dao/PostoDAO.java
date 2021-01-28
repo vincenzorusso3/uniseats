@@ -11,7 +11,8 @@ import java.util.ArrayList;
 
 
 /**
- * Classe DAO che ci permette di effettuare operazioni sul PostoBean.
+ * Classe <code>PostoDAO</code> che ci permette di effettuare operazioni sulla tabella posti del database
+ * E' possibile leggere i posti presenti nel databse.
  */
 public class PostoDAO {
 
@@ -24,12 +25,12 @@ public class PostoDAO {
       "[POSTODAO] Errore: il DataSource non risulta essere configurato correttamente";
 
   /**
-   * Metodo per effettuare query.
+   * Metodo per effettuare le operazioni nel database
    *
-   * @param methodName nome della <b>query</b>
-   * @param parameter  <b>parametro</b> passato alla query
+   * @param methodName nome della <b>operazione</b>
+   * @param parameter  <b>parametro</b> passato alla operazione
    * @return un <b>object</b>
-   * @throws SQLException
+   * @throws SQLException se si verifica una eccezione
    */
   public static synchronized Object doQuery(String methodName, Object parameter)
       throws SQLException {
@@ -79,10 +80,10 @@ public class PostoDAO {
   /**
    * Metodo per la ricerca dei posti di un aula
    *
-   * @param preparedStatement <b>query SQL</b>
-   * @param parameter         <d>codice aula</d>
+   * @param preparedStatement <b>doRetrieveByAulaCode</b>, nome della operazione
+   * @param parameter <d>codice</d> dell'aula che contiene il posto
    * @return un object
-   * @throws SQLException
+   * @throws SQLException se si verifica una eccezione
    */
   private static Object doRetrieveByAulaCode(PreparedStatement preparedStatement, String parameter)
       throws SQLException {
@@ -102,12 +103,12 @@ public class PostoDAO {
 
 
   /**
-   * Query che effettua una ricerca per codice di un Posto.
+   * Metodo che effettua una ricerca per codice di un Posto.
    *
-   * @param preparedStatement <b>query SQL</b>
-   * @param codice            il <b>codice</b> delposto  che si intende cercare
+   * @param preparedStatement <b>doRetrieveByCode</b>, nome della operazione
+   * @param codice <b>chiave primaria</b> del posto nel database che si intende cercare
    * @return il posto associato al codice
-   * @throws SQLException
+   * @throws SQLException se si verifica una eccezione
    */
   private static synchronized PostoBean doRetrieveByCode(PreparedStatement preparedStatement,
                                                          String codice) throws SQLException {
@@ -125,11 +126,11 @@ public class PostoDAO {
   }
 
   /**
-   * Query che effettua una ricerca di tutti i posti presenti nel database.
+   * Metodo che effettua una ricerca di tutti i posti presenti nel database.
    *
-   * @param preparedStatement <b>query SQL</b>
+   * @param preparedStatement <b>doRetrieveAll</b>, nome della operazione
    * @return una lista di Posti
-   * @throws SQLException
+   * @throws SQLException se si verifica una eccezione
    */
   private static synchronized ArrayList<PostoBean> doRetriveAll(PreparedStatement preparedStatement)
       throws SQLException {
@@ -151,7 +152,7 @@ public class PostoDAO {
    *
    * @param rs ResultSet
    * @return un postoBean
-   * @throws SQLException
+   * @throws SQLException se si verifica una eccezione
    */
   private static PostoBean getPostoInfo(ResultSet rs) throws SQLException {
 

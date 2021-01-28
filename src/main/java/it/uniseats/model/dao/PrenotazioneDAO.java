@@ -15,7 +15,10 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 /**
- * Classe <code>PrenotazioneDAO</code> che ci permette di effettuare operazioni su PrenotazioneBean.
+ * Classe <code>PrenotazioneDAO</code> che ci permette di effettuare operazioni sulla tabella prenotazioni del database
+ * Le operazioni che è possibile effettuare sono le operazioni CRUD
+ * E' possibile creare una prenotazione, leggere le prenotazioni presenti nel databse, cancellare una prenotazione e
+ * modificare una prenotazione.
  */
 public class PrenotazioneDAO {
 
@@ -36,12 +39,12 @@ public class PrenotazioneDAO {
       "[PRENOTAZIONEDAO] Errore: il DataSource non risulta essere configurato correttamente";
 
   /**
-   * Metodo per effettuare le query.
+   * Metodo per effettuare le operazioni CRUD.
    *
-   * @param methodName nome della <b>query</b>
-   * @param parameter  <b>parametro</b> passato alla query
+   * @param methodName nome delLa <b>operazione</b>
+   * @param parameter  <b>parametro</b> passato alla operazione
    * @return un <b>object</b>
-   * @throws SQLException
+   * @throws SQLException se si verifica una eccezione
    */
   public static synchronized Object doQuery(String methodName, Object parameter)
       throws SQLException, ParseException {
@@ -128,12 +131,13 @@ public class PrenotazioneDAO {
   }
 
   /**
-   * Metodo per assegnare ad una prenotazione il codice aula e il codice posto.
+   * Metodo per modificare una prenotazione
+   * assegnando ad una prenotazione il codice aula e il codice posto.
    *
-   * @param preparedStatement <b>query SQL</b>
-   * @param parameter         prenotazione
-   * @return object
-   * @throws SQLException
+   * @param preparedStatement <b>doUpdateAulaPosto</b>, che è il nome della operazione
+   * @param parameter <b>oggetto Prenotazione</b> che deve essere modificato.
+   * @return object la prenotazione aggiornata
+   * @throws SQLException se si verifica una eccezione
    */
   private static synchronized Object doUpdateAulaPosto(PreparedStatement preparedStatement,
                                                        PrenotazioneBean parameter)
@@ -155,11 +159,13 @@ public class PrenotazioneDAO {
   /**
    * Metodo per la ricerca di prenotazioni da parte di studenti di uno stesso dipartimento in una stessa data
    *
-   * @param preparedStatement <b>query SQL</b>
-   * @param parameter         <b>Arraylist contenente data e dipartimento</b>
+   * @param preparedStatement <b>findByDataDipartimento</b>, nome della operazione
+   * @param parameter <b>Arraylist contenente data e dipartimento</b>
    * @return una collezione di prenotazioni
-   * @throws ParseException
-   * @throws SQLException
+   * @throws ParseException se si verifica una eccezione
+   * @throws SQLException se si verifica una eccezione
+   *
+   *
    */
 
   private static synchronized Collection<PrenotazioneBean> findByDataDipartimento(
@@ -194,12 +200,13 @@ public class PrenotazioneDAO {
   }
 
   /**
-   * Metodo per effettuare una ricerca per matricola.
+   * Metodo per effettuare una ricerca di prenotazioni data la matricola di uno studente.
    *
-   * @param preparedStatement <b>query SQL</b>
-   * @param matricola         <b>matricola</b> dello studente per cercare le prenotazioni ad esso associate
-   * @return tutte le <b>prenotazioni</b> di un dato studente
-   * @throws SQLException
+   * @param preparedStatement <b>doFindPrenotazioni</b>, nome della operazione
+   * @param matricola   <b>matricola</b> dello studente
+   * @return  <b>lista delle prenotazioni</b> di un dato studente
+   * @throws SQLException se si verifica una eccezione
+   *
    */
   private static synchronized ArrayList<PrenotazioneBean> doFindPrenotazioni(
       PreparedStatement preparedStatement, String matricola) throws SQLException {
@@ -229,10 +236,10 @@ public class PrenotazioneDAO {
   /**
    * Metodo per cercare una prenotazione per codice.
    *
-   * @param preparedStatement <b>query SQL</b>
-   * @param codice            <b>codice</b> della rpenotazione che si vuole cercare
+   * @param preparedStatement <b>doRetrieveByCode</b>, nome della operazione
+   * @param codice  <b>chiave primaria</b> della prenotazione da ricercare
    * @return <b>prenotazione</b> con un dato codice
-   * @throws SQLException
+   * @throws SQLException se si verifica un'eccezione
    */
   private static synchronized PrenotazioneBean doRetrieveByCode(PreparedStatement preparedStatement,
                                                                 String codice) throws SQLException {
@@ -252,9 +259,9 @@ public class PrenotazioneDAO {
   /**
    * Metodo per cercare tutte le prenotazioni.
    *
-   * @param preparedStatement <b>query SQL</b>
-   * @return lista di <b>prenotazioni</b>
-   * @throws SQLException
+   * @param preparedStatement <b>doRetrieveAll</b>, nome della operazione
+   * @return lista di tutte le <b>prenotazioni</b> presenti nel database
+   * @throws SQLException se si verifica una eccezione
    */
   private static synchronized ArrayList<PrenotazioneBean> doRetrieveAll(
       PreparedStatement preparedStatement) throws SQLException {
@@ -273,12 +280,12 @@ public class PrenotazioneDAO {
   }
 
   /**
-   * Metodo per il salvataggio di una prenotazione.
+   * Metodo per il salvataggio di una prenotazione nel database
    *
-   * @param preparedStatement <b>query SQL</b>
+   * @param preparedStatement <b>doSave</b>, nome della operazione
    * @param prenotazioneBean  <b>prenotazione</b> da salvare
    * @return <b>1</b> = successo, <b>0</b>=fallimento
-   * @throws SQLException
+   * @throws SQLException se si verifica una eccezione
    */
   private static synchronized int doSave(PreparedStatement preparedStatement,
                                          PrenotazioneBean prenotazioneBean) throws SQLException {
@@ -298,12 +305,12 @@ public class PrenotazioneDAO {
   }
 
   /**
-   * Metodo per modificare data.
+   * Metodo per modificare la data di una prenotazione
    *
-   * @param preparedStatement <b>Query SQL</b>
+   * @param preparedStatement <b>doUpdateData</b>, nome della operazione
    * @param prenotazioneBean  <b>prenotazione</b> da modificare
    * @return <b>1</b> = successo, <b>0</b>=fallimento
-   * @throws SQLException
+   * @throws SQLException se si verifica una eccezione
    */
 
   private static synchronized int doUpdateData(PreparedStatement preparedStatement,
@@ -323,10 +330,10 @@ public class PrenotazioneDAO {
   /**
    * Metodo per modificare tipo di una prenotazione.
    *
-   * @param preparedStatement <b>query SQL</b>
+   * @param preparedStatement <b>doUpdateTipo</b>, nome della operazione
    * @param prenotazioneBean  <b>prenotazione</b> da modificare
    * @return <b>1</b> = successo, <b>0</b>=fallimento
-   * @throws SQLException
+   * @throws SQLException se si verifica una eccezione
    */
   private static synchronized int doUpdateTipo(PreparedStatement preparedStatement,
                                                PrenotazioneBean prenotazioneBean)
@@ -343,10 +350,10 @@ public class PrenotazioneDAO {
   /**
    * Metodo per eliminare una prenotazionoe.
    *
-   * @param preparedStatement <b>query SQL</b>
-   * @param codice            <b>codice</b> che indica la prenotazione da eliminare
+   * @param preparedStatement <b>doDelete</b>, nome della operazione
+   * @param codice <b>chiave primaria</b> dellaa prenotazione da eliminare
    * @return <b>true</b>= successo, <b>false</b>=fallimento
-   * @throws SQLException
+   * @throws SQLException se si verifica una eccezione
    */
   private static synchronized boolean doDelete(PreparedStatement preparedStatement, String codice)
       throws SQLException {
@@ -362,7 +369,7 @@ public class PrenotazioneDAO {
    *
    * @param rs <b>Result set</b>
    * @return <b>prenotazione</b>
-   * @throws SQLException
+   * @throws SQLException se si verifica una eccezione
    */
   private static PrenotazioneBean getPrenotazioneInfo(ResultSet rs) throws SQLException {
 
