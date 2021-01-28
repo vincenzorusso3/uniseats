@@ -3,6 +3,7 @@ package it.uniseats.model.beans;
 import java.util.Date;
 
 /**
+ * La classe <code>PrenotazioneBean</code> rappresenta le prenotazioni realizzate dagli studenti nel sistema Uniseats
  * Un oggetto <code>PrenotazioneBean</code> rappresenta la prenotazione di un posto.
  * Ogni prenotazione ha un codice identificativo, una data.
  * Singolo rappresenta il tipo di prenotazione (true = gruppo, false = singolo).
