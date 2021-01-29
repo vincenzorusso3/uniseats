@@ -2,7 +2,7 @@ package it.uniseats.control.gestione_utente;
 
 
 import it.uniseats.model.beans.StudenteBean;
-import it.uniseats.model.dao.StudenteDAO;
+import it.uniseats.model.dao.StudenteDao;
 import java.io.IOException;
 import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
@@ -88,8 +88,8 @@ public class ProfiloUtenteServlet extends HttpServlet {
                           RequestDispatcher dispatcher)
       throws SQLException, ServletException, IOException {
 
-    StudenteBean studMod = (StudenteBean) StudenteDAO
-        .doQuery(StudenteDAO.doRetrieveByMatricola, request.getSession().getAttribute("matricola"));
+    StudenteBean studMod = (StudenteBean) StudenteDao
+        .doQuery(StudenteDao.doRetrieveByMatricola, request.getSession().getAttribute("matricola"));
     
 
     if (studMod.getMatricola() != null) {
@@ -98,7 +98,7 @@ public class ProfiloUtenteServlet extends HttpServlet {
       studMod.setAnno(anno);
 
 
-      StudenteDAO.doQuery("doUpdate", studMod);
+      StudenteDao.doQuery("doUpdate", studMod);
       request.getSession().setAttribute("anno", studMod.getAnno());
 
     } else {
@@ -125,7 +125,7 @@ public class ProfiloUtenteServlet extends HttpServlet {
   private void deleteProfile(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException, SQLException {
 
-    StudenteDAO.doQuery(StudenteDAO.doDelete, request.getSession().getAttribute("matricola"));
+    StudenteDao.doQuery(StudenteDao.doDelete, request.getSession().getAttribute("matricola"));
 
     String message = "Profilo eliminato con successo";
     request.setAttribute("errore", message);

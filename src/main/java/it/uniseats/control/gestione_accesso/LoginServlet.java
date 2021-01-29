@@ -1,7 +1,7 @@
 package it.uniseats.control.gestione_accesso;
 
 import it.uniseats.model.beans.StudenteBean;
-import it.uniseats.model.dao.StudenteDAO;
+import it.uniseats.model.dao.StudenteDao;
 import it.uniseats.utils.SHA512Utils;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
@@ -56,8 +56,8 @@ public class LoginServlet extends HttpServlet {
 
         try {
 
-          StudenteBean bean = (StudenteBean) StudenteDAO.doQuery(
-              StudenteDAO.doRetrieveByEmail, email);
+          StudenteBean bean = (StudenteBean) StudenteDao.doQuery(
+              StudenteDao.doRetrieveByEmail, email);
 
           if (bean.getMatricola() != null && bean.getPassword().equals(encrypted)) {
 

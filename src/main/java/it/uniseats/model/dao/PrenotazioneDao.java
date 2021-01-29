@@ -14,13 +14,13 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 /**
- * Classe <code>PrenotazioneDAO</code> che ci permette di
+ * Classe <code>PrenotazioneDao</code> che ci permette di
  * effettuare operazioni sulla tabella prenotazioni del database
  * Le operazioni che è possibile effettuare sono le operazioni CRUD
  * E' possibile creare una prenotazione, leggere le prenotazioni presenti nel databse,
  * cancellare una prenotazione e modificare una prenotazione.
  */
-public class PrenotazioneDAO {
+public class PrenotazioneDao {
 
   public static final String doRetrieveByCode = "doRetrieveByCode";
   public static final String doFindPrenotazioni = "doFindPrenotazioni";

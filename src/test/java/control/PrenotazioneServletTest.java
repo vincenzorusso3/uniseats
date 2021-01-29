@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import it.uniseats.control.gestione_prenotazione.PrenotazioneServlet;
 import it.uniseats.model.beans.PrenotazioneBean;
 import it.uniseats.model.beans.StudenteBean;
-import it.uniseats.model.dao.PrenotazioneDAO;
-import it.uniseats.model.dao.StudenteDAO;
+import it.uniseats.model.dao.PrenotazioneDao;
+import it.uniseats.model.dao.StudenteDao;
 import it.uniseats.utils.QrCodeGenerator;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -22,7 +22,6 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.mock.web.MockServletConfig;
-import org.springframework.test.annotation.Rollback;
 
 class PrenotazioneServletTest {
 
@@ -39,11 +38,11 @@ class PrenotazioneServletTest {
     request.setSession(session);
 
     ArrayList<PrenotazioneBean> prenotazioniLaurati = (ArrayList<PrenotazioneBean>)
-        PrenotazioneDAO.doQuery("doFindPrenotazioni", "0156835647");
+        PrenotazioneDao.doQuery("doFindPrenotazioni", "0156835647");
 
     if (!prenotazioniLaurati.isEmpty()) {
       PrenotazioneBean prenotazioni = prenotazioniLaurati.get(0);
-      PrenotazioneDAO.doQuery("doDelete", prenotazioni.getCodice());
+      PrenotazioneDao.doQuery("doDelete", prenotazioni.getCodice());
     }
   }
 
@@ -64,7 +63,7 @@ class PrenotazioneServletTest {
       studenteBean.setMatricola("051210" + (Matricola));
       studenteBean.setEmail("ProvaTest" + i + "@studenti.unisa.it");
       studenteBean.setPassword("password" + i);
-      StudenteDAO.doQuery(StudenteDAO.doSave, studenteBean);
+      StudenteDao.doQuery(StudenteDao.doSave, studenteBean);
       prenotazioneBean.setCodice(
           QrCodeGenerator.generateCode(studenteBean.getMatricola(), "2021/03/22"));
       prenotazioneBean.setCodiceAula("00");
@@ -74,7 +73,7 @@ class PrenotazioneServletTest {
       Date d = new Date("2021/03/22");
 
       prenotazioneBean.setData(d);
-      PrenotazioneDAO.doQuery(PrenotazioneDAO.doSave, prenotazioneBean);
+      PrenotazioneDao.doQuery(PrenotazioneDao.doSave, prenotazioneBean);
     }
   }
 
@@ -160,9 +159,9 @@ class PrenotazioneServletTest {
 
 
 
-      StudenteBean delete = (StudenteBean) StudenteDAO.doQuery(StudenteDAO.doRetrieveByMatricola,
+      StudenteBean delete = (StudenteBean) StudenteDao.doQuery(StudenteDao.doRetrieveByMatricola,
           studenteBean.getMatricola());
-      StudenteDAO.doQuery(StudenteDAO.doDelete, delete.getMatricola());
+      StudenteDao.doQuery(StudenteDao.doDelete, delete.getMatricola());
     }
   }
 

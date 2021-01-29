@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import it.uniseats.control.gestione_utente.ProfiloUtenteServlet;
 import it.uniseats.model.beans.StudenteBean;
-import it.uniseats.model.dao.StudenteDAO;
+import it.uniseats.model.dao.StudenteDao;
 import java.io.IOException;
 import java.sql.SQLException;
 import javax.servlet.ServletConfig;
@@ -46,7 +46,7 @@ class ProfiloUtenteServletTest {
     StudenteBean bean =
         new StudenteBean("Daniele", "Salerno", "0512137888", "d.salerno7@studenti.unisa,it",
             "carrello", 3, "Informatica");
-    StudenteDAO.doQuery(StudenteDAO.doSave, bean);
+    StudenteDao.doQuery(StudenteDao.doSave, bean);
     request.addParameter("action", "confermaUpdate");
 
     request.addParameter("annomod", "5");

@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import it.uniseats.control.gestione_utente.RegistrazioneServlet;
 import it.uniseats.model.beans.StudenteBean;
-import it.uniseats.model.dao.StudenteDAO;
+import it.uniseats.model.dao.StudenteDao;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,8 +34,8 @@ class RegistrazioneServletTest {
     request = new MockHttpServletRequest();
     response = new MockHttpServletResponse();
 
-    StudenteDAO.doQuery("doDelete", bean.getMatricola());
-    StudenteDAO.doQuery("doDelete", "0512164137");
+    StudenteDao.doQuery("doDelete", bean.getMatricola());
+    StudenteDao.doQuery("doDelete", "0512164137");
 
   }
 

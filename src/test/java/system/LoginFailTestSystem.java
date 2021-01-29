@@ -13,6 +13,9 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+/**
+ * Classe di test di sistema per la login.
+ */
 public class LoginFailTestSystem {
   private WebDriver driver;
   private String baseUrl;

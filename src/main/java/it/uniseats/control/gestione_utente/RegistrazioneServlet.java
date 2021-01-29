@@ -1,8 +1,8 @@
 package it.uniseats.control.gestione_utente;
 
 import it.uniseats.model.beans.StudenteBean;
-import it.uniseats.model.dao.AulaDAO;
-import it.uniseats.model.dao.StudenteDAO;
+import it.uniseats.model.dao.AulaDao;
+import it.uniseats.model.dao.StudenteDao;
 import it.uniseats.utils.SHA512Utils;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -103,9 +103,9 @@ public class RegistrazioneServlet extends HttpServlet {
     String matricola = request.getParameter("matricola");
 
     StudenteBean studenteBean =
-            (StudenteBean) StudenteDAO.doQuery(StudenteDAO.doRetrieveByEmail, email);
+            (StudenteBean) StudenteDao.doQuery(StudenteDao.doRetrieveByEmail, email);
     String emailNull = studenteBean.getEmail();
-    studenteBean = (StudenteBean) StudenteDAO.doQuery(StudenteDAO.doRetrieveByMatricola, matricola);
+    studenteBean = (StudenteBean) StudenteDao.doQuery(StudenteDao.doRetrieveByMatricola, matricola);
     String matricolaNull = studenteBean.getMatricola();
 
 
@@ -135,7 +135,7 @@ public class RegistrazioneServlet extends HttpServlet {
               new StudenteBean(nome, cognome, matricola, email, SHA512Utils.getSHA512(password),
                   anno, dipartimento);
 
-      Integer success = (Integer) StudenteDAO.doQuery(StudenteDAO.doSave, studenteBean);
+      Integer success = (Integer) StudenteDao.doQuery(StudenteDao.doSave, studenteBean);
 
       String message;
 
@@ -167,7 +167,7 @@ public class RegistrazioneServlet extends HttpServlet {
           throws SQLException, ServletException, IOException {
 
 
-    ArrayList<String> dip = (ArrayList<String>) AulaDAO.doQuery(AulaDAO.getDipartimenti, "Temp");
+    ArrayList<String> dip = (ArrayList<String>) AulaDao.doQuery(AulaDao.getDipartimenti, "Temp");
 
     RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(
         "/view/profilo_utente/RegistrazioneView.jsp");

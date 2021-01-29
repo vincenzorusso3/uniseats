@@ -5,9 +5,9 @@ import it.uniseats.model.beans.AulaBean;
 import it.uniseats.model.beans.PostoBean;
 import it.uniseats.model.beans.PrenotazioneBean;
 import it.uniseats.model.beans.StudenteBean;
-import it.uniseats.model.dao.AulaDAO;
-import it.uniseats.model.dao.PostoDAO;
-import it.uniseats.model.dao.PrenotazioneDAO;
+import it.uniseats.model.dao.AulaDao;
+import it.uniseats.model.dao.PostoDao;
+import it.uniseats.model.dao.PrenotazioneDao;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -19,12 +19,20 @@ import java.util.LinkedList;
  */
 public class Adapter {
 
+  /**
+   * Metodo che schedula le prenotazioni previste per la data corrente.
+   *
+   * @throws SQLException se si verifica una eccezione
+   * @throws ParseException se si verifica una eccezione
+   * @throws CloneNotSupportedException se si verifica una eccezione
+   */
   public static void todaySchedule() throws SQLException, ParseException,
       CloneNotSupportedException {
 
     String today = DateUtils.dateToString(new Date());
 
-    ArrayList<String> list = (ArrayList<String>) AulaDAO.doQuery(AulaDAO.getDipartimenti, "temp");
+    ArrayList<String> list = (ArrayList<String>)
+        AulaDao.doQuery(AulaDao.getDipartimenti, "temp");
 
     if (list != null) {
 
@@ -33,9 +41,8 @@ public class Adapter {
       for (String dipartimento : list) {
         parameter.add(dipartimento);
 
-        LinkedList<PrenotazioneBean> prenotazioniList =
-            (LinkedList<PrenotazioneBean>) PrenotazioneDAO.doQuery(
-                PrenotazioneDAO.findByDataDipartimento, parameter);
+        LinkedList<PrenotazioneBean> prenotazioniList = (LinkedList<PrenotazioneBean>)
+            PrenotazioneDao.doQuery(PrenotazioneDao.findByDataDipartimento, parameter);
 
         if (prenotazioniList != null) {
 
@@ -68,8 +75,8 @@ public class Adapter {
             disposizione[i] = disposizioneArrayList.get(i);
           }
 
-          ArrayList<AulaBean> listaAule =
-              (ArrayList<AulaBean>) AulaDAO.doQuery(AulaDAO.doRetrieveAll, dipartimento);
+          ArrayList<AulaBean> listaAule = (ArrayList<AulaBean>)
+              AulaDao.doQuery(AulaDao.doRetrieveAll, dipartimento);
 
           if (listaAule != null) {
 
@@ -100,6 +107,15 @@ public class Adapter {
 
   }
 
+  /**
+   * Metodo che controlla invoca il modulo di intelloigenza artificiale Jarvis.
+   *
+   * @param p <b>PrenotazioneBean</b>, prenotazione
+   * @param s <b>StudenteBean</b>, studente
+   * @throws SQLException se si verifica una ecceziona
+   * @throws ParseException se si verifica una eccezione
+   * @throws CloneNotSupportedException se si verifica una eccezione
+   */
   public static void listener(PrenotazioneBean p, StudenteBean s)
       throws SQLException, ParseException, CloneNotSupportedException {
 
@@ -127,8 +143,8 @@ public class Adapter {
 
           int[] disposizione = Jarvis.disponiPrenotazioni(codiciPrenotazioni);
 
-          ArrayList<AulaBean> listaAule =
-              (ArrayList<AulaBean>) AulaDAO.doQuery(AulaDAO.doRetrieveAll, s.getDipartimento());
+          ArrayList<AulaBean> listaAule = (ArrayList<AulaBean>)
+              AulaDao.doQuery(AulaDao.doRetrieveAll, s.getDipartimento());
 
           if (listaAule != null) {
 
@@ -157,6 +173,14 @@ public class Adapter {
 
   }
 
+  /**
+   * Metodo che gestisce le prenotazioni del giorno corrente.
+   *
+   * @param p <b>PrenotazioneBean</b>, prenotazione
+   * @param s <b>StudenteBean</b>, studente
+   * @throws SQLException se si verifica una eccezione
+   * @throws ParseException se si verifica una eccezione
+   */
   private static void prenotazioneGiornoCorrente(PrenotazioneBean p, StudenteBean s)
       throws SQLException, ParseException {
 
@@ -166,17 +190,16 @@ public class Adapter {
 
       if (prenotazioniList.size() < 60) {
 
-        ArrayList<AulaBean> listaAule =
-            (ArrayList<AulaBean>) AulaDAO.doQuery(AulaDAO.doRetrieveAll, s.getDipartimento());
+        ArrayList<AulaBean> listaAule = (ArrayList<AulaBean>)
+            AulaDao.doQuery(AulaDao.doRetrieveAll, s.getDipartimento());
 
         if (listaAule != null) {
 
           for (AulaBean aula : listaAule) {
             System.out.println(aula.getCodice());
 
-            ArrayList<PostoBean> posti =
-                (ArrayList<PostoBean>) PostoDAO
-                    .doQuery(PostoDAO.doRetrieveByAulaCode, aula.getCodice());
+            ArrayList<PostoBean> posti = (ArrayList<PostoBean>)
+                PostoDao.doQuery(PostoDao.doRetrieveByAulaCode, aula.getCodice());
 
             if (posti != null) {
 
@@ -201,7 +224,7 @@ public class Adapter {
           if (!p.getCodicePosto().equals("00")) {
 
             //la prenotazione e' andata a buon fine
-            PrenotazioneDAO.doQuery(PrenotazioneDAO.doUpdateAulaPosto, p);
+            PrenotazioneDao.doQuery(PrenotazioneDao.doUpdateAulaPosto, p);
 
           } else {
 
@@ -218,15 +241,33 @@ public class Adapter {
 
   }
 
+  /**
+   * Metodo che effettua l'update delle prenotazioni nel database
+   * assegnando i posti alle prenotazioni.
+   *
+   * @param settedPrenotazioni prenotazioni da sistemare nel database
+   *
+   * @throws SQLException se si verifica una eccezione
+   * @throws ParseException se si verifica una eccezione
+   */
   private static void updateDataBase(ArrayList<PrenotazioneBean> settedPrenotazioni)
       throws SQLException, ParseException {
 
     for (PrenotazioneBean prenotazione : settedPrenotazioni) {
-      PrenotazioneDAO.doQuery(PrenotazioneDAO.doUpdateAulaPosto, prenotazione);
+      PrenotazioneDao.doQuery(PrenotazioneDao.doUpdateAulaPosto, prenotazione);
     }
 
   }
 
+  /**
+   * Metodo che modifica una prenotazione.
+   *
+   * @param i elemento iesimo della lista
+   * @param prenotazioni <b>PrenotazioneBean</b>, la prenotazione
+   * @param tipo <b>Tipologia</b> della prenotazione
+   * @param aulaDaUtilizzare <b>AulaBean</b> a cui saranno assegnate le prenotazioni
+   * @param settedPrenotazioni <b>PrenotazioneBean</b> a cui sono assegnati i posti
+   */
   private static void updatePrenotazione(int i, LinkedList<PrenotazioneBean> prenotazioni, int tipo,
                                          AulaBean aulaDaUtilizzare,
                                          ArrayList<PrenotazioneBean> settedPrenotazioni) {
@@ -254,6 +295,14 @@ public class Adapter {
 
   }
 
+  /**
+   * Metodo per settare i parametri della prenotazione.
+   *
+   * @param prenotazione <b>PrenotazioneBean</b> a cui saranno settati i parametri
+   * @param codice <b>chiave primaria</b> della aula
+   * @param posto <b>posto</b> nella aula
+   * @param settedPrenotazioni <b>Prenotazione</b>, prenotazione sistemata
+   */
   private static void setPrenotazione(PrenotazioneBean prenotazione, String codice, String posto,
                                       ArrayList<PrenotazioneBean> settedPrenotazioni) {
     prenotazione.setCodiceAula(codice);
@@ -261,7 +310,13 @@ public class Adapter {
     settedPrenotazioni.add(prenotazione);
   }
 
-
+  /**
+   * Metodo che restituisce, fra tutte le aule, una aula libera.
+   *
+   * @param listaAule <b>lista delle aule</b> presenti nel database
+   * @param auleUtilizzate <b> aule occupate</b>
+   * @return aula libera
+   */
   private static AulaBean getAulaVuota(ArrayList<AulaBean> listaAule,
                                        ArrayList<String> auleUtilizzate) {
 
@@ -277,6 +332,13 @@ public class Adapter {
 
   }
 
+  /**
+   * Metodo che restituisce i codici delle prenotazioni.
+   *
+   * @param prenotazioniList <b>Lista delle prenotazioni</b>
+   *
+   * @return array di codici delle prenotazioni passate come parametro
+   */
   private static int[] getCodiciPrenotazioni(LinkedList<PrenotazioneBean> prenotazioniList) {
 
     int[] prenotazioni = new int[20];
@@ -293,6 +355,12 @@ public class Adapter {
 
   }
 
+  /**Metodo che restituisce le aule nel db che hanno posti già occupati.
+   *
+   * @param prenotazioniList <b>Lista delle prenotazioni</b>
+   *
+   * @return lista delle aule utilizzate
+   */
   private static ArrayList<String> getAuleUtilizzate(
       LinkedList<PrenotazioneBean> prenotazioniList) {
 
@@ -307,6 +375,15 @@ public class Adapter {
 
   }
 
+  /**
+   * Metodo per ottenere le prenotazioni presenti nel database.
+   *
+   * @param p <b>un oggetto di tipo prenotazione</b>
+   * @param s <b>un oggetto di tipo studente</b>
+   * @return la lista delle prenotazioni
+   * @throws SQLException se si verifica una eccezione
+   * @throws ParseException se si verifica una eccezione
+   */
   private static LinkedList<PrenotazioneBean> getPrenotazioni(PrenotazioneBean p, StudenteBean s)
       throws SQLException, ParseException {
     Date date = p.getData();
@@ -317,8 +394,8 @@ public class Adapter {
     parameter.add(DateUtils.dateToString(date));
     parameter.add(dipartimento);
 
-    return (LinkedList<PrenotazioneBean>) PrenotazioneDAO
-        .doQuery(PrenotazioneDAO.findByDataDipartimento, parameter);
+    return (LinkedList<PrenotazioneBean>) PrenotazioneDao.doQuery(
+        PrenotazioneDao.findByDataDipartimento, parameter);
   }
 
 }

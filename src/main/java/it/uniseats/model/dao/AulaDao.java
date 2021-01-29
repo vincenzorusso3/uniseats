@@ -9,11 +9,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- * Classe <code>AulaDAO</code> che ci permette di effettuare
+ * Classe <code>AulaDao</code> che ci permette di effettuare
  * operazioni sulla tabella aula del database
  * E' possibile leggere le aule presenti nel databse.
  */
-public class AulaDAO {
+public class AulaDao {
 
   public static final String doRetrieveByCode = "doRetrieveByCode";
   public static final String doRetrieveAll = "doRetrieveAll";

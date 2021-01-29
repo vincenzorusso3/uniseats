@@ -9,13 +9,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- * Classe <code>StudenteDAO</code> che ci permette di effettuare
+ * Classe <code>StudenteDao</code> che ci permette di effettuare
  * operazioni sulla tabella studente del database
  * Le operazioni che è possibile effettuare sono le operazioni CRUD
  * E' possibile creare uno studente, leggere gli studenti presenti nel databse,
  * cancellare uno studente e modificare uno studente.
  */
-public class StudenteDAO {
+public class StudenteDao {
 
   public static final String doRetrieveByMatricola = "doRetrieveByMatricola";
   public static final String doRetrieveAll = "doRetrieveAll";

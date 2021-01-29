@@ -3,8 +3,8 @@ package it.uniseats.control.visualizzaPrenotazioni;
 
 import it.uniseats.model.beans.PrenotazioneBean;
 import it.uniseats.model.beans.StudenteBean;
-import it.uniseats.model.dao.PrenotazioneDAO;
-import it.uniseats.model.dao.StudenteDAO;
+import it.uniseats.model.dao.PrenotazioneDao;
+import it.uniseats.model.dao.StudenteDao;
 import it.uniseats.utils.Adapter;
 import it.uniseats.utils.DateUtils;
 import java.io.IOException;
@@ -128,7 +128,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
 
     String codice = request.getParameter("cod");
 
-    PrenotazioneDAO.doQuery(PrenotazioneDAO.doDelete, codice);
+    PrenotazioneDao.doQuery(PrenotazioneDao.doDelete, codice);
 
     RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(JSP_PATH);
     request.setAttribute("error", "L'eliminazione è avvenuta con successo.");
@@ -163,7 +163,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
     Date today = DateUtils.parseDate(DateUtils.dateToString(new Date()));
 
     PrenotazioneBean prenotazioneBean =
-        (PrenotazioneBean) PrenotazioneDAO.doQuery(PrenotazioneDAO.doRetrieveByCode, codice);
+        (PrenotazioneBean) PrenotazioneDao.doQuery(PrenotazioneDao.doRetrieveByCode, codice);
 
     if (prenotazioneBean.getData() != null) {
 
@@ -189,7 +189,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
             prenotazioneBean.setCodiceAula("00");
             prenotazioneBean.setCodicePosto("00");
             prenotazioneBean.setData(dataPrenotazione);
-            PrenotazioneDAO.doQuery(PrenotazioneDAO.doUpdateData, prenotazioneBean);
+            PrenotazioneDao.doQuery(PrenotazioneDao.doUpdateData, prenotazioneBean);
 
             Adapter.listener(prenotazioneBean, getUser(request));
 
@@ -227,8 +227,8 @@ public class ManagePrenotazioneServlet extends HttpServlet {
       throws SQLException, ServletException, IOException, ParseException,
       CloneNotSupportedException {
 
-    PrenotazioneBean prenotazioneBean = (PrenotazioneBean) PrenotazioneDAO
-        .doQuery(PrenotazioneDAO.doRetrieveByCode, request.getParameter("codice"));
+    PrenotazioneBean prenotazioneBean = (PrenotazioneBean) PrenotazioneDao
+        .doQuery(PrenotazioneDao.doRetrieveByCode, request.getParameter("codice"));
 
 
     RequestDispatcher dispatcher;
@@ -255,7 +255,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
 
           prenotazioneBean.setSingolo(singolo);
           System.out
-              .println(PrenotazioneDAO.doQuery(PrenotazioneDAO.doUpdateTipo, prenotazioneBean));
+              .println(PrenotazioneDao.doQuery(PrenotazioneDao.doUpdateTipo, prenotazioneBean));
 
           Adapter.listener(prenotazioneBean, getUser(request));
 
@@ -300,7 +300,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
 
     request.removeAttribute("prenotazioni");
     request.setAttribute("prenotazioni",
-        PrenotazioneDAO.doQuery(PrenotazioneDAO.doFindPrenotazioni, parameter));
+        PrenotazioneDao.doQuery(PrenotazioneDao.doFindPrenotazioni, parameter));
 
     dispatcher.forward(request, response);
 
@@ -347,7 +347,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
     Date selectedDay = DateUtils.parseDate(date);
 
     ArrayList<PrenotazioneBean> prenotazioni =
-        (ArrayList<PrenotazioneBean>) PrenotazioneDAO.doQuery("doFindPrenotazioni", matricola);
+        (ArrayList<PrenotazioneBean>) PrenotazioneDao.doQuery("doFindPrenotazioni", matricola);
 
     if (prenotazioni != null && prenotazioni.size() > 0) {
 
@@ -405,7 +405,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
     String cod = request.getParameter("cod");
 
     request.setAttribute("prenotazionemod",
-        PrenotazioneDAO.doQuery(PrenotazioneDAO.doRetrieveByCode, cod));
+        PrenotazioneDao.doQuery(PrenotazioneDao.doRetrieveByCode, cod));
 
     dispatcher.forward(request, response);
 
@@ -423,7 +423,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
     HttpSession session = request.getSession(true);
     String email = (String) session.getAttribute("email");
 
-    return (StudenteBean) StudenteDAO.doQuery(StudenteDAO.doRetrieveByEmail, email);
+    return (StudenteBean) StudenteDao.doQuery(StudenteDao.doRetrieveByEmail, email);
 
   }
 

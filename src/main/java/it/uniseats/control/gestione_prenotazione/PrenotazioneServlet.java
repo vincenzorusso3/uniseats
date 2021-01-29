@@ -2,8 +2,8 @@ package it.uniseats.control.gestione_prenotazione;
 
 import it.uniseats.model.beans.PrenotazioneBean;
 import it.uniseats.model.beans.StudenteBean;
-import it.uniseats.model.dao.PrenotazioneDAO;
-import it.uniseats.model.dao.StudenteDAO;
+import it.uniseats.model.dao.PrenotazioneDao;
+import it.uniseats.model.dao.StudenteDao;
 import it.uniseats.utils.Adapter;
 import it.uniseats.utils.DateUtils;
 import it.uniseats.utils.QrCodeGenerator;
@@ -146,7 +146,7 @@ public class PrenotazioneServlet extends HttpServlet {
           PrenotazioneBean prenotazione =
               new PrenotazioneBean(qrCode, DateUtils.parseDate(date), isPrenotazioneSingola, "00",
                   "00", matricola);
-          Integer result = (Integer) PrenotazioneDAO.doQuery(PrenotazioneDAO.doSave, prenotazione);
+          Integer result = (Integer) PrenotazioneDao.doQuery(PrenotazioneDao.doSave, prenotazione);
 
           //se la prenotazione è stata salvata nel database con successo,
           // viene inoltrata al modulo IA oper l'assegnazione del posto a sedere.
@@ -218,7 +218,7 @@ public class PrenotazioneServlet extends HttpServlet {
     HttpSession session = request.getSession(true);
     String email = (String) session.getAttribute("email");
 
-    return (StudenteBean) StudenteDAO.doQuery(StudenteDAO.doRetrieveByEmail, email);
+    return (StudenteBean) StudenteDao.doQuery(StudenteDao.doRetrieveByEmail, email);
 
   }
 
@@ -237,7 +237,7 @@ public class PrenotazioneServlet extends HttpServlet {
     Date selectedDay = DateUtils.parseDate(date);
 
     ArrayList<PrenotazioneBean> prenotazioni =
-        (ArrayList<PrenotazioneBean>) PrenotazioneDAO.doQuery("doFindPrenotazioni", matricola);
+        (ArrayList<PrenotazioneBean>) PrenotazioneDao.doQuery("doFindPrenotazioni", matricola);
     if (prenotazioni != null) {
       for (PrenotazioneBean p : prenotazioni) {
 
@@ -267,8 +267,8 @@ public class PrenotazioneServlet extends HttpServlet {
     parameter.add(data);
     parameter.add(dipartimento);
 
-    LinkedList<PrenotazioneBean> pList = (LinkedList<PrenotazioneBean>) PrenotazioneDAO
-        .doQuery(PrenotazioneDAO.findByDataDipartimento, parameter);
+    LinkedList<PrenotazioneBean> pList = (LinkedList<PrenotazioneBean>) PrenotazioneDao
+        .doQuery(PrenotazioneDao.findByDataDipartimento, parameter);
 
     if (pList != null) {
       return pList.size() < 60;

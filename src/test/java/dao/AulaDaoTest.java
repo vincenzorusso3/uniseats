@@ -5,19 +5,19 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import it.uniseats.model.beans.AulaBean;
-import it.uniseats.model.dao.AulaDAO;
+import it.uniseats.model.dao.AulaDao;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 /**
- * Classe di testing per AulaDAO.
+ * Classe di testing per AulaDao.
  */
-class AulaDAOTest {
+class AulaDaoTest {
 
   @Test
   void doRetrieveByCodeTest() throws SQLException {
-    AulaBean bean = (AulaBean) AulaDAO.doQuery("doRetrieveByCode", "A1");
+    AulaBean bean = (AulaBean) AulaDao.doQuery("doRetrieveByCode", "A1");
     AulaBean expected = new AulaBean("A1", "Scienze Aziendali", 20, "D1");
     assertNotNull(bean);
     assertTrue(expected.getCodice().equals(bean.getCodice())
@@ -28,26 +28,26 @@ class AulaDAOTest {
 
   @Test
   void doRetrieveAll() throws SQLException {
-    ArrayList<AulaBean> beans = (ArrayList<AulaBean>) AulaDAO.doQuery("doRetrieveAll", null);
+    ArrayList<AulaBean> beans = (ArrayList<AulaBean>) AulaDao.doQuery("doRetrieveAll", null);
     assertNotNull(beans);
   }
 
   @Test
   void doRetrieveAllDip() throws SQLException {
-    ArrayList<AulaBean> beans = (ArrayList<AulaBean>) AulaDAO.doQuery(
+    ArrayList<AulaBean> beans = (ArrayList<AulaBean>) AulaDao.doQuery(
         "doRetrieveAll", "Informatica");
     assertNotNull(beans);
   }
 
   @Test
   void fail() throws SQLException {
-    ArrayList<AulaBean> beans = (ArrayList<AulaBean>) AulaDAO.doQuery("metodonontrovato", null);
+    ArrayList<AulaBean> beans = (ArrayList<AulaBean>) AulaDao.doQuery("metodonontrovato", null);
     assertNull(beans);
   }
 
   @Test
   void getDipartimenti() throws SQLException {
-    ArrayList<String> dipartimenti = (ArrayList<String>) AulaDAO.doQuery(
+    ArrayList<String> dipartimenti = (ArrayList<String>) AulaDao.doQuery(
         "getDipartimenti", "Infromatica");
     assertNotNull(dipartimenti);
   }

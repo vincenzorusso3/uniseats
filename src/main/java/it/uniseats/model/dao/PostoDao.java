@@ -11,11 +11,11 @@ import java.util.ArrayList;
 
 
 /**
- * Classe <code>PostoDAO</code> che ci permette di
+ * Classe <code>PostoDao</code> che ci permette di
  * effettuare operazioni sulla tabella posti del database
  * E' possibile leggere i posti presenti nel databse.
  */
-public class PostoDAO {
+public class PostoDao {
 
   public static final String doRetrieveByCode = "doRetrieveByCode";
   public static final String doRetrieveAll = "doRetrieveAll";
