@@ -26,7 +26,8 @@ public class DateUtils {
   }
 
   /**
-   * Metodo per trasformare la data in una stringa
+   * Metodo per trasformare la data in una stringa.
+   *
    * @param date <b>data</b>
    * @return <b>data</b> in stringa
    */

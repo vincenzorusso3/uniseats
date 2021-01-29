@@ -251,7 +251,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
       if (checkData(prenotazioneBean.getData())) {
 
         //controllo che sia possibile modificare la prenotazione
-        if (canIUpdate(singolo, prenotazioneBean.getData())) {
+        if (canIupdate(singolo, prenotazioneBean.getData())) {
 
           prenotazioneBean.setSingolo(singolo);
           System.out
@@ -373,7 +373,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
    * @param date    la data per la quale è prevista la prenotazione
    * @return false se non è possibile effettuare la modifica
    */
-  private boolean canIUpdate(Boolean singolo, Date date) {
+  private boolean canIupdate(Boolean singolo, Date date) {
     Date today = new Date();
 
     //se la nuova tipologia di prenotazione è singola, posso sempre modificare

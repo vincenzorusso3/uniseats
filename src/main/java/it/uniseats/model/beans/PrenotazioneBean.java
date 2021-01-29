@@ -8,7 +8,8 @@ import java.util.Date;
  * Un oggetto <code>PrenotazioneBean</code> rappresenta la prenotazione di un posto.
  * Ogni prenotazione ha un codice identificativo, una data.
  * Singolo rappresenta il tipo di prenotazione (true = gruppo, false = singolo).
- * Inoltre ha un codice posto (A1-01, ...), un codice aula (A1, B2,..) e la matricola dello studente che ha effettuato la prenotazione (0512105851, ...).
+ * Inoltre ha un codice posto (A1-01, ...), un codice aula (A1, B2,..)
+ * e la matricola dello studente che ha effettuato la prenotazione (0512105851, ...).
  */
 
 public class PrenotazioneBean {
@@ -49,7 +50,7 @@ public class PrenotazioneBean {
     this.matricolaStudente = matricolaStudente;
   }
 
-   /** Metodo di accesso
+  /** Metodo di accesso.
     *
     * @return il <b>codice</b> della prenotazione
    */

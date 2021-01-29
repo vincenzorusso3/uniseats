@@ -79,7 +79,7 @@ public class PostoDAO {
   }
 
   /**
-   * Metodo per la ricerca dei posti di un aula
+   * Metodo per la ricerca dei posti di un aula.
    *
    * @param preparedStatement <b>doRetrieveByAulaCode</b>, nome della operazione
    * @param parameter <d>codice</d> dell'aula che contiene il posto

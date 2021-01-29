@@ -34,7 +34,8 @@ class AulaDAOTest {
 
   @Test
   void doRetrieveAllDip() throws SQLException {
-    ArrayList<AulaBean> beans = (ArrayList<AulaBean>) AulaDAO.doQuery("doRetrieveAll", "Informatica");
+    ArrayList<AulaBean> beans = (ArrayList<AulaBean>) AulaDAO.doQuery(
+        "doRetrieveAll", "Informatica");
     assertNotNull(beans);
   }
 
@@ -46,7 +47,8 @@ class AulaDAOTest {
 
   @Test
   void getDipartimenti() throws SQLException {
-    ArrayList<String> dipartimenti = (ArrayList<String>) AulaDAO.doQuery("getDipartimenti","Infromatica" );
+    ArrayList<String> dipartimenti = (ArrayList<String>) AulaDAO.doQuery(
+        "getDipartimenti", "Infromatica");
     assertNotNull(dipartimenti);
   }
 

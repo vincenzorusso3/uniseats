@@ -13,7 +13,11 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class LoginSuccessTestSystem {
+/**
+ * Classe di test per la Servlet di Login.
+ */
+
+  public class LoginSuccessTestSystem {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;

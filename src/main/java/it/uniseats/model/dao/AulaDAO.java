@@ -24,7 +24,7 @@ public class AulaDAO {
       "[AULADAO] Errore: il DataSource non risulta essere configurato correttamente";
 
   /**
-   * Metodo per effettuare le operazioni nel database
+   * Metodo per effettuare le operazioni nel database.
    *
    * @param methodName nome della <b>operazione</b>
    * @param parameter  <b>parametro</b> passato alla operazione

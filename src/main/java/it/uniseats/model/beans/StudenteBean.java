@@ -5,7 +5,8 @@ import java.util.ArrayList;
 /**
  * La classe <code>StudenteBean</code> rappresenta lo studente registrato nel sistema UniSeats
  * Un oggetto <code>StudenteBean</code> rappresenta uno studente. Ogni studente ha nome e cognome,
- * una email e password, una matricola (0512105851, 0512107883), anno (1,2,3,4,..), e un dipartimento (Fisica, Farmacia, ..)
+ * una email e password, una matricola (0512105851, 0512107883),
+ * anno (1,2,3,4,..), e un dipartimento (Fisica, Farmacia, ..)
  */
 public class StudenteBean {
 
@@ -51,21 +52,24 @@ public class StudenteBean {
     this.dipartimento = dipartimento;
   }
 
-  /**
+  /** Metodo di accesso.
+   *
    * @return il <b>nome</b> dello studente
    */
   public String getNome() {
     return nome;
   }
 
-  /**
+  /** Metodo di accesso.
+   *
    * @return il <b>cognome</b> dello studente
    */
   public String getCognome() {
     return cognome;
   }
 
-  /**
+  /** Metodo di accesso.
+   *
    * @return la <b>matricola</b> dello studente
    */
   public String getMatricola() {

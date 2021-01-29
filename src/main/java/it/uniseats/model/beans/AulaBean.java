@@ -1,7 +1,8 @@
 package it.uniseats.model.beans;
 
 /**
- * La classe <code>AulaBean</code> rappresenta l'aula contenente i posti che saranno occupati dagli studenti quando
+ * La classe <code>AulaBean</code> rappresenta l'aula contenente
+ * i posti che saranno occupati dagli studenti quando
  * effettueranno una prenotazione con il sistema UniSeats
  * Un oggetto <code>AulaBean</code> rappresenta un aula.
  * Ogni aula ha un codice identificativo (A1, A2, ..)

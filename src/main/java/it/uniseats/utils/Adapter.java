@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.LinkedList;
 
 /**
- * Classe che connette il sistema Uniseats con il modulo di intelligenza artificiale Jarvis
+ * Classe che connette il sistema Uniseats con il modulo di intelligenza artificiale Jarvis.
  */
 public class Adapter {
 

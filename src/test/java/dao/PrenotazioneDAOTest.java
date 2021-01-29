@@ -23,7 +23,8 @@ class PrenotazioneDAOTest {
 
   @Test
   void fail() throws SQLException, ParseException {
-    ArrayList<PrenotazioneBean> beans = (ArrayList<PrenotazioneBean>) PrenotazioneDAO.doQuery("metodonontrovato", null);
+    ArrayList<PrenotazioneBean> beans = (ArrayList<PrenotazioneBean>)
+        PrenotazioneDAO.doQuery("metodonontrovato", null);
     assertNull(beans);
   }
 

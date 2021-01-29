@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 class StudenteDAOTest {
 
   @Test
-  void fail() throws SQLException{
+  void fail() throws SQLException {
     ArrayList<StudenteBean> beans = (ArrayList<StudenteBean>) StudenteDAO
         .doQuery("metodonontrovato", null);
     assertNull(beans);
@@ -82,13 +82,14 @@ class StudenteDAOTest {
 
     StudenteDAO.doQuery("doDelete", bean.getMatricola());
 
-    assertEquals(i,1);
+    assertEquals(i, 1);
   }
 
   @Test
   void doDelete() throws SQLException {
     StudenteBean bean = new StudenteBean("TestNome", "TestCognome", "0512103231",
-        "testnome.testcognome@studenti.unisa.it", "testnomecognome", 2, "Matematica");
+        "testnome.testcognome@studenti.unisa.it", "testnomecognome",
+        2, "Matematica");
     StudenteDAO.doQuery("doSave", bean);
 
     boolean i = (boolean)  StudenteDAO.doQuery("doDelete", bean.getMatricola());

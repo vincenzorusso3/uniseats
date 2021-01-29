@@ -1,4 +1,5 @@
 package it.uniseats.utils;
+
 import java.util.Random;
 
 /**

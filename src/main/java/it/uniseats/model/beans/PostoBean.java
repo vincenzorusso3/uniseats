@@ -1,7 +1,8 @@
 package it.uniseats.model.beans;
 
 /**
- * La classe <code>PostoBean</code> rappresenta il posto che sarà occupato da uno studente che effettua una prenotazione
+ * La classe <code>PostoBean</code> rappresenta il posto
+ * che sarà occupato da uno studente che effettua una prenotazione
  * con il sistema UniSeats
  * Un oggetto <code>PostoBean</code> rappresenta un singolo posto all'interno di un'aula.
  * Ogni posto ha un codice identificativo (A1-01, A1-02,..)

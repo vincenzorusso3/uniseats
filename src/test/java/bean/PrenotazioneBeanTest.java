@@ -33,7 +33,7 @@ class PrenotazioneBeanTest {
   /**
    * Getter Methods Testing.
    *
-   * @throws ParseException
+   * @throws ParseException se si verifica una eccezione
    */
   @Test
   void testGetCodice() throws ParseException {

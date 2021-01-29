@@ -22,8 +22,8 @@ class PostoDAOTest {
   void doRetrieveByCodeTest() throws SQLException {
     PostoBean bean = (PostoBean) PostoDAO.doQuery("doRetrieveByCode", "A1-01");
     PostoBean expected = new PostoBean("A1-01", "A1");
-    assertTrue(expected.getCodice().equals(bean.getCodice()) &&
-        expected.getCodiceAula().equals(bean.getCodiceAula()));
+    assertTrue(expected.getCodice().equals(bean.getCodice())
+        && expected.getCodiceAula().equals(bean.getCodiceAula()));
   }
 
   @Test
