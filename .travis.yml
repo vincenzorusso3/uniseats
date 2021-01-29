@@ -2,4 +2,4 @@ language: java
 jdk:
   - oraclejdk13
 sudo: false
-script: mvn package
+script: mvn clean verify package -Dmaven.test.skip=true
