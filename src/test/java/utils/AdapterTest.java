@@ -37,6 +37,7 @@ class AdapterTest {
     assertTrue(Adapter.listener(prenotazione, studente));
 
     StudenteDao.doQuery("doDelete", studente.getMatricola());
+    PrenotazioneDao.doQuery("doDelete", "1-11111111-111111");
 
   }
 
