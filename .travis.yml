@@ -1,5 +1,5 @@
 language: java
 jdk:
-  - oraclejdk13
+  - oraclejdk12
 sudo: false
 script: mvn clean verify
