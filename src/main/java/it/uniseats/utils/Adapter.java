@@ -26,7 +26,7 @@ public class Adapter {
    * @throws ParseException se si verifica una eccezione
    * @throws CloneNotSupportedException se si verifica una eccezione
    */
-  public static void todaySchedule() throws SQLException, ParseException,
+  public static boolean todaySchedule() throws SQLException, ParseException,
       CloneNotSupportedException {
 
     String today = DateUtils.dateToString(new Date());
@@ -63,11 +63,8 @@ public class Adapter {
             disposizioneArrayList.add(j);
           }
 
-          for (int i = 0; count != 0; i++) {
-            if (disposizioneArrayList.get(i) == 0) {
-              disposizioneArrayList.remove(i);
-              count--;
-            }
+          for (; count > 0; count--) {
+            disposizioneArrayList.remove(Integer.valueOf(0));
           }
 
           int[] disposizione = new int[disposizioneArrayList.size()];
@@ -103,7 +100,11 @@ public class Adapter {
 
       }
 
+      return true;
+
     }
+
+    return false;
 
   }
 
@@ -116,7 +117,7 @@ public class Adapter {
    * @throws ParseException se si verifica una eccezione
    * @throws CloneNotSupportedException se si verifica una eccezione
    */
-  public static void listener(PrenotazioneBean p, StudenteBean s)
+  public static boolean listener(PrenotazioneBean p, StudenteBean s)
       throws SQLException, ParseException, CloneNotSupportedException {
 
     String todayString = DateUtils.dateToString(new Date());
@@ -125,6 +126,7 @@ public class Adapter {
     if (todayString.equals(prenDateString)) {
 
       prenotazioneGiornoCorrente(p, s);
+      return true;
 
     } else {
 
@@ -167,7 +169,11 @@ public class Adapter {
 
         }
 
+        return true;
+
       }
+
+      return false;
 
     }
 
