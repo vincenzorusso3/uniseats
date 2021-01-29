@@ -37,7 +37,7 @@ public class AulaDao {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
 
-    String querySQL;
+    String querySql;
 
     try {
       connection = DriverManagerConnectionPool.getConnection();
@@ -45,22 +45,22 @@ public class AulaDao {
       switch (methodName) {
 
         case doRetrieveByCode:
-          querySQL = "SELECT * FROM " + TABLE_NAME + " WHERE codice=?";
-          preparedStatement = connection.prepareStatement(querySQL);
+          querySql = "SELECT * FROM " + TABLE_NAME + " WHERE codice=?";
+          preparedStatement = connection.prepareStatement(querySql);
           return doRetrieveByCode(preparedStatement, (String) parameter);
 
         case getDipartimenti:
-          querySQL = "SELECT DISTINCT dipartimento FROM " + TABLE_NAME + " WHERE dipartimento != ?";
-          preparedStatement = connection.prepareStatement(querySQL);
+          querySql = "SELECT DISTINCT dipartimento FROM " + TABLE_NAME + " WHERE dipartimento != ?";
+          preparedStatement = connection.prepareStatement(querySql);
           return getDipartimenti(preparedStatement);
 
         case doRetrieveAll:
           if (parameter == null) {
-            querySQL = "SELECT * FROM " + TABLE_NAME;
+            querySql = "SELECT * FROM " + TABLE_NAME;
           } else {
-            querySQL = "SELECT * FROM " + TABLE_NAME + " WHERE dipartimento=?";
+            querySql = "SELECT * FROM " + TABLE_NAME + " WHERE dipartimento=?";
           }
-          preparedStatement = connection.prepareStatement(querySQL);
+          preparedStatement = connection.prepareStatement(querySql);
           return doRetriveAll(preparedStatement, (String) parameter);
 
         default:

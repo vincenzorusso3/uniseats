@@ -41,7 +41,7 @@ public class StudenteDao {
 
     Connection connection = null;
     PreparedStatement preparedStatement = null;
-    String querySQL;
+    String querySql;
 
     try {
 
@@ -50,35 +50,35 @@ public class StudenteDao {
       switch (methodName) {
 
         case doRetrieveByMatricola:
-          querySQL = "SELECT * FROM " + TABLE_NAME + " WHERE matricola=?";
-          preparedStatement = connection.prepareStatement(querySQL);
+          querySql = "SELECT * FROM " + TABLE_NAME + " WHERE matricola=?";
+          preparedStatement = connection.prepareStatement(querySql);
           return doRetrieveByMatricola(preparedStatement, (String) parameter);
 
         case doRetrieveAll:
-          querySQL = "SELECT * FROM " + TABLE_NAME;
-          preparedStatement = connection.prepareStatement(querySQL);
+          querySql = "SELECT * FROM " + TABLE_NAME;
+          preparedStatement = connection.prepareStatement(querySql);
           return doRetriveAll(preparedStatement);
 
         case doSave:
-          querySQL = "INSERT INTO " + TABLE_NAME
+          querySql = "INSERT INTO " + TABLE_NAME
               + " (anno, cognome, dipartimento, email, matricola, nome, password )"
               + "VALUES (?,?,?,?,?,?,?)";
-          preparedStatement = connection.prepareStatement(querySQL);
+          preparedStatement = connection.prepareStatement(querySql);
           return doSave(preparedStatement, (StudenteBean) parameter);
 
         case doRetrieveByEmail:
-          querySQL = "SELECT * FROM " + TABLE_NAME + " WHERE email=?";
-          preparedStatement = connection.prepareStatement(querySQL);
+          querySql = "SELECT * FROM " + TABLE_NAME + " WHERE email=?";
+          preparedStatement = connection.prepareStatement(querySql);
           return doRetrieveByEmail(preparedStatement, (String) parameter);
 
         case doUpdate:
-          querySQL = "UPDATE " + TABLE_NAME + " SET anno=? WHERE matricola=?";
-          preparedStatement = connection.prepareStatement(querySQL);
+          querySql = "UPDATE " + TABLE_NAME + " SET anno=? WHERE matricola=?";
+          preparedStatement = connection.prepareStatement(querySql);
           return doUpdate(preparedStatement, (StudenteBean) parameter);
 
         case doDelete:
-          querySQL = "DELETE FROM " + TABLE_NAME + " WHERE matricola=?";
-          preparedStatement = connection.prepareStatement(querySQL);
+          querySql = "DELETE FROM " + TABLE_NAME + " WHERE matricola=?";
+          preparedStatement = connection.prepareStatement(querySql);
           return doDelete(preparedStatement, (String) parameter);
 
         default:
