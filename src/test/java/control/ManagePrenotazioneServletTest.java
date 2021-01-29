@@ -381,8 +381,88 @@ class ManagePrenotazioneServletTest {
 
   }
 
+  @Test
+  public void updateDataPrenotazionugualeOggiSingolo()
+          throws ParseException, SQLException, ServletException, IOException {
+
+    PrenotazioneBean prenotazioneBean=new PrenotazioneBean();
+    //data di oggi
+    Date dateTemp=new Date();
+    String[] dates = DateUtils.dateToString(dateTemp).split("/");
+    String date = dates[2].replace("21", "2021") + "/" + dates[1] + "/" + dates[0];
+    System.out.println("TODAY:"+date);
+
+    //codice della prenotazione autogenerato
+    String codice=QrCodeGenerator.generateCode("0512105887",date);
+    System.out.println(codice);
+
+    //setto i parametri della prenotazione
+    prenotazioneBean.setCodice(codice);
+    prenotazioneBean.setMatricolaStudente("0512105887");
+    prenotazioneBean.setData(new Date());
+    prenotazioneBean.setCodiceAula("00");
+    prenotazioneBean.setCodicePosto("00");
+    prenotazioneBean.setSingolo(true);
+
+    //aggiungo la prenotazione al DB
+    PrenotazioneDao.doQuery(PrenotazioneDao.doSave,prenotazioneBean);
 
 
+
+    System.out.println("data come parametro URL "+String.valueOf(dateTemp));
+    request.addParameter("action", "modificaData");
+    request.addParameter("codice", prenotazioneBean.getCodice());
+    request.addParameter("data", date);
+    servlet.doPost(request, response);
+    assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp",
+            response.getForwardedUrl());
+
+
+    PrenotazioneDao.doQuery(PrenotazioneDao.doDelete,prenotazioneBean.getCodice());
+  }
+
+
+
+
+  @Test
+  public void updateDataPrenotazionugualeOggiGruppo()
+          throws ParseException, SQLException, ServletException, IOException {
+
+    PrenotazioneBean prenotazioneBean=new PrenotazioneBean();
+    //data di oggi
+    Date dateTemp=new Date();
+    String[] dates = DateUtils.dateToString(dateTemp).split("/");
+    String date = dates[2].replace("21", "2021") + "/" + dates[1] + "/" + dates[0];
+    System.out.println("TODAY:"+date);
+
+    //codice della prenotazione autogenerato
+    String codice=QrCodeGenerator.generateCode("0512105887",date);
+    System.out.println(codice);
+
+    //setto i parametri della prenotazione
+    prenotazioneBean.setCodice(codice);
+    prenotazioneBean.setMatricolaStudente("0512105887");
+    prenotazioneBean.setData(new Date());
+    prenotazioneBean.setCodiceAula("00");
+    prenotazioneBean.setCodicePosto("00");
+    prenotazioneBean.setSingolo(false);
+
+    //aggiungo la prenotazione al DB
+    PrenotazioneDao.doQuery(PrenotazioneDao.doSave,prenotazioneBean);
+
+
+
+    System.out.println("data come parametro URL "+String.valueOf(dateTemp));
+    request.addParameter("action", "modificaData");
+    request.addParameter("codice", prenotazioneBean.getCodice());
+    request.addParameter("data", date);
+    servlet.doPost(request, response);
+    assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp",
+            response.getForwardedUrl());
+
+
+    PrenotazioneDao.doQuery(PrenotazioneDao.doDelete,prenotazioneBean.getCodice());
+  }
 
 }
 

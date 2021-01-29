@@ -166,12 +166,12 @@ public class ManagePrenotazioneServlet extends HttpServlet {
         (PrenotazioneBean) PrenotazioneDao.doQuery(PrenotazioneDao.doRetrieveByCode, codice);
 
     if (prenotazioneBean.getData() != null) {
-
+      System.out.println("cane");
       //controllo che la data inserita sia diversa dalla data attuale della prenotazione
       if (DateUtils.parseDate(DateUtils.dateToString(prenotazioneBean.getData()))
           .compareTo(dataPrenotazione) != 0
           && checkPrenotazioni(prenotazioneBean.getMatricolaStudente(), dataTransformed)) {
-
+        System.out.println("cane2");
 
         //controllo che la modifica della prenotazione venga
         // effettuata prima delle 07:00 del giorno
@@ -179,7 +179,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
         // la data per cui è prevista la prenotazione
         if (checkData(prenotazioneBean.getData())) {
 
-
+            System.out.println(dataPrenotazione+"è data di oggi" +today);
           //la modifica è possibile solo se la nuova data è oggi
           // e il tipo di prenotazione sia singola o in generale
           // se la nuova data è diversa dalla data corrente
