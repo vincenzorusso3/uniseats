@@ -109,10 +109,6 @@
                 <version>0.8.6</version>
                 <configuration>
                     <excludes>
-                        <exclude>model/personalization/**/*</exclude>
-                        <exclude>controller/shopManagement/ShowRecommendedProducts*</exclude>
-                        <exclude>controller/shopManagement/VotePersonalization*</exclude>
-                        <exclude>**/*it/uniseats/utils/Adapter.class</exclude>
                         <exclude>**/*it/uniseats/utils/DailyRoutine.class</exclude>
                     </excludes>
                 </configuration>
