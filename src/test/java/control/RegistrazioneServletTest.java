@@ -139,7 +139,7 @@ class RegistrazioneServletTest {
 
 
   @Test
-  void TestDipartimenti() throws ServletException, IOException {
+  void testDipartimenti() throws ServletException, IOException {
     request.addParameter("action", "getDipartimenti");
     servlet.doPost(request, response);
     ArrayList<String> listDip =

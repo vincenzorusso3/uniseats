@@ -18,7 +18,7 @@ public class AulaBean {
    */
   private String codice;
   private String dipartimento;
-  private int nPosti;
+  private int numPosti;
   private String edificio;
 
   /**
@@ -33,14 +33,14 @@ public class AulaBean {
    *
    * @param codice       rappresenta il <b>codice</b> identificativo di un'aula
    * @param dipartimento rappresenta a quale <b>dipartimento</b> appartiene
-   * @param nPosti       rappresenta quanti <b>posti</b> contiene
+   * @param numPosti       rappresenta quanti <b>posti</b> contiene
    * @param edificio     rappresenta in quale <b>edificio</b> è collocata
    */
 
-  public AulaBean(String codice, String dipartimento, int nPosti, String edificio) {
+  public AulaBean(String codice, String dipartimento, int numPosti, String edificio) {
     this.codice = codice;
     this.dipartimento = dipartimento;
-    this.nPosti = nPosti;
+    this.numPosti = numPosti;
     this.edificio = edificio;
   }
 
@@ -69,7 +69,7 @@ public class AulaBean {
    * @return il <b>numero posti</b> totali
    */
   public int getnPosti() {
-    return nPosti;
+    return numPosti;
   }
 
 
@@ -103,10 +103,10 @@ public class AulaBean {
   /**
    * Modifica il numero di posti di un'aula.
    *
-   * @param nPosti è il <b>numero di posti totali</b> di un'aula
+   * @param numPosti è il <b>numero di posti totali</b> di un'aula
    */
-  public void setnPosti(int nPosti) {
-    this.nPosti = nPosti;
+  public void setnPosti(int numPosti) {
+    this.numPosti = numPosti;
   }
 
   /**
