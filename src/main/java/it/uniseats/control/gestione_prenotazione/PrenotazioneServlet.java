@@ -33,7 +33,7 @@ public class PrenotazioneServlet extends HttpServlet {
   private final String HAS_PRENOTATION = "Hai già una prenotazione per questa data!";
   private final String INVALID_DATE = "La data scelta non è valida!";
 
-  private final String JSP_PATH = "/view/prenotazione/NuovaPrenotazioneView.jsp";
+  private final String jspPath = "/view/prenotazione/NuovaPrenotazioneView.jsp";
 
   /**
    * Metodo per effettuare richieste doGet.
@@ -93,7 +93,7 @@ public class PrenotazioneServlet extends HttpServlet {
 
     } else {
 
-      RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_PATH);
+      RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(jspPath);
       dispatcher.forward(request, response);
 
     }
@@ -118,7 +118,7 @@ public class PrenotazioneServlet extends HttpServlet {
 
     String dateTemp;
 
-    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_PATH);
+    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(jspPath);
 
     if (isPrenotazioneSingola) {
       dateTemp = request.getParameter("dateValueSingolo");

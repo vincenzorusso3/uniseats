@@ -30,7 +30,7 @@ public class DriverManagerConnectionPool {
    * @return una <b>connection</b>
    * @throws SQLException se si verifica una eccezione
    */
-  private static synchronized Connection createDBConnection() throws SQLException {
+  private static synchronized Connection createDbConnection() throws SQLException {
     Connection newConnection;
     String ip = "localhost";
     String port = "3306";
@@ -68,7 +68,7 @@ public class DriverManagerConnectionPool {
         connection = getConnection();
       }
     } else {
-      connection = createDBConnection();
+      connection = createDbConnection();
     }
 
     return connection;

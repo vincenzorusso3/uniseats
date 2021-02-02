@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "LoginServlet")
 public class LoginServlet extends HttpServlet {
 
-  private final String JSP_PATH = "/view/login/LoginView.jsp";
+  private final String Jsp_Path = "/view/login/LoginView.jsp";
 
   /**
    * Metodo per effettuare richieste doPost.
@@ -86,7 +86,7 @@ public class LoginServlet extends HttpServlet {
             String message = "Username e/o password non validi!";
 
             request.setAttribute("errore", message);
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_PATH);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Jsp_Path);
             dispatcher.forward(request, response);
 
           }
@@ -96,7 +96,7 @@ public class LoginServlet extends HttpServlet {
           String message = "Username e/o password non validi!";
 
           request.setAttribute("errore", message);
-          RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_PATH);
+          RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Jsp_Path);
 
           try {
 
@@ -113,7 +113,7 @@ public class LoginServlet extends HttpServlet {
 
     } else {
 
-      response.sendRedirect(request.getContextPath() + JSP_PATH);
+      response.sendRedirect(request.getContextPath() + Jsp_Path);
 
     }
   }
