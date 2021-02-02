@@ -269,7 +269,7 @@ class ManagePrenotazioneServletTest {
 
 
   @Test
-  public void ExceptionSQLprova() {
+  public void exceptionSqlProva() {
 
     request.addParameter("action", "visualizzaPrenotazioni");
   }
@@ -302,7 +302,7 @@ class ManagePrenotazioneServletTest {
   }
 
   @Test
-  public void ModificaPrenotazionePrenNull() throws ServletException, IOException {
+  public void modificaPrenotazionePrenNull() throws ServletException, IOException {
     request.addParameter("action", "modificaPrenotazione");
     request.addParameter("tipologia", "singolo");
     request.addParameter("codice", "");
@@ -316,9 +316,9 @@ class ManagePrenotazioneServletTest {
     ;
   }
 
-    // TC_1.5_02
+  //TC_1.5_02
   @Test
-  public void ModificaPrenotazioneCanIupdateTrue()
+  public void modificaPrenotazioneCanIupdateTrue()
       throws SQLException, ParseException, ServletException, IOException {
     PrenotazioneBean prenotazioneBean = new PrenotazioneBean();
     prenotazioneBean.setCodice(QrCodeGenerator.generateCode("0156835647", "2021/02/22"));
@@ -351,7 +351,7 @@ class ManagePrenotazioneServletTest {
   //TC_1.5_01
 
   @Test
-  public void ModificaPrenotazioneCanIupdateFalseGruppo()
+  public void modificaPrenotazioneCanIupdateFalseGruppo()
       throws SQLException, ParseException, ServletException, IOException {
     PrenotazioneBean prenotazioneBean = new PrenotazioneBean();
     prenotazioneBean.setCodice(QrCodeGenerator.generateCode("0156835647", "2021/02/22"));
@@ -385,15 +385,15 @@ class ManagePrenotazioneServletTest {
   public void updateDataPrenotazionugualeOggiSingolo()
           throws ParseException, SQLException, ServletException, IOException {
 
-    PrenotazioneBean prenotazioneBean=new PrenotazioneBean();
+    PrenotazioneBean prenotazioneBean = new PrenotazioneBean();
     //data di oggi
-    Date dateTemp=new Date();
+    Date dateTemp = new Date();
     String[] dates = DateUtils.dateToString(dateTemp).split("/");
     String date = dates[2].replace("21", "2021") + "/" + dates[1] + "/" + dates[0];
-    System.out.println("TODAY:"+date);
+    System.out.println("TODAY:" + date);
 
     //codice della prenotazione autogenerato
-    String codice=QrCodeGenerator.generateCode("0512105887",date);
+    String codice = QrCodeGenerator.generateCode("0512105887", date);
     System.out.println(codice);
 
     //setto i parametri della prenotazione
@@ -405,11 +405,11 @@ class ManagePrenotazioneServletTest {
     prenotazioneBean.setSingolo(true);
 
     //aggiungo la prenotazione al DB
-    PrenotazioneDao.doQuery(PrenotazioneDao.doSave,prenotazioneBean);
+    PrenotazioneDao.doQuery(PrenotazioneDao.doSave, prenotazioneBean);
 
 
 
-    System.out.println("data come parametro URL "+String.valueOf(dateTemp));
+    System.out.println("data come parametro URL " + String.valueOf(dateTemp));
     request.addParameter("action", "modificaData");
     request.addParameter("codice", prenotazioneBean.getCodice());
     request.addParameter("data", date);
@@ -418,7 +418,7 @@ class ManagePrenotazioneServletTest {
             response.getForwardedUrl());
 
 
-    PrenotazioneDao.doQuery(PrenotazioneDao.doDelete,prenotazioneBean.getCodice());
+    PrenotazioneDao.doQuery(PrenotazioneDao.doDelete, prenotazioneBean.getCodice());
   }
 
 
@@ -428,15 +428,15 @@ class ManagePrenotazioneServletTest {
   public void updateDataPrenotazionugualeOggiGruppo()
           throws ParseException, SQLException, ServletException, IOException {
 
-    PrenotazioneBean prenotazioneBean=new PrenotazioneBean();
+    PrenotazioneBean prenotazioneBean = new PrenotazioneBean();
     //data di oggi
-    Date dateTemp=new Date();
+    Date dateTemp = new Date();
     String[] dates = DateUtils.dateToString(dateTemp).split("/");
     String date = dates[2].replace("21", "2021") + "/" + dates[1] + "/" + dates[0];
-    System.out.println("TODAY:"+date);
+    System.out.println("TODAY:" + date);
 
     //codice della prenotazione autogenerato
-    String codice=QrCodeGenerator.generateCode("0512105887",date);
+    String codice = QrCodeGenerator.generateCode("0512105887", date);
     System.out.println(codice);
 
     //setto i parametri della prenotazione
@@ -448,11 +448,11 @@ class ManagePrenotazioneServletTest {
     prenotazioneBean.setSingolo(false);
 
     //aggiungo la prenotazione al DB
-    PrenotazioneDao.doQuery(PrenotazioneDao.doSave,prenotazioneBean);
+    PrenotazioneDao.doQuery(PrenotazioneDao.doSave, prenotazioneBean);
 
 
 
-    System.out.println("data come parametro URL "+String.valueOf(dateTemp));
+    System.out.println("data come parametro URL " + String.valueOf(dateTemp));
     request.addParameter("action", "modificaData");
     request.addParameter("codice", prenotazioneBean.getCodice());
     request.addParameter("data", date);
@@ -461,7 +461,7 @@ class ManagePrenotazioneServletTest {
             response.getForwardedUrl());
 
 
-    PrenotazioneDao.doQuery(PrenotazioneDao.doDelete,prenotazioneBean.getCodice());
+    PrenotazioneDao.doQuery(PrenotazioneDao.doDelete, prenotazioneBean.getCodice());
   }
 
 }
