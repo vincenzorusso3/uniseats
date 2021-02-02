@@ -14,7 +14,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 /**
- * Classe di test di sistema per la login.
+ * System Testing Login.
  */
 public class LoginFailTestSystem {
   private WebDriver driver;
@@ -22,6 +22,11 @@ public class LoginFailTestSystem {
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
 
+  /**
+   * Before.
+   *
+   * @throws Exception exception
+   */
   @Before
   public void setUp() throws Exception {
     driver = new FirefoxDriver();
@@ -29,6 +34,11 @@ public class LoginFailTestSystem {
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
+  /**
+   * Test Login Fail.
+   *
+   * @throws Exception exception
+   */
   @Test
   public void testLoginFailTestSystem() throws Exception {
     driver.get("http://localhost:2222/UniSeats_war_exploded/");
@@ -42,6 +52,11 @@ public class LoginFailTestSystem {
     driver.findElement(By.xpath("(//input[@value='Login'])[2]")).click();
   }
 
+  /**
+   * After.
+   *
+   * @throws Exception exception
+   */
   @After
   public void tearDown() throws Exception {
     driver.quit();

@@ -13,16 +13,20 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-  /**
-  * Classe di test per la Servlet di Login.
-  */
-
-  public class LoginSuccessTestSystem {
+/**
+ * System Testing Login.
+ */
+public class LoginSuccessTestSystem {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
 
+  /**
+   * Before.
+   *
+   * @throws Exception exception
+   */
   @Before
   public void setUp() throws Exception {
     driver = new FirefoxDriver();
@@ -30,6 +34,11 @@ import org.openqa.selenium.firefox.FirefoxDriver;
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
+  /**
+   * Test Login Success.
+   *
+   * @throws Exception exception
+   */
   @Test
   public void testLoginTestSystem() throws Exception {
     driver.get("http://localhost:2222/UniSeats_war_exploded/");
@@ -43,6 +52,11 @@ import org.openqa.selenium.firefox.FirefoxDriver;
     driver.findElement(By.xpath("(//input[@value='Login'])[2]")).click();
   }
 
+  /**
+   * After.
+   *
+   * @throws Exception exception
+   */
   @After
   public void tearDown() throws Exception {
     driver.quit();

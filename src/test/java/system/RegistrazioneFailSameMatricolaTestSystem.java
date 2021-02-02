@@ -14,12 +14,20 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
+/**
+ * System testing Registrazione.
+ */
 public class RegistrazioneFailSameMatricolaTestSystem {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
 
+  /**
+   * Before.
+   *
+   * @throws Exception exception
+   */
   @Before
   public void setUp() throws Exception {
     driver = new FirefoxDriver();
@@ -27,6 +35,11 @@ public class RegistrazioneFailSameMatricolaTestSystem {
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
+  /**
+   * Test Registrazione Fail.
+   *
+   * @throws Exception exception
+   */
   @Test
   public void testRegistrazioneFailSameMatricolaTestSystem() throws Exception {
     driver.get("http://localhost:2222/UniSeats_war_exploded/");
@@ -52,6 +65,11 @@ public class RegistrazioneFailSameMatricolaTestSystem {
     driver.findElement(By.xpath("//input[@value='Registrati']")).click();
   }
 
+  /**
+   * After.
+   *
+   * @throws Exception exception
+   */
   @After
   public void tearDown() throws Exception {
     driver.quit();
