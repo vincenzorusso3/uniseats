@@ -93,9 +93,10 @@ class ProfiloUtenteServletTest {
 
   @Test
   public void updateTestMatricolaNonEsistente() throws ServletException, IOException, SQLException {
-    StudenteBean bean =
-            new StudenteBean("NotExist", "NotExist", "0111101000", "NotExist@studenti.unisa,it",
-                    "carrello", 3, "Informatica");
+
+    StudenteBean bean;
+    bean = new StudenteBean("NotExist", "NotExist", "0111101000", "NotExist@studenti.unisa,it",
+                "carrello", 3, "Informatica");
 
     request.addParameter("action", "confermaUpdate");
 
