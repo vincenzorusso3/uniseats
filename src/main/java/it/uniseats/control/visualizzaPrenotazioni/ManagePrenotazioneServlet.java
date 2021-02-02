@@ -26,10 +26,10 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "ManagePrenotazioneServlet")
 public class ManagePrenotazioneServlet extends HttpServlet {
 
-  private final String JSP_PATH = "/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp";
-  private final String INVALID_DATE = "La data scelta non è corretta";
-  private final String TOO_LATE = "Non è più possibile modificare la prenotazione";
-  private final String IMPOSSIBLE_CHANGE = "Impossible effettuare la modifica";
+  private final String jspPath = "/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp";
+  private final String invalidDate = "La data scelta non è corretta";
+  private final String tooLate = "Non è più possibile modificare la prenotazione";
+  private final String impossibleChange = "Impossible effettuare la modifica";
 
   /**
    * Metodo per effettuare richieste doPost.
@@ -106,7 +106,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
 
     } else {
 
-      RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(JSP_PATH);
+      RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(jspPath);
       dispatcher.forward(request, response);
 
     }
@@ -130,7 +130,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
 
     PrenotazioneDao.doQuery(PrenotazioneDao.doDelete, codice);
 
-    RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(JSP_PATH);
+    RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(jspPath);
     request.setAttribute("error", "L'eliminazione è avvenuta con successo.");
     dispatcher.forward(request, response);
 
@@ -150,7 +150,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
       throws ParseException, SQLException, ServletException, IOException,
       CloneNotSupportedException {
 
-    RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(JSP_PATH);
+    RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(jspPath);
 
     String codice = request.getParameter("codice");
     String dateTemp = request.getParameter("data");
@@ -178,8 +178,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
         // della prenotazione o in un giorno antecedente
         // la data per cui è prevista la prenotazione
         if (checkData(prenotazioneBean.getData())) {
-
-            System.out.println(dataPrenotazione+"è data di oggi" +today);
+          System.out.println(dataPrenotazione + "è data di oggi" + today);
           //la modifica è possibile solo se la nuova data è oggi
           // e il tipo di prenotazione sia singola o in generale
           // se la nuova data è diversa dalla data corrente
@@ -195,15 +194,15 @@ public class ManagePrenotazioneServlet extends HttpServlet {
 
           } else {
 
-            request.setAttribute("error", IMPOSSIBLE_CHANGE);
+            request.setAttribute("error", impossibleChange);
           }
 
         } else {
-          request.setAttribute("error", TOO_LATE);
+          request.setAttribute("error", tooLate);
         }
 
       } else {
-        request.setAttribute("error", INVALID_DATE);
+        request.setAttribute("error", invalidDate);
       }
 
     } else {
@@ -260,11 +259,11 @@ public class ManagePrenotazioneServlet extends HttpServlet {
           Adapter.listener(prenotazioneBean, getUser(request));
 
         } else {
-          request.setAttribute("error", IMPOSSIBLE_CHANGE);
+          request.setAttribute("error", impossibleChange);
         }
 
       } else {
-        request.setAttribute("error", TOO_LATE);
+        request.setAttribute("error", tooLate);
       }
 
       dispatcher = request.getServletContext()
@@ -273,7 +272,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
     } else {
 
       request.setAttribute("error", "Si è verificato un errore");
-      dispatcher = request.getServletContext().getRequestDispatcher(JSP_PATH);
+      dispatcher = request.getServletContext().getRequestDispatcher(jspPath);
 
     }
 
@@ -294,7 +293,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
   private void visualizzaPrenotazioni(HttpServletRequest request, HttpServletResponse response)
       throws SQLException, ServletException, IOException, ParseException {
 
-    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_PATH);
+    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(jspPath);
 
     String parameter = (String) request.getSession().getAttribute("matricola");
 
