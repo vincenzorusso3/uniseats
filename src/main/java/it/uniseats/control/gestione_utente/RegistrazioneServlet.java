@@ -3,7 +3,7 @@ package it.uniseats.control.gestione_utente;
 import it.uniseats.model.beans.StudenteBean;
 import it.uniseats.model.dao.AulaDao;
 import it.uniseats.model.dao.StudenteDao;
-import it.uniseats.utils.SHA512Utils;
+import it.uniseats.utils.Sha512Utils;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -132,7 +132,7 @@ public class RegistrazioneServlet extends HttpServlet {
       String dipartimento = request.getParameter("dipartimento");
 
       studenteBean =
-              new StudenteBean(nome, cognome, matricola, email, SHA512Utils.getSHA512(password),
+              new StudenteBean(nome, cognome, matricola, email, Sha512Utils.getSha512(password),
                   anno, dipartimento);
 
       Integer success = (Integer) StudenteDao.doQuery(StudenteDao.doSave, studenteBean);

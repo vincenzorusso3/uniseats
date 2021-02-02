@@ -7,7 +7,7 @@ import java.security.MessageDigest;
 /**
  * L'oggetto SHA512 ha il compito di codificare una stringa.
  */
-public class SHA512Utils {
+public class Sha512Utils {
 
   /**
    * Questo metodo ritorna una stringa codificata.
@@ -15,7 +15,7 @@ public class SHA512Utils {
    * @param input stringa da codificare
    * @return la stringa codificata
    */
-  public static String getSHA512(String input) {
+  public static String getSha512(String input) {
 
     String toReturn = null;
     try {

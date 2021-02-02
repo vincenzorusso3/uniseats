@@ -2,7 +2,7 @@ package it.uniseats.control.gestione_accesso;
 
 import it.uniseats.model.beans.StudenteBean;
 import it.uniseats.model.dao.StudenteDao;
-import it.uniseats.utils.SHA512Utils;
+import it.uniseats.utils.Sha512Utils;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -50,7 +50,7 @@ public class LoginServlet extends HttpServlet {
 
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        String encrypted = SHA512Utils.getSHA512(password);
+        String encrypted = Sha512Utils.getSha512(password);
 
         String redirectedPage;
 

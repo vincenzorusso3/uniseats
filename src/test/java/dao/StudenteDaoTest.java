@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import it.uniseats.model.beans.StudenteBean;
 import it.uniseats.model.dao.StudenteDao;
-import it.uniseats.utils.SHA512Utils;
+import it.uniseats.utils.Sha512Utils;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
@@ -32,7 +32,7 @@ class StudenteDaoTest {
         && expected.getNome().equals(bean.getNome())
         && expected.getCognome().equals(bean.getCognome())
         && expected.getEmail().equals(bean.getEmail())
-        && SHA512Utils.getSHA512(expected.getPassword()).equals(bean.getPassword())
+        && Sha512Utils.getSha512(expected.getPassword()).equals(bean.getPassword())
         && expected.getAnno() == bean.getAnno()
         && expected.getDipartimento().equals(bean.getDipartimento()));
   }
@@ -55,7 +55,7 @@ class StudenteDaoTest {
         && expected.getNome().equals(bean.getNome())
         && expected.getCognome().equals(bean.getCognome())
         && expected.getEmail().equals(bean.getEmail())
-        && SHA512Utils.getSHA512(expected.getPassword()).equals(bean.getPassword())
+        && Sha512Utils.getSha512(expected.getPassword()).equals(bean.getPassword())
         && expected.getAnno() == bean.getAnno()
         && expected.getDipartimento().equals(bean.getDipartimento()));
   }
