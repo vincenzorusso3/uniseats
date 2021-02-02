@@ -118,7 +118,7 @@ class LoginServletTest {
 
 
   @Test
-  void StudenteBeanNull() throws IOException {
+  void studenteBeanNull() throws IOException {
 
     request.getSession().setAttribute("logged", false);
     request.addParameter("action", "NotLogin");
@@ -131,7 +131,7 @@ class LoginServletTest {
 
 
   @Test
-  void FromDiverso() throws IOException {
+  void fromDiverso() throws IOException {
 
 
     request.addParameter("action", "Login");
