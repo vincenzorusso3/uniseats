@@ -28,10 +28,10 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "PrenotazioneServlet", value = "/PrenotazioneServlet")
 public class PrenotazioneServlet extends HttpServlet {
 
-  private final String DB_ERROR = "Impossibile procedere con la prenotazione, riprova più tardi!";
-  private final String AULE_FULL = "Nessun posto disponibile per la data selezionata!";
-  private final String HAS_PRENOTATION = "Hai già una prenotazione per questa data!";
-  private final String INVALID_DATE = "La data scelta non è valida!";
+  private final String dbError = "Impossibile procedere con la prenotazione, riprova più tardi!";
+  private final String auleFull = "Nessun posto disponibile per la data selezionata!";
+  private final String hasPrenotation = "Hai già una prenotazione per questa data!";
+  private final String invalidDate = "La data scelta non è valida!";
 
   private final String jspPath = "/view/prenotazione/NuovaPrenotazioneView.jsp";
 
@@ -159,19 +159,19 @@ public class PrenotazioneServlet extends HttpServlet {
                 "/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp");
 
           } else {
-            request.setAttribute("errore", DB_ERROR);
+            request.setAttribute("errore", dbError);
           }
 
         } else {
-          request.setAttribute("errore", AULE_FULL);
+          request.setAttribute("errore", auleFull);
         }
 
       } else {
-        request.setAttribute("errore", HAS_PRENOTATION);
+        request.setAttribute("errore", hasPrenotation);
       }
 
     } else {
-      request.setAttribute("errore", INVALID_DATE);
+      request.setAttribute("errore", invalidDate);
     }
 
     dispatcher.forward(request, response);
@@ -267,11 +267,11 @@ public class PrenotazioneServlet extends HttpServlet {
     parameter.add(data);
     parameter.add(dipartimento);
 
-    LinkedList<PrenotazioneBean> pList = (LinkedList<PrenotazioneBean>) PrenotazioneDao
+    LinkedList<PrenotazioneBean> prenList = (LinkedList<PrenotazioneBean>) PrenotazioneDao
         .doQuery(PrenotazioneDao.findByDataDipartimento, parameter);
 
-    if (pList != null) {
-      return pList.size() < 60;
+    if (prenList != null) {
+      return prenList.size() < 60;
     }
     return false;
 
