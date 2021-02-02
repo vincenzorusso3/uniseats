@@ -1,4 +1,4 @@
-package it.uniseats.control.gestioneAccesso;
+package it.uniseats.control.gestioneaccesso;
 
 import it.uniseats.model.beans.StudenteBean;
 import it.uniseats.model.dao.StudenteDao;

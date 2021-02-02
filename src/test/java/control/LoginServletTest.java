@@ -3,7 +3,7 @@ package control;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import it.uniseats.control.gestioneAccesso.LoginServlet;
+import it.uniseats.control.gestioneaccesso.LoginServlet;
 import java.io.IOException;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;

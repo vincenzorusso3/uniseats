@@ -1,4 +1,4 @@
-package it.uniseats.control.visualizzaPrenotazioni;
+package it.uniseats.control.visualizzaprenotazioni;
 
 
 import it.uniseats.model.beans.PrenotazioneBean;

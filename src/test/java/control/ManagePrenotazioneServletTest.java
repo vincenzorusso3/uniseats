@@ -3,7 +3,7 @@ package control;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import it.uniseats.control.visualizzaPrenotazioni.ManagePrenotazioneServlet;
+import it.uniseats.control.visualizzaprenotazioni.ManagePrenotazioneServlet;
 import it.uniseats.model.beans.PrenotazioneBean;
 import it.uniseats.model.dao.PrenotazioneDao;
 import it.uniseats.utils.DateUtils;

@@ -10,7 +10,7 @@
 
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>it.uniseats.control.gestioneAccesso.LoginServlet</servlet-class>
+        <servlet-class>it.uniseats.control.gestioneaccesso.LoginServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -19,7 +19,7 @@
 
     <servlet>
         <servlet-name>logoutServlet</servlet-name>
-        <servlet-class>it.uniseats.control.gestioneAccesso.LogoutServlet</servlet-class>
+        <servlet-class>it.uniseats.control.gestioneaccesso.LogoutServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>logoutServlet</servlet-name>
@@ -28,7 +28,7 @@
 
     <servlet>
         <servlet-name>managePrenotazioneServlet</servlet-name>
-        <servlet-class>it.uniseats.control.visualizzaPrenotazioni.ManagePrenotazioneServlet</servlet-class>
+        <servlet-class>it.uniseats.control.visualizzaprenotazioni.ManagePrenotazioneServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>managePrenotazioneServlet</servlet-name>
@@ -37,7 +37,7 @@
 
     <servlet>
         <servlet-name>prenotazioneServlet</servlet-name>
-        <servlet-class>it.uniseats.control.gestionePrenotazione.PrenotazioneServlet</servlet-class>
+        <servlet-class>it.uniseats.control.gestioneprenotazione.PrenotazioneServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>prenotazioneServlet</servlet-name>
@@ -46,7 +46,7 @@
 
     <servlet>
         <servlet-name>profiloUtenteServlet</servlet-name>
-        <servlet-class>it.uniseats.control.gestioneUtente.ProfiloUtenteServlet</servlet-class>
+        <servlet-class>it.uniseats.control.gestioneutente.ProfiloUtenteServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>profiloUtenteServlet</servlet-name>
@@ -55,7 +55,7 @@
 
     <servlet>
         <servlet-name>registrazioneServlet</servlet-name>
-        <servlet-class>it.uniseats.control.gestioneUtente.RegistrazioneServlet</servlet-class>
+        <servlet-class>it.uniseats.control.gestioneutente.RegistrazioneServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>registrazioneServlet</servlet-name>

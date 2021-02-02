@@ -1,4 +1,4 @@
-package it.uniseats.control.gestionePrenotazione;
+package it.uniseats.control.gestioneprenotazione;
 
 import it.uniseats.model.beans.PrenotazioneBean;
 import it.uniseats.model.beans.StudenteBean;
