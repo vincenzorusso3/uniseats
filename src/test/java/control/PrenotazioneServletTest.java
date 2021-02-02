@@ -48,19 +48,19 @@ class PrenotazioneServletTest {
 
 
   @BeforeAll
-  public static void Registra60() throws SQLException, ParseException {
+  public static void registra60() throws SQLException, ParseException {
     StudenteBean studenteBean = new StudenteBean();
-    int Matricola = 2000;
+    int matricola = 2000;
 
 
     PrenotazioneBean prenotazioneBean = new PrenotazioneBean();
     for (int i = 0; i < 60; i++) {
-      Matricola++;
+      matricola++;
       studenteBean.setAnno(2);
       studenteBean.setCognome("Test" + i);
       studenteBean.setNome("Prova" + i);
       studenteBean.setDipartimento("Informatica");
-      studenteBean.setMatricola("051210" + (Matricola));
+      studenteBean.setMatricola("051210" + (matricola));
       studenteBean.setEmail("ProvaTest" + i + "@studenti.unisa.it");
       studenteBean.setPassword("password" + i);
       StudenteDao.doQuery(StudenteDao.doSave, studenteBean);
@@ -69,7 +69,7 @@ class PrenotazioneServletTest {
       prenotazioneBean.setCodiceAula("00");
       prenotazioneBean.setCodicePosto("00");
       prenotazioneBean.setSingolo(true);
-      prenotazioneBean.setMatricolaStudente("051210" + (Matricola));
+      prenotazioneBean.setMatricolaStudente("051210" + (matricola));
       Date d = new Date("2021/03/22");
 
       prenotazioneBean.setData(d);
@@ -110,6 +110,7 @@ class PrenotazioneServletTest {
         response.getForwardedUrl());
 
   }
+
   //TC_1.4_02
   @Test
   void prenotazioneEsistenteTest() throws ServletException, IOException {

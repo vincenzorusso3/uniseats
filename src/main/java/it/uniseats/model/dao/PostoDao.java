@@ -39,7 +39,7 @@ public class PostoDao {
 
     Connection connection = null;
     PreparedStatement preparedStatement = null;
-    String querySQL;
+    String querySql;
 
     try {
       connection = DriverManagerConnectionPool.getConnection();
@@ -47,18 +47,18 @@ public class PostoDao {
       switch (methodName) {
 
         case doRetrieveByCode:
-          querySQL = "SELECT * FROM " + TABLE_NAME + " WHERE codice=?";
-          preparedStatement = connection.prepareStatement(querySQL);
+          querySql = "SELECT * FROM " + TABLE_NAME + " WHERE codice=?";
+          preparedStatement = connection.prepareStatement(querySql);
           return doRetrieveByCode(preparedStatement, (String) parameter);
 
         case doRetrieveAll:
-          querySQL = "SELECT * FROM " + TABLE_NAME;
-          preparedStatement = connection.prepareStatement(querySQL);
+          querySql = "SELECT * FROM " + TABLE_NAME;
+          preparedStatement = connection.prepareStatement(querySql);
           return doRetriveAll(preparedStatement);
 
         case doRetrieveByAulaCode:
-          querySQL = "SELECT * FROM UniSeats.posti WHERE codiceAula = ?;";
-          preparedStatement = connection.prepareStatement(querySQL);
+          querySql = "SELECT * FROM UniSeats.posti WHERE codiceAula = ?;";
+          preparedStatement = connection.prepareStatement(querySql);
           return doRetrieveByAulaCode(preparedStatement, (String) parameter);
 
         default:
