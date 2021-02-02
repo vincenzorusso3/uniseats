@@ -20,7 +20,7 @@ class LogoutServletTest {
   private MockHttpServletRequest request;
   private MockHttpServletResponse response;
   private MockHttpSession session;
-  private StudenteBean s;
+  private StudenteBean studente;
 
   @BeforeEach
   public void setUp() {

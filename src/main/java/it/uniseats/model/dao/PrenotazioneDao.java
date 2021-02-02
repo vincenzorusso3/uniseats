@@ -51,7 +51,7 @@ public class PrenotazioneDao {
 
     Connection connection = null;
     PreparedStatement preparedStatement = null;
-    String querySQL;
+    String querySql;
 
     try {
       connection = DriverManagerConnectionPool.getConnection();
@@ -59,59 +59,59 @@ public class PrenotazioneDao {
       switch (methodName) {
 
         case doRetrieveByCode:
-          querySQL = "SELECT * FROM " + TABLE_NAME + " WHERE codice=?";
-          preparedStatement = connection.prepareStatement(querySQL);
+          querySql = "SELECT * FROM " + TABLE_NAME + " WHERE codice=?";
+          preparedStatement = connection.prepareStatement(querySql);
           return doRetrieveByCode(preparedStatement, (String) parameter);
 
         case doFindPrenotazioni:
-          querySQL = "SELECT codice, dataPrenotazione, codiceAula, codicePosto, tipologia FROM "
+          querySql = "SELECT codice, dataPrenotazione, codiceAula, codicePosto, tipologia FROM "
               + TABLE_NAME + " WHERE matricolaStudente=?";
-          preparedStatement = connection.prepareStatement(querySQL);
+          preparedStatement = connection.prepareStatement(querySql);
           return doFindPrenotazioni(preparedStatement, (String) parameter);
 
         case doRetrieveAll:
-          querySQL = "SELECT * FROM " + TABLE_NAME;
-          preparedStatement = connection.prepareStatement(querySQL);
+          querySql = "SELECT * FROM " + TABLE_NAME;
+          preparedStatement = connection.prepareStatement(querySql);
           return doRetrieveAll(preparedStatement);
 
         case doSave:
-          querySQL = "INSERT INTO " + TABLE_NAME
+          querySql = "INSERT INTO " + TABLE_NAME
               +
               " (codice, dataPrenotazione, tipologia, codicePosto,"
               + "codiceAula, matricolaStudente) VALUES (?,?,?,?,?,?)";
-          preparedStatement = connection.prepareStatement(querySQL);
+          preparedStatement = connection.prepareStatement(querySql);
           return doSave(preparedStatement, (PrenotazioneBean) parameter);
 
         case doUpdateData:
-          querySQL = "UPDATE " + TABLE_NAME
+          querySql = "UPDATE " + TABLE_NAME
               + " SET dataPrenotazione=?, codiceAula='00', codicePosto='00'  WHERE codice=?";
-          preparedStatement = connection.prepareStatement(querySQL);
+          preparedStatement = connection.prepareStatement(querySql);
           return doUpdateData(preparedStatement, (PrenotazioneBean) parameter);
 
         case doUpdateTipo:
-          querySQL = "UPDATE " + TABLE_NAME + " SET tipologia=?  WHERE codice=?";
-          preparedStatement = connection.prepareStatement(querySQL);
+          querySql = "UPDATE " + TABLE_NAME + " SET tipologia=?  WHERE codice=?";
+          preparedStatement = connection.prepareStatement(querySql);
           return doUpdateTipo(preparedStatement, (PrenotazioneBean) parameter);
 
         case doUpdateAulaPosto:
-          querySQL =
+          querySql =
               "UPDATE " + TABLE_NAME + " SET codiceAula = ?, codicePosto = ? WHERE codice = ?";
-          preparedStatement = connection.prepareStatement(querySQL);
+          preparedStatement = connection.prepareStatement(querySql);
           return doUpdateAulaPosto(preparedStatement, (PrenotazioneBean) parameter);
 
         case doDelete:
-          querySQL = "DELETE FROM " + TABLE_NAME + " WHERE codice=?";
-          preparedStatement = connection.prepareStatement(querySQL);
+          querySql = "DELETE FROM " + TABLE_NAME + " WHERE codice=?";
+          preparedStatement = connection.prepareStatement(querySql);
           return doDelete(preparedStatement, (String) parameter);
 
         case findByDataDipartimento:
-          querySQL = "SELECT * FROM " + TABLE_NAME
+          querySql = "SELECT * FROM " + TABLE_NAME
               + " WHERE dataPrenotazione = ? "
               + "AND exists ( "
               + "SELECT * FROM studente AS s "
               + "WHERE s.dipartimento = ? AND matricolaStudente = s.matricola "
               + ")";
-          preparedStatement = connection.prepareStatement(querySQL);
+          preparedStatement = connection.prepareStatement(querySql);
           return findByDataDipartimento(preparedStatement, (ArrayList<String>) parameter);
 
         default:

@@ -142,16 +142,16 @@ class PrenotazioneServletTest {
         request.getAttribute("errore"));
 
 
-    int Matricola = 2000;
+    int matricola = 2000;
     StudenteBean studenteBean = new StudenteBean();
     for (int i = 0; i < 60; i++) {
-      Matricola++;
+      matricola++;
       studenteBean.setAnno(2);
       studenteBean.setCognome("Test" + i);
       studenteBean.setNome("Prova" + i);
       studenteBean.setDipartimento("Informatica");
 
-      studenteBean.setMatricola("051210" + (Matricola));
+      studenteBean.setMatricola("051210" + (matricola));
       studenteBean.setEmail("ProvaTest" + i + "@studenti.unisa.it");
       studenteBean.setPassword("password" + i);
 
