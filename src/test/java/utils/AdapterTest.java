@@ -1,6 +1,6 @@
 package utils;
 
-import static it.uniseats.utils.Adapter.todaySchedule;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import it.uniseats.model.beans.PrenotazioneBean;
