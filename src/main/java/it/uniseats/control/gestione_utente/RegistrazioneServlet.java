@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "RegistrazioneServlet")
 public class RegistrazioneServlet extends HttpServlet {
 
-  private final String JSP_PATH = "/view/profilo_utente/RegistrazioneView.jsp";
+  private final String Jsp_path = "/view/profilo_utente/RegistrazioneView.jsp";
 
   /**
    * Metodo per effettuare richieste doPost.
@@ -48,7 +48,7 @@ public class RegistrazioneServlet extends HttpServlet {
           throws ServletException, IOException {
 
     String action = request.getParameter("action");
-    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_PATH);
+    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Jsp_path);
 
 
     if (action != null) {
@@ -98,7 +98,7 @@ public class RegistrazioneServlet extends HttpServlet {
   private void addUser(HttpServletRequest request, HttpServletResponse response)
           throws SQLException, ServletException, IOException {
 
-    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_PATH);
+    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Jsp_path);
     String email = request.getParameter("email");
     String matricola = request.getParameter("matricola");
 

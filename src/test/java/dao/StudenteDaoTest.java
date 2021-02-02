@@ -71,6 +71,7 @@ class StudenteDaoTest {
     StudenteBean bean = (StudenteBean) StudenteDao.doQuery("doRetrieveByEmail", "hdhjs");
     assertNull(bean.getEmail());
   }
+
   @Test
   void doSaveTest() throws SQLException {
     StudenteBean bean = new StudenteBean("TestNome", "TestCognome", "0512103231",
@@ -106,7 +107,8 @@ class StudenteDaoTest {
     StudenteBean bean = new StudenteBean("TestNome", "TestCognome", "0512103231",
         "testnome.testcognome@studenti.unisa.it", "testnomecognome", 2, "Matematica");
     StudenteDao.doQuery("doSave", bean);
-    StudenteBean newBean = (StudenteBean) StudenteDao.doQuery("doRetrieveByMatricola", "0512103231");
+    StudenteBean newBean = (StudenteBean)
+        StudenteDao.doQuery("doRetrieveByMatricola", "0512103231");
     newBean.setAnno(3);
     int i  = (int) StudenteDao.doQuery("doUpdate", newBean);
     StudenteDao.doQuery("doDelete", newBean.getMatricola());
