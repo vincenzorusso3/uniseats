@@ -3,7 +3,7 @@ package control;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import it.uniseats.control.gestione_utente.RegistrazioneServlet;
+import it.uniseats.control.gestioneUtente.RegistrazioneServlet;
 import it.uniseats.model.beans.StudenteBean;
 import it.uniseats.model.dao.StudenteDao;
 import java.io.IOException;

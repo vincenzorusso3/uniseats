@@ -1,4 +1,4 @@
-package it.uniseats.control.gestione_utente;
+package it.uniseats.control.gestioneUtente;
 
 import it.uniseats.model.beans.StudenteBean;
 import it.uniseats.model.dao.AulaDao;

@@ -10,7 +10,7 @@
 
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>it.uniseats.control.gestione_accesso.LoginServlet</servlet-class>
+        <servlet-class>it.uniseats.control.gestioneAccesso.LoginServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -19,7 +19,7 @@
 
     <servlet>
         <servlet-name>logoutServlet</servlet-name>
-        <servlet-class>it.uniseats.control.gestione_accesso.LogoutServlet</servlet-class>
+        <servlet-class>it.uniseats.control.gestioneAccesso.LogoutServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>logoutServlet</servlet-name>
@@ -37,7 +37,7 @@
 
     <servlet>
         <servlet-name>prenotazioneServlet</servlet-name>
-        <servlet-class>it.uniseats.control.gestione_prenotazione.PrenotazioneServlet</servlet-class>
+        <servlet-class>it.uniseats.control.gestionePrenotazione.PrenotazioneServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>prenotazioneServlet</servlet-name>
@@ -46,7 +46,7 @@
 
     <servlet>
         <servlet-name>profiloUtenteServlet</servlet-name>
-        <servlet-class>it.uniseats.control.gestione_utente.ProfiloUtenteServlet</servlet-class>
+        <servlet-class>it.uniseats.control.gestioneUtente.ProfiloUtenteServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>profiloUtenteServlet</servlet-name>
@@ -55,7 +55,7 @@
 
     <servlet>
         <servlet-name>registrazioneServlet</servlet-name>
-        <servlet-class>it.uniseats.control.gestione_utente.RegistrazioneServlet</servlet-class>
+        <servlet-class>it.uniseats.control.gestioneUtente.RegistrazioneServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>registrazioneServlet</servlet-name>

@@ -1,4 +1,4 @@
-package it.uniseats.control.gestione_accesso;
+package it.uniseats.control.gestioneAccesso;
 
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;

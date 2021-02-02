@@ -2,7 +2,7 @@ package control;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import it.uniseats.control.gestione_prenotazione.PrenotazioneServlet;
+import it.uniseats.control.gestionePrenotazione.PrenotazioneServlet;
 import it.uniseats.model.beans.PrenotazioneBean;
 import it.uniseats.model.beans.StudenteBean;
 import it.uniseats.model.dao.PrenotazioneDao;
