@@ -19,7 +19,7 @@ public class DailyRoutine extends TimerTask {
   @Override
   public void run() {
 
-    if (new Date().compareTo(getToday7AM()) == 0) {
+    if (new Date().compareTo(getToday7Am()) == 0) {
       if (!runnedJ) {
 
         //MODULO
@@ -39,7 +39,7 @@ public class DailyRoutine extends TimerTask {
 
   }
 
-  private Date getToday7AM() {
+  private Date getToday7Am() {
     Calendar c = Calendar.getInstance(Locale.ITALY);
 
     c.set(Calendar.HOUR_OF_DAY, 7);
@@ -50,7 +50,7 @@ public class DailyRoutine extends TimerTask {
     return c.getTime();
   }
 
-  private static Date getTomorrowMorning7AM() {
+  private static Date getTomorrowMorning7Am() {
 
     Calendar c = Calendar.getInstance(Locale.ITALY);
 
@@ -71,7 +71,7 @@ public class DailyRoutine extends TimerTask {
       DailyRoutine task = new DailyRoutine();
       Timer timer = new Timer();
 
-      timer.schedule(task, getTomorrowMorning7AM(),
+      timer.schedule(task, getTomorrowMorning7Am(),
           ONCE_PER_DAY);
 
     }
