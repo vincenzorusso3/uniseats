@@ -42,6 +42,25 @@ class AdapterTest {
   }
 
   @Test
+  void listenerFailedTest() throws ParseException, SQLException, CloneNotSupportedException {
+
+    DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
+    PrenotazioneBean prenotazione =
+        new PrenotazioneBean("1-1212121-111111", df.parse("28/10/2021"), true, "00", "00",
+            "0512105933");
+
+    StudenteBean studente = new StudenteBean("TestNome", "TestCognome", "0512103231",
+        "testnome.testcognome@studenti.unisa.it", "testnomecognome", 2, "Matematica");
+
+
+    assertFalse(Adapter.listener(prenotazione, studente));
+
+
+
+
+  }
+
+  @Test
   void prenotazioneGiornoCorrenteTest()
       throws ParseException, SQLException, CloneNotSupportedException {
 
