@@ -1,20 +1,15 @@
 package system;
 
-
-
-
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
 import org.junit.*;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
-
-import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class PrenotarePosto {
+public class PrenotarePostoGiornoCorrenteTest {
     private WebDriver driver;
     private String baseUrl;
     private boolean acceptNextAlert = true;
@@ -26,7 +21,7 @@ public class PrenotarePosto {
         baseUrl = "https://www.google.com/";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
-    //TC_1.4_01
+    //TC_1.6_01
     @Test
     public void DataNonSelezionata() throws Exception {
         driver.get("http://localhost:2222/UniSeats_war_exploded/view/login/LoginView.jsp");
@@ -39,11 +34,10 @@ public class PrenotarePosto {
         driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
         driver.findElement(By.xpath("(//a[contains(text(),'Prenota')])[3]")).click();
         driver.findElement(By.id("calendar")).click();
-        driver.findElement(By.xpath("//div[3]")).click();
     }
-    //TC_1.4_02
+    //TC_1.6_02
     @Test
-    public void DataSelezionataNonValida() throws Exception {
+    public void DataNonValida() throws Exception {
         driver.get("http://localhost:2222/UniSeats_war_exploded/view/login/LoginView.jsp");
         driver.findElement(By.id("email")).click();
         driver.findElement(By.id("email")).clear();
@@ -55,7 +49,7 @@ public class PrenotarePosto {
         driver.findElement(By.xpath("(//a[contains(text(),'Prenota')])[3]")).click();
         driver.findElement(By.id("calendar")).click();
     }
-    //TC_1.4_03
+    //TC_1.6_03
     @Test
     public void DataValidaTipoNonSelezionato() throws Exception {
         driver.get("http://localhost:2222/UniSeats_war_exploded/view/login/LoginView.jsp");
@@ -69,9 +63,9 @@ public class PrenotarePosto {
         driver.findElement(By.xpath("(//a[contains(text(),'Prenota')])[3]")).click();
         driver.findElement(By.id("calendar")).click();
         driver.findElement(By.id("calendar")).clear();
-        driver.findElement(By.id("calendar")).sendKeys("2021-02-05");
+        driver.findElement(By.id("calendar")).sendKeys("2021-02-04");
     }
-    //TC_1.4_04
+    //TC_1.6_04
     @Test
     public void DataValidaTipoSelezionato() throws Exception {
         driver.get("http://localhost:2222/UniSeats_war_exploded/view/login/LoginView.jsp");
@@ -85,8 +79,8 @@ public class PrenotarePosto {
         driver.findElement(By.xpath("(//a[contains(text(),'Prenota')])[3]")).click();
         driver.findElement(By.id("calendar")).click();
         driver.findElement(By.id("calendar")).clear();
-        driver.findElement(By.id("calendar")).sendKeys("2021-02-12");
-        driver.findElement(By.id("btnPrenotazioneGruppo")).click();
+        driver.findElement(By.id("calendar")).sendKeys("2021-02-04");
+        driver.findElement(By.id("btnPrenotazioneSingola")).click();
     }
     @After
     public void tearDown() throws Exception {
@@ -105,6 +99,7 @@ public class PrenotarePosto {
             return false;
         }
     }
+
     private boolean isAlertPresent() {
         try {
             driver.switchTo().alert();
@@ -113,6 +108,7 @@ public class PrenotarePosto {
             return false;
         }
     }
+
     private String closeAlertAndGetItsText() {
         try {
             Alert alert = driver.switchTo().alert();
