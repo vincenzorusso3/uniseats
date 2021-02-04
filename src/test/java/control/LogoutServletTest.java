@@ -43,7 +43,7 @@ class LogoutServletTest {
     request.getSession().setAttribute("nome", "Benedetto");
     request.getSession().setAttribute("cognome", "Simone");
     request.getSession().setAttribute("matricola", "05121058521");
-    request.getSession().setAttribute("email","b.simone@studenti.unisa.it");
+    request.getSession().setAttribute("email", "b.simone@studenti.unisa.it");
     request.getSession().setAttribute("anno", "3");
     request.getSession().setAttribute("dipartimento", "Informatica");
     servlet.doGet(request, response);
