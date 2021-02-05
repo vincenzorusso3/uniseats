@@ -24,7 +24,7 @@ public class ModificaDataTest {
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
 
-    //TC_1.3_01
+    //TC_1.1_01
     @Test
     public void DataNonSelezionata() throws Exception {
         driver.get("http://localhost:2222/UniSeats_war_exploded/view/login/LoginView.jsp");
@@ -41,7 +41,7 @@ public class ModificaDataTest {
         driver.findElement(By.name("data")).click();
     }
 
-    //TC_1.3_02
+    //TC_1.1_02
     @Test
     public void DataSelezionataUgualeAlGiornoDellaPrenotazione() throws Exception {
         driver.get("http://localhost:2222/UniSeats_war_exploded/view/login/LoginView.jsp");
@@ -59,7 +59,7 @@ public class ModificaDataTest {
     }
 
 
-    //TC_1.3_03
+    //TC_1.1_03
     @Test
     public void DataSelezionataMinoreDelGiornoCorrente() throws Exception {
         driver.get("http://localhost:2222/UniSeats_war_exploded/view/login/LoginView.jsp");
@@ -76,7 +76,7 @@ public class ModificaDataTest {
         driver.findElement(By.name("data")).click();
     }
 
-    //TC_1.3_04
+    //TC_1.1_04
     @Test
     public void ModificaDataCorretta() throws Exception {
         driver.get("http://localhost:2222/UniSeats_war_exploded/view/login/LoginView.jsp");

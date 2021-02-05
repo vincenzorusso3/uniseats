@@ -55,7 +55,7 @@ public class PrenotarePostoTest {
         driver.findElement(By.xpath("(//a[contains(text(),'Prenota')])[3]")).click();
         driver.findElement(By.id("calendar")).click();
     }
-    //TC_1.4_03
+    //TC_1.2_03
     @Test
     public void DataValidaTipoNonSelezionato() throws Exception {
         driver.get("http://localhost:2222/UniSeats_war_exploded/view/login/LoginView.jsp");
@@ -71,7 +71,7 @@ public class PrenotarePostoTest {
         driver.findElement(By.id("calendar")).clear();
         driver.findElement(By.id("calendar")).sendKeys("2021-02-05");
     }
-    //TC_1.4_04
+    //TC_1.2_04
     @Test
     public void DataValidaTipoSelezionato() throws Exception {
         driver.get("http://localhost:2222/UniSeats_war_exploded/view/login/LoginView.jsp");

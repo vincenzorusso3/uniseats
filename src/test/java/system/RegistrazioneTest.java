@@ -17,7 +17,7 @@ import org.openqa.selenium.support.ui.Select;
 /**
  * System testing Registrazione.
  */
-public class RegistrazioneFailSameEmailTestSystem {
+public class RegistrazioneTest {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -64,6 +64,57 @@ public class RegistrazioneFailSameEmailTestSystem {
     driver.findElement(By.id("matricola")).click();
     driver.findElement(By.id("matricola")).clear();
     driver.findElement(By.id("matricola")).sendKeys("0512111110");
+    driver.findElement(By.xpath("//input[@value='Registrati']")).click();
+  }
+
+
+  @Test
+  public void testRegistrazioneFailSameMatricolaTestSystem() throws Exception {
+    driver.get("http://localhost:2222/UniSeats_war_exploded/");
+    driver.findElement(By.linkText("Login")).click();
+    driver.findElement(By.linkText("Registrati")).click();
+    driver.findElement(By.id("email")).click();
+    driver.findElement(By.id("email")).clear();
+    driver.findElement(By.id("email")).sendKeys("test@studenti.unisa.it");
+    driver.findElement(By.id("password")).clear();
+    driver.findElement(By.id("password")).sendKeys("123456789");
+    driver.findElement(By.xpath("//form[@id='registrazione']/div[3]")).click();
+    driver.findElement(By.id("nome")).click();
+    driver.findElement(By.id("nome")).clear();
+    driver.findElement(By.id("nome")).sendKeys("test");
+    driver.findElement(By.id("cognome")).clear();
+    driver.findElement(By.id("cognome")).sendKeys("test");
+    driver.findElement(By.id("matricola")).click();
+    driver.findElement(By.id("matricola")).clear();
+    driver.findElement(By.id("matricola")).sendKeys("0512105881");
+    driver.findElement(By.id("dipartimento")).click();
+    new Select(driver.findElement(By.id("dipartimento"))).selectByVisibleText("Informatica");
+    driver.findElement(By.id("dipartimento")).click();
+    driver.findElement(By.xpath("//input[@value='Registrati']")).click();
+  }
+
+
+  @Test
+  public void testRegistrazioneSuccessTestSystem() throws Exception {
+    driver.get("http://localhost:2222/UniSeats_war_exploded/");
+    driver.findElement(By.linkText("Login")).click();
+    driver.findElement(By.linkText("Registrati")).click();
+    driver.findElement(By.id("email")).click();
+    driver.findElement(By.id("email")).clear();
+    driver.findElement(By.id("email")).sendKeys("ciaciao@studenti.unisa.it");
+    driver.findElement(By.id("nome")).clear();
+    driver.findElement(By.id("nome")).sendKeys("Ciao");
+    driver.findElement(By.id("cognome")).clear();
+    driver.findElement(By.id("cognome")).sendKeys("Ciao");
+    driver.findElement(By.id("password")).click();
+    driver.findElement(By.id("password")).clear();
+    driver.findElement(By.id("password")).sendKeys("ciao123456789");
+    driver.findElement(By.id("matricola")).click();
+    driver.findElement(By.id("matricola")).clear();
+    driver.findElement(By.id("matricola")).sendKeys("0512111111");
+    driver.findElement(By.id("dipartimento")).click();
+    new Select(driver.findElement(By.id("dipartimento"))).selectByVisibleText("Informatica");
+    driver.findElement(By.id("dipartimento")).click();
     driver.findElement(By.xpath("//input[@value='Registrati']")).click();
   }
 

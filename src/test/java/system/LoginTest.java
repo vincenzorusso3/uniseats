@@ -16,7 +16,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 /**
  * System Testing Login.
  */
-public class LoginSuccessTestSystem {
+public class LoginTest {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -51,6 +51,20 @@ public class LoginSuccessTestSystem {
     driver.findElement(By.id("password")).sendKeys("admin");
     driver.findElement(By.xpath("(//input[@value='Login'])[2]")).click();
   }
+  @Test
+  public void testLoginFailTestSystem() throws Exception {
+    driver.get("http://localhost:2222/UniSeats_war_exploded/");
+    driver.findElement(By.linkText("Login")).click();
+    driver.findElement(By.id("email")).click();
+    driver.findElement(By.id("email")).clear();
+    driver.findElement(By.id("email")).sendKeys("s.silvestri15@studenti.unisa.it");
+    driver.findElement(By.id("password")).click();
+    driver.findElement(By.id("password")).clear();
+    driver.findElement(By.id("password")).sendKeys("passwordsbagliata");
+    driver.findElement(By.xpath("(//input[@value='Login'])[2]")).click();
+  }
+
+
 
   /**
    * After.

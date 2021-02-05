@@ -21,7 +21,7 @@ public class PrenotarePostoGiornoCorrenteTest {
         baseUrl = "https://www.google.com/";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
-    //TC_1.6_01
+    //TC_1.4_01
     @Test
     public void DataNonSelezionata() throws Exception {
         driver.get("http://localhost:2222/UniSeats_war_exploded/view/login/LoginView.jsp");
@@ -35,7 +35,7 @@ public class PrenotarePostoGiornoCorrenteTest {
         driver.findElement(By.xpath("(//a[contains(text(),'Prenota')])[3]")).click();
         driver.findElement(By.id("calendar")).click();
     }
-    //TC_1.6_02
+    //TC_1.4_02
     @Test
     public void DataNonValida() throws Exception {
         driver.get("http://localhost:2222/UniSeats_war_exploded/view/login/LoginView.jsp");
@@ -49,7 +49,7 @@ public class PrenotarePostoGiornoCorrenteTest {
         driver.findElement(By.xpath("(//a[contains(text(),'Prenota')])[3]")).click();
         driver.findElement(By.id("calendar")).click();
     }
-    //TC_1.6_03
+    //TC_1.4_03
     @Test
     public void DataValidaTipoNonSelezionato() throws Exception {
         driver.get("http://localhost:2222/UniSeats_war_exploded/view/login/LoginView.jsp");
@@ -65,7 +65,7 @@ public class PrenotarePostoGiornoCorrenteTest {
         driver.findElement(By.id("calendar")).clear();
         driver.findElement(By.id("calendar")).sendKeys("2021-02-04");
     }
-    //TC_1.6_04
+    //TC_1.4_04
     @Test
     public void DataValidaTipoSelezionato() throws Exception {
         driver.get("http://localhost:2222/UniSeats_war_exploded/view/login/LoginView.jsp");
@@ -79,7 +79,7 @@ public class PrenotarePostoGiornoCorrenteTest {
         driver.findElement(By.xpath("(//a[contains(text(),'Prenota')])[3]")).click();
         driver.findElement(By.id("calendar")).click();
         driver.findElement(By.id("calendar")).clear();
-        driver.findElement(By.id("calendar")).sendKeys("2021-02-04");
+        driver.findElement(By.id("calendar")).sendKeys("2021-07-04");
         driver.findElement(By.id("btnPrenotazioneSingola")).click();
     }
     @After
