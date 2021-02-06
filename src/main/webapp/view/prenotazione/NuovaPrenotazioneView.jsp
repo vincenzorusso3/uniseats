@@ -51,20 +51,17 @@
     <h1>Nuova prenotazione</h1>
 
 </div>
+<div class="message">
 
-<%
+        <%
+            if (message != null) {
+        %>
+    <h3><%=message%></h3>
+        <%
+            }
+        %>
 
-    if (message != null) {
-
-%>
-<h3 class="fallita">
-
-        <%=message%>
-
-    </h3>
-            <%
-        	 }
-        		  %>
+        <div class="message">
 
 <div class="form">
     <label for="calendar">Seleziona la data della prenotazione:</label><br>
