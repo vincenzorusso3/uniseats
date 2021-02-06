@@ -18,7 +18,8 @@
         return;
     }
 
-    String errore = (String) request.getAttribute("error");
+    String errore = (String) request.getSession().getAttribute("errorPrenotazione");
+
 %>
 
 <%
@@ -54,14 +55,14 @@
 
 <div class="message">
 
-    <%
-        if (errore != null) {
+        <%
+            if (errore != null) {
 
-    %>
+        %>
     <h3><%=errore%></h3>
-    <%
-        }
-    %>
+        <%
+            }
+        %>
 </div>
 
 <div class="cardContainer">
@@ -147,9 +148,9 @@
 
                 %>
 
-
-
-
+    <%
+      request.getSession().setAttribute("errorPrenotazione", null);
+    %>
 
     </div>
 

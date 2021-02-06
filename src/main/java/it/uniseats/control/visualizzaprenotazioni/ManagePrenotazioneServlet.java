@@ -166,12 +166,11 @@ public class ManagePrenotazioneServlet extends HttpServlet {
         (PrenotazioneBean) PrenotazioneDao.doQuery(PrenotazioneDao.doRetrieveByCode, codice);
 
     if (prenotazioneBean.getData() != null) {
-      System.out.println("cane");
+
       //controllo che la data inserita sia diversa dalla data attuale della prenotazione
       if (DateUtils.parseDate(DateUtils.dateToString(prenotazioneBean.getData()))
           .compareTo(dataPrenotazione) != 0
           && checkPrenotazioni(prenotazioneBean.getMatricolaStudente(), dataTransformed)) {
-        System.out.println("cane2");
 
         //controllo che la modifica della prenotazione venga
         // effettuata prima delle 07:00 del giorno
@@ -194,19 +193,19 @@ public class ManagePrenotazioneServlet extends HttpServlet {
 
           } else {
 
-            request.setAttribute("error", impossibleChange);
+            request.getSession().setAttribute("errorPrenotazione", impossibleChange);
           }
 
         } else {
-          request.setAttribute("error", tooLate);
+          request.getSession().setAttribute("errorPrenotazione", tooLate);
         }
 
       } else {
-        request.setAttribute("error", invalidDate);
+        request.getSession().setAttribute("errorPrenotazione", invalidDate);
       }
 
     } else {
-      request.setAttribute("error", "Si è verificato un errore");
+      request.getSession().setAttribute("errorPrenotazione", "Si è verificato un errore");
     }
 
     dispatcher.forward(request, response);
@@ -259,11 +258,11 @@ public class ManagePrenotazioneServlet extends HttpServlet {
           Adapter.listener(prenotazioneBean, getUser(request));
 
         } else {
-          request.setAttribute("error", impossibleChange);
+          request.getSession().setAttribute("errorPrenotazione", impossibleChange);
         }
 
       } else {
-        request.setAttribute("error", tooLate);
+        request.getSession().setAttribute("errorPrenotazione", tooLate);
       }
 
       dispatcher = request.getServletContext()
@@ -271,7 +270,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
 
     } else {
 
-      request.setAttribute("error", "Si è verificato un errore");
+      request.getSession().setAttribute("errorPrenotazione", "Si è verificato un errore");
       dispatcher = request.getServletContext().getRequestDispatcher(jspPath);
 
     }
