@@ -43,7 +43,7 @@ public class Adapter {
 
         LinkedList<PrenotazioneBean> prenotazioniList = (LinkedList<PrenotazioneBean>)
             PrenotazioneDao.doQuery(PrenotazioneDao.findByDataDipartimento, parameter);
-        System.out.println("cane " + prenotazioniList.getFirst());
+
 
         if (prenotazioniList != null) {
 

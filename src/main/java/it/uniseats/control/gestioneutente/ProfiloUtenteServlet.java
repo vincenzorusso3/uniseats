@@ -35,7 +35,7 @@ public class ProfiloUtenteServlet extends HttpServlet {
 
 
     RequestDispatcher dispatcher =
-        getServletContext().getRequestDispatcher("/view/profilo_utente/ProfiloUtenteView.jsp");
+        getServletContext().getRequestDispatcher("/view/profiloutente/ProfiloUtenteView.jsp");
 
     if (action != null) {
 

@@ -50,7 +50,7 @@ class RegistrazioneServletTest {
 
     servlet.doPost(request, response);
 
-    assertEquals("/view/profilo_utente/RegistrazioneView.jsp", response.getForwardedUrl());
+    assertEquals("/view/profiloutente/RegistrazioneView.jsp", response.getForwardedUrl());
   }
 
   // TC_1.1_01

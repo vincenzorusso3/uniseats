@@ -38,7 +38,6 @@
     <orderEntry type="library" name="spring-jcl-5.3.3" level="project" />
     <orderEntry type="library" name="spring-core-5.3.3" level="project" />
     <orderEntry type="library" name="spring-test-5.3.3" level="project" />
-    <orderEntry type="library" name="mysql-connector-java-8.0.12" level="project" />
     <orderEntry type="library" name="byte-buddy-1.8.15" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.servlet:javax.servlet-api:4.0.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-api:5.7.0" level="project" />
@@ -95,5 +94,6 @@
     <orderEntry type="library" name="Maven: org.codehaus.mojo:animal-sniffer-annotations:1.14" level="project" />
     <orderEntry type="library" name="Maven: com.squareup.okhttp3:okhttp:3.11.0" level="project" />
     <orderEntry type="library" name="Maven: com.squareup.okio:okio:1.14.0" level="project" />
+    <orderEntry type="library" name="mysql-connector-java-8.0.12" level="project" />
   </component>
 </module>

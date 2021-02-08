@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "RegistrazioneServlet")
 public class RegistrazioneServlet extends HttpServlet {
 
-  private final String jspPath = "/view/profilo_utente/RegistrazioneView.jsp";
+  private final String jspPath = "/view/profiloutente/RegistrazioneView.jsp";
 
   /**
    * Metodo per effettuare richieste doPost.
@@ -165,12 +165,13 @@ public class RegistrazioneServlet extends HttpServlet {
 
   private void getDip(HttpServletRequest request, HttpServletResponse response)
           throws SQLException, ServletException, IOException {
+    System.out.println("GETDIPCALLED");
 
 
     ArrayList<String> dip = (ArrayList<String>) AulaDao.doQuery(AulaDao.getDipartimenti, "Temp");
 
     RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(
-        "/view/profilo_utente/RegistrazioneView.jsp");
+        "/view/profiloutente/RegistrazioneView.jsp");
     request.getSession().setAttribute("dipartimenti", dip);
 
 

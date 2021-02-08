@@ -61,7 +61,7 @@ class ProfiloUtenteServletTest {
 
     servlet.doGet(request, response);
     assertEquals(null, request.getAttribute("errore"));
-    assertEquals("/view/profilo_utente/ProfiloUtenteView.jsp", response.getForwardedUrl());
+    assertEquals("/view/profiloutente/ProfiloUtenteView.jsp", response.getForwardedUrl());
 
   }
 
@@ -112,7 +112,7 @@ class ProfiloUtenteServletTest {
 
     servlet.doGet(request, response);
     assertEquals("Si è verificato un errore", request.getAttribute("errore"));
-    assertEquals("/view/profilo_utente/ProfiloUtenteView.jsp", response.getForwardedUrl());
+    assertEquals("/view/profiloutente/ProfiloUtenteView.jsp", response.getForwardedUrl());
 
   }
 
@@ -121,7 +121,7 @@ class ProfiloUtenteServletTest {
   void actionNull() throws ServletException, IOException {
     request.getSession().setAttribute("logged", true);
     servlet.doGet(request, response);
-    assertEquals("/view/profilo_utente/ProfiloUtenteView.jsp", response.getForwardedUrl());
+    assertEquals("/view/profiloutente/ProfiloUtenteView.jsp", response.getForwardedUrl());
   }
 
 

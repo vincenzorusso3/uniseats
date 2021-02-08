@@ -52,7 +52,7 @@
 
         <div class="new">
             <h6>Non hai un account ?</h6>
-            <a href="${pageContext.servletContext.contextPath}/view/profilo_utente/RegistrazioneView.jsp" > Registrati </a>
+            <a href="${pageContext.servletContext.contextPath}/view/profiloutente/RegistrazioneView.jsp" > Registrati </a>
         </div>
 
         <div class="bottoni" align="center">

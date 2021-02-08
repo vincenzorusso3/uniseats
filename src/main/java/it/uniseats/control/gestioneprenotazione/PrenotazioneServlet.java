@@ -156,7 +156,7 @@ public class PrenotazioneServlet extends HttpServlet {
             Adapter.listener(prenotazione, user);
 
             dispatcher = getServletContext().getRequestDispatcher(
-                "/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp");
+                "/view/prenotazionieffettuate/VisualizzaPrenotazioniView.jsp");
 
           } else {
             request.setAttribute("errore", dbError);

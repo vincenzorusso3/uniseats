@@ -60,7 +60,7 @@ class ManagePrenotazioneServletTest {
   @Test
   public void actionNull() throws ParseException, SQLException, ServletException, IOException {
     servlet.doPost(request, response);
-    assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp",
+    assertEquals("/view/prenotazionieffettuate/VisualizzaPrenotazioniView.jsp",
             response.getForwardedUrl());
   }
 
@@ -78,7 +78,7 @@ class ManagePrenotazioneServletTest {
 
 
     servlet.doPost(request, response);
-    assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp",
+    assertEquals("/view/prenotazionieffettuate/VisualizzaPrenotazioniView.jsp",
             response.getForwardedUrl());
   }
 
@@ -121,7 +121,7 @@ class ManagePrenotazioneServletTest {
     request.addParameter("tipologia", "singolo");
     request.addParameter("codice", prenotazioneBean.getCodice());
     servlet.doPost(request, response);
-    assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp",
+    assertEquals("/view/prenotazionieffettuate/VisualizzaPrenotazioniView.jsp",
             response.getForwardedUrl());
   }
 
@@ -143,7 +143,7 @@ class ManagePrenotazioneServletTest {
     request.addParameter("data", date);
 
     servlet.doPost(request, response);
-    assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp",
+    assertEquals("/view/prenotazionieffettuate/VisualizzaPrenotazioniView.jsp",
             response.getForwardedUrl());
   }
 
@@ -163,7 +163,7 @@ class ManagePrenotazioneServletTest {
     request.addParameter("codice", prenotazioneBean.getCodice());
     request.addParameter("data", "2021/02/28");
     servlet.doPost(request, response);
-    assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp",
+    assertEquals("/view/prenotazionieffettuate/VisualizzaPrenotazioniView.jsp",
         response.getForwardedUrl());
   }
 
@@ -179,7 +179,7 @@ class ManagePrenotazioneServletTest {
     request.addParameter("codice", prenotazioneBean.getCodice());
     request.addParameter("data", "2021/01/15");
     servlet.doPost(request, response);
-    assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp",
+    assertEquals("/view/prenotazionieffettuate/VisualizzaPrenotazioniView.jsp",
         response.getForwardedUrl());
   }
 
@@ -194,7 +194,7 @@ class ManagePrenotazioneServletTest {
     request.addParameter("codice", prenotazioneBean.getCodice());
     request.addParameter("data", "2021/01/15");
     servlet.doPost(request, response);
-    assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp",
+    assertEquals("/view/prenotazionieffettuate/VisualizzaPrenotazioniView.jsp",
         response.getForwardedUrl());
   }
 
@@ -211,7 +211,7 @@ class ManagePrenotazioneServletTest {
     request.addParameter("data", "2021/02/28");
 
     servlet.doPost(request, response);
-    assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp",
+    assertEquals("/view/prenotazionieffettuate/VisualizzaPrenotazioniView.jsp",
         response.getForwardedUrl());
   }
 
@@ -227,7 +227,7 @@ class ManagePrenotazioneServletTest {
     request.addParameter("codice", prenotazioneBean.getCodice());
     request.addParameter("data", "2021/02/28");
     servlet.doPost(request, response);
-    assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp",
+    assertEquals("/view/prenotazionieffettuate/VisualizzaPrenotazioniView.jsp",
         response.getForwardedUrl());
   }
 
@@ -242,7 +242,7 @@ class ManagePrenotazioneServletTest {
     request.addParameter("action", "visualizzaPrenotazioni");
     request.getSession().setAttribute("matricola", "0512105949");
     servlet.doPost(request, response);
-    assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp",
+    assertEquals("/view/prenotazionieffettuate/VisualizzaPrenotazioniView.jsp",
             response.getForwardedUrl());
   }
 
@@ -264,7 +264,7 @@ class ManagePrenotazioneServletTest {
     request.addParameter("codice", prenotazioneBean.getCodice());
     servlet.doPost(request, response);
     assertEquals("Non è più possibile modificare la prenotazione",
-        request.getAttribute("error"));
+        request.getSession().getAttribute("errorPrenotazione"));
   }
 
 
@@ -279,11 +279,11 @@ class ManagePrenotazioneServletTest {
   public void getSinglePren()
           throws ParseException, SQLException, ServletException, IOException {
     PrenotazioneBean prenotazioneBean = new PrenotazioneBean();
-    prenotazioneBean.setCodice(QrCodeGenerator.generateCode("0156835647", "2021/02/22"));
+    prenotazioneBean.setCodice(QrCodeGenerator.generateCode("0009565896", "2021/02/22"));
     prenotazioneBean.setCodiceAula("00");
     prenotazioneBean.setCodicePosto("00");
     prenotazioneBean.setSingolo(true);
-    prenotazioneBean.setMatricolaStudente("0156835647");
+    prenotazioneBean.setMatricolaStudente("0009565896");
     Date d = new Date("2021/02/22");
 
     prenotazioneBean.setData(d);
@@ -295,7 +295,7 @@ class ManagePrenotazioneServletTest {
 
     servlet.doPost(request, response);
 
-    assertEquals("/view/prenotazioni_effettuate/ModificaPrenotazioniView.jsp",
+    assertEquals("/view/prenotazionieffettuate/ModificaPrenotazioniView.jsp",
             response.getForwardedUrl());
 
     PrenotazioneDao.doQuery(PrenotazioneDao.doDelete, prenotazioneBean.getCodice());
@@ -308,8 +308,8 @@ class ManagePrenotazioneServletTest {
     request.addParameter("codice", "");
     request.addParameter("data", "2021/03/17");
     servlet.doPost(request, response);
-    assertEquals("Si è verificato un errore", request.getAttribute("error"));
-    assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp",
+    assertEquals("Si è verificato un errore", request.getSession().getAttribute("errorPrenotazione"));
+    assertEquals("/view/prenotazionieffettuate/VisualizzaPrenotazioniView.jsp",
         response.getForwardedUrl());
 
 
@@ -339,7 +339,7 @@ class ManagePrenotazioneServletTest {
 
 
 
-    assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp",
+    assertEquals("/view/prenotazionieffettuate/VisualizzaPrenotazioniView.jsp",
             response.getForwardedUrl());
 
     PrenotazioneDao.doQuery(PrenotazioneDao.doDelete, prenotazioneBean.getCodice());
@@ -372,7 +372,7 @@ class ManagePrenotazioneServletTest {
 
 
 
-    assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp",
+    assertEquals("/view/prenotazionieffettuate/VisualizzaPrenotazioniView.jsp",
             response.getForwardedUrl());
 
     PrenotazioneDao.doQuery(PrenotazioneDao.doDelete, prenotazioneBean.getCodice());
@@ -393,12 +393,12 @@ class ManagePrenotazioneServletTest {
     System.out.println("TODAY:" + date);
 
     //codice della prenotazione autogenerato
-    String codice = QrCodeGenerator.generateCode("0512105887", date);
+    String codice = QrCodeGenerator.generateCode("0009565896", date);
     System.out.println(codice);
 
     //setto i parametri della prenotazione
     prenotazioneBean.setCodice(codice);
-    prenotazioneBean.setMatricolaStudente("0512105887");
+    prenotazioneBean.setMatricolaStudente("0009565896");
     prenotazioneBean.setData(new Date());
     prenotazioneBean.setCodiceAula("00");
     prenotazioneBean.setCodicePosto("00");
@@ -414,7 +414,7 @@ class ManagePrenotazioneServletTest {
     request.addParameter("codice", prenotazioneBean.getCodice());
     request.addParameter("data", date);
     servlet.doPost(request, response);
-    assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp",
+    assertEquals("/view/prenotazionieffettuate/VisualizzaPrenotazioniView.jsp",
             response.getForwardedUrl());
 
 
@@ -436,12 +436,12 @@ class ManagePrenotazioneServletTest {
     System.out.println("TODAY:" + date);
 
     //codice della prenotazione autogenerato
-    String codice = QrCodeGenerator.generateCode("0512105887", date);
+    String codice = QrCodeGenerator.generateCode("0009565896", date);
     System.out.println(codice);
 
     //setto i parametri della prenotazione
     prenotazioneBean.setCodice(codice);
-    prenotazioneBean.setMatricolaStudente("0512105887");
+    prenotazioneBean.setMatricolaStudente("0009565896");
     prenotazioneBean.setData(new Date());
     prenotazioneBean.setCodiceAula("00");
     prenotazioneBean.setCodicePosto("00");
@@ -457,7 +457,7 @@ class ManagePrenotazioneServletTest {
     request.addParameter("codice", prenotazioneBean.getCodice());
     request.addParameter("data", date);
     servlet.doPost(request, response);
-    assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp",
+    assertEquals("/view/prenotazionieffettuate/VisualizzaPrenotazioniView.jsp",
             response.getForwardedUrl());
 
 

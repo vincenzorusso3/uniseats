@@ -94,7 +94,7 @@ class PrenotazioneServletTest {
     request.addParameter("dateValueSingolo", "2021-02-11");
     request.getSession().setAttribute("email", "a.laurati@studenti.unisa.it");
     servlet.doPost(request, response);
-    assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp",
+    assertEquals("/view/prenotazionieffettuate/VisualizzaPrenotazioniView.jsp",
         response.getForwardedUrl());
 
   }
@@ -106,7 +106,7 @@ class PrenotazioneServletTest {
     request.getSession().setAttribute("email", "a.laurati@studenti.unisa.it");
     servlet.doPost(request, response);
 
-    assertEquals("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp",
+    assertEquals("/view/prenotazionieffettuate/VisualizzaPrenotazioniView.jsp",
         response.getForwardedUrl());
 
   }
