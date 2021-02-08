@@ -96,14 +96,6 @@
         <input id="text<%=bean.getCodice()%>" type="text" value="<%=bean.getCodice()%>" hidden/>
         </div>
 
-
-
-
-
-
-
-
-
             <a href="${pageContext.servletContext.contextPath}/view/prenotazionieffettuate/ModificaPrenotazioniView.jsp?cod=<%=bean.getCodice()%>">
                 <input type="button" name="modifica" value="Modifica">
             </a>

@@ -266,7 +266,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
       }
 
       dispatcher = request.getServletContext()
-          .getRequestDispatcher("/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp");
+          .getRequestDispatcher("/view/prenotazionieffettuate/VisualizzaPrenotazioniView.jsp");
 
     } else {
 
@@ -398,7 +398,7 @@ public class ManagePrenotazioneServlet extends HttpServlet {
       throws SQLException, ServletException, IOException, ParseException {
 
     RequestDispatcher dispatcher = getServletContext()
-        .getRequestDispatcher("/view/prenotazioni_effettuate/ModificaPrenotazioniView.jsp");
+        .getRequestDispatcher("/view/prenotazionieffettuate/ModificaPrenotazioniView.jsp");
 
     String cod = request.getParameter("cod");
 
