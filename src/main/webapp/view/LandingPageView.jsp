@@ -47,7 +47,7 @@
         <div class="card">
             <p class="title">PROFILO UTENTE</p>
             <p><h6>Visualizza dati personali</h6></p>
-            <p class="b1"><a href="${pageContext.servletContext.contextPath}/view/profilo_utente/ProfiloUtenteView.jsp" class="buttonC"> Visualizza </a></p>
+            <p class="b1"><a href="${pageContext.servletContext.contextPath}/view/profiloutente/ProfiloUtenteView.jsp" class="buttonC"> Visualizza </a></p>
         </div>
     </div>
 

@@ -26,7 +26,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "ManagePrenotazioneServlet")
 public class ManagePrenotazioneServlet extends HttpServlet {
 
-  private final String jspPath = "/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp";
+  private final String jspPath = "/view/prenotazionieffettuate/VisualizzaPrenotazioniView.jsp";
   private final String invalidDate = "La data scelta non è corretta";
   private final String tooLate = "Non è più possibile modificare la prenotazione";
   private final String impossibleChange = "Impossible effettuare la modifica";

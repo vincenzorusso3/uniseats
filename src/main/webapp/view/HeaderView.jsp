@@ -41,14 +41,14 @@
     <div class="left">
 
         <a class="link hover l" href="${pageContext.servletContext.contextPath}/view/prenotazione/NuovaPrenotazioneView.jsp">Prenota</a>
-        <a class="link hover" href="${pageContext.servletContext.contextPath}/view/prenotazioni_effettuate/VisualizzaPrenotazioniView.jsp">Prenotazioni effettuate</a>
+        <a class="link hover" href="${pageContext.servletContext.contextPath}/view/prenotazionieffettuate/VisualizzaPrenotazioniView.jsp">Prenotazioni effettuate</a>
         <a class="link hover" href="${pageContext.servletContext.contextPath}/logout">Logout</a>
     </div>
 
 
     <div class="right">
 
-        <a id="profile" href="${pageContext.servletContext.contextPath}/view/profilo_utente/ProfiloUtenteView.jsp">
+        <a id="profile" href="${pageContext.servletContext.contextPath}/view/profiloutente/ProfiloUtenteView.jsp">
 
             <i class='fas fa-user-alt'></i>
 

@@ -104,7 +104,7 @@
 
 
 
-            <a href="${pageContext.servletContext.contextPath}/view/prenotazioni_effettuate/ModificaPrenotazioniView.jsp?cod=<%=bean.getCodice()%>">
+            <a href="${pageContext.servletContext.contextPath}/view/prenotazionieffettuate/ModificaPrenotazioniView.jsp?cod=<%=bean.getCodice()%>">
                 <input type="button" name="modifica" value="Modifica">
             </a>
 
