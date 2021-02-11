@@ -14,13 +14,20 @@ import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-
+/**
+ * System testing prenotazione.
+ */
 public class PrenotarePostoGiornoCorrenteTest {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
 
+  /**
+   * Before.
+   *
+   * @throws Exception exception
+   */
   @Before
   public void setUp() throws Exception {
     driver = new FirefoxDriver();
@@ -28,6 +35,11 @@ public class PrenotarePostoGiornoCorrenteTest {
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
+  /**
+   * Test data non selezionata.
+   *
+   * @throws Exception exception
+   */
   //TC_1.4_01
   @Test
   public void dataNonSelezionata() throws Exception {
@@ -43,6 +55,11 @@ public class PrenotarePostoGiornoCorrenteTest {
     driver.findElement(By.id("calendar")).click();
   }
 
+  /**
+   * Test data non valida.
+   *
+   * @throws Exception exception
+   */
   //TC_1.4_02
   @Test
   public void dataNonValida() throws Exception {
@@ -58,6 +75,11 @@ public class PrenotarePostoGiornoCorrenteTest {
     driver.findElement(By.id("calendar")).click();
   }
 
+  /**
+   * Test data valida e tipo non selezionato.
+   *
+   * @throws Exception exception
+   */
   //TC_1.4_03
   @Test
   public void dataValidaTipoNonSelezionato() throws Exception {
@@ -75,6 +97,11 @@ public class PrenotarePostoGiornoCorrenteTest {
     driver.findElement(By.id("calendar")).sendKeys("2021-02-04");
   }
 
+  /**
+   * Test data valida e tipo selezionato.
+   *
+   * @throws Exception exception
+   */
   //TC_1.4_04
   @Test
   public void dataValidaTipoSelezionato() throws Exception {
@@ -93,6 +120,11 @@ public class PrenotarePostoGiornoCorrenteTest {
     driver.findElement(By.id("btnPrenotazioneSingola")).click();
   }
 
+  /**
+   * After.
+   *
+   * @throws Exception exception
+   */
   @After
   public void tearDown() throws Exception {
     driver.quit();
