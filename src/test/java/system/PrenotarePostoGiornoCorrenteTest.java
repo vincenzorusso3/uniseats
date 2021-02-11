@@ -1,18 +1,19 @@
 package system;
 
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.Assert.fail;
 
-import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+
 
 /**
  * System testing prenotazione.
