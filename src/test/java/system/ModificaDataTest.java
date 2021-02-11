@@ -15,13 +15,20 @@ import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-
+/**
+ * System testing modifica data.
+ */
 public class ModificaDataTest {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
 
+  /**
+   * Before.
+   *
+   * @throws Exception exception
+   */
   @Before
   public void setUp() throws Exception {
     driver = new FirefoxDriver();
@@ -29,6 +36,11 @@ public class ModificaDataTest {
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
+  /**
+   * Test data non selezionata.
+   *
+   * @throws Exception exception
+   */
   //TC_1.1_01
   @Test
   public void dataNonSelezionata() throws Exception {
@@ -46,6 +58,11 @@ public class ModificaDataTest {
     driver.findElement(By.name("data")).click();
   }
 
+  /**
+   * Test data selezionata uguale al giorno della prenotazione.
+   *
+   * @throws Exception exception
+   */
   //TC_1.1_02
   @Test
   public void dataSelezionataUgualeAlGiornoDellaPrenotazione() throws Exception {
@@ -63,7 +80,11 @@ public class ModificaDataTest {
     driver.findElement(By.xpath("//input[@value='ConfermaData']")).click();
   }
 
-
+  /**
+   * Test data selezionata minore del giorno corrente.
+   *
+   * @throws Exception exception
+   */
   //TC_1.1_03
   @Test
   public void dataSelezionataMinoreDelGiornoCorrente() throws Exception {
@@ -81,6 +102,11 @@ public class ModificaDataTest {
     driver.findElement(By.name("data")).click();
   }
 
+  /**
+   * Test data corretta.
+   *
+   * @throws Exception exception
+   */
   //TC_1.1_04
   @Test
   public void modificaDataCorretta() throws Exception {
@@ -100,7 +126,11 @@ public class ModificaDataTest {
     driver.findElement(By.xpath("//input[@value='ConfermaData']")).click();
   }
 
-
+  /**
+   * After.
+   *
+   * @throws Exception exception
+   */
   @After
   public void tearDown() throws Exception {
     driver.quit();
