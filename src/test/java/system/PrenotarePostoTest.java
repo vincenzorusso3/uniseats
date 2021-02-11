@@ -14,13 +14,20 @@ import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-
+/**
+ * System testing Prenotazione.
+ */
 public class PrenotarePostoTest {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
 
+  /**
+   * Before.
+   *
+   * @throws Exception exception
+   */
   @Before
   public void setUp() throws Exception {
     driver = new FirefoxDriver();
@@ -28,6 +35,11 @@ public class PrenotarePostoTest {
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
+  /**
+   * Test data non selezionata.
+   *
+   * @throws Exception exception
+   */
   //TC_1.4_01
   @Test
   public void dataNonSelezionata() throws Exception {
@@ -44,6 +56,11 @@ public class PrenotarePostoTest {
     driver.findElement(By.xpath("//div[3]")).click();
   }
 
+  /**
+   * Test data selezionata non valida.
+   *
+   * @throws Exception exception
+   */
   //TC_1.4_02
   @Test
   public void dataSelezionataNonValida() throws Exception {
@@ -59,6 +76,11 @@ public class PrenotarePostoTest {
     driver.findElement(By.id("calendar")).click();
   }
 
+  /**
+   * Test data valida ma tipo non selezionato.
+   *
+   * @throws Exception exception
+   */
   //TC_1.2_03
   @Test
   public void dataValidaTipoNonSelezionato() throws Exception {
@@ -76,6 +98,11 @@ public class PrenotarePostoTest {
     driver.findElement(By.id("calendar")).sendKeys("2021-02-05");
   }
 
+  /**
+   * Test data valida e tipo selezionato.
+   *
+   * @throws Exception exception
+   */
   //TC_1.2_04
   @Test
   public void dataValidaTipoSelezionato() throws Exception {
@@ -94,6 +121,11 @@ public class PrenotarePostoTest {
     driver.findElement(By.id("btnPrenotazioneGruppo")).click();
   }
 
+  /**
+   * After.
+   *
+   * @throws Exception exception
+   */
   @After
   public void tearDown() throws Exception {
     driver.quit();
