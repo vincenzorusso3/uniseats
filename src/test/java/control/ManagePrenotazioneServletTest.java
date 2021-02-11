@@ -308,7 +308,8 @@ class ManagePrenotazioneServletTest {
     request.addParameter("codice", "");
     request.addParameter("data", "2021/03/17");
     servlet.doPost(request, response);
-    assertEquals("Si è verificato un errore", request.getSession().getAttribute("errorPrenotazione"));
+    assertEquals("Si è verificato un errore",
+        request.getSession().getAttribute("errorPrenotazione"));
     assertEquals("/view/prenotazionieffettuate/VisualizzaPrenotazioniView.jsp",
         response.getForwardedUrl());
 

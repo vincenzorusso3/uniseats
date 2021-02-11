@@ -1,9 +1,9 @@
 package system;
 
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
-import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;

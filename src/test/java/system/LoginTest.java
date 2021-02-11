@@ -51,6 +51,7 @@ public class LoginTest {
     driver.findElement(By.id("password")).sendKeys("admin");
     driver.findElement(By.xpath("(//input[@value='Login'])[2]")).click();
   }
+
   @Test
   public void testLoginFailTestSystem() throws Exception {
     driver.get("http://localhost:2222/UniSeats_war_exploded/");
