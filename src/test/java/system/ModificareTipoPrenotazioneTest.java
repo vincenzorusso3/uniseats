@@ -16,12 +16,20 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
+/**
+ * System testing modifica tipo prenotazione.
+ */
 public class ModificareTipoPrenotazioneTest {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
 
+  /**
+   * Before.
+   *
+   * @throws Exception exception
+   */
   @Before
   public void setUp() throws Exception {
     driver = new FirefoxDriver();
@@ -29,6 +37,11 @@ public class ModificareTipoPrenotazioneTest {
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
+  /**
+   * Test tipo non selezionato.
+   *
+   * @throws Exception exception
+   */
   //TC_1.3.01
   @Test
   public void tipoNonSelezionato() throws Exception {
@@ -46,6 +59,11 @@ public class ModificareTipoPrenotazioneTest {
     driver.findElement(By.id("tipo1")).click();
   }
 
+  /**
+   * Test.
+   *
+   * @throws Exception exception
+   */
   //TC_1.3_02
   @Test
   public void giornoCorrenteTipologiaGruppo() throws Exception {
@@ -66,6 +84,11 @@ public class ModificareTipoPrenotazioneTest {
     driver.findElement(By.id("btnTipo")).click();
   }
 
+  /**
+   * Test modifica tipo.
+   *
+   * @throws Exception exception
+   */
   //TC_1.2_03
   @Test
   public void modificaTipoOk() throws Exception {
@@ -83,6 +106,11 @@ public class ModificareTipoPrenotazioneTest {
     driver.findElement(By.id("btnTipo")).click();
   }
 
+  /**
+   * Modifica tipo.
+   *
+   * @throws Exception exception
+   */
   //TC_1.2_04
   @Test
   public void modificaTipoOk2() throws Exception {
@@ -103,6 +131,11 @@ public class ModificareTipoPrenotazioneTest {
     driver.findElement(By.id("btnTipo")).click();
   }
 
+  /**
+   * After.
+   *
+   * @throws Exception exception
+   */
   @After
   public void tearDown() throws Exception {
     driver.quit();
