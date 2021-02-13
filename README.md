@@ -1,6 +1,6 @@
 # UniSeats
 
-<img src="Logo.PNG" title="" alt="Logo buono.PNG" width="405">
+<img title="" src="Logo.PNG" alt="Logo buono.PNG" width="405" data-align="center">
 
 Progetto coordinato IS - GPS                                            Gruppo: C06 Oracoli
 
