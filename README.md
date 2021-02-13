@@ -9,4 +9,4 @@ Progetto coordinato IS - GPS                            
 
 ### Organigramma
 
-![](C:\Users\vince\AppData\Roaming\marktext\images\2021-02-13-10-21-40-image.png)
+![](Organigramma.PNG)
