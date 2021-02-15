@@ -118,7 +118,7 @@ public class PrenotarePostoTest {
     driver.findElement(By.xpath("(//a[contains(text(),'Prenota')])[3]")).click();
     driver.findElement(By.id("calendar")).click();
     driver.findElement(By.id("calendar")).clear();
-    driver.findElement(By.id("calendar")).sendKeys("2021-02-12");
+    driver.findElement(By.id("calendar")).sendKeys("2021-02-28");
     driver.findElement(By.id("btnPrenotazioneGruppo")).click();
   }
 

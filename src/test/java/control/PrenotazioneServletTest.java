@@ -91,7 +91,7 @@ class PrenotazioneServletTest {
       ParseException {
 
     request.addParameter("action", "prenotazioneSingola");
-    request.addParameter("dateValueSingolo", "2021-02-11");
+    request.addParameter("dateValueSingolo", "2021-02-28");
     request.getSession().setAttribute("email", "a.laurati@studenti.unisa.it");
     servlet.doPost(request, response);
     assertEquals("/view/prenotazionieffettuate/VisualizzaPrenotazioniView.jsp",
